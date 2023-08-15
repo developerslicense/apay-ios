@@ -16,7 +16,8 @@
 		DC0FCBD92A8A26D6009C33EF /* ApayIOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0FCBD82A8A26D6009C33EF /* ApayIOSUITests.swift */; };
 		DC0FCBDB2A8A26D6009C33EF /* ApayIOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0FCBDA2A8A26D6009C33EF /* ApayIOSUITestsLaunchTests.swift */; };
 		DC0FCBF32A8A2AAB009C33EF /* SuccessPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0FCBF22A8A2AAB009C33EF /* SuccessPage.swift */; };
-		DC0FCBF92A8A5020009C33EF /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0FCBF82A8A5020009C33EF /* Colors.swift */; };
+		DC0FCBF92A8A5020009C33EF /* ColorsSdk.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0FCBF82A8A5020009C33EF /* ColorsSdk.swift */; };
+		DC1FF08F2A8B976F00E561DC /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1FF08E2A8B976F00E561DC /* ColorUtils.swift */; };
 		F1B022DB31D6316D1043E9AE /* Pods_ApayIOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EFABC8AD5562CDCE26B3241 /* Pods_ApayIOSTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,7 +57,8 @@
 		DC0FCBD82A8A26D6009C33EF /* ApayIOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApayIOSUITests.swift; sourceTree = "<group>"; };
 		DC0FCBDA2A8A26D6009C33EF /* ApayIOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApayIOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		DC0FCBF22A8A2AAB009C33EF /* SuccessPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessPage.swift; sourceTree = "<group>"; };
-		DC0FCBF82A8A5020009C33EF /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		DC0FCBF82A8A5020009C33EF /* ColorsSdk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsSdk.swift; sourceTree = "<group>"; };
+		DC1FF08E2A8B976F00E561DC /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
 		E8F32C52DCD3D54B6D8DDCF7 /* Pods_ApayIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ApayIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -184,6 +186,7 @@
 		DC0FCBE82A8A26F1009C33EF /* data */ = {
 			isa = PBXGroup;
 			children = (
+				DC1FF08D2A8B975800E561DC /* utils */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -246,7 +249,7 @@
 		DC0FCBF02A8A2A39009C33EF /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				DC0FCBF82A8A5020009C33EF /* Colors.swift */,
+				DC0FCBF82A8A5020009C33EF /* ColorsSdk.swift */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -256,6 +259,14 @@
 			children = (
 			);
 			path = ui_components;
+			sourceTree = "<group>";
+		};
+		DC1FF08D2A8B975800E561DC /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				DC1FF08E2A8B976F00E561DC /* ColorUtils.swift */,
+			);
+			path = utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -496,9 +507,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC0FCBF92A8A5020009C33EF /* Colors.swift in Sources */,
+				DC0FCBF92A8A5020009C33EF /* ColorsSdk.swift in Sources */,
 				DC0FCBBE2A8A26D5009C33EF /* ApayIOSApp.swift in Sources */,
 				DC0FCBF32A8A2AAB009C33EF /* SuccessPage.swift in Sources */,
+				DC1FF08F2A8B976F00E561DC /* ColorUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  Colors.swift
+//  ColorsSdk.swift
 //  ApayIOS
 //
 //  Created by Mikhail Belikov on 14.08.2023.
