@@ -1,0 +1,6 @@
+framework module Pods_ApayIOS_ApayIOSUITests {
+  umbrella header "Pods-ApayIOS-ApayIOSUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

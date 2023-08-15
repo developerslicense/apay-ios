@@ -1,0 +1,834 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9180B8BB7CD28337E14403BC /* Pods_ApayIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F32C52DCD3D54B6D8DDCF7 /* Pods_ApayIOS.framework */; };
+		CD8F4CA3E32BC196592A7D16 /* Pods_ApayIOS_ApayIOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 129E392C69ACDD6C26D6EE43 /* Pods_ApayIOS_ApayIOSUITests.framework */; };
+		DC0FCBBE2A8A26D5009C33EF /* ApayIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0FCBBD2A8A26D5009C33EF /* ApayIOSApp.swift */; };
+		DC0FCBC22A8A26D5009C33EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC0FCBC12A8A26D5009C33EF /* Assets.xcassets */; };
+		DC0FCBC52A8A26D5009C33EF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC0FCBC42A8A26D5009C33EF /* Preview Assets.xcassets */; };
+		DC0FCBCF2A8A26D6009C33EF /* ApayIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0FCBCE2A8A26D6009C33EF /* ApayIOSTests.swift */; };
+		DC0FCBD92A8A26D6009C33EF /* ApayIOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0FCBD82A8A26D6009C33EF /* ApayIOSUITests.swift */; };
+		DC0FCBDB2A8A26D6009C33EF /* ApayIOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0FCBDA2A8A26D6009C33EF /* ApayIOSUITestsLaunchTests.swift */; };
+		DC0FCBF32A8A2AAB009C33EF /* SuccessPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0FCBF22A8A2AAB009C33EF /* SuccessPage.swift */; };
+		DC0FCBF92A8A5020009C33EF /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0FCBF82A8A5020009C33EF /* Colors.swift */; };
+		F1B022DB31D6316D1043E9AE /* Pods_ApayIOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EFABC8AD5562CDCE26B3241 /* Pods_ApayIOSTests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DC0FCBCB2A8A26D6009C33EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC0FCBB22A8A26D5009C33EF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC0FCBB92A8A26D5009C33EF;
+			remoteInfo = ApayIOS;
+		};
+		DC0FCBD52A8A26D6009C33EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC0FCBB22A8A26D5009C33EF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC0FCBB92A8A26D5009C33EF;
+			remoteInfo = ApayIOS;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0EFABC8AD5562CDCE26B3241 /* Pods_ApayIOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ApayIOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		129E392C69ACDD6C26D6EE43 /* Pods_ApayIOS_ApayIOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ApayIOS_ApayIOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B8B356CA14A9899C64C46C9 /* Pods-ApayIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApayIOS.release.xcconfig"; path = "Target Support Files/Pods-ApayIOS/Pods-ApayIOS.release.xcconfig"; sourceTree = "<group>"; };
+		488881E8DC2D208084480677 /* Pods-ApayIOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApayIOSTests.debug.xcconfig"; path = "Target Support Files/Pods-ApayIOSTests/Pods-ApayIOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6841D972DCF597063CED50B6 /* Pods-ApayIOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApayIOSTests.release.xcconfig"; path = "Target Support Files/Pods-ApayIOSTests/Pods-ApayIOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		8DA16FF88F17BC0417EC69D2 /* Pods-ApayIOS-ApayIOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApayIOS-ApayIOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-ApayIOS-ApayIOSUITests/Pods-ApayIOS-ApayIOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		9C3E72F51E5E9475A937AE1F /* Pods-ApayIOS-ApayIOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApayIOS-ApayIOSUITests.release.xcconfig"; path = "Target Support Files/Pods-ApayIOS-ApayIOSUITests/Pods-ApayIOS-ApayIOSUITests.release.xcconfig"; sourceTree = "<group>"; };
+		A28C8D26A8051154956BA317 /* Pods-ApayIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApayIOS.debug.xcconfig"; path = "Target Support Files/Pods-ApayIOS/Pods-ApayIOS.debug.xcconfig"; sourceTree = "<group>"; };
+		DC0FCBBA2A8A26D5009C33EF /* ApayIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ApayIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC0FCBBD2A8A26D5009C33EF /* ApayIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApayIOSApp.swift; sourceTree = "<group>"; };
+		DC0FCBC12A8A26D5009C33EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DC0FCBC42A8A26D5009C33EF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DC0FCBCA2A8A26D6009C33EF /* ApayIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApayIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC0FCBCE2A8A26D6009C33EF /* ApayIOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApayIOSTests.swift; sourceTree = "<group>"; };
+		DC0FCBD42A8A26D6009C33EF /* ApayIOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApayIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC0FCBD82A8A26D6009C33EF /* ApayIOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApayIOSUITests.swift; sourceTree = "<group>"; };
+		DC0FCBDA2A8A26D6009C33EF /* ApayIOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApayIOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		DC0FCBF22A8A2AAB009C33EF /* SuccessPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessPage.swift; sourceTree = "<group>"; };
+		DC0FCBF82A8A5020009C33EF /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		E8F32C52DCD3D54B6D8DDCF7 /* Pods_ApayIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ApayIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DC0FCBB72A8A26D5009C33EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9180B8BB7CD28337E14403BC /* Pods_ApayIOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC0FCBC72A8A26D6009C33EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1B022DB31D6316D1043E9AE /* Pods_ApayIOSTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC0FCBD12A8A26D6009C33EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD8F4CA3E32BC196592A7D16 /* Pods_ApayIOS_ApayIOSUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3BB63302F78DC0EE7B6F6257 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E8F32C52DCD3D54B6D8DDCF7 /* Pods_ApayIOS.framework */,
+				129E392C69ACDD6C26D6EE43 /* Pods_ApayIOS_ApayIOSUITests.framework */,
+				0EFABC8AD5562CDCE26B3241 /* Pods_ApayIOSTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		936B96223FA622ED2D19912E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A28C8D26A8051154956BA317 /* Pods-ApayIOS.debug.xcconfig */,
+				2B8B356CA14A9899C64C46C9 /* Pods-ApayIOS.release.xcconfig */,
+				8DA16FF88F17BC0417EC69D2 /* Pods-ApayIOS-ApayIOSUITests.debug.xcconfig */,
+				9C3E72F51E5E9475A937AE1F /* Pods-ApayIOS-ApayIOSUITests.release.xcconfig */,
+				488881E8DC2D208084480677 /* Pods-ApayIOSTests.debug.xcconfig */,
+				6841D972DCF597063CED50B6 /* Pods-ApayIOSTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		DC0FCBB12A8A26D4009C33EF = {
+			isa = PBXGroup;
+			children = (
+				DC0FCBBC2A8A26D5009C33EF /* ApayIOS */,
+				DC0FCBCD2A8A26D6009C33EF /* ApayIOSTests */,
+				DC0FCBD72A8A26D6009C33EF /* ApayIOSUITests */,
+				DC0FCBBB2A8A26D5009C33EF /* Products */,
+				936B96223FA622ED2D19912E /* Pods */,
+				3BB63302F78DC0EE7B6F6257 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		DC0FCBBB2A8A26D5009C33EF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DC0FCBBA2A8A26D5009C33EF /* ApayIOS.app */,
+				DC0FCBCA2A8A26D6009C33EF /* ApayIOSTests.xctest */,
+				DC0FCBD42A8A26D6009C33EF /* ApayIOSUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DC0FCBBC2A8A26D5009C33EF /* ApayIOS */ = {
+			isa = PBXGroup;
+			children = (
+				DC0FCBBD2A8A26D5009C33EF /* ApayIOSApp.swift */,
+				DC0FCBC12A8A26D5009C33EF /* Assets.xcassets */,
+				DC0FCBE82A8A26F1009C33EF /* data */,
+				DC0FCBE92A8A26F9009C33EF /* network */,
+				DC0FCBC32A8A26D5009C33EF /* Preview Content */,
+				DC0FCBE72A8A26EA009C33EF /* ui */,
+			);
+			path = ApayIOS;
+			sourceTree = "<group>";
+		};
+		DC0FCBC32A8A26D5009C33EF /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				DC0FCBC42A8A26D5009C33EF /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		DC0FCBCD2A8A26D6009C33EF /* ApayIOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				DC0FCBCE2A8A26D6009C33EF /* ApayIOSTests.swift */,
+			);
+			path = ApayIOSTests;
+			sourceTree = "<group>";
+		};
+		DC0FCBD72A8A26D6009C33EF /* ApayIOSUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DC0FCBD82A8A26D6009C33EF /* ApayIOSUITests.swift */,
+				DC0FCBDA2A8A26D6009C33EF /* ApayIOSUITestsLaunchTests.swift */,
+			);
+			path = ApayIOSUITests;
+			sourceTree = "<group>";
+		};
+		DC0FCBE72A8A26EA009C33EF /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				DC0FCBEA2A8A2989009C33EF /* pages */,
+				DC0FCBF02A8A2A39009C33EF /* resources */,
+				DC0FCBF12A8A2A44009C33EF /* ui_components */,
+			);
+			path = ui;
+			sourceTree = "<group>";
+		};
+		DC0FCBE82A8A26F1009C33EF /* data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		DC0FCBE92A8A26F9009C33EF /* network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = network;
+			sourceTree = "<group>";
+		};
+		DC0FCBEA2A8A2989009C33EF /* pages */ = {
+			isa = PBXGroup;
+			children = (
+				DC0FCBEF2A8A2A23009C33EF /* dialog */,
+				DC0FCBEE2A8A2A13009C33EF /* home */,
+				DC0FCBED2A8A2A05009C33EF /* error */,
+				DC0FCBEC2A8A29FE009C33EF /* webview */,
+				DC0FCBEB2A8A2990009C33EF /* success */,
+			);
+			path = pages;
+			sourceTree = "<group>";
+		};
+		DC0FCBEB2A8A2990009C33EF /* success */ = {
+			isa = PBXGroup;
+			children = (
+				DC0FCBF22A8A2AAB009C33EF /* SuccessPage.swift */,
+			);
+			path = success;
+			sourceTree = "<group>";
+		};
+		DC0FCBEC2A8A29FE009C33EF /* webview */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = webview;
+			sourceTree = "<group>";
+		};
+		DC0FCBED2A8A2A05009C33EF /* error */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = error;
+			sourceTree = "<group>";
+		};
+		DC0FCBEE2A8A2A13009C33EF /* home */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = home;
+			sourceTree = "<group>";
+		};
+		DC0FCBEF2A8A2A23009C33EF /* dialog */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = dialog;
+			sourceTree = "<group>";
+		};
+		DC0FCBF02A8A2A39009C33EF /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				DC0FCBF82A8A5020009C33EF /* Colors.swift */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		DC0FCBF12A8A2A44009C33EF /* ui_components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ui_components;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DC0FCBB92A8A26D5009C33EF /* ApayIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC0FCBDE2A8A26D6009C33EF /* Build configuration list for PBXNativeTarget "ApayIOS" */;
+			buildPhases = (
+				2EE3992F8EFF8F1592666D9C /* [CP] Check Pods Manifest.lock */,
+				DC0FCBB62A8A26D5009C33EF /* Sources */,
+				DC0FCBB72A8A26D5009C33EF /* Frameworks */,
+				DC0FCBB82A8A26D5009C33EF /* Resources */,
+				8DE5BA021B5D1929192707B4 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ApayIOS;
+			productName = ApayIOS;
+			productReference = DC0FCBBA2A8A26D5009C33EF /* ApayIOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DC0FCBC92A8A26D6009C33EF /* ApayIOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC0FCBE12A8A26D6009C33EF /* Build configuration list for PBXNativeTarget "ApayIOSTests" */;
+			buildPhases = (
+				CEA3193138CDACE5B4E8DE25 /* [CP] Check Pods Manifest.lock */,
+				DC0FCBC62A8A26D6009C33EF /* Sources */,
+				DC0FCBC72A8A26D6009C33EF /* Frameworks */,
+				DC0FCBC82A8A26D6009C33EF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DC0FCBCC2A8A26D6009C33EF /* PBXTargetDependency */,
+			);
+			name = ApayIOSTests;
+			productName = ApayIOSTests;
+			productReference = DC0FCBCA2A8A26D6009C33EF /* ApayIOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DC0FCBD32A8A26D6009C33EF /* ApayIOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC0FCBE42A8A26D6009C33EF /* Build configuration list for PBXNativeTarget "ApayIOSUITests" */;
+			buildPhases = (
+				42780B644790BFC4C511B14E /* [CP] Check Pods Manifest.lock */,
+				DC0FCBD02A8A26D6009C33EF /* Sources */,
+				DC0FCBD12A8A26D6009C33EF /* Frameworks */,
+				DC0FCBD22A8A26D6009C33EF /* Resources */,
+				3952E835C1A7F11149F9069C /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DC0FCBD62A8A26D6009C33EF /* PBXTargetDependency */,
+			);
+			name = ApayIOSUITests;
+			productName = ApayIOSUITests;
+			productReference = DC0FCBD42A8A26D6009C33EF /* ApayIOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DC0FCBB22A8A26D5009C33EF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					DC0FCBB92A8A26D5009C33EF = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					DC0FCBC92A8A26D6009C33EF = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = DC0FCBB92A8A26D5009C33EF;
+					};
+					DC0FCBD32A8A26D6009C33EF = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = DC0FCBB92A8A26D5009C33EF;
+					};
+				};
+			};
+			buildConfigurationList = DC0FCBB52A8A26D5009C33EF /* Build configuration list for PBXProject "ApayIOS" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DC0FCBB12A8A26D4009C33EF;
+			productRefGroup = DC0FCBBB2A8A26D5009C33EF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DC0FCBB92A8A26D5009C33EF /* ApayIOS */,
+				DC0FCBC92A8A26D6009C33EF /* ApayIOSTests */,
+				DC0FCBD32A8A26D6009C33EF /* ApayIOSUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DC0FCBB82A8A26D5009C33EF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC0FCBC52A8A26D5009C33EF /* Preview Assets.xcassets in Resources */,
+				DC0FCBC22A8A26D5009C33EF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC0FCBC82A8A26D6009C33EF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC0FCBD22A8A26D6009C33EF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2EE3992F8EFF8F1592666D9C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ApayIOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3952E835C1A7F11149F9069C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ApayIOS-ApayIOSUITests/Pods-ApayIOS-ApayIOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ApayIOS-ApayIOSUITests/Pods-ApayIOS-ApayIOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ApayIOS-ApayIOSUITests/Pods-ApayIOS-ApayIOSUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		42780B644790BFC4C511B14E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ApayIOS-ApayIOSUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8DE5BA021B5D1929192707B4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ApayIOS/Pods-ApayIOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ApayIOS/Pods-ApayIOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ApayIOS/Pods-ApayIOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CEA3193138CDACE5B4E8DE25 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ApayIOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DC0FCBB62A8A26D5009C33EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC0FCBF92A8A5020009C33EF /* Colors.swift in Sources */,
+				DC0FCBBE2A8A26D5009C33EF /* ApayIOSApp.swift in Sources */,
+				DC0FCBF32A8A2AAB009C33EF /* SuccessPage.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC0FCBC62A8A26D6009C33EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC0FCBCF2A8A26D6009C33EF /* ApayIOSTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC0FCBD02A8A26D6009C33EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC0FCBD92A8A26D6009C33EF /* ApayIOSUITests.swift in Sources */,
+				DC0FCBDB2A8A26D6009C33EF /* ApayIOSUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DC0FCBCC2A8A26D6009C33EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC0FCBB92A8A26D5009C33EF /* ApayIOS */;
+			targetProxy = DC0FCBCB2A8A26D6009C33EF /* PBXContainerItemProxy */;
+		};
+		DC0FCBD62A8A26D6009C33EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC0FCBB92A8A26D5009C33EF /* ApayIOS */;
+			targetProxy = DC0FCBD52A8A26D6009C33EF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		DC0FCBDC2A8A26D6009C33EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DC0FCBDD2A8A26D6009C33EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DC0FCBDF2A8A26D6009C33EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A28C8D26A8051154956BA317 /* Pods-ApayIOS.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ApayIOS/Preview Content\"";
+				DEVELOPMENT_TEAM = 8BBUQVJJMA;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kz.airbapay.ApayIOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DC0FCBE02A8A26D6009C33EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B8B356CA14A9899C64C46C9 /* Pods-ApayIOS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ApayIOS/Preview Content\"";
+				DEVELOPMENT_TEAM = 8BBUQVJJMA;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kz.airbapay.ApayIOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DC0FCBE22A8A26D6009C33EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 488881E8DC2D208084480677 /* Pods-ApayIOSTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8BBUQVJJMA;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kz.airbapay.ApayIOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ApayIOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ApayIOS";
+			};
+			name = Debug;
+		};
+		DC0FCBE32A8A26D6009C33EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6841D972DCF597063CED50B6 /* Pods-ApayIOSTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8BBUQVJJMA;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kz.airbapay.ApayIOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ApayIOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ApayIOS";
+			};
+			name = Release;
+		};
+		DC0FCBE52A8A26D6009C33EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8DA16FF88F17BC0417EC69D2 /* Pods-ApayIOS-ApayIOSUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8BBUQVJJMA;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kz.airbapay.ApayIOSUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ApayIOS;
+			};
+			name = Debug;
+		};
+		DC0FCBE62A8A26D6009C33EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C3E72F51E5E9475A937AE1F /* Pods-ApayIOS-ApayIOSUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8BBUQVJJMA;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kz.airbapay.ApayIOSUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ApayIOS;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DC0FCBB52A8A26D5009C33EF /* Build configuration list for PBXProject "ApayIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC0FCBDC2A8A26D6009C33EF /* Debug */,
+				DC0FCBDD2A8A26D6009C33EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC0FCBDE2A8A26D6009C33EF /* Build configuration list for PBXNativeTarget "ApayIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC0FCBDF2A8A26D6009C33EF /* Debug */,
+				DC0FCBE02A8A26D6009C33EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC0FCBE12A8A26D6009C33EF /* Build configuration list for PBXNativeTarget "ApayIOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC0FCBE22A8A26D6009C33EF /* Debug */,
+				DC0FCBE32A8A26D6009C33EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC0FCBE42A8A26D6009C33EF /* Build configuration list for PBXNativeTarget "ApayIOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC0FCBE52A8A26D6009C33EF /* Debug */,
+				DC0FCBE62A8A26D6009C33EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DC0FCBB22A8A26D5009C33EF /* Project object */;
+}
