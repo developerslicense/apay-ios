@@ -18,12 +18,14 @@ struct SuccessPage: View {
                 Image("icPaySuccess")
                     .imageScale(.large)
                     .foregroundColor(.accentColor)
-                Text("Hello, world!")
-                        .textStyleH1()
+                Text("Hello, world!+")
+                        .textStyleH2()
                         .background(ColorSdk.stateSuccess)
-//                Text("Hello, world!")
-//                    .font(Font.custom(name: "Ge", size: <#T##CGFloat#>))
-//                        .background(ColorSdk.stateSuccess)
+
+              /*  Text("Hello, world!_")
+                        .font(Font.custom("Optima-Regular", fixedSize: 24).weight(Font.Weight.ultraLight))
+                        .background(ColorSdk.stateSuccess)
+                        .foregroundColor(ColorSdk.textMain)*/
             }
         }
     }
