@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import SVGKit
 import WebKit
 
 struct SuccessPage: View {
@@ -21,10 +20,10 @@ struct SuccessPage: View {
                     .foregroundColor(.accentColor)
                 Text("Hello, world!")
                         .textStyleH1()
-                        .background(ColorSdk.stateError)
-                Text("Hello, world!")
-                        .textStyleH1_()
                         .background(ColorSdk.stateSuccess)
+//                Text("Hello, world!")
+//                    .font(Font.custom(name: "Ge", size: <#T##CGFloat#>))
+//                        .background(ColorSdk.stateSuccess)
             }
         }
     }
