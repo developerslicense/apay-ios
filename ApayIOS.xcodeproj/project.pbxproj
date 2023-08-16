@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E0E4BD43973E973169A3531 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E49BA314F516AB7016425 /* Fonts.swift */; };
 		9180B8BB7CD28337E14403BC /* Pods_ApayIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F32C52DCD3D54B6D8DDCF7 /* Pods_ApayIOS.framework */; };
 		CD8F4CA3E32BC196592A7D16 /* Pods_ApayIOS_ApayIOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 129E392C69ACDD6C26D6EE43 /* Pods_ApayIOS_ApayIOSUITests.framework */; };
 		DC0FCBBE2A8A26D5009C33EF /* ApayIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0FCBBD2A8A26D5009C33EF /* ApayIOSApp.swift */; };
@@ -44,6 +45,7 @@
 		2B8B356CA14A9899C64C46C9 /* Pods-ApayIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApayIOS.release.xcconfig"; path = "Target Support Files/Pods-ApayIOS/Pods-ApayIOS.release.xcconfig"; sourceTree = "<group>"; };
 		488881E8DC2D208084480677 /* Pods-ApayIOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApayIOSTests.debug.xcconfig"; path = "Target Support Files/Pods-ApayIOSTests/Pods-ApayIOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6841D972DCF597063CED50B6 /* Pods-ApayIOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApayIOSTests.release.xcconfig"; path = "Target Support Files/Pods-ApayIOSTests/Pods-ApayIOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		7E0E49BA314F516AB7016425 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		8DA16FF88F17BC0417EC69D2 /* Pods-ApayIOS-ApayIOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApayIOS-ApayIOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-ApayIOS-ApayIOSUITests/Pods-ApayIOS-ApayIOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9C3E72F51E5E9475A937AE1F /* Pods-ApayIOS-ApayIOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApayIOS-ApayIOSUITests.release.xcconfig"; path = "Target Support Files/Pods-ApayIOS-ApayIOSUITests/Pods-ApayIOS-ApayIOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A28C8D26A8051154956BA317 /* Pods-ApayIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApayIOS.debug.xcconfig"; path = "Target Support Files/Pods-ApayIOS/Pods-ApayIOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				DC0FCBF82A8A5020009C33EF /* ColorsSdk.swift */,
+				7E0E49BA314F516AB7016425 /* Fonts.swift */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 				DC0FCBBE2A8A26D5009C33EF /* ApayIOSApp.swift in Sources */,
 				DC0FCBF32A8A2AAB009C33EF /* SuccessPage.swift in Sources */,
 				DC1FF08F2A8B976F00E561DC /* ColorUtils.swift in Sources */,
+				7E0E4BD43973E973169A3531 /* Fonts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

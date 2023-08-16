@@ -20,6 +20,11 @@ struct SuccessPage: View {
                     .imageScale(.large)
                     .foregroundColor(.accentColor)
                 Text("Hello, world!")
+                        .textStyleH1()
+                        .background(ColorSdk.stateError)
+                Text("Hello, world!")
+                        .textStyleH1_()
+                        .background(ColorSdk.stateSuccess)
             }
         }
     }
