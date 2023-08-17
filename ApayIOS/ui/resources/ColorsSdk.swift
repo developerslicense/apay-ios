@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct ColorSdk {
+internal struct ColorSdk {
     
     static var colorBrandMain = Color("ColorBrandMain")
     static var colorBrandInversion = Color("ColorBrandInversion")

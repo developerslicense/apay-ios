@@ -4,7 +4,7 @@
 
 import Foundation
 
-class ErrorsCode {
+internal class ErrorsCode {
     static let error_1 = ErrorsCodeBase(
             code: 1,
             messageRu: "",
@@ -106,7 +106,7 @@ class ErrorsCode {
     )
 }
 
-struct ErrorsCodeBase {
+internal struct ErrorsCodeBase {
     var code: Int = 1
     var messageRu: String = ""
     var messageKz: String = ""
@@ -197,7 +197,7 @@ struct ErrorsCodeBase {
     }
 }
 
-func initErrorsCodeByCode(code: Int) -> ErrorsCodeBase {
+internal func initErrorsCodeByCode(code: Int) -> ErrorsCodeBase {
     switch code {
     case 5002:
         return ErrorsCode.error_5002

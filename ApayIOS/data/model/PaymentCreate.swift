@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct PaymentCreateResponse {
+internal struct PaymentCreateResponse {
     var invoiceId: String? //invoice_id
     var id: String?
 }

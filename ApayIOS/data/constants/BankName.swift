@@ -4,6 +4,6 @@
 
 import Foundation
 
-enum BankName {
+internal enum BankName {
     case halykbank, kaspibank
 }

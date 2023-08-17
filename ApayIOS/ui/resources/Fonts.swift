@@ -6,7 +6,7 @@ import Foundation
 import SwiftUI
 
 
-extension View {
+internal extension View {
 
     func textStyleRegular() -> some View {
         fontWithLineHeight(
@@ -109,7 +109,7 @@ extension View {
     }
 }
 
-struct FontWithLineHeight: ViewModifier {
+internal struct FontWithLineHeight: ViewModifier {
     let font: Font
     let lineHeight: CGFloat
 
