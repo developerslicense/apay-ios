@@ -115,7 +115,7 @@ internal struct FontWithLineHeight: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-                .foregroundStyle(ColorSdk.textMain)
+                .foregroundStyle(ColorsSdk.textMain)
                 .font(font)
                 .lineSpacing(lineHeight)
     }

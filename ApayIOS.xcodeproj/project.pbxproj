@@ -11,6 +11,7 @@
 		7E0E4119E8A069E9AE44FD7B /* AirbaPaySdk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E47A48DAA8230D8C988A8 /* AirbaPaySdk.swift */; };
 		7E0E425DEC9E7FF662916A16 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E0E41A5CF56E1E61A2FFAD4 /* Montserrat-Regular.ttf */; };
 		7E0E42AF94FB6CB4C11D0CB6 /* CardDateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E43FE07888911C397A930 /* CardDateUtils.swift */; };
+		7E0E4493D80D0953F5D9B6A4 /* ViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4207AACAD47D68A029FF /* ViewButton.swift */; };
 		7E0E44DA1BDB5D48A06FC241 /* PaymentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4253AB9A342658701F4B /* PaymentInfo.swift */; };
 		7E0E45B724D25815CD138AF9 /* GetNumberCleatedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4BED15762906251BAF22 /* GetNumberCleatedTests.swift */; };
 		7E0E4685185A4C93C3202B6C /* PaymentCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4949601130990749DCDC /* PaymentCreate.swift */; };
@@ -82,6 +83,7 @@
 		7E0E419D843E66EB23F8B8CE /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		7E0E419FD37CA9A3585CACC9 /* BankName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankName.swift; sourceTree = "<group>"; };
 		7E0E41A5CF56E1E61A2FFAD4 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file.ttf; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		7E0E4207AACAD47D68A029FF /* ViewButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewButton.swift; sourceTree = "<group>"; };
 		7E0E423B5E6437AD0109C781 /* MaskFormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskFormatterTests.swift; sourceTree = "<group>"; };
 		7E0E4253AB9A342658701F4B /* PaymentInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentInfo.swift; sourceTree = "<group>"; };
 		7E0E43FE07888911C397A930 /* CardDateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDateUtils.swift; sourceTree = "<group>"; };
@@ -162,6 +164,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7E0E411C1E33F6D6E63DE60D /* network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = network;
+			sourceTree = "<group>";
+		};
+		7E0E4189528DB72730532579 /* webview */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = webview;
+			sourceTree = "<group>";
+		};
 		7E0E4354379E7D36347545EA /* test_for_card */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +208,21 @@
 			path = card_utils;
 			sourceTree = "<group>";
 		};
+		7E0E46D4E8818AC48F7A8A88 /* home */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = home;
+			sourceTree = "<group>";
+		};
+		7E0E46F0258569F383EC6103 /* ui_components */ = {
+			isa = PBXGroup;
+			children = (
+				7E0E4207AACAD47D68A029FF /* ViewButton.swift */,
+			);
+			path = ui_components;
+			sourceTree = "<group>";
+		};
 		7E0E4A39487E5DACFAEB55CB /* constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,6 +248,13 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		7E0E4D8B1C182D074BB50239 /* error */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = error;
+			sourceTree = "<group>";
+		};
 		7E0E4E6F238EF72BD4230D67 /* font */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +264,13 @@
 				7E0E478612CF8F08959597A7 /* Montserrat-SemiBold.ttf */,
 			);
 			path = font;
+			sourceTree = "<group>";
+		};
+		7E0E4F997CAC05DFC2F9F1AD /* dialog */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = dialog;
 			sourceTree = "<group>";
 		};
 		936B96223FA622ED2D19912E /* Pods */ = {
@@ -270,10 +315,10 @@
 				DC0FCBBD2A8A26D5009C33EF /* ApayIOSApp.swift */,
 				DC0FCBC12A8A26D5009C33EF /* Assets.xcassets */,
 				DC0FCBE82A8A26F1009C33EF /* data */,
-				DC0FCBE92A8A26F9009C33EF /* network */,
 				DC0FCBC32A8A26D5009C33EF /* Preview Content */,
 				DC0FCBE72A8A26EA009C33EF /* ui */,
 				7E0E47A48DAA8230D8C988A8 /* AirbaPaySdk.swift */,
+				7E0E411C1E33F6D6E63DE60D /* network */,
 			);
 			path = ApayIOS;
 			sourceTree = "<group>";
@@ -309,7 +354,7 @@
 			children = (
 				DC0FCBEA2A8A2989009C33EF /* pages */,
 				DC0FCBF02A8A2A39009C33EF /* resources */,
-				DC0FCBF12A8A2A44009C33EF /* ui_components */,
+				7E0E46F0258569F383EC6103 /* ui_components */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -324,21 +369,14 @@
 			path = data;
 			sourceTree = "<group>";
 		};
-		DC0FCBE92A8A26F9009C33EF /* network */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = network;
-			sourceTree = "<group>";
-		};
 		DC0FCBEA2A8A2989009C33EF /* pages */ = {
 			isa = PBXGroup;
 			children = (
-				DC0FCBEF2A8A2A23009C33EF /* dialog */,
-				DC0FCBEE2A8A2A13009C33EF /* home */,
-				DC0FCBED2A8A2A05009C33EF /* error */,
-				DC0FCBEC2A8A29FE009C33EF /* webview */,
 				DC0FCBEB2A8A2990009C33EF /* success */,
+				7E0E4F997CAC05DFC2F9F1AD /* dialog */,
+				7E0E4D8B1C182D074BB50239 /* error */,
+				7E0E46D4E8818AC48F7A8A88 /* home */,
+				7E0E4189528DB72730532579 /* webview */,
 			);
 			path = pages;
 			sourceTree = "<group>";
@@ -351,34 +389,6 @@
 			path = success;
 			sourceTree = "<group>";
 		};
-		DC0FCBEC2A8A29FE009C33EF /* webview */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = webview;
-			sourceTree = "<group>";
-		};
-		DC0FCBED2A8A2A05009C33EF /* error */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = error;
-			sourceTree = "<group>";
-		};
-		DC0FCBEE2A8A2A13009C33EF /* home */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = home;
-			sourceTree = "<group>";
-		};
-		DC0FCBEF2A8A2A23009C33EF /* dialog */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = dialog;
-			sourceTree = "<group>";
-		};
 		DC0FCBF02A8A2A39009C33EF /* resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -387,13 +397,6 @@
 				7E0E4E6F238EF72BD4230D67 /* font */,
 			);
 			path = resources;
-			sourceTree = "<group>";
-		};
-		DC0FCBF12A8A2A44009C33EF /* ui_components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ui_components;
 			sourceTree = "<group>";
 		};
 		DC1FF08D2A8B975800E561DC /* utils */ = {
@@ -642,6 +645,7 @@
 				7E0E4C92F232AED4B2B4FF1A /* CardType.swift in Sources */,
 				7E0E4BDC49521D84EA68B694 /* CardUtils.swift in Sources */,
 				7E0E42AF94FB6CB4C11D0CB6 /* CardDateUtils.swift in Sources */,
+				7E0E4493D80D0953F5D9B6A4 /* ViewButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

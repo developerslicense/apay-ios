@@ -12,20 +12,35 @@ import WebKit
 internal struct SuccessPage: View {
     var body: some View {
         ZStack {
-            ColorSdk.bgBlock
-            
-            VStack {
-                Image("icPaySuccess")
-                    .imageScale(.large)
-                    .foregroundColor(.accentColor)
-                Text("Hello, world!+")
-                        .textStyleH2()
-                        .background(ColorSdk.stateSuccess)
+            ColorsSdk.bgMain
 
-              /*  Text("Hello, world!_")
-                        .font(Font.custom("Optima-Regular", fixedSize: 24).weight(Font.Weight.ultraLight))
-                        .background(ColorSdk.stateSuccess)
-                        .foregroundColor(ColorSdk.textMain)*/
+            GeometryReader { metrics in
+                VStack {
+                    Spacer().frame(height: metrics.size.height * 0.30)
+
+                    Image("icPaySuccess")
+                            .imageScale(.large)
+                            .padding(.bottom, 37)
+                            .frame(height: metrics.size.height * 0.25)
+                            .frame(width: metrics.size.width * 1.0)
+
+                    Text(paySuccess())
+                            .textStyleH3()
+                            .frame(alignment: .center)
+                            .frame(height: metrics.size.height * 0.10)
+
+                    Spacer().frame(height: metrics.size.height * 0.25)
+
+                    ViewButton(
+                            title: goToMarker(),
+                            actionClick: {
+
+                            }
+                    )
+                            .frame(maxWidth: .infinity)
+                            .padding(.bottom, 24)
+                            .padding(.horizontal, 16)
+                }
             }
         }
     }
@@ -36,65 +51,3 @@ internal struct SuccessPage_Previews: PreviewProvider {
         SuccessPage()
     }
 }
-
-/*
- BackHandler {
-        (context as Activity).finish()
-    }
-
-    ConstraintLayout(
-        modifier = Modifier
-            .background(ColorsSdk.bgMain)
-            .clipToBounds()
-            .fillMaxSize()
-    ) {
-
-        val (spaceRef, iconRef, textRef, buttonRef) = createRefs()
-        Spacer(
-            modifier = Modifier
-                .fillMaxHeight(0.25f)
-                .constrainAs(spaceRef) {
-                    top.linkTo(parent.top)
-                }
-        )
-        Image(
-            painter = painterResource(R.drawable.pay_success),
-            contentDescription = "pay_success",
-            modifier = Modifier
-                .fillMaxWidth(0.5f)
-                .constrainAs(iconRef) {
-                    top.linkTo(spaceRef.bottom)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
-        )
-
-        Text(
-            text = paySuccess(),
-            style = LocalFonts.current.h3,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .constrainAs(textRef) {
-                    top.linkTo(iconRef.bottom, margin = 24.dp)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
-        )
-
-        ViewButton(
-            title = goToMarker(),
-            actionClick = {
-                (context as Activity).finish()
-            },
-            modifierRoot = Modifier
-                .padding(horizontal = 16.dp)
-                .padding(vertical = 20.dp)
-                .constrainAs(buttonRef) {
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
-        )
-    }
-
- */
