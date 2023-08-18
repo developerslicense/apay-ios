@@ -19,22 +19,22 @@ final class CardDateTests2: XCTestCase {
     }
 
     func testDateUtilsValidation() throws {
-        isAssert(actual: checkDateValid(date: nil), expected: false)
-        isAssert(actual: checkDateValid(date: ""), expected: false)
-        isAssert(actual: checkDateValid(date: "0"), expected: false)
-        isAssert(actual: checkDateValid(date: "00"), expected: false)
-        isAssert(actual: checkDateValid(date: "000"), expected: false)
-        isAssert(actual: checkDateValid(date: "0000"), expected: false)
-        isAssert(actual: checkDateValid(date: "1"), expected: false)
-        isAssert(actual: checkDateValid(date: "13"), expected: false)
-        isAssert(actual: checkDateValid(date: "123"), expected: false)
-        isAssert(actual: checkDateValid(date: "1023"), expected: false)
-        isAssert(actual: checkDateValid(date: "1024"), expected: false)
-        isAssert(actual: checkDateValid(date: "1124"), expected: false)
-        isAssert(actual: checkDateValid(date: "1224"), expected: false)
-        isAssert(actual: checkDateValid(date: "0524"), expected: false)
-        isAssert(actual: checkDateValid(date: "0124"), expected: false)
-        isAssert(actual: checkDateValid(date: "0024"), expected: false)
+        XCTAssertEqual(checkDateValid(date: nil), false)
+        XCTAssertEqual(checkDateValid(date: ""), false)
+        XCTAssertEqual(checkDateValid(date: "0"), false)
+        XCTAssertEqual(checkDateValid(date: "00"), false)
+        XCTAssertEqual(checkDateValid(date: "000"), false)
+        XCTAssertEqual(checkDateValid(date: "0000"), false)
+        XCTAssertEqual(checkDateValid(date: "1"), false)
+        XCTAssertEqual(checkDateValid(date: "13"), false)
+        XCTAssertEqual(checkDateValid(date: "123"), false)
+        XCTAssertEqual(checkDateValid(date: "1023"), false)
+        XCTAssertEqual(checkDateValid(date: "1024"), false)
+        XCTAssertEqual(checkDateValid(date: "1124"), false)
+        XCTAssertEqual(checkDateValid(date: "1224"), false)
+        XCTAssertEqual(checkDateValid(date: "0524"), false)
+        XCTAssertEqual(checkDateValid(date: "0124"), false)
+        XCTAssertEqual(checkDateValid(date: "0024"), false)
 
         for i in (0...22) {
             checkError(month: "0", year: i)
@@ -119,52 +119,18 @@ final class CardDateTests2: XCTestCase {
             month: String,
             year: Int
     ) {
-        isAssert(actual: checkDateValid(date: month + "/" + String(year)), expected: true)
+        XCTAssertEqual(checkDateValid(date: month + "/" + String(year)), true)
     }
 
     private func checkError(
             month: String,
             year: Int
     ) {
-        isAssert(actual: checkDateValid(date: month + "/" + String(year)), expected: false)
+        XCTAssertEqual(checkDateValid(date: month + "/" + String(year)), false)
     }
 
     private func checkDateValid(date: String?) -> Bool {
         isDateValid(value: date)
     }
-
-    private func isAssert(
-            actual: String?,
-            expected: String
-    ) {
-        XCTAssertEqual(actual, expected)
-    }
-
-    private func isAssert(
-            actual: Double?,
-            expected: String
-    ) {
-        XCTAssertEqual(String(actual ?? 0), expected)
-    }
-
-    private func isAssert(
-            actual: Int?,
-            expected: String
-    ) {
-        XCTAssertEqual(String(actual ?? 0), expected)
-    }
-
-    private func isAssert(
-            actual: Int?,
-            expected: Int
-    ) {
-        XCTAssertEqual(actual ?? 0, expected)
-    }
-
-    private func isAssert(
-            actual: Bool,
-            expected: Bool
-    ) {
-        XCTAssertEqual(actual, expected)
-    }
+    
 }

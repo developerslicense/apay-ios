@@ -32,7 +32,7 @@ internal struct Money {
             currency: String = kzt
     ) -> Money {
         return Money(
-                amount: amount,
+                amount: Int(getNumberClearedWithMaxSymbol(amount: String(amount))) ?? 0,
                 currency: currency
         )
     }
@@ -58,7 +58,7 @@ internal struct Money {
 
 internal func getMoneyFormatted(
         amount: String,
-        currency: String = "KZT"
+        currency: String = kzt
 ) -> String {
     let format = NumberFormatter()
     format.locale = Locale(identifier: "kk_Cyrl_KZ")
@@ -66,37 +66,10 @@ internal func getMoneyFormatted(
     format.maximumFractionDigits = 0 // отключил десятичные. было значение 2
 
     var tempAmount = getNumberClearedWithMaxSymbol(amount: amount)
-
     while (tempAmount.starts(with: "0")) {
         tempAmount = String(tempAmount.dropFirst())
     }
 
-    let amountNumberFormatted = format.string(from: NSNumber(value: Int(amount) ?? 0)) ?? "0"
-    return replaceCurrencyIso4217(amount: amountNumberFormatted, currency: currency)
+    return format.string(from: NSNumber(value: Int(tempAmount) ?? 0)) ?? "0"
 }
 
-private func replaceCurrencyIso4217(
-        amount: String,
-        currency: String?
-) -> String {
-    var amount = amount
-
-    if (currency != nil) {
-        let cur = (currency ?? "") + " "
-        amount.replace(cur, with: "")
-        amount = amount + " " + kzt
-
-    } else {
-        do {
-            let regex = try! Regex(RegexConst.NOT_DIGITS_NOT_COMMA_NOT_NON_BREAK_SPACE)
-            if let match = amount.wholeMatch(of: regex) {
-                amount = match.last?.name ?? ""// https://useyourloaf.com/blog/getting-started-with-swift-regex/
-            }
-
-        } catch {
-            print("replaceCurrencyIso4217 error")
-        }
-    }
-
-    return amount
-}

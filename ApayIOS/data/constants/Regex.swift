@@ -5,6 +5,7 @@
 import Foundation
 
 internal class RegexConst {
+    static let NON_BREAK_SPACE = " "
     static let NOT_DIGITS_NOT_COMMA_NOT_NON_BREAK_SPACE = "[^, 0-9]+"
     static let NOT_DIGITS = "[\\D]"
     static let DIGITS = "\\b([0-9]+)"

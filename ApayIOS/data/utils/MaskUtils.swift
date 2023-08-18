@@ -10,10 +10,7 @@ class MaskUtils {
     var patternArr: [String] = []
 
     func getNextCursorPosition(newPosition: Int) -> Int {
-        print(pattern)
-
         let result = getCharOnIndex(text: pattern, index: newPosition)
-        print(result)
 
         if (result != "A") {
             var tempPosition = newPosition + 1
