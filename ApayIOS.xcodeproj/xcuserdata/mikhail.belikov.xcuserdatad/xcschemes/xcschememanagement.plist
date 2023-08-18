@@ -9,40 +9,40 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>MaskFormatterTests.xcscheme</key>
+		<key>MaskFormatterTests.testMaskFormatter1.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false />
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>6</integer>
 		</dict>
-		<key>MoneyTests.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false />
-			<key>orderHint</key>
-			<integer>8</integer>
-		</dict>
-		<key>CardDateTests2.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false />
-			<key>orderHint</key>
-			<integer>4</integer>
-		</dict>
-		<key>CardLuhnAlgorithmTests2.xcscheme</key>
+		<key>MaskFormatterTests.testMaskFormatter.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false />
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
-		<key>GetNumberClearedTests.xcscheme</key>
+		<key>MaskFormatterTests.testMaskFormatter2.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false />
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>7</integer>
+		</dict>
+		<key>MaskFormatterTests.testMaskFormatter3.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false />
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>CardLuhnAlgorithmTests2.testLuhnAlgorithm.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false />
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

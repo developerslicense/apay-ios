@@ -47,13 +47,7 @@ internal func validateCardNumWithLuhnAlgorithm(
     for i in (0...length) {
         // get digits in reverse order
         let temp = String(input)
-
-        let index1 = temp.index(temp.startIndex, offsetBy: length - i)
-
-        let indexRange = index1...index1
-        let subString = temp[indexRange]
-
-        var digit = Int(subString) ?? 0
+        var digit: Int = Int(getCharOnIndex(text: temp, index: i)) ?? 0
 
         // every 2nd number multiply with 2
         if (i % 2 == 1) {

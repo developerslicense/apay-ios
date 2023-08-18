@@ -10,13 +10,19 @@ class MaskUtils {
     var patternArr: [String] = []
 
     func getNextCursorPosition(newPosition: Int) -> Int {
-        if (pattern.suffix(newPosition) != "A") {
+        print(pattern)
+
+        let result = getCharOnIndex(text: pattern, index: newPosition)
+        print(result)
+
+        if (result != "A") {
             var tempPosition = newPosition + 1
-            while (pattern.suffix(tempPosition) != "A") {
+            while (getCharOnIndex(text: pattern, index: tempPosition) != "A") {
                 tempPosition += 1
             }
 
             return tempPosition
+
         } else {
             return newPosition
         }
@@ -55,10 +61,12 @@ class MaskUtils {
             textArr.append(String(ch))
         }
 
-        for patternI in (0...patternArr.count) {
+        let count = patternArr.count - 1
+        for patternI in (0...count) {
+
             if (patternArr[patternI] == "A" && textI < textArr.count) {
-                textI = textI + 1
                 patternArr[patternI] = textArr[textI]
+                textI = textI + 1
 
             } else {
                 continue
