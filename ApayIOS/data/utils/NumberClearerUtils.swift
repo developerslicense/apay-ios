@@ -42,19 +42,20 @@ private func clearNumberForLocale(
         isUserEntered: Bool,
         isPhoneNumber: Bool
 ) -> String {
+    let saved = amount ?? ""
     var amount = amount ?? ""
 
     let regex = try! Regex(RegexConst.numberCleanRu)
 
     if (isPhoneNumber) {
         if (amount.starts(with: "7 ")) {
-            /*amount = */amount.replace("+7", with: "")
+            amount.replace("+7", with: "")
 
             if (amount.starts(with: "7")) {
                 amount = String(amount.dropFirst())
             }
         } else if (amount.starts(with: "8") || amount.contains("+7")) {
-            /*amount = */amount.replace("+7", with: "")
+            amount.replace("+7", with: "")
 
             if (amount.starts(with: "8")) {
                 amount = String(amount.dropFirst())
@@ -76,12 +77,12 @@ private func clearNumberForLocale(
         }
     }
 
-    if (!isUserEntered && amount.starts(with: "-")) {
-        amountLocaleCleaned = "-$amountLocaleCleaned"
+    if (!isUserEntered && saved.starts(with: "-")) {
+        amountLocaleCleaned = "-" + amountLocaleCleaned
     }
 
     if (isUserEntered) {
-        /*amountLocaleCleaned = */amountLocaleCleaned.replace(".", with: "")
+        amountLocaleCleaned.replace(".", with: "")
     }
 
     return amountLocaleCleaned
