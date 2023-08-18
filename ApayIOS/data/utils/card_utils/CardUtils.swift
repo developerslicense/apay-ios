@@ -42,12 +42,18 @@ internal func validateCardNumWithLuhnAlgorithm(
     }
 
     var sum = 0
-    let length = input.count
+    let length = input.count-1
 
     for i in (0...length) {
         // get digits in reverse order
+        let temp = String(input)
 
-        var digit = Int(String(input.prefix(length - i - 1))) ?? 0
+        let index1 = temp.index(temp.startIndex, offsetBy: length - i)
+
+        let indexRange = index1...index1
+        let subString = temp[indexRange]
+
+        var digit = Int(subString) ?? 0
 
         // every 2nd number multiply with 2
         if (i % 2 == 1) {
@@ -64,3 +70,4 @@ internal func validateCardNumWithLuhnAlgorithm(
     return (sum % 10 == 0)
 
 }
+
