@@ -24,7 +24,7 @@
 		7E0E489A83E2FD42C515A5B3 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E0E478612CF8F08959597A7 /* Montserrat-SemiBold.ttf */; };
 		7E0E48EF8104C87DCB16C9BE /* MaskFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E423B5E6437AD0109C781 /* MaskFormatterTests.swift */; };
 		7E0E499B0DB6517923BA8BC1 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4093DE928D6DCF39E6B1 /* Auth.swift */; };
-		7E0E49BFEB256FF12A538E23 /* BankName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E419FD37CA9A3585CACC9 /* BankName.swift */; };
+		7E0E49BFEB256FF12A538E23 /* BanksName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E419FD37CA9A3585CACC9 /* BanksName.swift */; };
 		7E0E4A81630054EACAC987F7 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E419D843E66EB23F8B8CE /* Strings.swift */; };
 		7E0E4AD56C81575A94E8C96E /* MoneyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E49A64D064FB1C1FA10ED /* MoneyTests.swift */; };
 		7E0E4B013810221530803D1D /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E41701EB77D45776A34FE /* ProgressBarView.swift */; };
@@ -41,6 +41,7 @@
 		7E0E4E6FB034C26D5A0FF92E /* CardAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4F0F556E8E2E55E6CBA6 /* CardAdd.swift */; };
 		7E0E4F093C9838FA12AD9FC0 /* DataHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4CCA9027B4651F38D4CC /* DataHolder.swift */; };
 		7E0E4F68BE8480C23596039D /* PaymentEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4593FCDE5DE04B499D90 /* PaymentEntry.swift */; };
+		7E0E4F6B335DEBC5C6CEF0CB /* ErrorWithInstructionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4C888079F4D27D6A91A3 /* ErrorWithInstructionPage.swift */; };
 		7E0E4F7C59E7C8006B7858C0 /* ErrorsCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4BEF9C2223D41EBEB598 /* ErrorsCode.swift */; };
 		9180B8BB7CD28337E14403BC /* Pods_ApayIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F32C52DCD3D54B6D8DDCF7 /* Pods_ApayIOS.framework */; };
 		CD8F4CA3E32BC196592A7D16 /* Pods_ApayIOS_ApayIOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 129E392C69ACDD6C26D6EE43 /* Pods_ApayIOS_ApayIOSUITests.framework */; };
@@ -88,7 +89,7 @@
 		7E0E41373046447B451B3375 /* CardsGet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardsGet.swift; sourceTree = "<group>"; };
 		7E0E41701EB77D45776A34FE /* ProgressBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		7E0E419D843E66EB23F8B8CE /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
-		7E0E419FD37CA9A3585CACC9 /* BankName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankName.swift; sourceTree = "<group>"; };
+		7E0E419FD37CA9A3585CACC9 /* BanksName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BanksName.swift; sourceTree = "<group>"; };
 		7E0E41A5CF56E1E61A2FFAD4 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file.ttf; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		7E0E4207AACAD47D68A029FF /* ViewButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewButton.swift; sourceTree = "<group>"; };
 		7E0E423B5E6437AD0109C781 /* MaskFormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskFormatterTests.swift; sourceTree = "<group>"; };
@@ -111,6 +112,7 @@
 		7E0E4BED15762906251BAF22 /* GetNumberCleatedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetNumberCleatedTests.swift; sourceTree = "<group>"; };
 		7E0E4BEF9C2223D41EBEB598 /* ErrorsCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorsCode.swift; sourceTree = "<group>"; };
 		7E0E4C74A80676573E9AD57E /* ErrorSomethingWrongPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorSomethingWrongPage.swift; sourceTree = "<group>"; };
+		7E0E4C888079F4D27D6A91A3 /* ErrorWithInstructionPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorWithInstructionPage.swift; sourceTree = "<group>"; };
 		7E0E4CA71EAD9D9A6C9AC7A3 /* MoneyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyUtils.swift; sourceTree = "<group>"; };
 		7E0E4CCA9027B4651F38D4CC /* DataHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHolder.swift; sourceTree = "<group>"; };
 		7E0E4D996398E17A75A05C4B /* BaseStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseStrings.swift; sourceTree = "<group>"; };
@@ -245,7 +247,7 @@
 		7E0E4A39487E5DACFAEB55CB /* constants */ = {
 			isa = PBXGroup;
 			children = (
-				7E0E419FD37CA9A3585CACC9 /* BankName.swift */,
+				7E0E419FD37CA9A3585CACC9 /* BanksName.swift */,
 				7E0E4BEF9C2223D41EBEB598 /* ErrorsCode.swift */,
 				7E0E419D843E66EB23F8B8CE /* Strings.swift */,
 				7E0E4644B22E02F7E0800CA1 /* Routes.swift */,
@@ -273,6 +275,7 @@
 				7E0E4C74A80676573E9AD57E /* ErrorSomethingWrongPage.swift */,
 				7E0E43EAE73E4D5B13BD8D4E /* ErrorFinalPage.swift */,
 				7E0E43E4F18F7E43D9AA68F6 /* ErrorPage.swift */,
+				7E0E4C888079F4D27D6A91A3 /* ErrorWithInstructionPage.swift */,
 			);
 			path = error;
 			sourceTree = "<group>";
@@ -648,7 +651,7 @@
 				DC0FCBF32A8A2AAB009C33EF /* SuccessPage.swift in Sources */,
 				DC1FF08F2A8B976F00E561DC /* ColorUtils.swift in Sources */,
 				7E0E4BD43973E973169A3531 /* Fonts.swift in Sources */,
-				7E0E49BFEB256FF12A538E23 /* BankName.swift in Sources */,
+				7E0E49BFEB256FF12A538E23 /* BanksName.swift in Sources */,
 				7E0E4F7C59E7C8006B7858C0 /* ErrorsCode.swift in Sources */,
 				7E0E4A81630054EACAC987F7 /* Strings.swift in Sources */,
 				7E0E4CC403E5A8A6246683AE /* BaseStrings.swift in Sources */,
@@ -674,6 +677,7 @@
 				7E0E45D6E0F3F5556F39AF01 /* ErrorSomethingWrongPage.swift in Sources */,
 				7E0E4391EE34997C27B36944 /* ErrorFinalPage.swift in Sources */,
 				7E0E487CB137FBC3FA3C1552 /* ErrorPage.swift in Sources */,
+				7E0E4F6B335DEBC5C6CEF0CB /* ErrorWithInstructionPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
