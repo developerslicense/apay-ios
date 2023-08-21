@@ -8,8 +8,7 @@ import SwiftUI
 internal struct ErrorWithInstructionPage: View {
 
     private let errorCode: ErrorsCode = ErrorsCode(code: 5999)
-//    var faqUrl: String = ""
-
+    @State private var isPlayedOnce = false
     /*val showDialogExit = remember {
         mutableStateOf(false)
     }
@@ -25,64 +24,76 @@ internal struct ErrorWithInstructionPage: View {
       bankName = BanksName.kaspi.name
     }*/
 
-
-/*    init() {
-        if (DataHolder.bankName == BanksName.kaspibank) {
-            if (DataHolder.currentLang == AirbaPaySdk.Lang.KZ()) {
-                faqUrl = "https://static-data.object.pscloud.io/pay-manuals/Kaspi_kaz.mp4"
-            }
-            else {
-                faqUrl = "https://static-data.object.pscloud.io/pay-manuals/Kaspi_rus.mp4"
-            }
-        } else {
-            if(DataHolder.currentLang == AirbaPaySdk.Lang.KZ()) {
-                faqUrl = "https://static-data.object.pscloud.io/pay-manuals/Halyk_kaz.mp4"
-            }
-            else {
-                faqUrl = "https://static-data.object.pscloud.io/pay-manuals/Halyk_rus.mp4"
-            }
-        }
-    }*/
-
     var body: some View {
         ZStack {
             ColorsSdk.bgMain
 
             GeometryReader { metrics in
                 let iconSize = metrics.size.width * 0.30
+                let webViewHeight = metrics.size.width * 0.6
 
-                VStack {
-                    Spacer().frame(height: metrics.size.height * 0.05)
+                ScrollView {
 
-                    Image("icPayFailed")
-                            .resizable()
-                            .frame(width: iconSize, height: iconSize)
-                            .padding(.bottom, 24)
+                    VStack {
+                        Spacer().frame(height: metrics.size.height * 0.05)
 
-                    Text(errorCode.getError().message())
-                            .multilineTextAlignment(.center)
-                            .textStyleH3()
-                            .frame(alignment: .center)
-                            .padding(.bottom, 8)
+                        Image("icPayFailed")
+                                .resizable()
+                                .frame(width: iconSize, height: iconSize)
+                                .padding(.bottom, 24)
 
-                    Text(errorCode.getError().description())
-                            .multilineTextAlignment(.center)
-                            .textStyleBodyRegular()
-                            .frame(alignment: .center)
-                            .padding(.bottom, 32)
+                        Text(errorCode.getError().message())
+                                .multilineTextAlignment(.center)
+                                .textStyleH3()
+                                .frame(alignment: .center)
+                                .padding(.bottom, 8)
 
-                    Text(DataHolder.bankName == BanksName.kaspibank ? forChangeLimitInKaspi() : forChangeLimitInHomebank())
-                            .multilineTextAlignment(.leading)
-                            .textStyleSemiBold()
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.horizontal, 16)
+                        Text(errorCode.getError().description())
+                                .multilineTextAlignment(.center)
+                                .textStyleBodyRegular()
+                                .frame(alignment: .center)
+                                .padding(.bottom, 32)
 
-                    Spacer()
-                            .frame(height: metrics.size.height * 0.31)
-                            .frame(width: metrics.size.width)
+                        Text(DataHolder.bankName == BanksName.kaspibank ? forChangeLimitInKaspi() : forChangeLimitInHomebank())
+                                .multilineTextAlignment(.leading)
+                                .textStyleSemiBold()
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal, 16)
+
+                        if (!isPlayedOnce) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 5)
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: webViewHeight)
+                                        .padding(.horizontal, 16)
+                                        .padding(.top, 16)
+                                        .foregroundColor(ColorsSdk.gray10)
+                                        .offset(y: -20)
+                                ZStack {
+                                    Image("icPlay")
+                                            .resizable()
+                                            .frame(width: 50, height: 50)
+                                }
+                            }
+                                    .onTapGesture {
+                                        isPlayedOnce = true
+                                    }
+
+                        } else {
+                            InstructionWebViewClient()
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: webViewHeight)
+                                    .padding(.horizontal, 16)
+                                    .padding(.top, 16)
+                        }
+
+                        Spacer()
+                                .frame(height: metrics.size.height * 0.31)
+                                .frame(width: metrics.size.width)
+
+                    }
 
                 }
-
             }
         }
                 .overlay(

@@ -15,6 +15,7 @@
 		7E0E43BD28550B9CACD67FF4 /* RepeatPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E412662828661C254B739 /* RepeatPage.swift */; };
 		7E0E4493D80D0953F5D9B6A4 /* ViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4207AACAD47D68A029FF /* ViewButton.swift */; };
 		7E0E44DA1BDB5D48A06FC241 /* PaymentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4253AB9A342658701F4B /* PaymentInfo.swift */; };
+		7E0E4548149D89ADC992DF8E /* InstructionWebViewClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E49920B29342ACD65C22E /* InstructionWebViewClient.swift */; };
 		7E0E45B724D25815CD138AF9 /* GetNumberCleatedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4BED15762906251BAF22 /* GetNumberCleatedTests.swift */; };
 		7E0E45D6E0F3F5556F39AF01 /* ErrorSomethingWrongPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4C74A80676573E9AD57E /* ErrorSomethingWrongPage.swift */; };
 		7E0E4685185A4C93C3202B6C /* PaymentCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4949601130990749DCDC /* PaymentCreate.swift */; };
@@ -105,6 +106,7 @@
 		7E0E478612CF8F08959597A7 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file.ttf; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		7E0E47A48DAA8230D8C988A8 /* AirbaPaySdk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirbaPaySdk.swift; sourceTree = "<group>"; };
 		7E0E4949601130990749DCDC /* PaymentCreate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentCreate.swift; sourceTree = "<group>"; };
+		7E0E49920B29342ACD65C22E /* InstructionWebViewClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionWebViewClient.swift; sourceTree = "<group>"; };
 		7E0E49A64D064FB1C1FA10ED /* MoneyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyTests.swift; sourceTree = "<group>"; };
 		7E0E49BA314F516AB7016425 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		7E0E4A416E8857482CC523EF /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file.ttf; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 				7E0E43EAE73E4D5B13BD8D4E /* ErrorFinalPage.swift */,
 				7E0E43E4F18F7E43D9AA68F6 /* ErrorPage.swift */,
 				7E0E4C888079F4D27D6A91A3 /* ErrorWithInstructionPage.swift */,
+				7E0E49920B29342ACD65C22E /* InstructionWebViewClient.swift */,
 			);
 			path = error;
 			sourceTree = "<group>";
@@ -678,6 +681,7 @@
 				7E0E4391EE34997C27B36944 /* ErrorFinalPage.swift in Sources */,
 				7E0E487CB137FBC3FA3C1552 /* ErrorPage.swift in Sources */,
 				7E0E4F6B335DEBC5C6CEF0CB /* ErrorWithInstructionPage.swift in Sources */,
+				7E0E4548149D89ADC992DF8E /* InstructionWebViewClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
