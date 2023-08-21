@@ -14,6 +14,7 @@ struct ApayIOSApp: App {
 //            SuccessPage()
 //            RepeatPage()
             ErrorSomethingWrongPage()
+//            ErrorFinalPage()
         }
     }
 }

@@ -15,34 +15,37 @@ internal struct SuccessPage: View {
             ColorsSdk.bgMain
 
             GeometryReader { metrics in
+                let iconSize = metrics.size.width * 0.60
+
                 VStack {
-                    Spacer().frame(height: metrics.size.height * 0.30)
+                    Spacer().frame(height: metrics.size.height * 0.20)
 
                     Image("icPaySuccess")
-                            .imageScale(.large)
+                            .resizable()
+                            .frame(width: iconSize, height: iconSize)
                             .padding(.bottom, 37)
-                            .frame(height: metrics.size.height * 0.25)
-                            .frame(width: metrics.size.width * 1.0)
 
                     Text(paySuccess())
                             .textStyleH3()
                             .frame(alignment: .center)
-                            .frame(height: metrics.size.height * 0.10)
 
-                    Spacer().frame(height: metrics.size.height * 0.25)
+                    Spacer()
+                            .frame(height: metrics.size.height * 0.35)
+                            .frame(width: metrics.size.width * 1.0)
 
-                    ViewButton(
-                            title: goToMarker(),
-                            actionClick: {
 
-                            }
-                    )
-                            .frame(maxWidth: .infinity)
-                            .padding(.bottom, 24)
-                            .padding(.horizontal, 16)
                 }
             }
         }
+                .overlay(ViewButton(
+                        title: goToMarker(),
+                        actionClick: {
+
+                        }
+                )
+                        .frame(maxWidth: .infinity)
+                        .padding(.bottom, 24)
+                        .padding(.horizontal, 16), alignment: .bottom)
     }
 }
 

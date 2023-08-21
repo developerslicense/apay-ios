@@ -22,6 +22,7 @@ struct ViewButton: View {
                 },
                 label: {
                     Text(title).frame(maxWidth: .infinity)
+
                 }
         ).buttonStyle(button)
 

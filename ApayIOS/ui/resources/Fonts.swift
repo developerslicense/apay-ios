@@ -12,7 +12,7 @@ internal extension View {
         fontWithLineHeight(
 //                font: .system(size: 14).weight(Font.Weight.regular),
                 font: Font.custom("Montserrat-Regular", fixedSize: 14),
-                lineHeight: 22 //1.57
+                lineHeight: 1.57 //22
         )
     }
 
@@ -20,7 +20,7 @@ internal extension View {
         fontWithLineHeight(
                 font: .system(size: 16).weight(Font.Weight.regular),
 //                font: Font.custom("Montserrat-Regular", fixedSize: 16),
-                lineHeight: 24 //1.5
+                lineHeight: 1.5 //24
         )
     }
 
@@ -28,7 +28,7 @@ internal extension View {
         fontWithLineHeight(
                 font: .system(size: 12).weight(Font.Weight.regular),
 //                font: Font.custom("Montserrat-Regular", fixedSize: 12),
-                lineHeight: 18 //1.5
+                lineHeight: 1.5 //18
         )
     }
 
@@ -36,7 +36,7 @@ internal extension View {
         fontWithLineHeight(
                 font: .system(size: 16).weight(Font.Weight.bold),
 //                font: Font.custom("Montserrat-Bold", fixedSize: 16),
-                lineHeight: 24 //1.5
+                lineHeight: 1.5 //24
         )
     }
 
@@ -44,7 +44,7 @@ internal extension View {
         fontWithLineHeight(
                 font: .system(size: 14).weight(Font.Weight.semibold),
 //                font: Font.custom("Montserrat-SemiBold", fixedSize: 14),
-                lineHeight: 22 //1.57
+                lineHeight: 1.57 //22
         )
     }
 
@@ -52,7 +52,7 @@ internal extension View {
         fontWithLineHeight(
                 font: .system(size: 18).weight(Font.Weight.bold),
 //                font: Font.custom("Montserrat-Bold", fixedSize: 18),
-                lineHeight: 24 //1.6
+                lineHeight: 1.6 // 24
         )
     }
 
@@ -60,7 +60,7 @@ internal extension View {
         fontWithLineHeight(
                 font: .system(size: 24).weight(Font.Weight.bold),
 //                font: Font.custom("Montserrat-Bold", fixedSize: 24),
-                lineHeight: 22.5 //1.6
+                lineHeight: 1.6 // 22.5
         )
     }
 
@@ -68,7 +68,7 @@ internal extension View {
         fontWithLineHeight(
                 font: .system(size: 24).weight(Font.Weight.semibold),
 //                font: Font.custom("Montserrat-SemiBold", fixedSize: 24),
-                lineHeight: 24 //1.2
+                lineHeight: 1.2 //24
         )
     }
 
@@ -76,7 +76,7 @@ internal extension View {
         fontWithLineHeight(
                 font: .system(size: 20).weight(Font.Weight.bold),
 //                font: Font.custom("Montserrat-Bold", fixedSize: 20),
-                lineHeight: 30 //1.5
+                lineHeight: 1.5 // 30
         )
     }
 
@@ -84,7 +84,7 @@ internal extension View {
         fontWithLineHeight(
                 font: .system(size: 10).weight(Font.Weight.semibold),
 //                font: Font.custom("Montserrat-SemiBold", fixedSize: 10),
-                lineHeight: 12 //1.2
+                lineHeight: 1.2 // 12
         )
     }
 
@@ -92,7 +92,7 @@ internal extension View {
         fontWithLineHeight(
                 font: .system(size: 15).weight(Font.Weight.semibold),
 //                font: Font.custom("Montserrat-SemiBold", fixedSize: 15),
-                lineHeight: 24 //1.2
+                lineHeight: 1.2 // 24
         )
     }
 
@@ -100,7 +100,7 @@ internal extension View {
         fontWithLineHeight(
                 font: .system(size: 13).weight(Font.Weight.semibold),
 //                font: Font.custom("Montserrat-SemiBold", fixedSize: 13),
-                lineHeight: 19.5 //1.5
+                lineHeight: 1.5  // 19.5
         )
     }
 
