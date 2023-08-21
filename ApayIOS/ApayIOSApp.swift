@@ -15,8 +15,9 @@ struct ApayIOSApp: App {
 //            RepeatPage()
 //            ErrorSomethingWrongPage()
 //            ErrorFinalPage()
-            ErrorWithInstructionPage()
+//            ErrorWithInstructionPage()
 //            ErrorPage(errorCode: ErrorsCode(code: 5009))
+            WebViewPage()
         }
     }
 }

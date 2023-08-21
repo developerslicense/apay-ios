@@ -9,7 +9,9 @@
 /* Begin PBXBuildFile section */
 		7E0E41151D3487AE9C94EAA9 /* MoneyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4CA71EAD9D9A6C9AC7A3 /* MoneyUtils.swift */; };
 		7E0E4119E8A069E9AE44FD7B /* AirbaPaySdk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E47A48DAA8230D8C988A8 /* AirbaPaySdk.swift */; };
+		7E0E4193121006253B88E978 /* AppBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E46FAF5325C65D766DC25 /* AppBar.swift */; };
 		7E0E425DEC9E7FF662916A16 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E0E41A5CF56E1E61A2FFAD4 /* Montserrat-Regular.ttf */; };
+		7E0E426178E4D9F1ED4BAF74 /* WebViewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E48F5255651E4DB9353C9 /* WebViewPage.swift */; };
 		7E0E42AF94FB6CB4C11D0CB6 /* CardDateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E43FE07888911C397A930 /* CardDateUtils.swift */; };
 		7E0E4391EE34997C27B36944 /* ErrorFinalPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E43EAE73E4D5B13BD8D4E /* ErrorFinalPage.swift */; };
 		7E0E43BD28550B9CACD67FF4 /* RepeatPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E412662828661C254B739 /* RepeatPage.swift */; };
@@ -102,9 +104,11 @@
 		7E0E460F6E54B2B4816460B8 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file.ttf; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		7E0E4644B22E02F7E0800CA1 /* Routes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		7E0E4669AF56C9D7716D0767 /* CardType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardType.swift; sourceTree = "<group>"; };
+		7E0E46FAF5325C65D766DC25 /* AppBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBar.swift; sourceTree = "<group>"; };
 		7E0E4746FAA131C860B0819A /* MaskUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskUtils.swift; sourceTree = "<group>"; };
 		7E0E478612CF8F08959597A7 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file.ttf; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		7E0E47A48DAA8230D8C988A8 /* AirbaPaySdk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirbaPaySdk.swift; sourceTree = "<group>"; };
+		7E0E48F5255651E4DB9353C9 /* WebViewPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewPage.swift; sourceTree = "<group>"; };
 		7E0E4949601130990749DCDC /* PaymentCreate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentCreate.swift; sourceTree = "<group>"; };
 		7E0E49920B29342ACD65C22E /* InstructionWebViewClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionWebViewClient.swift; sourceTree = "<group>"; };
 		7E0E49A64D064FB1C1FA10ED /* MoneyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyTests.swift; sourceTree = "<group>"; };
@@ -188,6 +192,7 @@
 		7E0E4189528DB72730532579 /* webview */ = {
 			isa = PBXGroup;
 			children = (
+				7E0E48F5255651E4DB9353C9 /* WebViewPage.swift */,
 			);
 			path = webview;
 			sourceTree = "<group>";
@@ -242,6 +247,7 @@
 			children = (
 				7E0E4207AACAD47D68A029FF /* ViewButton.swift */,
 				7E0E41701EB77D45776A34FE /* ProgressBarView.swift */,
+				7E0E46FAF5325C65D766DC25 /* AppBar.swift */,
 			);
 			path = ui_components;
 			sourceTree = "<group>";
@@ -682,6 +688,8 @@
 				7E0E487CB137FBC3FA3C1552 /* ErrorPage.swift in Sources */,
 				7E0E4F6B335DEBC5C6CEF0CB /* ErrorWithInstructionPage.swift in Sources */,
 				7E0E4548149D89ADC992DF8E /* InstructionWebViewClient.swift in Sources */,
+				7E0E426178E4D9F1ED4BAF74 /* WebViewPage.swift in Sources */,
+				7E0E4193121006253B88E978 /* AppBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

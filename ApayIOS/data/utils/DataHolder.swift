@@ -31,9 +31,11 @@ class DataHolder {
     static var successCallback = ""
     static var currentLang: AirbaPaySdk.Lang = AirbaPaySdk.Lang.RU()
 
-//    static var goods: List<AirbaPaySdk.Goods>? = nil
-//    static var settlementPayments: List<AirbaPaySdk.SettlementPayment>? = nil
+    static var goods: Array<AirbaPaySdk.Goods>? = nil
+    static var settlementPayments: Array<AirbaPaySdk.SettlementPayment>? = nil
 
-//    static var purchaseAmountFormatted = MutableStateFlow("")
+    static var purchaseAmountFormatted: String = ""
+
+    static var redirectUrl: String? = nil
 
 }
