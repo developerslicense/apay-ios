@@ -11,7 +11,6 @@ import SwiftUI
 struct ApayIOSApp: App {
     var body: some Scene {
         WindowGroup {
-//            SuccessPage()
 //            RepeatPage()
 //            ErrorSomethingWrongPage()
 //            ErrorFinalPage()

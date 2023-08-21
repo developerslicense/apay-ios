@@ -8,7 +8,7 @@ import WebKit
 
 internal struct WebViewPage: View {
 
-//    @Environment(\.presentationMode) var presentationMode
+    @State var showDialogExit: Bool = false
     @StateObject private var model = SwiftUIWebViewModel()
 
     var body: some View {
@@ -17,13 +17,13 @@ internal struct WebViewPage: View {
             VStack {
                 Image("icArrowBack")
                         .resizable()
-                        .frame(width: 24, height: 24)
+                        .frame(width: 32, height: 32)
                         .foregroundColor(.black)
                         .padding(.top, 12)
                         .padding(.leading, 12)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .onTapGesture(perform: {
-
+                            showDialogExit = true
                         })
 
                 SwiftUIWebView(webView: model.webView)
@@ -32,6 +32,11 @@ internal struct WebViewPage: View {
                         }
             }
         }
+                .modifier(
+                        Popup(
+                                isPresented: showDialogExit,
+                                content: { DialogExit() })
+                )
     }
 }
 
@@ -46,7 +51,7 @@ private final class SwiftUIWebViewModel: ObservableObject {
     }
 
     func loadUrl() {
-        guard let url = URL(string: faqUrl ?? "https://google.com") else {
+        guard let url = URL(string: faqUrl ?? "") else {
             return
         }
         webView.load(URLRequest(url: url))
