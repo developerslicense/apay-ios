@@ -10,8 +10,8 @@ internal extension View {
 
     func textStyleRegular() -> some View {
         fontWithLineHeight(
-                font: .system(size: 14).weight(Font.Weight.regular),
-//                font: Font.custom("Montserrat-Regular", fixedSize: 14),
+//                font: .system(size: 14).weight(Font.Weight.regular),
+                font: Font.custom("Montserrat-Regular", fixedSize: 14),
                 lineHeight: 22 //1.57
         )
     }
