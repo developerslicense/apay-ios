@@ -12,7 +12,8 @@ struct ApayIOSApp: App {
     var body: some Scene {
         WindowGroup {
 //            SuccessPage()
-            RepeatPage()
+//            RepeatPage()
+            ErrorSomethingWrongPage()
         }
     }
 }
