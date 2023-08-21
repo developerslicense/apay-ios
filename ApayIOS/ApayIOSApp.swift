@@ -13,8 +13,9 @@ struct ApayIOSApp: App {
         WindowGroup {
 //            SuccessPage()
 //            RepeatPage()
-            ErrorSomethingWrongPage()
+//            ErrorSomethingWrongPage()
 //            ErrorFinalPage()
+            ErrorPage(errorCode: ErrorsCode(code: 5009))
         }
     }
 }
