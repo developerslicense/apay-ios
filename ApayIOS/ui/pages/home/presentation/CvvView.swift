@@ -6,10 +6,10 @@ import Foundation
 import SwiftUI
 
 internal struct CvvView: View {
-    var actionClickInfo: () -> Void
     @State var cvvText: String
     @State var cvvError: String?
 //        var cvvFocusRequester: FocusRequester,
+    var actionClickInfo: () -> Void
 
     var body: some View {
         ZStack {

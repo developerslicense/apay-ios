@@ -9,6 +9,17 @@ internal struct HomePage: View {
     @State var showDialogExit: Bool = false
     @State var switchSaveCard: Bool = false
 
+    @State var cardNumberText: String = ""
+    @State var dateExpiredText: String = ""
+    @State var cvvText: String = ""
+
+    @State var cardNumberError: String? = nil
+    @State var dateExpiredError: String? = nil
+    @State var cvvError: String? = nil
+
+//        val cardNumberFocusRequester = FocusRequester()
+//        val dateExpiredFocusRequester = FocusRequester()
+//        val cvvFocusRequester = FocusRequester()
 
     var body: some View {
         ZStack {
@@ -25,6 +36,37 @@ internal struct HomePage: View {
                     TopInfoView(purchaseAmount: DataHolder.purchaseAmountFormatted)
                             .padding(.top, 24)
                             .padding(.horizontal, 16)
+
+                    CardNumberView(
+                            cardNumberText: cardNumberText,
+                            cardNumberError: cardNumberError
+//                            cardNumberFocusRequester: cardNumberFocusRequester,
+//                            dateExpiredFocusRequester: dateExpiredFocusRequester
+                    ).padding(.top, 16)
+
+                    HStack {
+                        DateExpiredView(
+                                dateExpiredText: dateExpiredText,
+                                dateExpiredError: dateExpiredError
+//                                dateExpiredFocusRequester: dateExpiredFocusRequester,
+//                                cvvFocusRequester: cvvFocusRequester,
+//                                modifier: Modifier.weight(0.5f).padding(end: 6.dp)
+                        )
+
+                        CvvView(
+                                cvvText: cvvText,
+                                cvvError: cvvError,
+//                                cvvFocusRequester: cvvFocusRequester,
+//                                modifier: Modifier.weight(0.5f).padding(start: 6.dp)
+                                actionClickInfo: {
+                                    /*coroutineScope.launch {
+                                        sheetState.show()
+                                    }*/
+                                }
+                        )
+                    }
+                            .padding(.horizontal, 16)
+                            .frame(width: .infinity)
 
                     SwitchedView(
                             text: saveCardData(),
@@ -51,33 +93,13 @@ internal struct HomePage: View {
 
 
 /*
-    val scaffoldState: ScaffoldState = rememberScaffoldState()
 
-    val isLoading = remember { mutableStateOf(true) }
-    val showDialogExit = remember { mutableStateOf(false) }
-    val switchSaveCard = remember { mutableStateOf(false) }
-
-    val cardNumberFocusRequester = FocusRequester()
-    val dateExpiredFocusRequester = FocusRequester()
-    val cvvFocusRequester = FocusRequester()
-
-    val cardNumberText = remember { mutableStateOf(TextFieldValue("")) }
-    val dateExpiredText = remember { mutableStateOf(TextFieldValue("")) }
-    val cvvText = remember { mutableStateOf(TextFieldValue("")) }
-
-    val cardNumberError = remember { mutableStateOf<String?>(null) }
-    val dateExpiredError = remember { mutableStateOf<String?>(null) }
-    val cvvError = remember { mutableStateOf<String?>(null) }
-    val emailError = remember { mutableStateOf<String?>(null) }
-
-    val focusManager = LocalFocusManager.current
 
     val sheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
         confirmValueChange = { it != ModalBottomSheetValue.HalfExpanded },
     )
 
-    val purchaseAmount = DataHolder.purchaseAmountFormatted.collectAsState()
 
     BackHandler {
         coroutineScope.launch {
@@ -100,46 +122,6 @@ internal struct HomePage: View {
             modifier = Modifier.fillMaxSize()
         ) {
 
-
-
-
-                    Spacer(modifier = Modifier.height(16.dp))
-                    CardNumberView(
-                        cardNumberText = cardNumberText,
-                        cardNumberError = cardNumberError,
-                        cardNumberFocusRequester = cardNumberFocusRequester,
-                        dateExpiredFocusRequester = dateExpiredFocusRequester
-                    )
-
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Row(
-                        modifier = Modifier
-                            .padding(start = 16.dp, end = 16.dp)
-                            .fillMaxWidth()
-                    ) {
-                        DateExpiredView(
-                            dateExpiredFocusRequester = dateExpiredFocusRequester,
-                            dateExpiredError = dateExpiredError,
-                            dateExpiredText = dateExpiredText,
-                            cvvFocusRequester = cvvFocusRequester,
-                            modifier = Modifier
-                                .weight(0.5f)
-                                .padding(end = 6.dp)
-                        )
-                        CvvView(
-                            cvvError = cvvError,
-                            cvvFocusRequester = cvvFocusRequester,
-                            cvvText = cvvText,
-                            actionClickInfo = {
-                                coroutineScope.launch {
-                                    sheetState.show()
-                                }
-                            },
-                            modifier = Modifier
-                                .weight(0.5f)
-                                .padding(start = 6.dp)
-                        )
-                    }
 
 
                 }
