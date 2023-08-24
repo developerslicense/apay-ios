@@ -34,18 +34,19 @@ internal struct ViewEditText: View {
             CoreEditText(
                     text: text,
                     paySystemIcon: paySystemIcon,
-                    isEmpty: text.isEmpty,
                     isError: errorTitle != nil,
                     hasFocus: hasFocus,
                     isDateExpiredMask: isDateExpiredMask,
                     placeholder: placeholder,
                     mask: mask,
                     regex: regex,
-                    actionOnTextChanged: actionOnTextChanged
+                    actionOnTextChanged: actionOnTextChanged,
+                    actionClickInfo: actionClickInfo
             )
         }
     }
 }
+
 /* Column(
         modifier = modifierRoot
     ) {

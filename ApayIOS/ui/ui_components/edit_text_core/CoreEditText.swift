@@ -10,7 +10,6 @@ internal struct CoreEditText: View {
     @State var text: String
     @State var paySystemIcon: String? = nil
 
-    @State var isEmpty: Bool
     @State var isError: Bool
     @State var hasFocus: Bool
 
@@ -31,17 +30,41 @@ internal struct CoreEditText: View {
     var body: some View {
         VStack {
 
-            ZStack(alignment: .leading) {
-                if text.isEmpty {
-                    Text(placeholder)
-                            .foregroundColor(hasFocus ? ColorsSdk.colorBrandMain : ColorsSdk.textLight)
-                            .frame(width: .infinity, alignment: .leading)
-                            .textStyleRegular()
+            HStack {
+                if (actionClickInfo != nil) {
+                    Image(isError ? "icHintError" : "icHint")
+                            .resizable()
+                            .frame(width: 24, height: 24)
                 }
 
-                TextField("", text: $text)
-                        .textStyleRegular()
-                        .frame(width: .infinity, alignment: .leading)
+                ZStack(alignment: .leading) {
+                    if text.isEmpty {
+                        Text(placeholder)
+                                .foregroundColor(hasFocus ? ColorsSdk.colorBrandMain : ColorsSdk.textLight)
+                                .frame(width: .infinity, alignment: .leading)
+                                .textStyleRegular()
+                    }
+
+                    TextField(
+                            "",
+                            text: $text,
+                            onCommit: {
+                                actionOnTextChanged(text)
+                            }
+                    )
+                            .textStyleRegular()
+                            .frame(width: .infinity, alignment: .leading)
+                }.frame(minHeight: 24)
+
+                if !text.isEmpty {
+                    Image("icClose")
+                            .resizable()
+                            .frame(width: 14, height: 14)
+                            .onTapGesture(perform: {
+                                text = ""
+                                actionOnTextChanged("")
+                            })
+                }
             }
         }
                 .padding()
@@ -51,7 +74,6 @@ internal struct CoreEditText: View {
                 )
     }
 }
-
 
 /*
     val maskUtils: MaskUtils? = if (mask == null) null else MaskUtils(mask, isDateExpiredMask)
@@ -139,18 +161,7 @@ private fun clearText(
     ""
 }
 
-@Composable
-private fun InitIconInfo(
-    isError: Boolean,
-    actionClickInfo: () -> Unit
-) {
-    InitActionIcon(
-        action = actionClickInfo,
-        iconSrc = R.drawable.hint,
-        modifier = Modifier.size(40.dp),
-        _outlinedButtonColor = if (isError) ColorsSdk.stateBgError else ColorsSdk.bgBlock
-    )
-}
+
 
 @Composable
 private fun InitIconPaySystem(
