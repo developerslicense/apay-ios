@@ -8,6 +8,8 @@ import SwiftUI
 internal struct SwitchedView: View {
     var text: String
     @State var switchCheckedState = false
+    var actionOnTrue: () -> Void
+
 
     var body: some View {
 
@@ -17,5 +19,10 @@ internal struct SwitchedView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 16)
                 .tint(ColorsSdk.colorBrandMain)
+                .onChange(of: switchCheckedState) { value in
+                    if(value) {
+                        actionOnTrue()
+                    }
+                }
     }
 }

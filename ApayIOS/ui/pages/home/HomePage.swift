@@ -4,6 +4,7 @@
 
 import Foundation
 import SwiftUI
+import SwiftUI_SimpleToast
 
 internal struct HomePage: View {
     @State var showDialogExit: Bool = false
@@ -22,6 +23,8 @@ internal struct HomePage: View {
 //        val cvvFocusRequester = FocusRequester()
 
     @State private var sheetState = false
+    @State var showToast: Bool = false
+    private let toastOptions = SimpleToastOptions(hideAfter: 5)
 
     var body: some View {
         ZStack {
@@ -63,7 +66,7 @@ internal struct HomePage: View {
 //                                cvvFocusRequester: cvvFocusRequester,
 //                                modifier: Modifier.weight(0.5f).padding(start: 6.dp)
                                 actionClickInfo: {
-                                     sheetState.toggle()
+                                    sheetState.toggle()
                                 }
                         )
                     }
@@ -72,8 +75,14 @@ internal struct HomePage: View {
 
                     SwitchedView(
                             text: saveCardData(),
-                            switchCheckedState: switchSaveCard
-                    ).padding(.top, 24)
+                            switchCheckedState: switchSaveCard,
+                            actionOnTrue: {
+                                withAnimation {
+                                    showToast.toggle()
+                                }
+                            }
+                    )
+                            .padding(.top, 24)
 
 
                     BottomImages()
@@ -93,16 +102,29 @@ internal struct HomePage: View {
                 .sheet(isPresented: $sheetState) {
                     CvvBottomSheet()
                 }
+                .overlay(ViewButton(
+                        title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
+                        actionClick: {
+
+                        }
+                )
+                        .frame(maxWidth: .infinity)
+                        .padding(.bottom, 24)
+                        .padding(.horizontal, 16), alignment: .bottom)
+                .simpleToast(isPresented: $showToast, options: toastOptions) {
+                    Label(cardDataSaved(), systemImage: "icAdd")
+                            .padding()
+                            .background(Color.gray.opacity(0.9))
+                            .foregroundColor(Color.white)
+                            .cornerRadius(10)
+                            .padding(.top)
+                }
 
     }
 }
 
 
 /*
-
-
-
-
 
 
                 }
@@ -152,14 +174,7 @@ internal struct HomePage: View {
 
             }
 
-            if (switchSaveCard.value) {
-                LaunchedEffect("snackBar") {
-                    scaffoldState.snackbarHostState.showSnackbar(
-                        message = cardDataSaved(),
-                        actionLabel = null
-                    )
-                }
-            }
+
 
             if (isLoading.value) {
                 ProgressBarView()

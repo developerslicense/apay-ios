@@ -6,6 +6,7 @@ target 'ApayIOS' do
   use_frameworks!
   
   # Pods for ApayIOS
+  pod 'SwiftUI-SimpleToast', :git => 'https://github.com/sanzaru/SimpleToast.git'
 
   target 'ApayIOSTests' do
     inherit! :search_paths
