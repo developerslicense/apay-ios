@@ -7,6 +7,7 @@ import SwiftUI
 
 internal struct HomePage: View {
     @State var showDialogExit: Bool = false
+    @State var switchSaveCard: Bool = false
 
 
     var body: some View {
@@ -39,6 +40,12 @@ internal struct HomePage: View {
                     TopInfoView(purchaseAmount: DataHolder.purchaseAmountFormatted)
                             .padding(.top, 24)
                             .padding(.horizontal, 16)
+
+                    SwitchedView(
+                            text: saveCardData(),
+                            switchCheckedState: switchSaveCard
+                    ).padding(.top, 24)
+
                 }
             }
         }
