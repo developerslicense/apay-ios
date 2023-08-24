@@ -12,33 +12,37 @@ internal struct CvvView: View {
     var actionClickInfo: () -> Void
 
     var body: some View {
-        ZStack {
-        }
+        let regex: Regex? = try? Regex(RegexConst.NOT_DIGITS)
 
 //        val focusManager:  LocalFocusManager.current
 
-      /*  ViewEditText(
+        ViewEditText(
                 text: cvvText,
-                regex: Regex(RegexConst.NOT_DIGITS),
-                mask: "AAA",
                 errorTitle: cvvError,
-                focusRequester: cvvFocusRequester,
+                hasFocus: false, //todo
                 placeholder: cvv(),
-                keyboardActions: KeyboardActions(
+                mask: "AAA",
+                regex: regex,
+                isDateExpiredMask: false,
+                paySystemIcon: nil,
+//                focusRequester: cvvFocusRequester,
+                /*keyboardActions: KeyboardActions(
                         onDone: {
                             focusManager.clearFocus(true)
                         }
-                ),
-                keyboardOptions: KeyboardOptions.Default.copy(
+                ),*/
+                /*keyboardOptions: KeyboardOptions.Default.copy(
                         capitalization: KeyboardCapitalization.None,
                         autoCorrect: false,
                         keyboardType: KeyboardType.NumberPassword,
                         imeAction: ImeAction.Done
-                ),
-                modifierRoot: modifier,
-                actionOnTextChanged: {},
-                actionClickInfo: actionClickInfo,
-                visualTransformation: PasswordVisualTransformation()
-        )*/
+                ),*/
+//                modifierRoot: modifier,
+                actionOnTextChanged: { pan in
+
+                },
+                actionClickInfo: actionClickInfo
+//                visualTransformation: PasswordVisualTransformation()
+        )
     }
 }

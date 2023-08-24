@@ -12,31 +12,34 @@ internal struct CardNumberView: View {
 //        cardNumberFocusRequester: FocusRequester,
 //        dateExpiredFocusRequester: FocusRequester,
     var body: some View {
-        ZStack{}
+        let regex: Regex? = try? Regex(RegexConst.NOT_DIGITS)
 
-      /*  ViewEditText(
-                mask: "AAAA AAAA AAAA AAAA",
+        ViewEditText(
                 text: cardNumberText,
-                regex: Regex(NOT_DIGITS),
-                paySystemIcon: paySystemIcon,
                 errorTitle: cardNumberError,
-                focusRequester: cardNumberFocusRequester,
+                hasFocus: false, //todo
                 placeholder: cardNumber(),
-                keyboardActions: KeyboardActions(
+                mask: "AAAA AAAA AAAA AAAA",
+                regex: regex,
+                isDateExpiredMask: false,
+                paySystemIcon: paySystemIcon,
+//                focusRequester: cardNumberFocusRequester,
+               /* keyboardActions: KeyboardActions(
                         onNext: {
                             dateExpiredFocusRequester.requestFocus()
                         }
-                ),
-                keyboardOptions: KeyboardOptions.Default.copy(
+                ),*/
+                /*keyboardOptions: KeyboardOptions.Default.copy(
                         capitalization: KeyboardCapitalization.None,
                         autoCorrect: false,
                         keyboardType: KeyboardType.Number,
                         imeAction: ImeAction.Next
-                ),
-                modifierRoot: Modifier.padding(horizontal: 16.dp),
-                actionOnTextChanged: { pan ->
-                        paySystemIcon: getCardTypeFromNumber(pan).icon
-                }
-        )*/
+                ),*/
+//                modifierRoot: Modifier.padding(horizontal: 16.dp),
+                actionOnTextChanged: { pan in
+//                        paySystemIcon = getCardTypeFromNumber(pan).icon
+                },
+                actionClickInfo: nil
+        )
     }
 }

@@ -42,7 +42,9 @@ internal struct HomePage: View {
                             cardNumberError: cardNumberError
 //                            cardNumberFocusRequester: cardNumberFocusRequester,
 //                            dateExpiredFocusRequester: dateExpiredFocusRequester
-                    ).padding(.top, 16)
+                    )
+                            .padding(.top, 16)
+                            .padding(.horizontal, 16)
 
                     HStack {
                         DateExpiredView(

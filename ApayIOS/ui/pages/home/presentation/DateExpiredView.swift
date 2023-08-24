@@ -12,16 +12,19 @@ internal struct DateExpiredView: View {
 //        var cvvFocusRequester: FocusRequester
 
     var body: some View {
-        ZStack{}
-        /*ViewEditText(
+        let regex: Regex? = try? Regex(RegexConst.NOT_DIGITS)
+
+        ViewEditText(
                 text: dateExpiredText,
-                mask: "AA/AA",
-                isDateExpiredMask: true,
-                regex: Regex(RegexConst.NOT_DIGITS),
                 errorTitle: dateExpiredError,
-                focusRequester: dateExpiredFocusRequester,
+                hasFocus: false, //todo
                 placeholder: dateExpired(),
-                keyboardActions: KeyboardActions(
+                mask: "AA/AA",
+                regex: regex,
+                isDateExpiredMask: true,
+                paySystemIcon: nil,
+//                focusRequester: dateExpiredFocusRequester,
+                /* keyboardActions: KeyboardActions(
                         onNext: {
                             cvvFocusRequester.requestFocus()
                         }
@@ -31,9 +34,12 @@ internal struct DateExpiredView: View {
                         autoCorrect: false,
                         keyboardType: KeyboardType.Number,
                         imeAction: ImeAction.Next
-                ),
-                modifierRoot: modifier,
-                actionOnTextChanged: {}
-        )*/
+                ),*/
+//                modifierRoot: modifier,
+                actionOnTextChanged: { pan in
+
+                },
+                actionClickInfo: nil
+        )
     }
 }
