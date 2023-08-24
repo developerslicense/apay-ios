@@ -10,6 +10,7 @@
 		7E0E40D1EFE84966B57C119B /* DateExpiredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E42747F1C99013AC8218A /* DateExpiredView.swift */; };
 		7E0E41151D3487AE9C94EAA9 /* MoneyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4CA71EAD9D9A6C9AC7A3 /* MoneyUtils.swift */; };
 		7E0E4119E8A069E9AE44FD7B /* AirbaPaySdk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E47A48DAA8230D8C988A8 /* AirbaPaySdk.swift */; };
+		7E0E41463F3FF5AE81CA9628 /* BottomSheetUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4F9934EAC5D546EFC255 /* BottomSheetUtils.swift */; };
 		7E0E41D0D922A532B4DD2141 /* TopInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E464AEA9AFCF0DB485A40 /* TopInfoView.swift */; };
 		7E0E425DEC9E7FF662916A16 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E0E41A5CF56E1E61A2FFAD4 /* Montserrat-Regular.ttf */; };
 		7E0E426178E4D9F1ED4BAF74 /* WebViewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E48F5255651E4DB9353C9 /* WebViewPage.swift */; };
@@ -37,6 +38,7 @@
 		7E0E48EF8104C87DCB16C9BE /* MaskFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E423B5E6437AD0109C781 /* MaskFormatterTests.swift */; };
 		7E0E499B0DB6517923BA8BC1 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4093DE928D6DCF39E6B1 /* Auth.swift */; };
 		7E0E49BFEB256FF12A538E23 /* BanksName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E419FD37CA9A3585CACC9 /* BanksName.swift */; };
+		7E0E49D1B07A7D24CA640E46 /* BottomSheetHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4241A0EB15988EAB2C47 /* BottomSheetHeader.swift */; };
 		7E0E4A81630054EACAC987F7 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E419D843E66EB23F8B8CE /* Strings.swift */; };
 		7E0E4AD56C81575A94E8C96E /* MoneyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E49A64D064FB1C1FA10ED /* MoneyTests.swift */; };
 		7E0E4B013810221530803D1D /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E41701EB77D45776A34FE /* ProgressBarView.swift */; };
@@ -109,6 +111,7 @@
 		7E0E41A5CF56E1E61A2FFAD4 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file.ttf; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		7E0E4207AACAD47D68A029FF /* ViewButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewButton.swift; sourceTree = "<group>"; };
 		7E0E423B5E6437AD0109C781 /* MaskFormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskFormatterTests.swift; sourceTree = "<group>"; };
+		7E0E4241A0EB15988EAB2C47 /* BottomSheetHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetHeader.swift; sourceTree = "<group>"; };
 		7E0E4253AB9A342658701F4B /* PaymentInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentInfo.swift; sourceTree = "<group>"; };
 		7E0E42747F1C99013AC8218A /* DateExpiredView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExpiredView.swift; sourceTree = "<group>"; };
 		7E0E42A5F5B037D28E709079 /* Popup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
@@ -148,6 +151,7 @@
 		7E0E4E0263C6030598DA3D25 /* BottomImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomImages.swift; sourceTree = "<group>"; };
 		7E0E4EB387A52E1880097F6B /* SwitchedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchedView.swift; sourceTree = "<group>"; };
 		7E0E4F0F556E8E2E55E6CBA6 /* CardAdd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardAdd.swift; sourceTree = "<group>"; };
+		7E0E4F9934EAC5D546EFC255 /* BottomSheetUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetUtils.swift; sourceTree = "<group>"; };
 		7E0E4FE567E01C3E55C295E6 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		7E0E4FFB61E525F711672857 /* TestPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestPage.swift; sourceTree = "<group>"; };
 		8DA16FF88F17BC0417EC69D2 /* Pods-ApayIOS-ApayIOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApayIOS-ApayIOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-ApayIOS-ApayIOSUITests/Pods-ApayIOS-ApayIOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -299,6 +303,8 @@
 				7E0E41701EB77D45776A34FE /* ProgressBarView.swift */,
 				7E0E49F85FF292EA2283E256 /* ViewToolbar.swift */,
 				7E0E4EA11EA4AA2375992A8F /* edit_text_core */,
+				7E0E4241A0EB15988EAB2C47 /* BottomSheetHeader.swift */,
+				7E0E4F9934EAC5D546EFC255 /* BottomSheetUtils.swift */,
 			);
 			path = ui_components;
 			sourceTree = "<group>";
@@ -766,6 +772,8 @@
 				7E0E4EF4494680946703A9C0 /* ViewToolbar.swift in Sources */,
 				7E0E42B428A28CA6D170570F /* CoreEditText.swift in Sources */,
 				7E0E4669012571313E50C50E /* ViewEditText.swift in Sources */,
+				7E0E49D1B07A7D24CA640E46 /* BottomSheetHeader.swift in Sources */,
+				7E0E41463F3FF5AE81CA9628 /* BottomSheetUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

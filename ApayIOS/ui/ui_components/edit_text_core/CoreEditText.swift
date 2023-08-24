@@ -35,6 +35,9 @@ internal struct CoreEditText: View {
                     Image(isError ? "icHintError" : "icHint")
                             .resizable()
                             .frame(width: 24, height: 24)
+                            .onTapGesture(perform: {
+                                actionClickInfo!()
+                            })
                 }
 
                 ZStack(alignment: .leading) {

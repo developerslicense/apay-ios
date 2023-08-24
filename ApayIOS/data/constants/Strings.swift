@@ -82,8 +82,15 @@ internal func payAmount() -> String {
 
 internal func cvvInfo() -> String {
     getStrFromRes(
-            "CVV находится на задней стороне вашей платежной карты",
-            "CVV төлем картаңыздың артында орналасқан"
+            "CVV находится на задней стороне",
+            "CVV төлем картаңыздың артында"
+    )
+}
+
+internal func cvvInfo2() -> String {
+    getStrFromRes(
+            "вашей платежной карты",
+            "орналасқан"
     )
 }
 

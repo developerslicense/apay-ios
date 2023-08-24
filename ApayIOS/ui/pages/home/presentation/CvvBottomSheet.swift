@@ -6,40 +6,40 @@ import Foundation
 import SwiftUI
 
 internal struct CvvBottomSheet: View {
-    var  actionClose: () -> Void
+    @Environment(\.dismiss) var dismiss
+
+    @State var presentSheet: Bool = false
+    @State var detentHeight: CGFloat = 0
 
     var body: some View {
-        VStack {}
+        ColorsSdk.bgBlock.overlay(
+                VStack {
+                    InitHeader(
+                            title: "CVV",
+                            actionClose: {
+                                dismiss()
+                            }
+                    )
+
+                    Text(cvvInfo())
+                            .textStyleRegular()
+                            .padding(.horizontal, 16)
+                            .padding(.top, 22)
+
+                    Text(cvvInfo2())
+                            .textStyleRegular()
+                            .padding(.horizontal, 16)
+                            .padding(.bottom, 32)
+
+                }
+                        .readHeight()
+                        .onPreferenceChange(HeightPreferenceKey.self) { height in
+                            if let height {
+                                self.detentHeight = height
+                            }
+                        }
+                        .presentationDetents([.height(detentHeight)])
+        )
     }
+
 }
-
-/* Card(
-        shape = RoundedCornerShape(
-            topStart = 12.dp,
-            topEnd = 12.dp
-        ),
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-
-            ) {
-
-            InitHeader(
-                title = "CVV",
-                actionClose = actionClose,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(ColorsSdk.gray0)
-            )
-
-            Text(
-                text = cvvInfo(),
-                style = LocalFonts.current.regular,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(bottom = 32.dp)
-                    .padding(top = 22.dp)
-            )
-        }
-    }*/

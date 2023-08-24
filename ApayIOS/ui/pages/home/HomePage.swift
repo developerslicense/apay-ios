@@ -21,6 +21,8 @@ internal struct HomePage: View {
 //        val dateExpiredFocusRequester = FocusRequester()
 //        val cvvFocusRequester = FocusRequester()
 
+    @State private var sheetState = false
+
     var body: some View {
         ZStack {
             ColorsSdk.bgBlock
@@ -61,9 +63,7 @@ internal struct HomePage: View {
 //                                cvvFocusRequester: cvvFocusRequester,
 //                                modifier: Modifier.weight(0.5f).padding(start: 6.dp)
                                 actionClickInfo: {
-                                    /*coroutineScope.launch {
-                                        sheetState.show()
-                                    }*/
+                                     sheetState.toggle()
                                 }
                         )
                     }
@@ -90,6 +90,10 @@ internal struct HomePage: View {
                                 })
                 )
                 .onTapGesture(perform: { showDialogExit = false })
+                .sheet(isPresented: $sheetState) {
+                    CvvBottomSheet()
+                }
+
     }
 }
 
@@ -97,32 +101,7 @@ internal struct HomePage: View {
 /*
 
 
-    val sheetState = rememberModalBottomSheetState(
-        initialValue = ModalBottomSheetValue.Hidden,
-        confirmValueChange = { it != ModalBottomSheetValue.HalfExpanded },
-    )
 
-
-    BackHandler {
-        coroutineScope.launch {
-            if (sheetState.isVisible) sheetState.hide()
-            else showDialogExit.value = true
-        }
-    }
-
-    Scaffold(
-        scaffoldState = scaffoldState
-    ) { padding ->
-        ModalBottomSheetLayout(
-            sheetState = sheetState,
-            sheetBackgroundColor = ColorsSdk.transparent,
-            sheetContent = {
-                CvvBottomSheet {
-                    coroutineScope.launch { sheetState.hide() }
-                }
-            },
-            modifier = Modifier.fillMaxSize()
-        ) {
 
 
 
