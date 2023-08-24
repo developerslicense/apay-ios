@@ -8,7 +8,7 @@ import SwiftUI
 internal struct CardNumberView: View {
         @State var cardNumberText: String
         @State var cardNumberError: String?
-        @State var paySystemIcon: String?
+        @State var paySystemIcon: String = ""
 //        cardNumberFocusRequester: FocusRequester,
 //        dateExpiredFocusRequester: FocusRequester,
     var body: some View {
@@ -22,7 +22,7 @@ internal struct CardNumberView: View {
                 mask: "AAAA AAAA AAAA AAAA",
                 regex: regex,
                 isDateExpiredMask: false,
-                paySystemIcon: paySystemIcon,
+                isCardNumber: true,
 //                focusRequester: cardNumberFocusRequester,
                /* keyboardActions: KeyboardActions(
                         onNext: {
@@ -37,7 +37,7 @@ internal struct CardNumberView: View {
                 ),*/
 //                modifierRoot: Modifier.padding(horizontal: 16.dp),
                 actionOnTextChanged: { pan in
-//                        paySystemIcon = getCardTypeFromNumber(pan).icon
+
                 },
                 actionClickInfo: nil
         )

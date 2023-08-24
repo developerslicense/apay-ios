@@ -4,12 +4,9 @@
 
 import Foundation
 
-internal enum CardType {
-        case MIR //(R.drawable.mir),
-        case MASTER_CARD//(R.drawable.master_card),
-        case MAESTRO//(R.drawable.maestro_card),
-        case VISA//(R.drawable.visa),
-        case AMERICAN_EXPRESS//(R.drawable.american_express),
-        case CHINA_UNION_PAY//(R.drawable.union_pay),
-        case INVALID//(null);
+internal class CardType {
+        static let MASTER_CARD : String = "icMasterCard"
+        static let  VISA  : String = "icVisa"
+        static let  AMERICAN_EXPRESS  : String = "icAmericanExpress"
+        static let  INVALID : String = "icAlarm"
 }

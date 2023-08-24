@@ -22,7 +22,7 @@ internal struct DateExpiredView: View {
                 mask: "AA/AA",
                 regex: regex,
                 isDateExpiredMask: true,
-                paySystemIcon: nil,
+                isCardNumber: false,
 //                focusRequester: dateExpiredFocusRequester,
                 /* keyboardActions: KeyboardActions(
                         onNext: {
@@ -36,7 +36,7 @@ internal struct DateExpiredView: View {
                         imeAction: ImeAction.Next
                 ),*/
 //                modifierRoot: modifier,
-                actionOnTextChanged: { pan in
+                actionOnTextChanged: { date in
 
                 },
                 actionClickInfo: nil

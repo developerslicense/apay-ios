@@ -24,7 +24,7 @@ internal struct CvvView: View {
                 mask: "AAA",
                 regex: regex,
                 isDateExpiredMask: false,
-                paySystemIcon: nil,
+                isCardNumber: false,
 //                focusRequester: cvvFocusRequester,
                 /*keyboardActions: KeyboardActions(
                         onDone: {
@@ -38,7 +38,7 @@ internal struct CvvView: View {
                         imeAction: ImeAction.Done
                 ),*/
 //                modifierRoot: modifier,
-                actionOnTextChanged: { pan in
+                actionOnTextChanged: { cvv in
 
                 },
                 actionClickInfo: actionClickInfo

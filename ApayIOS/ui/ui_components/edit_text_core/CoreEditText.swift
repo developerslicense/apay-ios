@@ -8,12 +8,13 @@ import SwiftUI
 internal struct CoreEditText: View {
 
     @State var text: String
-    @State var paySystemIcon: String? = nil
+    @State var paySystemIcon: String = ""
 
     @State var isError: Bool
     @State var hasFocus: Bool
 
     var isDateExpiredMask: Bool
+    var isCardNumber: Bool
     var placeholder: String
     var mask: String?
     var regex: Regex<AnyRegexOutput>?
@@ -40,6 +41,12 @@ internal struct CoreEditText: View {
                             })
                 }
 
+                if isCardNumber && !text.isEmpty {
+                    Image(paySystemIcon)
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                }
+
                 ZStack(alignment: .leading) {
                     if text.isEmpty {
                         Text(placeholder)
@@ -48,16 +55,24 @@ internal struct CoreEditText: View {
                                 .textStyleRegular()
                     }
 
-                    TextField(
-                            "",
-                            text: $text,
-                            onCommit: {
-                                actionOnTextChanged(text)
-                            }
-                    )
+                    TextField("", text: $text)
+                            .onChange(
+                                    of: text,
+                                    perform: { newValue in
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                                            withAnimation {
+                                                self.paySystemIcon = getCardTypeFromNumber(input: newValue)
+                                            }
+                                        }
+                                        actionOnTextChanged(text)
+                                    }
+                            )
+                            .disableAutocorrection(true)
                             .textStyleRegular()
                             .frame(width: .infinity, alignment: .leading)
-                }.frame(minHeight: 24)
+
+                }
+                        .frame(minHeight: 24)
 
                 if !text.isEmpty {
                     Image("icClose")
@@ -146,24 +161,6 @@ internal struct CoreEditText: View {
 
 
 /*
-private fun clearText(
-    text: String,
-    regex: Regex?
-) = try {
-    val temp = regex?.let { regexForClear ->
-        text.replace(
-            regex = regexForClear,
-            replacement = ""
-        )
-    } ?: text
-
-    temp
-
-} catch (e: Exception) {
-//    e.printStackTrace()
-    ""
-}
-
 
 
 @Composable

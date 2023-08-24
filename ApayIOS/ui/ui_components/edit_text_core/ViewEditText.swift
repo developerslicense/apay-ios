@@ -14,10 +14,10 @@ internal struct ViewEditText: View {
     var mask: String?
     var regex: Regex<AnyRegexOutput>? = nil
     var isDateExpiredMask: Bool
+    var isCardNumber: Bool
 //        focusRequester: FocusRequester
 //        modifierRoot: Modifier: Modifier
 //        modifierChild: Modifier: Modifier
-    var paySystemIcon: String?
 //        keyboardActions: KeyboardActions
 //        keyboardOptions: KeyboardOptions: KeyboardOptions.Default.copy(
 //        capitalization: KeyboardCapitalization.None
@@ -33,10 +33,10 @@ internal struct ViewEditText: View {
         VStack {
             CoreEditText(
                     text: text,
-                    paySystemIcon: paySystemIcon,
                     isError: errorTitle != nil,
                     hasFocus: hasFocus,
                     isDateExpiredMask: isDateExpiredMask,
+                    isCardNumber: isCardNumber,
                     placeholder: placeholder,
                     mask: mask,
                     regex: regex,

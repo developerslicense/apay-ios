@@ -9,11 +9,11 @@ import Foundation
 
 internal func getCardTypeFromNumber(
         input: String
-) -> CardType {
+) -> String {
     if (input.contains(try! Regex("^((34)|(37))"))) {
         return CardType.AMERICAN_EXPRESS
 
-    } else if (input.contains(try! Regex("^(62)"))) {
+    } /*else if (input.contains(try! Regex("^(62)"))) {
         return CardType.CHINA_UNION_PAY
 
     } else if (input.contains(try! Regex("^(220[0–4])"))) {
@@ -22,7 +22,8 @@ internal func getCardTypeFromNumber(
     } else if (input.contains(try! Regex("^((5018)|(5020)|(5038)|(5893)|(6304)|(6759)|(6761)|(6762)|(6763))"))) {
         return CardType.MAESTRO
 
-    } else if (input.contains(try! Regex("^((5[1-5])|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720))"))) {
+    } */
+    else if (input.contains(try! Regex("^((5[1-5])|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720))"))) {
         return CardType.MASTER_CARD
 
     } else if (input.contains(try! Regex("^4"))) {
