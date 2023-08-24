@@ -16,27 +16,12 @@ internal struct HomePage: View {
 
             GeometryReader { metrics in
                 VStack {
-                    // toolbar
-                    HStack {
-                        Image("icArrowBack")
-                                .resizable()
-                                .frame(width: 32, height: 32)
-                                .foregroundColor(.black)
-                                .padding(.top, 12)
-                                .padding(.leading, 12)
-                                .onTapGesture(perform: {
-                                    showDialogExit = true
-                                })
+                    ViewToolbar(
+                            title: paymentOfPurchase(),
+                            actionShowDialogExit: { showDialogExit = true }
+                    )
+                            .frame(maxWidth: .infinity, alignment: .leading)
 
-                        Text(paymentOfPurchase())
-                                .textStyleH0()
-                                .padding(.top, 15)
-                                .padding(.trailing, 30)
-                                .frame(maxWidth: .infinity, alignment: .center)
-
-                    }.frame(maxWidth: .infinity, alignment: .leading)
-
-                    // top Info
                     TopInfoView(purchaseAmount: DataHolder.purchaseAmountFormatted)
                             .padding(.top, 24)
                             .padding(.horizontal, 16)
@@ -46,6 +31,10 @@ internal struct HomePage: View {
                             switchCheckedState: switchSaveCard
                     ).padding(.top, 24)
 
+
+                    BottomImages()
+                            .padding(.top, 35)
+                            .padding(.horizontal, 16)
                 }
             }
         }
@@ -114,16 +103,6 @@ internal struct HomePage: View {
 
 
 
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(scrollState)
-                        .background(ColorsSdk.bgBlock)
-                        .weight(1f)
-                ) {
-                    TopInfoView(purchaseAmount.value)
-
                     Spacer(modifier = Modifier.height(16.dp))
                     CardNumberView(
                         cardNumberText = cardNumberText,
@@ -162,13 +141,7 @@ internal struct HomePage: View {
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(24.dp))
-                    SwitchedView(
-                        text = saveCardData(),
-                        switchCheckedState = switchSaveCard,
-                    )
 
-                    BottomImages()
                 }
 
                 ViewButton(
@@ -213,13 +186,7 @@ internal struct HomePage: View {
                         .padding(bottom = 16.dp)
                 )
 
-                if (showDialogExit.value) {
-                    InitDialogExit(
-                        onDismissRequest = {
-                            showDialogExit.value = false
-                        }
-                    )
-                }
+
             }
 
             if (switchSaveCard.value) {

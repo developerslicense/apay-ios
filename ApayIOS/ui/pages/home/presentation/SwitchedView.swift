@@ -16,6 +16,6 @@ internal struct SwitchedView: View {
                 .frame(height: 48)
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 16)
-
+                .tint(ColorsSdk.colorBrandMain)
     }
 }
