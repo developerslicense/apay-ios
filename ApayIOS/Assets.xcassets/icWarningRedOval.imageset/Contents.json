@@ -1,14 +1,17 @@
 {
   "images" : [
     {
+      "filename" : "Icons for modal.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Icons for modal@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Icons for modal@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -35,8 +35,11 @@ internal struct WebViewPage: View {
                 .modifier(
                         Popup(
                                 isPresented: showDialogExit,
-                                content: { DialogExit() })
+                                content: {
+                                    DialogExit(onDismissRequest: { showDialogExit = false })
+                                })
                 )
+                .onTapGesture(perform: { showDialogExit = false })
     }
 }
 

@@ -21,6 +21,7 @@
 		7E0E457335C2491B8E001F0F /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E42A5F5B037D28E709079 /* Popup.swift */; };
 		7E0E45B724D25815CD138AF9 /* GetNumberCleatedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4BED15762906251BAF22 /* GetNumberCleatedTests.swift */; };
 		7E0E45D6E0F3F5556F39AF01 /* ErrorSomethingWrongPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4C74A80676573E9AD57E /* ErrorSomethingWrongPage.swift */; };
+		7E0E46196CF4142D7F474201 /* ViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E41D7239EF18A67CA3178 /* ViewUtils.swift */; };
 		7E0E4685185A4C93C3202B6C /* PaymentCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4949601130990749DCDC /* PaymentCreate.swift */; };
 		7E0E469CB1C73996332368CC /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E0E4A416E8857482CC523EF /* Montserrat-Bold.ttf */; };
 		7E0E479079EE6F306AD23584 /* CardsGet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E41373046447B451B3375 /* CardsGet.swift */; };
@@ -95,6 +96,7 @@
 		7E0E419D843E66EB23F8B8CE /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		7E0E419FD37CA9A3585CACC9 /* BanksName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BanksName.swift; sourceTree = "<group>"; };
 		7E0E41A5CF56E1E61A2FFAD4 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file.ttf; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		7E0E41D7239EF18A67CA3178 /* ViewUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewUtils.swift; sourceTree = "<group>"; };
 		7E0E4207AACAD47D68A029FF /* ViewButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewButton.swift; sourceTree = "<group>"; };
 		7E0E423B5E6437AD0109C781 /* MaskFormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskFormatterTests.swift; sourceTree = "<group>"; };
 		7E0E4253AB9A342658701F4B /* PaymentInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentInfo.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 			children = (
 				7E0E4207AACAD47D68A029FF /* ViewButton.swift */,
 				7E0E41701EB77D45776A34FE /* ProgressBarView.swift */,
+				7E0E41D7239EF18A67CA3178 /* ViewUtils.swift */,
 			);
 			path = ui_components;
 			sourceTree = "<group>";
@@ -694,6 +697,7 @@
 				7E0E426178E4D9F1ED4BAF74 /* WebViewPage.swift in Sources */,
 				7E0E457335C2491B8E001F0F /* Popup.swift in Sources */,
 				7E0E438A07A8C4521290C70C /* DialogExit.swift in Sources */,
+				7E0E46196CF4142D7F474201 /* ViewUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
