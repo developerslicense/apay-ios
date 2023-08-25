@@ -5,17 +5,9 @@
 import Foundation
 
 internal class MaskUtils {
-    var pattern: String = "AAAA AAAA AAAA AAAA"
+    var pattern: String = ""
     var isDateExpiredMask: Bool = false
     var patternArr: [String] = []
-
-    /*init(
-            pattern: String,
-            isDateExpired: Bool = false
-    ) {
-        self.pattern = pattern
-        self.isDateExpiredMask = isDateExpired
-    }*/
 
     func getNextCursorPosition(newPosition: Int) -> Int {
         let result = getCharOnIndex(text: pattern, index: newPosition)
