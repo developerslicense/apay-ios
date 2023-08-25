@@ -5,6 +5,7 @@
 import Foundation
 import SwiftUI
 
+// https://suragch.medium.com/getting-and-setting-the-cursor-position-in-swift-68da99bcef39
 internal struct CoreEditText: View {
 
     @State var text: String
@@ -97,9 +98,10 @@ internal struct CoreEditText: View {
                                                 )
                                         )
                                     }
-                                    isError = text.count > 1
+
                                     textBeforeChange = text
                                     actionOnTextChanged(text)
+
                                 }
                         )
                         .disableAutocorrection(true)
