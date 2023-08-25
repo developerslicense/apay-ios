@@ -16,7 +16,6 @@ internal struct CoreEditText: View {
     var isDateExpiredMask: Bool
     var isCardNumber: Bool
     var placeholder: String
-    var mask: String?
     var regex: Regex<AnyRegexOutput>?
 //        keyboardActions: KeyboardActions
 //        keyboardOptions: KeyboardOptions
@@ -25,8 +24,13 @@ internal struct CoreEditText: View {
     var actionOnTextChanged: (String) -> Void
     var actionClickInfo: (() -> Void)? = nil
 
-//        visualTransformation: VisualTransformation? = nil
+    var maskUtils: MaskUtils?
 
+    static var maskUtilsCardNumber: MaskUtils {
+        let mu = MaskUtils()
+        mu.pattern = "AAAA AAAA AAAA AAAA"
+        return mu
+    }
 
     var body: some View {
         VStack {
@@ -55,24 +59,65 @@ internal struct CoreEditText: View {
                                 .textStyleRegular()
                     }
 
-                    TextField("", text: $text)
+                    TextField("",
+                            text: $text
+//                            formatter: CoreEditText.df,
+                            /* onEditingChanged: { (isBegin) in
+                                if isBegin {
+                                    print("Begins editing")
+                                } else {
+                                    print("Finishes editing")
+                                }
+                            },
+                            onCommit: {
+                                print("commit")
+                            }*/
+
+                    )
+
                             .onChange(
                                     of: text,
                                     perform: { newValue in
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                                            withAnimation {
-                                                self.paySystemIcon = getCardTypeFromNumber(input: newValue)
+                                        print("qqqqqq " + newValue)
+
+                                        if (isCardNumber) {
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                                                withAnimation {
+                                                    self.paySystemIcon = getCardTypeFromNumber(input: newValue)
+                                                }
                                             }
                                         }
+                                        text = CoreEditText.maskUtilsCardNumber.format(
+                                                text: getNumberClearedWithMaxSymbol(
+                                                        amount: newValue,
+                                                        maxSize: 16
+                                                )
+                                        )
+
                                         actionOnTextChanged(text)
                                     }
                             )
-                            .disableAutocorrection(true)
+                            /*.onEditingChanged: { isBegin in
+                                if isBegin {
+                                    print("Begins editing")
+                                } else {
+                                    print("Finishes editing")
+                                }
+                            },
+                            onCommit: {
+                                print("commit")
+                            }*/
+                            //                            .disableAutocorrection(true)
                             .textStyleRegular()
+                            .foregroundColor(ColorsSdk.transparent)
                             .frame(width: .infinity, alignment: .leading)
 
+                    /*   Text(text) //костыль для форматирования текста
+                            .textStyleRegular()
+                            .frame(minHeight: 24)*/
                 }
                         .frame(minHeight: 24)
+
 
                 if !text.isEmpty {
                     Image("icClose")
@@ -93,8 +138,50 @@ internal struct CoreEditText: View {
     }
 }
 
+internal func clearText(
+        text: String,
+        regex: Regex<AnyRegexOutput>
+) -> String {
+    var tempText = text
+    tempText.replace(regex, with: "")
+
+    return tempText
+}
+
+internal func formatTestAfterEnter(
+        maskUtils: MaskUtils?,
+        isCardNumber: Bool,
+        regex: Regex<AnyRegexOutput>?,
+        text: String
+) -> String {
+    if (maskUtils == nil) {
+
+        let clearedText = regex != nil
+                ? clearText(text: text, regex: regex!)
+                : text
+
+        if (maskUtils != nil) {
+            print("aaaaaaaa |" + text + "|" + clearedText + "|" + maskUtils!.format(text: clearedText) + "|")
+            return maskUtils!.format(text: clearedText)
+        } else {
+
+            return clearedText
+        }
+
+        /* text.value = TextFieldValue(
+                                                    text = maskUtils.format(result),
+                                                    selection = TextRange(maskUtils.getNextCursorPosition(it.selection.end) ?: 0)
+                                            )*/
+
+//                                        print("aaaaaaaa___ " + text)
+
+    } else {
+        return text
+    }
+}
+
 /*
-    val maskUtils: MaskUtils? = if (mask == null) null else MaskUtils(mask, isDateExpiredMask)
+
 
     val onTextChanged: ((TextFieldValue) -> Unit) = {
         if (maskUtils != null
@@ -159,25 +246,3 @@ internal struct CoreEditText: View {
         }}
     )*/
 
-
-/*
-
-
-@Composable
-private fun InitIconPaySystem(
-    isError: Boolean,
-    text: String,
-    paySystemIcon: Int?
-) {
-    if (
-        text.isNotBlank()
-        && paySystemIcon != null
-    ) {
-        InitActionIcon(
-            action = null,
-            iconSrc = paySystemIcon,
-            modifier = Modifier.size(40.dp),
-            _outlinedButtonColor = if (isError) ColorsSdk.stateBgError else ColorsSdk.bgBlock
-        )
-    }
-}*/

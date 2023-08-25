@@ -11,7 +11,7 @@ internal struct ViewEditText: View {
     @State var hasFocus: Bool
 
     var placeholder: String
-    var mask: String?
+    var maskUtils: MaskUtils?
     var regex: Regex<AnyRegexOutput>? = nil
     var isDateExpiredMask: Bool
     var isCardNumber: Bool
@@ -30,6 +30,7 @@ internal struct ViewEditText: View {
     var actionClickInfo: (() -> Void)?
 
     var body: some View {
+
         VStack {
             CoreEditText(
                     text: text,
@@ -38,10 +39,10 @@ internal struct ViewEditText: View {
                     isDateExpiredMask: isDateExpiredMask,
                     isCardNumber: isCardNumber,
                     placeholder: placeholder,
-                    mask: mask,
                     regex: regex,
                     actionOnTextChanged: actionOnTextChanged,
-                    actionClickInfo: actionClickInfo
+                    actionClickInfo: actionClickInfo,
+                    maskUtils: maskUtils
             )
         }
     }

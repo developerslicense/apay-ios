@@ -19,7 +19,7 @@ internal struct DateExpiredView: View {
                 errorTitle: dateExpiredError,
                 hasFocus: false, //todo
                 placeholder: dateExpired(),
-                mask: "AA/AA",
+//                mask: "AA/AA",
                 regex: regex,
                 isDateExpiredMask: true,
                 isCardNumber: false,

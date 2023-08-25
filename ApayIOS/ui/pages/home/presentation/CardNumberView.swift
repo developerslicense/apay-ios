@@ -6,11 +6,14 @@ import Foundation
 import SwiftUI
 
 internal struct CardNumberView: View {
-        @State var cardNumberText: String
-        @State var cardNumberError: String?
-        @State var paySystemIcon: String = ""
+    @State var cardNumberText: String
+    @State var cardNumberError: String?
+    @State var paySystemIcon: String = ""
+//    var mask: MaskCardNumber = MaskCardNumber()
 //        cardNumberFocusRequester: FocusRequester,
 //        dateExpiredFocusRequester: FocusRequester,
+
+
     var body: some View {
         let regex: Regex? = try? Regex(RegexConst.NOT_DIGITS)
 
@@ -19,12 +22,12 @@ internal struct CardNumberView: View {
                 errorTitle: cardNumberError,
                 hasFocus: false, //todo
                 placeholder: cardNumber(),
-                mask: "AAAA AAAA AAAA AAAA",
+                maskUtils: nil,//MaskUtils(pattern: "AAAA AAAA AAAA AAAA"),
                 regex: regex,
                 isDateExpiredMask: false,
                 isCardNumber: true,
 //                focusRequester: cardNumberFocusRequester,
-               /* keyboardActions: KeyboardActions(
+                /* keyboardActions: KeyboardActions(
                         onNext: {
                             dateExpiredFocusRequester.requestFocus()
                         }
