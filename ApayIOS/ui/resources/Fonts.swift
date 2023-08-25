@@ -8,11 +8,12 @@ import SwiftUI
 
 internal extension View {
 
-    func textStyleRegular() -> some View {
+    func textStyleRegular(textColor: Color? = nil) -> some View {
         fontWithLineHeight(
 //                font: .system(size: 14).weight(Font.Weight.regular),
                 font: Font.custom("Montserrat-Regular", fixedSize: 14),
-                lineHeight: 1.57 //22
+                lineHeight: 1.57, //22
+                textColor: textColor
         )
     }
 
@@ -104,18 +105,19 @@ internal extension View {
         )
     }
 
-    func fontWithLineHeight(font: Font, lineHeight: CGFloat) -> some View {
-        ModifiedContent(content: self, modifier: FontWithLineHeight(font: font, lineHeight: lineHeight))
+    func fontWithLineHeight(font: Font, lineHeight: CGFloat, textColor: Color? = nil) -> some View {
+        ModifiedContent(content: self, modifier: FontWithLineHeight(font: font, lineHeight: lineHeight, textColor: textColor))
     }
 }
 
 internal struct FontWithLineHeight: ViewModifier {
     let font: Font
     let lineHeight: CGFloat
+    let textColor: Color?
 
     func body(content: Content) -> some View {
         content
-                .foregroundStyle(ColorsSdk.textMain)
+                .foregroundStyle(textColor ?? ColorsSdk.textMain)
                 .font(font)
                 .lineSpacing(lineHeight)
     }

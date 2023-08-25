@@ -30,7 +30,7 @@ internal func getCardTypeFromNumber(
         return CardType.VISA
 
     } else {
-        return CardType.INVALID
+        return ""//CardType.INVALID
     }
 }
 

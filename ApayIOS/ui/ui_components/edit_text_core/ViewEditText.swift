@@ -47,57 +47,7 @@ internal struct ViewEditText: View {
     }
 }
 
-/* Column(
-        modifier = modifierRoot
-    ) {
-
-        Card(
-            shape = RoundedCornerShape(8.dp),
-            elevation = 0.dp,
-            border = BorderStroke(
-                0.1.dp,
-                if (errorTitle.value != null) ColorsSdk.stateError else ColorsSdk.gray20
-            ),
-            modifier = modifierChild
-                .wrapContentHeight()
-                .heightIn(min = 48.dp),
-            onClick = {}
-        ) {
-            ConstraintLayout {
-                val (clearIconRef) = createRefs()
-
-                CoreEditText(
-                    isError = errorTitle.value != null,
-                    mask = mask,
-                    regex = regex,
-                    placeholder = placeholder,
-                    keyboardActions = keyboardActions,
-                    keyboardOptions = keyboardOptions,
-                    hasFocus = hasFocus,
-                    text = text,
-                    focusRequester = focusRequester,
-                    actionOnTextChanged = actionOnTextChanged,
-                    visualTransformation = visualTransformation,
-                    isDateExpiredMask = isDateExpiredMask,
-                    actionClickInfo = actionClickInfo,
-                    paySystemIcon = paySystemIcon.value
-                )
-
-                InitIconClear(
-                    clearIconRef = clearIconRef,
-                    hasFocus = hasFocus.value,
-                    text = text.value.text,
-                    isError = errorTitle.value != null,
-                    actionClickClear = {
-                        text.value = TextFieldValue(
-                            text = "",
-                            selection = TextRange(0)
-                        )
-                        paySystemIcon.value = null
-                    }
-                )
-            }
-        }
+/*
 
         if (errorTitle.value != null) {
             Row {
@@ -118,30 +68,3 @@ internal struct ViewEditText: View {
         }
     }*/
 
-
-/*@Composable
-private fun ConstraintLayoutScope.InitIconClear(
-    isError: Boolean,
-    text: String,
-    hasFocus: Boolean,
-    actionClickClear: () -> Unit,
-    clearIconRef: ConstrainedLayoutReference
-) {
-    if (
-        text.isNotBlank()
-        && hasFocus
-    ) {
-        InitActionIcon(
-            action = actionClickClear,
-            iconSrc = R.drawable.ic_close,
-            modifier = Modifier
-                .size(40.dp)
-                .constrainAs(clearIconRef) {
-                    end.linkTo(parent.end)
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                },
-            _outlinedButtonColor = if (isError) ColorsSdk.stateBgError else ColorsSdk.bgBlock
-        )
-    }
-}*/
