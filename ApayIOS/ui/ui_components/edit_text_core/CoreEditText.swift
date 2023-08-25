@@ -14,7 +14,8 @@ internal struct CoreEditText: View {
     @State var hasFocus: Bool
 
     var isDateExpiredMask: Bool
-    var isCardNumber: Bool
+    var isCardNumberMask: Bool
+    var isCvvMask: Bool
     var placeholder: String
     var regex: Regex<AnyRegexOutput>?
 //        keyboardActions: KeyboardActions
@@ -24,11 +25,14 @@ internal struct CoreEditText: View {
     var actionOnTextChanged: (String) -> Void
     var actionClickInfo: (() -> Void)? = nil
 
-    var maskUtils: MaskUtils?
+    @State private var textBeforeChange: String = ""
 
-    static var maskUtilsCardNumber: MaskUtils {
+    private var maskUtilsCardNumber: MaskUtils {
         let mu = MaskUtils()
-        mu.pattern = "AAAA AAAA AAAA AAAA"
+        mu.pattern = isDateExpiredMask ? "AA/AA"
+                : isCardNumberMask ? "AAAA AAAA AAAA AAAA"
+                : "AAA"
+
         return mu
     }
 
@@ -45,7 +49,7 @@ internal struct CoreEditText: View {
                             })
                 }
 
-                if isCardNumber && !text.isEmpty {
+                if isCardNumberMask && !text.isEmpty {
                     Image(paySystemIcon)
                             .resizable()
                             .frame(width: 24, height: 24)
@@ -74,47 +78,33 @@ internal struct CoreEditText: View {
                             }*/
 
                     )
-
                             .onChange(
                                     of: text,
                                     perform: { newValue in
-                                        print("qqqqqq " + newValue)
-
-                                        if (isCardNumber) {
+                                        if (isCardNumberMask) {
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                                                 withAnimation {
                                                     self.paySystemIcon = getCardTypeFromNumber(input: newValue)
                                                 }
                                             }
                                         }
-                                        text = CoreEditText.maskUtilsCardNumber.format(
-                                                text: getNumberClearedWithMaxSymbol(
-                                                        amount: newValue,
-                                                        maxSize: 16
-                                                )
-                                        )
 
+                                        if (newValue.count > textBeforeChange.count) {
+                                            text = maskUtilsCardNumber.format(
+                                                    text: getNumberClearedWithMaxSymbol(
+                                                            amount: newValue,
+                                                            maxSize: 16
+                                                    )
+                                            )
+                                        }
+                                        textBeforeChange = text
                                         actionOnTextChanged(text)
                                     }
                             )
-                            /*.onEditingChanged: { isBegin in
-                                if isBegin {
-                                    print("Begins editing")
-                                } else {
-                                    print("Finishes editing")
-                                }
-                            },
-                            onCommit: {
-                                print("commit")
-                            }*/
-                            //                            .disableAutocorrection(true)
+                            .disableAutocorrection(true)
                             .textStyleRegular()
                             .foregroundColor(ColorsSdk.transparent)
                             .frame(width: .infinity, alignment: .leading)
-
-                    /*   Text(text) //костыль для форматирования текста
-                            .textStyleRegular()
-                            .frame(minHeight: 24)*/
                 }
                         .frame(minHeight: 24)
 
@@ -148,37 +138,6 @@ internal func clearText(
     return tempText
 }
 
-internal func formatTestAfterEnter(
-        maskUtils: MaskUtils?,
-        isCardNumber: Bool,
-        regex: Regex<AnyRegexOutput>?,
-        text: String
-) -> String {
-    if (maskUtils == nil) {
-
-        let clearedText = regex != nil
-                ? clearText(text: text, regex: regex!)
-                : text
-
-        if (maskUtils != nil) {
-            print("aaaaaaaa |" + text + "|" + clearedText + "|" + maskUtils!.format(text: clearedText) + "|")
-            return maskUtils!.format(text: clearedText)
-        } else {
-
-            return clearedText
-        }
-
-        /* text.value = TextFieldValue(
-                                                    text = maskUtils.format(result),
-                                                    selection = TextRange(maskUtils.getNextCursorPosition(it.selection.end) ?: 0)
-                                            )*/
-
-//                                        print("aaaaaaaa___ " + text)
-
-    } else {
-        return text
-    }
-}
 
 /*
 

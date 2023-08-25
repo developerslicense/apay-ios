@@ -11,10 +11,10 @@ internal struct ViewEditText: View {
     @State var hasFocus: Bool
 
     var placeholder: String
-    var maskUtils: MaskUtils?
     var regex: Regex<AnyRegexOutput>? = nil
-    var isDateExpiredMask: Bool
-    var isCardNumber: Bool
+    var isDateExpiredMask: Bool = false
+    var isCardNumberMask: Bool = false
+    var isCvvMask: Bool = false
 //        focusRequester: FocusRequester
 //        modifierRoot: Modifier: Modifier
 //        modifierChild: Modifier: Modifier
@@ -25,7 +25,6 @@ internal struct ViewEditText: View {
 //        keyboardType: KeyboardType.Text
 //        imeAction: ImeAction.Next
 //)
-//        visualTransformation: VisualTransformation?: null
     var actionOnTextChanged: (String) -> Void
     var actionClickInfo: (() -> Void)?
 
@@ -37,12 +36,12 @@ internal struct ViewEditText: View {
                     isError: errorTitle != nil,
                     hasFocus: hasFocus,
                     isDateExpiredMask: isDateExpiredMask,
-                    isCardNumber: isCardNumber,
+                    isCardNumberMask: isCardNumberMask,
+                    isCvvMask: isCvvMask,
                     placeholder: placeholder,
                     regex: regex,
                     actionOnTextChanged: actionOnTextChanged,
-                    actionClickInfo: actionClickInfo,
-                    maskUtils: maskUtils
+                    actionClickInfo: actionClickInfo
             )
         }
     }

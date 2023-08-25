@@ -22,10 +22,8 @@ internal struct CardNumberView: View {
                 errorTitle: cardNumberError,
                 hasFocus: false, //todo
                 placeholder: cardNumber(),
-                maskUtils: nil,//MaskUtils(pattern: "AAAA AAAA AAAA AAAA"),
                 regex: regex,
-                isDateExpiredMask: false,
-                isCardNumber: true,
+                isCardNumberMask: true,
 //                focusRequester: cardNumberFocusRequester,
                 /* keyboardActions: KeyboardActions(
                         onNext: {

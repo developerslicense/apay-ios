@@ -21,10 +21,8 @@ internal struct CvvView: View {
                 errorTitle: cvvError,
                 hasFocus: false, //todo
                 placeholder: cvv(),
-//                mask: "AAA",
                 regex: regex,
-                isDateExpiredMask: false,
-                isCardNumber: false,
+                isCvvMask: true,
 //                focusRequester: cvvFocusRequester,
                 /*keyboardActions: KeyboardActions(
                         onDone: {

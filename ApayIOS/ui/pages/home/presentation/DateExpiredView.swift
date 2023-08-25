@@ -19,10 +19,8 @@ internal struct DateExpiredView: View {
                 errorTitle: dateExpiredError,
                 hasFocus: false, //todo
                 placeholder: dateExpired(),
-//                mask: "AA/AA",
                 regex: regex,
                 isDateExpiredMask: true,
-                isCardNumber: false,
 //                focusRequester: dateExpiredFocusRequester,
                 /* keyboardActions: KeyboardActions(
                         onNext: {
