@@ -6,8 +6,23 @@ import Foundation
 import SwiftUI
 
 internal struct TestPage: View {
+    @State private var sheetState = false
+
     var body: some View {
-        ZStack { }
+        ZStack {
+            Button(
+                    action: {
+                        sheetState = true
+                    },
+                    label: {
+                        Text("перейти на эквайринг")
+                    }
+            )
+        }
+                .sheet(isPresented: $sheetState) {
+                    StartProcessingView()
+                            .presentationDetents([.medium, .large])
+                }
     }
 }
 
@@ -26,37 +41,38 @@ internal func testInitOnCreate() {
 //            colorBrandMain = Color.Red
     )
 }
+
 internal func testInitProcessing() {
     let someInvoiceId = Date().timeIntervalSince1970
     let someOrderNumber = Date().timeIntervalSince1970
 
 
     let goods = [
-            AirbaPaySdk.Goods(
-                    brand: "Чай Tess Banana Split черный 20 пирамидок",
-                    category: "Tess",
-                    model: "Черный чай",
-                    quantity: 1,
-                    price: 1000
-            ),
-            AirbaPaySdk.Goods(
-                    brand: "Чай Tess Green",
-                    category: "Tess",
-                    model: "Green чай",
-                    quantity: 1,
-                    price: 500
-            )
-        ]
+        AirbaPaySdk.Goods(
+                brand: "Чай Tess Banana Split черный 20 пирамидок",
+                category: "Tess",
+                model: "Черный чай",
+                quantity: 1,
+                price: 1000
+        ),
+        AirbaPaySdk.Goods(
+                brand: "Чай Tess Green",
+                category: "Tess",
+                model: "Green чай",
+                quantity: 1,
+                price: 500
+        )
+    ]
 
     let settlementPayment = [
-            AirbaPaySdk.SettlementPayment(
-                    amount: 1000,
-                    companyId: "210840019439"
-            ),
-            AirbaPaySdk.SettlementPayment(
-                    amount: 500,
-                    companyId: "254353"
-            )
+        AirbaPaySdk.SettlementPayment(
+                amount: 1000,
+                companyId: "210840019439"
+        ),
+        AirbaPaySdk.SettlementPayment(
+                amount: 500,
+                companyId: "254353"
+        )
     ]
 
     AirbaPaySdk.initProcessing(

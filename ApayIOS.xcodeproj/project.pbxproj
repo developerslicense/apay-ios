@@ -54,6 +54,7 @@
 		7E0E4CC403E5A8A6246683AE /* BaseStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4D996398E17A75A05C4B /* BaseStrings.swift */; };
 		7E0E4D3DD6C063E79F452FD9 /* GetNumberCleatedWithMaxSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E40143537D170E31CE580 /* GetNumberCleatedWithMaxSizeTests.swift */; };
 		7E0E4D58DA69E029ED6149E7 /* CardNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E487452847A3821101311 /* CardNumberView.swift */; };
+		7E0E4DC8E9AD6A749B15E7FE /* StartProcessingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E47E506FEE024DA5CE22C /* StartProcessingView.swift */; };
 		7E0E4E0E6342A0833F0C59D3 /* CoreEditText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4757E188BEB3DDB5570D /* CoreEditText.swift */; };
 		7E0E4E6FB034C26D5A0FF92E /* CardAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4F0F556E8E2E55E6CBA6 /* CardAdd.swift */; };
 		7E0E4EF4494680946703A9C0 /* ViewToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E49F85FF292EA2283E256 /* ViewToolbar.swift */; };
@@ -130,6 +131,7 @@
 		7E0E4782D21E800E7EBE4DA8 /* CvvBottomSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CvvBottomSheet.swift; sourceTree = "<group>"; };
 		7E0E478612CF8F08959597A7 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file.ttf; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		7E0E47A48DAA8230D8C988A8 /* AirbaPaySdk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirbaPaySdk.swift; sourceTree = "<group>"; };
+		7E0E47E506FEE024DA5CE22C /* StartProcessingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartProcessingView.swift; sourceTree = "<group>"; };
 		7E0E487452847A3821101311 /* CardNumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardNumberView.swift; sourceTree = "<group>"; };
 		7E0E487FE752010A6FC4B18B /* ViewEditText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewEditText.swift; sourceTree = "<group>"; };
 		7E0E48F5255651E4DB9353C9 /* WebViewPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewPage.swift; sourceTree = "<group>"; };
@@ -371,6 +373,7 @@
 			children = (
 				7E0E42A5F5B037D28E709079 /* Popup.swift */,
 				7E0E45C3A4A99286F1579FAE /* DialogExit.swift */,
+				7E0E47E506FEE024DA5CE22C /* StartProcessingView.swift */,
 			);
 			path = dialog;
 			sourceTree = "<group>";
@@ -810,6 +813,7 @@
 				7E0E49D1B07A7D24CA640E46 /* BottomSheetHeader.swift in Sources */,
 				7E0E41463F3FF5AE81CA9628 /* BottomSheetUtils.swift in Sources */,
 				7E0E4E0E6342A0833F0C59D3 /* CoreEditText.swift in Sources */,
+				7E0E4DC8E9AD6A749B15E7FE /* StartProcessingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

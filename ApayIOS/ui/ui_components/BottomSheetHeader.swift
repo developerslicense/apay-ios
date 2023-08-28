@@ -31,7 +31,7 @@ internal struct InitHeader: View {
                             }
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
                 }
-            }
+            }.frame(height: 60)
 
             Divider().padding(.top, 6)
 

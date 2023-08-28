@@ -23,7 +23,8 @@ struct ApayIOSApp: App {
 //            ErrorWithInstructionPage()
 //            ErrorPage(errorCode: ErrorsCode(code: 5009))
 //            WebViewPage()
-            HomePage()
+//            HomePage()
+            TestPage()
         }
     }
 }
