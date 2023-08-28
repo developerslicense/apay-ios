@@ -77,6 +77,18 @@ internal class MaskUtils {
             sb.append(it1)
         }
 
-        return sb.joined()
+        var tempBeforeRelease = sb.joined()
+
+        if (tempBeforeRelease.suffix(3) == "   ") {
+            tempBeforeRelease = String(tempBeforeRelease.dropLast(3))
+
+        } else if (tempBeforeRelease.suffix(2) == "  ") {
+            tempBeforeRelease = String(tempBeforeRelease.dropLast(2))
+
+        } else if (tempBeforeRelease.suffix(1) == " ") {
+            tempBeforeRelease = String(tempBeforeRelease.dropLast(1))
+        }
+
+        return tempBeforeRelease
     }
 }

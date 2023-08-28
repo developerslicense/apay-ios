@@ -1,5 +1,5 @@
 //
-// Created by Mikhail Belikov on 24.08.2023.
+// Created by Mikhail Belikov on 28.08.2023.
 //
 
 import Foundation
@@ -8,27 +8,28 @@ import SwiftUI
 // https://suragch.medium.com/getting-and-setting-the-cursor-position-in-swift-68da99bcef39
 internal struct CoreEditText: View {
 
-    @State var text: String
+    @State var text: String = ""
+    @State var value: String = ""
     @State var paySystemIcon: String = ""
 
     @State var isError: Bool
     @State var hasFocus: Bool
+    @State var complete: Bool = false
 
     var isDateExpiredMask: Bool
     var isCardNumberMask: Bool
     var isCvvMask: Bool
     var placeholder: String
     var regex: Regex<AnyRegexOutput>?
-//        keyboardActions: KeyboardActions
-//        keyboardOptions: KeyboardOptions
-//        focusRequester: FocusRequester
+    var keyboardType: UIKeyboardType
 
     var actionOnTextChanged: (String) -> Void
     var actionClickInfo: (() -> Void)? = nil
 
     @State private var textBeforeChange: String = ""
+    @State private var cursorPositionForShow: Int = 5
 
-    private var maskUtilsCardNumber: MaskUtils {
+    private var maskUtils: MaskUtils { //todo если понадобится без маски какое-то поле, нужно будет доработать
         let mu = MaskUtils()
         mu.pattern = isDateExpiredMask ? "AA/AA"
                 : isCardNumberMask ? "AAAA AAAA AAAA AAAA"
@@ -65,20 +66,9 @@ internal struct CoreEditText: View {
                             .textStyleRegular()
                 }
 
-                TextField("",
-                        text: $text
-                        /* onEditingChanged: { (isBegin) in
-                                if isBegin {
-                                    print("Begins editing")
-                                } else {
-                                    print("Finishes editing")
-                                }
-                            },
-                            onCommit: {
-                                print("commit")
-                            }*/
+                let textField = TextField("", text: $text)
 
-                )
+                textField
                         .onChange(
                                 of: text,
                                 perform: { newValue in
@@ -91,7 +81,7 @@ internal struct CoreEditText: View {
                                     }
 
                                     if (newValue.count > textBeforeChange.count) {
-                                        text = maskUtilsCardNumber.format(
+                                        text = maskUtils.format(
                                                 text: getNumberClearedWithMaxSymbol(
                                                         amount: newValue,
                                                         maxSize: 16
@@ -101,13 +91,15 @@ internal struct CoreEditText: View {
 
                                     textBeforeChange = text
                                     actionOnTextChanged(text)
-
                                 }
                         )
+                        .keyboardType(keyboardType)
                         .disableAutocorrection(true)
                         .textStyleRegular(textColor: isError ? ColorsSdk.stateError : ColorsSdk.textMain)
                         .foregroundColor(ColorsSdk.transparent)
                         .frame(width: .infinity, alignment: .leading)
+                        .accentColor(ColorsSdk.colorBrandMain)
+
             }
                     .frame(minHeight: 24)
 
@@ -130,23 +122,3 @@ internal struct CoreEditText: View {
                 )
     }
 }
-
-internal func clearText(
-        text: String,
-        regex: Regex<AnyRegexOutput>
-) -> String {
-    var tempText = text
-    tempText.replace(regex, with: "")
-
-    return tempText
-}
-
-
-/*
-
-            text.value = TextFieldValue(
-                text = maskUtils.format(result),
-                selection = TextRange(maskUtils.getNextCursorPosition(it.selection.end) ?: 0)
-            )
-
-   */

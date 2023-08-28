@@ -15,16 +15,7 @@ internal struct ViewEditText: View {
     var isDateExpiredMask: Bool = false
     var isCardNumberMask: Bool = false
     var isCvvMask: Bool = false
-//        focusRequester: FocusRequester
-//        modifierRoot: Modifier: Modifier
-//        modifierChild: Modifier: Modifier
-//        keyboardActions: KeyboardActions
-//        keyboardOptions: KeyboardOptions: KeyboardOptions.Default.copy(
-//        capitalization: KeyboardCapitalization.None
-//        autoCorrect: false
-//        keyboardType: KeyboardType.Text
-//        imeAction: ImeAction.Next
-//)
+    var keyboardType: UIKeyboardType = .decimalPad
     var actionOnTextChanged: (String) -> Void
     var actionClickInfo: (() -> Void)?
 
@@ -40,6 +31,7 @@ internal struct ViewEditText: View {
                     isCvvMask: isCvvMask,
                     placeholder: placeholder,
                     regex: regex,
+                    keyboardType: keyboardType,
                     actionOnTextChanged: actionOnTextChanged,
                     actionClickInfo: actionClickInfo
             )
