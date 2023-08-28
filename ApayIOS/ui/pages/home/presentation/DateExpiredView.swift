@@ -8,8 +8,6 @@ import SwiftUI
 internal struct DateExpiredView: View {
     @State var dateExpiredText: String
     @State var dateExpiredError: String?
-//        var dateExpiredFocusRequester: FocusRequester
-//        var cvvFocusRequester: FocusRequester
 
     var body: some View {
         let regex: Regex? = try? Regex(RegexConst.NOT_DIGITS)
@@ -17,23 +15,9 @@ internal struct DateExpiredView: View {
         ViewEditText(
                 text: dateExpiredText,
                 errorTitle: dateExpiredError,
-                hasFocus: false, //todo
                 placeholder: dateExpired(),
                 regex: regex,
                 isDateExpiredMask: true,
-//                focusRequester: dateExpiredFocusRequester,
-                /* keyboardActions: KeyboardActions(
-                        onNext: {
-                            cvvFocusRequester.requestFocus()
-                        }
-                ),
-                keyboardOptions: KeyboardOptions.Default.copy(
-                        capitalization: KeyboardCapitalization.None,
-                        autoCorrect: false,
-                        keyboardType: KeyboardType.Number,
-                        imeAction: ImeAction.Next
-                ),*/
-//                modifierRoot: modifier,
                 actionOnTextChanged: { date in
 
                 },

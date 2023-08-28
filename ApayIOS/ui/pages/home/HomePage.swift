@@ -18,10 +18,6 @@ internal struct HomePage: View {
     @State var dateExpiredError: String? = nil
     @State var cvvError: String? = nil
 
-//        val cardNumberFocusRequester = FocusRequester()
-//        val dateExpiredFocusRequester = FocusRequester()
-//        val cvvFocusRequester = FocusRequester()
-
     @State private var sheetState = false
     @State var showToast: Bool = false
     private let toastOptions = SimpleToastOptions(hideAfter: 5)
@@ -45,8 +41,6 @@ internal struct HomePage: View {
                     CardNumberView(
                             cardNumberText: cardNumberText,
                             cardNumberError: cardNumberError
-//                            cardNumberFocusRequester: cardNumberFocusRequester,
-//                            dateExpiredFocusRequester: dateExpiredFocusRequester
                     )
                             .padding(.top, 16)
                             .padding(.horizontal, 16)
@@ -55,16 +49,13 @@ internal struct HomePage: View {
                         DateExpiredView(
                                 dateExpiredText: dateExpiredText,
                                 dateExpiredError: dateExpiredError
-//                                dateExpiredFocusRequester: dateExpiredFocusRequester,
-//                                cvvFocusRequester: cvvFocusRequester,
-//                                modifier: Modifier.weight(0.5f).padding(end: 6.dp)
                         )
+
+                        Spacer().frame(width: 12)
 
                         CvvView(
                                 cvvText: cvvText,
                                 cvvError: cvvError,
-//                                cvvFocusRequester: cvvFocusRequester,
-//                                modifier: Modifier.weight(0.5f).padding(start: 6.dp)
                                 actionClickInfo: {
                                     sheetState.toggle()
                                 }

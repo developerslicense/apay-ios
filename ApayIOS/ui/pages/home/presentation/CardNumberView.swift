@@ -9,10 +9,6 @@ internal struct CardNumberView: View {
     @State var cardNumberText: String
     @State var cardNumberError: String?
     @State var paySystemIcon: String = ""
-//    var mask: MaskCardNumber = MaskCardNumber()
-//        cardNumberFocusRequester: FocusRequester,
-//        dateExpiredFocusRequester: FocusRequester,
-
 
     var body: some View {
         let regex: Regex? = try? Regex(RegexConst.NOT_DIGITS)
@@ -20,23 +16,9 @@ internal struct CardNumberView: View {
         ViewEditText(
                 text: cardNumberText,
                 errorTitle: cardNumberError,
-                hasFocus: false, //todo
                 placeholder: cardNumber(),
                 regex: regex,
                 isCardNumberMask: true,
-//                focusRequester: cardNumberFocusRequester,
-                /* keyboardActions: KeyboardActions(
-                        onNext: {
-                            dateExpiredFocusRequester.requestFocus()
-                        }
-                ),*/
-                /*keyboardOptions: KeyboardOptions.Default.copy(
-                        capitalization: KeyboardCapitalization.None,
-                        autoCorrect: false,
-                        keyboardType: KeyboardType.Number,
-                        imeAction: ImeAction.Next
-                ),*/
-//                modifierRoot: Modifier.padding(horizontal: 16.dp),
                 actionOnTextChanged: { pan in
 
                 },

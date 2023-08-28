@@ -13,7 +13,6 @@ internal struct CoreEditText: View {
     @State var paySystemIcon: String = ""
 
     @State var isError: Bool
-    @State var hasFocus: Bool
     @State var complete: Bool = false
 
     var isDateExpiredMask: Bool
@@ -39,86 +38,85 @@ internal struct CoreEditText: View {
     }
 
     var body: some View {
-
-        HStack {
-            if (actionClickInfo != nil) {
-                Image(isError ? "icHintError" : "icHint")
-                        .resizable()
-                        .frame(width: 24, height: 24)
-                        .onTapGesture(perform: {
-                            actionClickInfo!()
-                        })
-            }
-
-            if isCardNumberMask
-                       && !text.isEmpty
-                       && !paySystemIcon.isEmpty {
-                Image(paySystemIcon)
-                        .resizable()
-                        .frame(width: 24, height: 24)
-            }
-
-            ZStack(alignment: .leading) {
-                if text.isEmpty {
-                    Text(placeholder)
-                            .foregroundColor(hasFocus ? ColorsSdk.colorBrandMain : ColorsSdk.textLight)
-                            .frame(width: .infinity, alignment: .leading)
-                            .textStyleRegular()
+            HStack {
+                if (actionClickInfo != nil) {
+                    Image(isError ? "icHintError" : "icHint")
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                            .onTapGesture(perform: {
+                                actionClickInfo!()
+                            })
                 }
 
-                let textField = TextField("", text: $text)
+                if isCardNumberMask
+                           && !text.isEmpty
+                           && !paySystemIcon.isEmpty {
+                    Image(paySystemIcon)
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                }
 
-                textField
-                        .onChange(
-                                of: text,
-                                perform: { newValue in
-                                    if (isCardNumberMask) {
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                                            withAnimation {
-                                                self.paySystemIcon = getCardTypeFromNumber(input: newValue)
+                ZStack(alignment: .leading) {
+                    if text.isEmpty {
+                        Text(placeholder)
+                                .foregroundColor(ColorsSdk.textLight)
+                                .frame(width: .infinity, alignment: .leading)
+                                .textStyleRegular()
+                    }
+
+                    let textField = TextField("", text: $text)
+
+                    textField
+                            .onChange(
+                                    of: text,
+                                    perform: { newValue in
+                                        if (isCardNumberMask) {
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                                                withAnimation {
+                                                    self.paySystemIcon = getCardTypeFromNumber(input: newValue)
+                                                }
                                             }
                                         }
+
+                                        if (newValue.count > textBeforeChange.count) {
+                                            text = maskUtils.format(
+                                                    text: getNumberClearedWithMaxSymbol(
+                                                            amount: newValue,
+                                                            maxSize: 16
+                                                    )
+                                            )
+                                        }
+
+                                        textBeforeChange = text
+                                        actionOnTextChanged(text)
                                     }
+                            )
+                            .keyboardType(keyboardType)
+                            .disableAutocorrection(true)
+                            .textStyleRegular(textColor: isError ? ColorsSdk.stateError : ColorsSdk.textMain)
+                            .foregroundColor(ColorsSdk.transparent)
+                            .frame(width: .infinity, alignment: .leading)
+                            .accentColor(ColorsSdk.colorBrandMain)
 
-                                    if (newValue.count > textBeforeChange.count) {
-                                        text = maskUtils.format(
-                                                text: getNumberClearedWithMaxSymbol(
-                                                        amount: newValue,
-                                                        maxSize: 16
-                                                )
-                                        )
-                                    }
+                }
+                        .frame(minHeight: 24)
 
-                                    textBeforeChange = text
-                                    actionOnTextChanged(text)
-                                }
-                        )
-                        .keyboardType(keyboardType)
-                        .disableAutocorrection(true)
-                        .textStyleRegular(textColor: isError ? ColorsSdk.stateError : ColorsSdk.textMain)
-                        .foregroundColor(ColorsSdk.transparent)
-                        .frame(width: .infinity, alignment: .leading)
-                        .accentColor(ColorsSdk.colorBrandMain)
 
+                if !text.isEmpty {
+                    Image("icClose")
+                            .resizable()
+                            .frame(width: 14, height: 14)
+                            .onTapGesture(perform: {
+                                text = ""
+                                actionOnTextChanged("")
+                            })
+                }
             }
-                    .frame(minHeight: 24)
-
-
-            if !text.isEmpty {
-                Image("icClose")
-                        .resizable()
-                        .frame(width: 14, height: 14)
-                        .onTapGesture(perform: {
-                            text = ""
-                            actionOnTextChanged("")
-                        })
-            }
+                    .padding()
+                    .background(isError ? ColorsSdk.stateBgError : ColorsSdk.bgBlock)
+                    .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                    .stroke(isError ? ColorsSdk.stateError : ColorsSdk.gray5, lineWidth: 1)
+                    )
         }
-                .padding()
-                .background(isError ? ColorsSdk.stateBgError : ColorsSdk.bgBlock)
-                .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                                .stroke(isError ? ColorsSdk.stateError : ColorsSdk.gray5, lineWidth: 1)
-                )
-    }
 }

@@ -8,7 +8,6 @@ import SwiftUI
 internal struct ViewEditText: View {
     @State var text: String
     @State var errorTitle: String?
-    @State var hasFocus: Bool
 
     var placeholder: String
     var regex: Regex<AnyRegexOutput>? = nil
@@ -25,7 +24,6 @@ internal struct ViewEditText: View {
             CoreEditText(
                     text: text,
                     isError: errorTitle != nil,
-                    hasFocus: hasFocus,
                     isDateExpiredMask: isDateExpiredMask,
                     isCardNumberMask: isCardNumberMask,
                     isCvvMask: isCvvMask,
@@ -35,28 +33,22 @@ internal struct ViewEditText: View {
                     actionOnTextChanged: actionOnTextChanged,
                     actionClickInfo: actionClickInfo
             )
+
+            if (errorTitle != nil) {
+                HStack {
+                    Image("icAlarm")
+
+                    Text(errorTitle ?? "")
+                            .foregroundColor(ColorsSdk.stateError)
+                            .textStyleCaption400()
+                            .padding(.top, 4)
+                            .padding(.bottom, 4)
+
+                    Spacer()
+                }
+            }
         }
     }
 }
 
-/*
-
-        if (errorTitle.value != null) {
-            Row {
-                Icon(
-                    painter = painterResource(R.drawable.alarm),
-                    contentDescription = "alarm",
-                    tint = ColorsSdk.stateError,
-                    modifier = Modifier.padding(vertical = 4.dp)
-                )
-                Text(
-                    style = LocalFonts.current.caption400,
-                    text = errorTitle.value!!,
-                    color = ColorsSdk.stateError,
-                    modifier = Modifier.padding(vertical = 4.dp)
-                )
-            }
-
-        }
-    }*/
 
