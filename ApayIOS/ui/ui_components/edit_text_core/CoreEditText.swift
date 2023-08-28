@@ -64,40 +64,40 @@ internal struct CoreEditText: View {
                                 .textStyleRegular()
                     }
 
-                    let textField = TextField("", text: $text)
+                    if (isCvvMask) {
+                        let textField = SecureField("", text: $text)
 
-                    textField
-                            .onChange(
-                                    of: text,
-                                    perform: { newValue in
-                                        if (isCardNumberMask) {
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                                                withAnimation {
-                                                    self.paySystemIcon = getCardTypeFromNumber(input: newValue)
-                                                }
-                                            }
+                        textField
+                                .onChange(
+                                        of: text,
+                                        perform: { newValue in
+                                            onPerformed(newValue: newValue)
                                         }
+                                )
+                                .keyboardType(keyboardType)
+                                .disableAutocorrection(true)
+                                .textStyleRegular(textColor: isError ? ColorsSdk.stateError : ColorsSdk.textMain)
+                                .foregroundColor(ColorsSdk.transparent)
+                                .frame(width: .infinity, alignment: .leading)
+                                .accentColor(ColorsSdk.colorBrandMain)
 
-                                        if (newValue.count > textBeforeChange.count) {
-                                            text = maskUtils.format(
-                                                    text: getNumberClearedWithMaxSymbol(
-                                                            amount: newValue,
-                                                            maxSize: 16
-                                                    )
-                                            )
+                    } else {
+                        let textField = TextField("", text: $text)
+
+                        textField
+                                .onChange(
+                                        of: text,
+                                        perform: { newValue in
+                                            onPerformed(newValue: newValue)
                                         }
-
-                                        textBeforeChange = text
-                                        actionOnTextChanged(text)
-                                    }
-                            )
-                            .keyboardType(keyboardType)
-                            .disableAutocorrection(true)
-                            .textStyleRegular(textColor: isError ? ColorsSdk.stateError : ColorsSdk.textMain)
-                            .foregroundColor(ColorsSdk.transparent)
-                            .frame(width: .infinity, alignment: .leading)
-                            .accentColor(ColorsSdk.colorBrandMain)
-
+                                )
+                                .keyboardType(keyboardType)
+                                .disableAutocorrection(true)
+                                .textStyleRegular(textColor: isError ? ColorsSdk.stateError : ColorsSdk.textMain)
+                                .foregroundColor(ColorsSdk.transparent)
+                                .frame(width: .infinity, alignment: .leading)
+                                .accentColor(ColorsSdk.colorBrandMain)
+                    }
                 }
                         .frame(minHeight: 24)
 
@@ -119,4 +119,26 @@ internal struct CoreEditText: View {
                                     .stroke(isError ? ColorsSdk.stateError : ColorsSdk.gray5, lineWidth: 1)
                     )
         }
+
+    private func onPerformed(newValue: String) {
+        if (isCardNumberMask) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                withAnimation {
+                    self.paySystemIcon = getCardTypeFromNumber(input: newValue)
+                }
+            }
+        }
+
+        if (newValue.count > textBeforeChange.count) {
+            text = maskUtils.format(
+                    text: getNumberClearedWithMaxSymbol(
+                            amount: newValue,
+                            maxSize: 16
+                    )
+            )
+        }
+
+        textBeforeChange = text
+        actionOnTextChanged(text)
+    }
 }
