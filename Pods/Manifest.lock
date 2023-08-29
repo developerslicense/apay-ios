@@ -1,8 +1,14 @@
 PODS:
+  - Alamofire (5.7.1)
   - SwiftUI-SimpleToast (0.6.2)
 
 DEPENDENCIES:
+  - Alamofire
   - SwiftUI-SimpleToast (from `https://github.com/sanzaru/SimpleToast.git`)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
 
 EXTERNAL SOURCES:
   SwiftUI-SimpleToast:
@@ -14,8 +20,9 @@ CHECKOUT OPTIONS:
     :git: https://github.com/sanzaru/SimpleToast.git
 
 SPEC CHECKSUMS:
+  Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
   SwiftUI-SimpleToast: 34a7ede33ac00e1ab21cc114c041d68da5fbc6b3
 
-PODFILE CHECKSUM: b0c92b70c5159c2c63058a9d3c304ad829ad5557
+PODFILE CHECKSUM: a46b648e94eda6c840f986c4988cb5947c023f58
 
 COCOAPODS: 1.12.1

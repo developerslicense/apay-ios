@@ -17,7 +17,7 @@ func getCharOnIndex(
     index: Int
 )-> String {
     let length = text.count - 1
-    let index1 = text.index(text.startIndex, offsetBy: length - index)
+    let index1 = text.index(text.startIndex, offsetBy: length - index) //todo crash aa/aa
 
     let indexRange = index1...index1
     let subString = text[indexRange]

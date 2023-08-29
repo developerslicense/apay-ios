@@ -21,7 +21,7 @@ internal struct TestPage: View {
         }
                 .sheet(isPresented: $sheetState) {
                     StartProcessingView(actionClose: { sheetState = false} )
-                            .presentationDetents([.medium, .large])
+                            .presentationDetents([.medium, .large])//todo  надо придумать, что с этим сделать для разных случаев
                 }
     }
 }

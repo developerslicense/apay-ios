@@ -6,16 +6,18 @@ import Foundation
 import SwiftUI
 
 internal struct StartProcessingView: View {
+    @StateObject var viewModel = StartProcessingViewModel()
+
     @Environment(\.dismiss) var dismiss
 
     @State var presentSheet: Bool = false
     @State var isError: Bool = false
 
-    @State var savedCards: Array<BankCard> = [
+   /* @State var savedCards: Array<BankCard> = [
 //        BankCard(maskedPan: "111111....1111", typeIcon: "icAmericanExpress"), //todo добавить проверку на количество карт, чтоб  размер боттощита увеличивать на полную
         BankCard(maskedPan: "111111....2222", typeIcon: "icVisa"),
         BankCard(maskedPan: "111111....3333", typeIcon: "icMasterCard")
-    ]
+    ]*/
     @State var needShowProgressBar: Bool = true
     var actionClose: () -> Void
 //        actionOnLoadingCompleted: () -> Unit = {},
@@ -41,18 +43,18 @@ internal struct StartProcessingView: View {
                         InitViewStartProcessingAmount()
 //                        InitViewStartProcessingAPay()  //todo временно закоментировал
 
-                        if (!savedCards.isEmpty
+                        if (!viewModel.savedCards.isEmpty
 //                                && isAuthenticated
                            ) {
                             InitViewStartProcessingCards( // todo внутри есть закоментированное
-                                    savedCards: savedCards,
+                                    savedCards: viewModel.savedCards,
                                     selectedCard: selectedCard
 //                                    actionClose: actionClose
                             )
                         }
 
                         InitViewStartProcessingButtonNext(
-                                savedCards: savedCards,
+                                savedCards: viewModel.savedCards,
                                 actionClose: actionClose,
                                 isAuthenticated: isAuthenticated,
                                 selectedCard: selectedCard
@@ -60,7 +62,11 @@ internal struct StartProcessingView: View {
                     }
                     Spacer()
                 }
-        )
+        ).onAppear {
+                    Task {
+                        await viewModel.fetchAppliances()
+                    }
+                }
     }
 
 }

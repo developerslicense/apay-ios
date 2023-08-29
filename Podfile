@@ -7,6 +7,7 @@ target 'ApayIOS' do
   
   # Pods for ApayIOS
   pod 'SwiftUI-SimpleToast', :git => 'https://github.com/sanzaru/SimpleToast.git'
+  pod 'Alamofire'
 
   target 'ApayIOSTests' do
     inherit! :search_paths
