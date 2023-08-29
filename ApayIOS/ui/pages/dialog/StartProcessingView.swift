@@ -4,6 +4,7 @@
 
 import Foundation
 import SwiftUI
+import SwiftUI_SimpleToast
 
 struct StartProcessingView: View {
     @StateObject var viewModel = StartProcessingViewModel()
@@ -12,61 +13,82 @@ struct StartProcessingView: View {
 
     @State var presentSheet: Bool = false
     @State var isError: Bool = false
-
-    /* @State var savedCards: Array<BankCard> = [
-//        BankCard(maskedPan: "111111....1111", typeIcon: "icAmericanExpress"), //todo добавить проверку на количество карт, чтоб  размер боттощита увеличивать на полную
-        BankCard(maskedPan: "111111....2222", typeIcon: "icVisa"),
-        BankCard(maskedPan: "111111....3333", typeIcon: "icMasterCard")
-    ]*/
     @State var needShowProgressBar: Bool = true
     var actionClose: () -> Void
-//        actionOnLoadingCompleted: () -> Unit = {},
     var backgroundColor: Color = ColorsSdk.bgBlock
-    @State var isAuthenticated: Bool
-    @State var isLoading: Bool = true
     @State var selectedCard: BankCard? = nil
+
+    @State private var isAuthenticated: Bool = false
+    @State private var showToast: Bool = false
+    @State private var isLoading: Bool = true
+    private let toastOptions = SimpleToastOptions(hideAfter: 5)
 
     var body: some View {
         ColorsSdk.bgBlock.overlay(
-                        VStack {
-                            InitHeader(
-                                    title: paymentByCard(),
-                                    actionClose: {
-                                        dismiss()
-                                    }
-                            )
+                        ZStack {
+                            VStack {
+                                InitHeader(
+                                        title: paymentByCard(),
+                                        actionClose: {
+                                            dismiss()
+                                        }
+                                )
 
-                            if (isError) {
-                                InitErrorState()
+                                if (isError) {
+                                    InitErrorState()
 
-                            } else {
-                                InitViewStartProcessingAmount()
-//                        InitViewStartProcessingAPay()  //todo временно закоментировал
+                                } else {
+                                    InitViewStartProcessingAmount()
+                                    //                        InitViewStartProcessingAPay()  //todo временно закоментировал
 
-                                if (!viewModel.savedCards.isEmpty
-//                                && isAuthenticated
-                                   ) {
-                                    InitViewStartProcessingCards(// todo внутри есть закоментированное
-                                            savedCards: viewModel.savedCards,
-                                            selectedCard: selectedCard
+                                    if (!viewModel.savedCards.isEmpty
+                                            && isAuthenticated
+                                       ) {
+                                        InitViewStartProcessingCards(// todo внутри есть закоментированное
+                                                savedCards: viewModel.savedCards,
+                                                selectedCard: selectedCard
 //                                    actionClose: actionClose
+                                        )
+                                    }
+
+                                    InitViewStartProcessingButtonNext(
+                                            savedCards: viewModel.savedCards,
+                                            actionClose: actionClose,
+                                            isAuthenticated: isAuthenticated,
+                                            selectedCard: selectedCard
                                     )
                                 }
-
-                                InitViewStartProcessingButtonNext(
-                                        savedCards: viewModel.savedCards,
-                                        actionClose: actionClose,
-                                        isAuthenticated: isAuthenticated,
-                                        selectedCard: selectedCard
-                                )
+                                Spacer()
                             }
-                            Spacer()
+
+                            if (isLoading) {
+                                ProgressBarView()
+                            }
                         }
                 )
                 .onAppear {
-                    Task {
-                        await viewModel.fetchAppliances()
-                    }
+                    airbaPayBiometricAuthenticate(
+                            onSuccess: {
+                                Task {
+                                    await viewModel.fetchAppliances()
+                                    isAuthenticated = true
+                                    isLoading = false
+                                }
+                            },
+                            onError: {
+                                showToast = true
+                                isLoading = false
+                            }
+
+                    )
+                }
+                .simpleToast(isPresented: $showToast, options: toastOptions) {
+                    Label(accessToCardRestricted(), systemImage: "icAdd")
+                            .padding()
+                            .background(Color.gray.opacity(0.9))
+                            .foregroundColor(Color.white)
+                            .cornerRadius(10)
+                            .padding(.top)
                 }
     }
 
