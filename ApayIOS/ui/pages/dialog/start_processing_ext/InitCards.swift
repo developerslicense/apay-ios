@@ -31,6 +31,15 @@ internal struct InitViewStartProcessingCards: View {
                     )
                 }
             }.padding(.horizontal, 16)
+
+            InitViewStartProcessingPayWithNewCard(
+                    actionClick: {
+//                        actionClose()
+//                        val intent = Intent(context, AirbaPayActivity::class.java)
+//                        context.startActivity(intent)
+                    }
+            )
+                    .padding(.top, 32)
         }
     }
 }
@@ -46,6 +55,7 @@ internal struct InitCard: View {
             if (!isFirst) {
                 Divider()
             }
+
             HStack {
                 Image(card.typeIcon ?? "")
 

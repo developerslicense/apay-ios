@@ -16,6 +16,7 @@
 		7E0E425DEC9E7FF662916A16 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E0E41A5CF56E1E61A2FFAD4 /* Montserrat-Regular.ttf */; };
 		7E0E426178E4D9F1ED4BAF74 /* WebViewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E48F5255651E4DB9353C9 /* WebViewPage.swift */; };
 		7E0E42AF94FB6CB4C11D0CB6 /* CardDateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E43FE07888911C397A930 /* CardDateUtils.swift */; };
+		7E0E432AB1F031260E3559B8 /* InitButonNext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4E280F701FDE413DC3BC /* InitButonNext.swift */; };
 		7E0E438A07A8C4521290C70C /* DialogExit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E45C3A4A99286F1579FAE /* DialogExit.swift */; };
 		7E0E4391EE34997C27B36944 /* ErrorFinalPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E43EAE73E4D5B13BD8D4E /* ErrorFinalPage.swift */; };
 		7E0E43BD28550B9CACD67FF4 /* RepeatPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E412662828661C254B739 /* RepeatPage.swift */; };
@@ -32,6 +33,7 @@
 		7E0E4685185A4C93C3202B6C /* PaymentCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4949601130990749DCDC /* PaymentCreate.swift */; };
 		7E0E469CB1C73996332368CC /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E0E4A416E8857482CC523EF /* Montserrat-Bold.ttf */; };
 		7E0E472D5558BF6FF97FCE39 /* InitViewStartProcessingAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4DC1755A0121B787047A /* InitViewStartProcessingAmount.swift */; };
+		7E0E4730C8EEB97C9BB9374F /* InitPayWithNewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4F586AD160C175A26160 /* InitPayWithNewCard.swift */; };
 		7E0E479079EE6F306AD23584 /* CardsGet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E41373046447B451B3375 /* CardsGet.swift */; };
 		7E0E4838A53332D4B7A9EC83 /* BottomImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4E0263C6030598DA3D25 /* BottomImages.swift */; };
 		7E0E485B46AC238B12CB9785 /* CvvBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4782D21E800E7EBE4DA8 /* CvvBottomSheet.swift */; };
@@ -157,8 +159,10 @@
 		7E0E4D996398E17A75A05C4B /* BaseStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseStrings.swift; sourceTree = "<group>"; };
 		7E0E4DC1755A0121B787047A /* InitViewStartProcessingAmount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitViewStartProcessingAmount.swift; sourceTree = "<group>"; };
 		7E0E4E0263C6030598DA3D25 /* BottomImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomImages.swift; sourceTree = "<group>"; };
+		7E0E4E280F701FDE413DC3BC /* InitButonNext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitButonNext.swift; sourceTree = "<group>"; };
 		7E0E4EB387A52E1880097F6B /* SwitchedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchedView.swift; sourceTree = "<group>"; };
 		7E0E4F0F556E8E2E55E6CBA6 /* CardAdd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardAdd.swift; sourceTree = "<group>"; };
+		7E0E4F586AD160C175A26160 /* InitPayWithNewCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitPayWithNewCard.swift; sourceTree = "<group>"; };
 		7E0E4F9934EAC5D546EFC255 /* BottomSheetUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetUtils.swift; sourceTree = "<group>"; };
 		7E0E4FE567E01C3E55C295E6 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		7E0E4FFB61E525F711672857 /* TestPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestPage.swift; sourceTree = "<group>"; };
@@ -248,6 +252,8 @@
 				7E0E4DC1755A0121B787047A /* InitViewStartProcessingAmount.swift */,
 				7E0E4BF92B6723B7BAA74ADB /* InitAPay.swift */,
 				7E0E4CBF22A82512D3EB157A /* InitCards.swift */,
+				7E0E4F586AD160C175A26160 /* InitPayWithNewCard.swift */,
+				7E0E4E280F701FDE413DC3BC /* InitButonNext.swift */,
 			);
 			path = start_processing_ext;
 			sourceTree = "<group>";
@@ -834,6 +840,8 @@
 				7E0E472D5558BF6FF97FCE39 /* InitViewStartProcessingAmount.swift in Sources */,
 				7E0E413825864B1DBDF4ACEB /* InitAPay.swift in Sources */,
 				7E0E43CCBB3782A69DB4E871 /* InitCards.swift in Sources */,
+				7E0E4730C8EEB97C9BB9374F /* InitPayWithNewCard.swift in Sources */,
+				7E0E432AB1F031260E3559B8 /* InitButonNext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

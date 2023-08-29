@@ -17,7 +17,7 @@ internal struct StartProcessingView: View {
         BankCard(maskedPan: "111111....3333", typeIcon: "icMasterCard")
     ]
     @State var needShowProgressBar: Bool = true
-//        actionClose: () -> Unit,
+    var actionClose: () -> Void
 //        actionOnLoadingCompleted: () -> Unit = {},
     var backgroundColor: Color = ColorsSdk.bgBlock
     @State var isAuthenticated: Bool = false
@@ -42,7 +42,7 @@ internal struct StartProcessingView: View {
 //                        InitViewStartProcessingAPay()  //todo временно закоментировал
 
                         if (!savedCards.isEmpty
-                                && isAuthenticated
+//                                && isAuthenticated
                            ) {
                             InitViewStartProcessingCards( // todo внутри есть закоментированное
                                     savedCards: savedCards,
@@ -51,12 +51,12 @@ internal struct StartProcessingView: View {
                             )
                         }
 
-                        /*InitViewStartProcessingButtonNext(
+                        InitViewStartProcessingButtonNext(
                                 savedCards: savedCards,
-//                                actionClose: actionClose,
+                                actionClose: actionClose,
                                 isAuthenticated: isAuthenticated,
                                 selectedCard: selectedCard
-                        )*/
+                        )
                     }
                     Spacer()
                 }

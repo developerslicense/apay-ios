@@ -20,7 +20,7 @@ internal struct TestPage: View {
             )
         }
                 .sheet(isPresented: $sheetState) {
-                    StartProcessingView()
+                    StartProcessingView(actionClose: { sheetState = false} )
                             .presentationDetents([.medium, .large])
                 }
     }
