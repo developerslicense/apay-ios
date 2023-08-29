@@ -12,7 +12,7 @@ internal struct StartProcessingView: View {
     @State var isError: Bool = false
 
     @State var savedCards: Array<BankCard> = [
-        BankCard(maskedPan: "111111....1111", typeIcon: "icAmericanExpress"),
+//        BankCard(maskedPan: "111111....1111", typeIcon: "icAmericanExpress"), //todo добавить проверку на количество карт, чтоб  размер боттощита увеличивать на полную
         BankCard(maskedPan: "111111....2222", typeIcon: "icVisa"),
         BankCard(maskedPan: "111111....3333", typeIcon: "icMasterCard")
     ]
@@ -65,21 +65,3 @@ internal struct StartProcessingView: View {
 
 }
 
-internal struct InitErrorState: View {
-    var body: some View {
-        VStack {
-            Image("icSomethingWrong")
-                    .padding(.top, 24)
-                    .padding(.bottom, 24)
-
-            Text(somethingWentWrong())
-                    .textStyleH3()
-                    .frame(width: .infinity)
-                    .frame(alignment: .center)
-                    .padding(.bottom, 20)
-
-
-        }
-                .frame(width: .infinity, alignment: .center)
-    }
-}

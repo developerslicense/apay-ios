@@ -43,6 +43,7 @@
 		7E0E499B0DB6517923BA8BC1 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4093DE928D6DCF39E6B1 /* Auth.swift */; };
 		7E0E49BFEB256FF12A538E23 /* BanksName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E419FD37CA9A3585CACC9 /* BanksName.swift */; };
 		7E0E49D1B07A7D24CA640E46 /* BottomSheetHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4241A0EB15988EAB2C47 /* BottomSheetHeader.swift */; };
+		7E0E4A481BF0D0E172E5896A /* InitErrorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E40454568525E7DD91DC6 /* InitErrorState.swift */; };
 		7E0E4A81630054EACAC987F7 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E419D843E66EB23F8B8CE /* Strings.swift */; };
 		7E0E4AD56C81575A94E8C96E /* MoneyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E49A64D064FB1C1FA10ED /* MoneyTests.swift */; };
 		7E0E4B013810221530803D1D /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E41701EB77D45776A34FE /* ProgressBarView.swift */; };
@@ -107,6 +108,7 @@
 		488881E8DC2D208084480677 /* Pods-ApayIOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApayIOSTests.debug.xcconfig"; path = "Target Support Files/Pods-ApayIOSTests/Pods-ApayIOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6841D972DCF597063CED50B6 /* Pods-ApayIOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApayIOSTests.release.xcconfig"; path = "Target Support Files/Pods-ApayIOSTests/Pods-ApayIOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		7E0E40143537D170E31CE580 /* GetNumberCleatedWithMaxSizeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetNumberCleatedWithMaxSizeTests.swift; sourceTree = "<group>"; };
+		7E0E40454568525E7DD91DC6 /* InitErrorState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitErrorState.swift; sourceTree = "<group>"; };
 		7E0E404DEDED5BFB5370E2DE /* CardUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardUtils.swift; sourceTree = "<group>"; };
 		7E0E4093DE928D6DCF39E6B1 /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		7E0E412662828661C254B739 /* RepeatPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatPage.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				7E0E4CBF22A82512D3EB157A /* InitCards.swift */,
 				7E0E4F586AD160C175A26160 /* InitPayWithNewCard.swift */,
 				7E0E4E280F701FDE413DC3BC /* InitButonNext.swift */,
+				7E0E40454568525E7DD91DC6 /* InitErrorState.swift */,
 			);
 			path = start_processing_ext;
 			sourceTree = "<group>";
@@ -842,6 +845,7 @@
 				7E0E43CCBB3782A69DB4E871 /* InitCards.swift in Sources */,
 				7E0E4730C8EEB97C9BB9374F /* InitPayWithNewCard.swift in Sources */,
 				7E0E432AB1F031260E3559B8 /* InitButonNext.swift in Sources */,
+				7E0E4A481BF0D0E172E5896A /* InitErrorState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
