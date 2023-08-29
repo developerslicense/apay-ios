@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct CvvBottomSheet: View {
+struct CvvBottomSheet: View {
     @Environment(\.dismiss) var dismiss
 
     @State var presentSheet: Bool = false

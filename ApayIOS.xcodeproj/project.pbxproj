@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E0E40415D3F37E15BA9DCAD /* AirbaPayBiometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4250D0C791B4A9F0A32D /* AirbaPayBiometric.swift */; };
 		7E0E40467A7C03C2AC675082 /* GetCardsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E467BB2196E09204E1B13 /* GetCardsService.swift */; };
 		7E0E40D1EFE84966B57C119B /* DateExpiredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E42747F1C99013AC8218A /* DateExpiredView.swift */; };
 		7E0E41151D3487AE9C94EAA9 /* MoneyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4CA71EAD9D9A6C9AC7A3 /* MoneyUtils.swift */; };
@@ -88,7 +89,6 @@
 		DC0FCBF32A8A2AAB009C33EF /* SuccessPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0FCBF22A8A2AAB009C33EF /* SuccessPage.swift */; };
 		DC0FCBF92A8A5020009C33EF /* ColorsSdk.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0FCBF82A8A5020009C33EF /* ColorsSdk.swift */; };
 		DC1FF08F2A8B976F00E561DC /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1FF08E2A8B976F00E561DC /* ColorUtils.swift */; };
-		DC46C8412A8CDC8000D3A322 /* info2.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC46C8402A8CDC8000D3A322 /* info2.plist */; };
 		DC82DD632A8E4B3700E8B6AC /* CardLuhnAlgorithmTests2.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC82DD622A8E4B3700E8B6AC /* CardLuhnAlgorithmTests2.swift */; };
 		DC82DD652A8E4B8200E8B6AC /* CardDateTests2.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC82DD642A8E4B8200E8B6AC /* CardDateTests2.swift */; };
 		F1B022DB31D6316D1043E9AE /* Pods_ApayIOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EFABC8AD5562CDCE26B3241 /* Pods_ApayIOSTests.framework */; };
@@ -130,6 +130,7 @@
 		7E0E4207AACAD47D68A029FF /* ViewButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewButton.swift; sourceTree = "<group>"; };
 		7E0E423B5E6437AD0109C781 /* MaskFormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskFormatterTests.swift; sourceTree = "<group>"; };
 		7E0E4241A0EB15988EAB2C47 /* BottomSheetHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetHeader.swift; sourceTree = "<group>"; };
+		7E0E4250D0C791B4A9F0A32D /* AirbaPayBiometric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirbaPayBiometric.swift; sourceTree = "<group>"; };
 		7E0E4253AB9A342658701F4B /* PaymentInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentInfo.swift; sourceTree = "<group>"; };
 		7E0E42747F1C99013AC8218A /* DateExpiredView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExpiredView.swift; sourceTree = "<group>"; };
 		7E0E42A5F5B037D28E709079 /* Popup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
@@ -202,9 +203,9 @@
 		DC0FCBF22A8A2AAB009C33EF /* SuccessPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessPage.swift; sourceTree = "<group>"; };
 		DC0FCBF82A8A5020009C33EF /* ColorsSdk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsSdk.swift; sourceTree = "<group>"; };
 		DC1FF08E2A8B976F00E561DC /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
-		DC46C8402A8CDC8000D3A322 /* info2.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = info2.plist; sourceTree = "<group>"; };
 		DC82DD622A8E4B3700E8B6AC /* CardLuhnAlgorithmTests2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardLuhnAlgorithmTests2.swift; sourceTree = "<group>"; };
 		DC82DD642A8E4B8200E8B6AC /* CardDateTests2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDateTests2.swift; sourceTree = "<group>"; };
+		DC82DD662A9DFD7400E8B6AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E8F32C52DCD3D54B6D8DDCF7 /* Pods_ApayIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ApayIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -466,7 +467,6 @@
 		DC0FCBB12A8A26D4009C33EF = {
 			isa = PBXGroup;
 			children = (
-				DC46C8402A8CDC8000D3A322 /* info2.plist */,
 				DC0FCBBC2A8A26D5009C33EF /* ApayIOS */,
 				DC0FCBCD2A8A26D6009C33EF /* ApayIOSTests */,
 				DC0FCBD72A8A26D6009C33EF /* ApayIOSUITests */,
@@ -489,6 +489,7 @@
 		DC0FCBBC2A8A26D5009C33EF /* ApayIOS */ = {
 			isa = PBXGroup;
 			children = (
+				DC82DD662A9DFD7400E8B6AC /* Info.plist */,
 				DC0FCBBD2A8A26D5009C33EF /* ApayIOSApp.swift */,
 				DC0FCBC12A8A26D5009C33EF /* Assets.xcassets */,
 				DC0FCBE82A8A26F1009C33EF /* data */,
@@ -588,6 +589,7 @@
 				7E0E4CA71EAD9D9A6C9AC7A3 /* MoneyUtils.swift */,
 				7E0E4746FAA131C860B0819A /* MaskUtils.swift */,
 				7E0E463BC070A5FA4793AE13 /* card_utils */,
+				7E0E4250D0C791B4A9F0A32D /* AirbaPayBiometric.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -707,7 +709,6 @@
 				7E0E4C29F31732D0FA0114EA /* Montserrat-Medium.ttf in Resources */,
 				7E0E425DEC9E7FF662916A16 /* Montserrat-Regular.ttf in Resources */,
 				7E0E489A83E2FD42C515A5B3 /* Montserrat-SemiBold.ttf in Resources */,
-				DC46C8412A8CDC8000D3A322 /* info2.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -902,6 +903,7 @@
 				7E0E486FC7BED27BFAFF1E89 /* NetworkModules.swift in Sources */,
 				7E0E47A3ACB2347CFF86936E /* Api.swift in Sources */,
 				7E0E47C2DD9C111B2CF5E83C /* StartProcessingViewModel.swift in Sources */,
+				7E0E40415D3F37E15BA9DCAD /* AirbaPayBiometric.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1069,6 +1071,7 @@
 				DEVELOPMENT_TEAM = 8BBUQVJJMA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ApayIOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1099,6 +1102,7 @@
 				DEVELOPMENT_TEAM = 8BBUQVJJMA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ApayIOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

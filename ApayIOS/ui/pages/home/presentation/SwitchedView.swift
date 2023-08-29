@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct SwitchedView: View {
+struct SwitchedView: View {
     var text: String
     @State var switchCheckedState = false
     var actionOnTrue: () -> Void
@@ -20,7 +20,7 @@ internal struct SwitchedView: View {
                 .padding(.horizontal, 16)
                 .tint(ColorsSdk.colorBrandMain)
                 .onChange(of: switchCheckedState) { value in
-                    if(value) {
+                    if (value) {
                         actionOnTrue()
                     }
                 }

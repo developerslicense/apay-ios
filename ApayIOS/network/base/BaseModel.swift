@@ -5,12 +5,12 @@
 import Foundation
 import Alamofire
 
-internal struct NetworkError: Error {
+struct NetworkError: Error {
     let initialError: AFError
     let backendError: BackendError?
 }
 
-internal struct BackendError: Codable, Error {
+struct BackendError: Codable, Error {
     var status: String
     var message: String
 }

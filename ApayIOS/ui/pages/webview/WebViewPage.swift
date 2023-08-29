@@ -6,7 +6,7 @@ import Foundation
 import SwiftUI
 import WebKit
 
-internal struct WebViewPage: View {
+struct WebViewPage: View {
 
     @State var showDialogExit: Bool = false
     @StateObject private var model = SwiftUIWebViewModel()

@@ -5,14 +5,14 @@
 import Foundation
 
 
-internal struct PaymentEntryRequest {
+struct PaymentEntryRequest {
     var cardSave: Bool // card_save
     var email: String?
     var sendReceipt: Bool//send_receipt
     var card: BankCard
 }
 
-internal struct PaymentEntryResponse {
+struct PaymentEntryResponse {
     var secure3D: Secure3D?
     var errorCode: String? //error_code
     var errorMessage: String? //error_message

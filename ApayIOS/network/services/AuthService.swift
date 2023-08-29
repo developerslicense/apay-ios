@@ -7,11 +7,11 @@ import Combine
 import Alamofire
 
 /*
-internal protocol AuthServiceProtocol {
+protocol AuthServiceProtocol {
     func auth(params: AuthRequest) -> AnyPublisher<DataResponse<AuthResponse, NetworkError>, Never>
 }
 
-internal class AuthService {
+class AuthService {
     static let shared: AuthServiceProtocol = AuthService()
     private init() { }
 }

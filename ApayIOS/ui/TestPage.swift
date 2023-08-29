@@ -4,29 +4,55 @@
 
 import Foundation
 import SwiftUI
+import SwiftUI_SimpleToast
 
-internal struct TestPage: View {
+struct TestPage: View {
     @State private var sheetState = false
+    @State var showToast: Bool = false
+    private let toastOptions = SimpleToastOptions(hideAfter: 5)
+
+    @State private var isAuthenticated: Bool = false
 
     var body: some View {
         ZStack {
             Button(
                     action: {
-                        sheetState = true
+                        airbaPayBiometricAuthenticate(
+                                onSuccess: {
+                                    sheetState = true
+                                },
+                                onError: {
+                                    sheetState = true
+                                    showToast = true
+                                }
+
+                        )
                     },
                     label: {
                         Text("перейти на эквайринг")
+
                     }
             )
         }
                 .sheet(isPresented: $sheetState) {
-                    StartProcessingView(actionClose: { sheetState = false} )
+                    StartProcessingView(
+                            actionClose: { sheetState = false },
+                            isAuthenticated: isAuthenticated
+                    )
                             .presentationDetents([.medium, .large])//todo  надо придумать, что с этим сделать для разных случаев
+                }
+                .simpleToast(isPresented: $showToast, options: toastOptions) {
+                    Label(accessToCardRestricted(), systemImage: "icAdd")
+                            .padding()
+                            .background(Color.gray.opacity(0.9))
+                            .foregroundColor(Color.white)
+                            .cornerRadius(10)
+                            .padding(.top)
                 }
     }
 }
 
-internal func testInitOnCreate() {
+func testInitOnCreate() {
     AirbaPaySdk.initOnCreate(
             isProd: false,
             lang: AirbaPaySdk.Lang.RU(),
@@ -42,7 +68,7 @@ internal func testInitOnCreate() {
     )
 }
 
-internal func testInitProcessing() {
+func testInitProcessing() {
     let someInvoiceId = Date().timeIntervalSince1970
     let someOrderNumber = Date().timeIntervalSince1970
 

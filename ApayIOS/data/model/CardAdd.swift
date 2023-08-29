@@ -4,7 +4,7 @@
 
 import Foundation
 
-internal struct CardAddRequest {
+struct CardAddRequest {
     var language: String?
     var accountId: String? //account_id
     var email: String
@@ -16,7 +16,7 @@ internal struct CardAddRequest {
 
 }
 
-internal struct CardAddResponse {
+struct CardAddResponse {
     var cardId: String? //id
 }
 

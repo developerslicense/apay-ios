@@ -7,7 +7,7 @@ import Foundation
 
 // тесты в MoneyTests
 
-internal struct Money {
+struct Money {
 
     var amount: Int = 0
     var currency: String = kzt
@@ -16,7 +16,7 @@ internal struct Money {
         getMoneyFormatted(amount: String(amount))
     }
 
-    
+
     static func initString(
             amount: String,
             currency: String = kzt
@@ -56,7 +56,7 @@ internal struct Money {
     }
 }
 
-internal func getMoneyFormatted(
+func getMoneyFormatted(
         amount: String,
         currency: String = kzt
 ) -> String {

@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct DialogExit: View {
+struct DialogExit: View {
     var onDismissRequest: () -> Void
 
     var body: some View {

@@ -7,7 +7,7 @@ import Foundation
 
 // https://en.wikipedia.org/wiki/Payment_card_number
 
-internal func getCardTypeFromNumber(
+func getCardTypeFromNumber(
         input: String
 ) -> String {
     if (input.contains(try! Regex("^((34)|(37))"))) {
@@ -34,7 +34,7 @@ internal func getCardTypeFromNumber(
     }
 }
 
-internal func validateCardNumWithLuhnAlgorithm(
+func validateCardNumWithLuhnAlgorithm(
         number: String?
 ) -> Bool {
     let input = getNumberCleared(amount: number)

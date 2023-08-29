@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct RepeatPage: View {
+struct RepeatPage: View {
     var body: some View {
         ZStack {
             ColorsSdk.bgMain
@@ -37,13 +37,13 @@ internal struct RepeatPage: View {
 }
 
 
-internal struct RepeatPage_Previews: PreviewProvider {
+struct RepeatPage_Previews: PreviewProvider {
     static var previews: some View {
         RepeatPage()
     }
 }
 
-/*internal fun RepeatPage(
+/* fun RepeatPage(
     navController: NavController,
     paymentsRepository: PaymentsRepository
 ) {

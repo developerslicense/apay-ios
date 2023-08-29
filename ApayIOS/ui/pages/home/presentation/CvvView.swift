@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct CvvView: View {
+struct CvvView: View {
     @State var cvvText: String
     @State var cvvError: String?
     var actionClickInfo: () -> Void

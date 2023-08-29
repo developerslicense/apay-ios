@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct InitViewStartProcessingCards: View {
+struct InitViewStartProcessingCards: View {
     var savedCards: Array<BankCard>
     @State var selectedCard: BankCard?
     @State var selected: Int = 0
@@ -30,7 +30,8 @@ internal struct InitViewStartProcessingCards: View {
                             }
                     )
                 }
-            }.padding(.horizontal, 16)
+            }
+                    .padding(.horizontal, 16)
 
             InitViewStartProcessingPayWithNewCard(
                     actionClick: {
@@ -44,7 +45,7 @@ internal struct InitViewStartProcessingCards: View {
     }
 }
 
-internal struct InitCard: View {
+struct InitCard: View {
     @State var card: BankCard
     var isSelected: Bool
     var isFirst: Bool

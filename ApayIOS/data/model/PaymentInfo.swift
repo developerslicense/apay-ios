@@ -5,7 +5,7 @@
 import Foundation
 
 
-internal struct PaymentInfoResponse {
+struct PaymentInfoResponse {
     var secure3D: Secure3D?
     var card: BankCard?
     var cardSave: Bool? // card_save
@@ -34,7 +34,7 @@ internal struct PaymentInfoResponse {
 
 }
 
-internal struct Secure3D {
+struct Secure3D {
     var action: String?
     var md: String?
     var paReq: String? // pa_req

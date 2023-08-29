@@ -5,7 +5,7 @@
 import Foundation
 
 // тесты в GetNumberClearedTests
-internal func getNumberCleared(
+func getNumberCleared(
         amount: String?,
         isUserEntered: Bool = false,
         isPhoneNumber: Bool = false
@@ -19,7 +19,7 @@ internal func getNumberCleared(
 }
 
 // тесты в GetNumberClearedWithMaxSizeTests
-internal func getNumberClearedWithMaxSymbol(
+func getNumberClearedWithMaxSymbol(
         amount: String?,
         isUserEntered: Bool = false,
         isPhoneNumber: Bool = false,

@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct ErrorFinalPage: View {
+struct ErrorFinalPage: View {
 
     var body: some View {
         ZStack {
@@ -52,7 +52,7 @@ internal struct ErrorFinalPage: View {
     }
 }
 
-internal struct ErrorFinalPage_Previews: PreviewProvider {
+struct ErrorFinalPage_Previews: PreviewProvider {
     static var previews: some View {
         ErrorFinalPage()
     }

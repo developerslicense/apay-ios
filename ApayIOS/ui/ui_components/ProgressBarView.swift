@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct ProgressBarView: View {
+struct ProgressBarView: View {
     @State private var needInversedProgressBar = false
     @State private var progress = 0.0
     let timer = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()

@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct TopInfoView: View {
+struct TopInfoView: View {
     var purchaseAmount: String
 
     var body: some View {

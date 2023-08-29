@@ -6,7 +6,7 @@ import Foundation
 import SwiftUI
 import WebKit
 
-internal struct InstructionWebViewClient: View {
+struct InstructionWebViewClient: View {
 
     @StateObject private var model = SwiftUIWebViewModel()
 
@@ -23,19 +23,18 @@ private final class SwiftUIWebViewModel: ObservableObject {
     @Published var faqUrl: String
 
     let webView: WKWebView
+
     init() {
         if (DataHolder.bankName == BanksName.kaspibank) {
             if (DataHolder.currentLang == AirbaPaySdk.Lang.KZ()) {
                 faqUrl = "https://static-data.object.pscloud.io/pay-manuals/Kaspi_kaz.mp4"
-            }
-            else {
+            } else {
                 faqUrl = "https://static-data.object.pscloud.io/pay-manuals/Kaspi_rus.mp4"
             }
         } else {
-            if(DataHolder.currentLang == AirbaPaySdk.Lang.KZ()) {
+            if (DataHolder.currentLang == AirbaPaySdk.Lang.KZ()) {
                 faqUrl = "https://static-data.object.pscloud.io/pay-manuals/Halyk_kaz.mp4"
-            }
-            else {
+            } else {
                 faqUrl = "https://static-data.object.pscloud.io/pay-manuals/Halyk_rus.mp4"
             }
         }
@@ -59,6 +58,7 @@ private struct SwiftUIWebView: UIViewRepresentable {
     func makeUIView(context: Context) -> WKWebView {
         webView
     }
+
     func updateUIView(_ uiView: WKWebView, context: Context) {
     }
 }

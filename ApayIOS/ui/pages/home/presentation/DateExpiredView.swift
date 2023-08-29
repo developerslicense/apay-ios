@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct DateExpiredView: View {
+struct DateExpiredView: View {
     @State var dateExpiredText: String
     @State var dateExpiredError: String?
 

@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct ErrorWithInstructionPage: View {
+struct ErrorWithInstructionPage: View {
 
     private let errorCode: ErrorsCode = ErrorsCode(code: 5999)
     @State private var isPlayedOnce = false
@@ -132,7 +132,7 @@ internal struct ErrorWithInstructionPage: View {
     }
 }
 
-internal struct ErrorWithInstructionPage_Previews: PreviewProvider {
+struct ErrorWithInstructionPage_Previews: PreviewProvider {
     static var previews: some View {
         ErrorWithInstructionPage()
     }

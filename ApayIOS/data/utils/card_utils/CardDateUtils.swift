@@ -5,7 +5,7 @@
 import Foundation
 
 // тесты в CardDateTest
-internal func isDateValid(
+func isDateValid(
         value: String?
 ) -> Bool {
 

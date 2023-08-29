@@ -4,7 +4,7 @@
 
 import Foundation
 
-internal class BanksName {
+class BanksName {
     static let halykbank: String = "halykbank"
     static let kaspibank: String = "kaspibank"
 }

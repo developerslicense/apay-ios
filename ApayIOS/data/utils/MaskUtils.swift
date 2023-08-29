@@ -4,7 +4,7 @@
 
 import Foundation
 
-internal class MaskUtils {
+class MaskUtils {
     var pattern: String = ""
     var isDateExpiredMask: Bool = false
     var patternArr: [String] = []
@@ -70,7 +70,7 @@ internal class MaskUtils {
             }
         }
 
-        var sb:[String] = [""]
+        var sb: [String] = [""]
         for it in patternArr {
             var it1 = it
             it1.replace("A", with: "")

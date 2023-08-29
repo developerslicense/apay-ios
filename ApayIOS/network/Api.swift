@@ -4,7 +4,7 @@
 
 import Foundation
 
-internal class NetworkAPI {
+class NetworkAPI {
     static func getAppliances() async -> [Appliance]? {
         do {
             let data = try await NetworkManager.shared.get(

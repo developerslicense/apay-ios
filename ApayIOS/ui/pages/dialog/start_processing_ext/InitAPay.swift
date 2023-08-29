@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct InitViewStartProcessingAPay: View {
+struct InitViewStartProcessingAPay: View {
     var body: some View {
         VStack {
             Image("icAPayWhite")

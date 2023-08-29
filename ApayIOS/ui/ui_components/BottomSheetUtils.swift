@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct HeightPreferenceKey: PreferenceKey {
+struct HeightPreferenceKey: PreferenceKey {
     static var defaultValue: CGFloat?
 
     static func reduce(value: inout CGFloat?, nextValue: () -> CGFloat?) {
@@ -26,7 +26,7 @@ private struct ReadHeightModifier: ViewModifier {
     }
 }
 
-internal extension View {
+extension View {
     func readHeight() -> some View {
         self.modifier(ReadHeightModifier())
     }

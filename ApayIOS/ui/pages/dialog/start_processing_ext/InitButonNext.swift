@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct InitViewStartProcessingButtonNext: View {
+struct InitViewStartProcessingButtonNext: View {
     var savedCards: Array<BankCard>
     var actionClose: () -> Void
     var isAuthenticated: Bool

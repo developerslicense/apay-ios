@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import WebKit
 
-internal struct SuccessPage: View {
+struct SuccessPage: View {
     var body: some View {
         ZStack {
             ColorsSdk.bgMain
@@ -49,7 +49,7 @@ internal struct SuccessPage: View {
     }
 }
 
-internal struct SuccessPage_Previews: PreviewProvider {
+struct SuccessPage_Previews: PreviewProvider {
     static var previews: some View {
         SuccessPage()
     }

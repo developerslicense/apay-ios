@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct InitHeader: View {
+struct InitHeader: View {
     var title: String
     var actionClose: (() -> Void)?
 

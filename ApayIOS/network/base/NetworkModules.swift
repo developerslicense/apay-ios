@@ -7,9 +7,11 @@ import Alamofire
 
 private let API_BASE_URL = "https://random-data-api.com"
 
-internal actor NetworkManager: GlobalActor {
+actor NetworkManager: GlobalActor {
     static let shared = NetworkManager()
-    private init() {}
+
+    private init() {
+    }
 
     private let maxWaitTime = 15.0
     var commonHeaders: HTTPHeaders = [
@@ -27,7 +29,7 @@ internal actor NetworkManager: GlobalActor {
                             requestModifier: { $0.timeoutInterval = self.maxWaitTime }
                     )
                     .responseData { response in
-                        switch(response.result) {
+                        switch (response.result) {
                         case let .success(data):
                             continuation.resume(returning: data)
                         case let .failure(error):
@@ -47,8 +49,7 @@ internal actor NetworkManager: GlobalActor {
                        code == NSURLErrorDataNotAllowed ||
                        code == NSURLErrorCannotFindHost ||
                        code == NSURLErrorCannotConnectToHost ||
-                       code == NSURLErrorNetworkConnectionLost
-            {
+                       code == NSURLErrorNetworkConnectionLost {
                 var userInfo = nserror.userInfo
                 userInfo[NSLocalizedDescriptionKey] = "Unable to connect to the server"
                 let currentError = NSError(

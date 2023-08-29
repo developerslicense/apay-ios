@@ -4,7 +4,7 @@
 
 import Foundation
 
-internal class CardType {
+class CardType {
         static let MASTER_CARD : String = "icMasterCard"
         static let  VISA  : String = "icVisa"
         static let  AMERICAN_EXPRESS  : String = "icAmericanExpress"

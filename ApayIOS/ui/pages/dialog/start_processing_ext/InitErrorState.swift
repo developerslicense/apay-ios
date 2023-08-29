@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct InitErrorState: View {
+struct InitErrorState: View {
     var body: some View {
         VStack {
             Image("icSomethingWrong")

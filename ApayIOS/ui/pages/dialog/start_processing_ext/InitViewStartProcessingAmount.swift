@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct InitViewStartProcessingAmount: View {
+struct InitViewStartProcessingAmount: View {
     var body: some View {
         VStack {
             HStack {

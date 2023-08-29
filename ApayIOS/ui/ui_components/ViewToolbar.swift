@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct ViewToolbar: View {
+struct ViewToolbar: View {
     var title: String?
     var actionShowDialogExit: () -> Void
 

@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct ViewEditText: View {
+struct ViewEditText: View {
     @State var text: String
     @State var errorTitle: String?
 

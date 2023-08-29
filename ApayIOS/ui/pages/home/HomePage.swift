@@ -6,7 +6,7 @@ import Foundation
 import SwiftUI
 import SwiftUI_SimpleToast
 
-internal struct HomePage: View {
+struct HomePage: View {
     @State var showDialogExit: Bool = false
     @State var switchSaveCard: Bool = false
 
@@ -164,7 +164,6 @@ internal struct HomePage: View {
 
 
             }
-
 
 
             if (isLoading.value) {

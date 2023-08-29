@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct InitViewStartProcessingPayWithNewCard: View {
+struct InitViewStartProcessingPayWithNewCard: View {
     var actionClick: () -> Void
 
     var body: some View {

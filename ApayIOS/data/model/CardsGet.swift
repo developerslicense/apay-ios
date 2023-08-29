@@ -6,7 +6,7 @@ import Foundation
 
 //class CardsGetResponse : ArrayList<BankCard>()
 
-internal struct BankCard {
+struct BankCard {
     var pan: String? = nil
     var accountId: String? = nil// account_id
     var maskedPan: String? = nil// masked_pan

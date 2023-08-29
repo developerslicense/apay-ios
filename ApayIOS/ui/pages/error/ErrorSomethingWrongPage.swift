@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct ErrorSomethingWrongPage: View {
+struct ErrorSomethingWrongPage: View {
     var body: some View {
         ZStack {
             ColorsSdk.bgMain
@@ -50,7 +50,7 @@ internal struct ErrorSomethingWrongPage: View {
     }
 }
 
-internal struct ErrorSomethingWrongPage_Previews: PreviewProvider {
+struct ErrorSomethingWrongPage_Previews: PreviewProvider {
     static var previews: some View {
         ErrorSomethingWrongPage()
     }

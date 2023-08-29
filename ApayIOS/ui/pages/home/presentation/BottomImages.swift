@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct BottomImages: View {
+struct BottomImages: View {
     var body: some View {
         HStack {
             Image("icPciExpressBlack")

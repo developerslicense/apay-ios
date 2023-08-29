@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct ErrorPage: View {
+struct ErrorPage: View {
 
     var errorCode: ErrorsCode
     /*val showDialogExit = remember {
@@ -85,7 +85,7 @@ internal struct ErrorPage: View {
     }
 }
 
-internal struct ErrorPage_Previews: PreviewProvider {
+struct ErrorPage_Previews: PreviewProvider {
     static var previews: some View {
         ErrorPage(errorCode: ErrorsCode(code: 5009))
     }

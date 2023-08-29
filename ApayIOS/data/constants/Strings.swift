@@ -5,89 +5,89 @@
 import Foundation
 
 // эти исключения из-за того, что в enum используются
-internal let tryAgainRu = "Попробовать снова"
-internal let tryAgainKz = "Қайтадан байқап көріңіз"
+let tryAgainRu = "Попробовать снова"
+let tryAgainKz = "Қайтадан байқап көріңіз"
 
-internal let payAnotherCardRu = "Оплатить другой картой"
-internal let payAnotherCardKz = "Басқа картамен төлеңіз"
+let payAnotherCardRu = "Оплатить другой картой"
+let payAnotherCardKz = "Басқа картамен төлеңіз"
 
-internal let goToMarketRu = "Вернуться в магазин"
-internal let goToMarketKz = "Дүкенге оралу"
+let goToMarketRu = "Вернуться в магазин"
+let goToMarketKz = "Дүкенге оралу"
 
-internal let limitExceededRu = "Превышен лимит \nпо карте"
-internal let limitExceededKz = "Карта шегінен \nасып кетті"
+let limitExceededRu = "Превышен лимит \nпо карте"
+let limitExceededKz = "Карта шегінен \nасып кетті"
 
-internal let tryPayAnotherCardRu = "Попробуйте оплатить другой картой"
-internal let tryPayAnotherCardKz = "Басқа картамен төлеуге тырысыңыз"
+let tryPayAnotherCardRu = "Попробуйте оплатить другой картой"
+let tryPayAnotherCardKz = "Басқа картамен төлеуге тырысыңыз"
 
-internal let kzt = "₸"
+let kzt = "₸"
 
-internal func paymentByCard() -> String {
+func paymentByCard() -> String {
     getStrFromRes("Оплата картой", "Карточка арқылы төлеу")
 }
 
-internal func paymentByCard2() -> String {
+func paymentByCard2() -> String {
     getStrFromRes("Оплатить картой", "Картамен төлеу")
 }
 
-internal func paymentOfPurchase() -> String {
+func paymentOfPurchase() -> String {
     getStrFromRes("Оплата покупки", "Сатып алу төлемі")
 }
 
-internal func amountOfPurchase() -> String {
+func amountOfPurchase() -> String {
     getStrFromRes("Сумма покупки", "Сатып алу сомасы")
 }
 
-internal func numberOfPurchase() -> String {
+func numberOfPurchase() -> String {
     getStrFromRes("Номер заказа", "Тапсырыс нөмірі")
 }
 
 
-internal func holderName() -> String {
+func holderName() -> String {
     getStrFromRes("Имя держателя", "Ұстаушы аты")
 }
 
 
-internal func cardNumber() -> String {
+func cardNumber() -> String {
     getStrFromRes("Номер карты", "Карта нөмірі")
 }
 
-internal func dateExpired() -> String {
+func dateExpired() -> String {
     getStrFromRes("ММ/ГГ", "АА/ЖЖ")
 }
 
-internal func cvv() -> String {
+func cvv() -> String {
     getStrFromRes("CVV", "CVV")
 }
 
 
-internal func saveCardData() -> String {
+func saveCardData() -> String {
     getStrFromRes("Сохранить данные карты", "Карта мәліметтерін сақтаңыз")
 }
 
-internal func sendCheckToEmail() -> String {
+func sendCheckToEmail() -> String {
     getStrFromRes("Отправить чек на e-mail", "Чекті электрондық поштаға жіберіңіз")
 }
 
 
-internal func email() -> String {
+func email() -> String {
     getStrFromRes("E-mail", "E-mail")
 }
 
 
-internal func payAmount() -> String {
+func payAmount() -> String {
     getStrFromRes("Оплатить", "Төлеу")
 }
 
 
-internal func cvvInfo() -> String {
+func cvvInfo() -> String {
     getStrFromRes(
             "CVV находится на задней стороне",
             "CVV төлем картаңыздың артында"
     )
 }
 
-internal func cvvInfo2() -> String {
+func cvvInfo2() -> String {
     getStrFromRes(
             "вашей платежной карты",
             "орналасқан"
@@ -95,62 +95,62 @@ internal func cvvInfo2() -> String {
 }
 
 
-internal func cardDataSaved() -> String {
+func cardDataSaved() -> String {
     getStrFromRes("Данные карты сохранены", "Карта деректері сақталды")
 }
 
 
-internal func needFillTheField() -> String {
+func needFillTheField() -> String {
     getStrFromRes("Заполните поле", "Өрісті толтырыңыз")
 }
 
 
-internal func wrongDate() -> String {
+func wrongDate() -> String {
     getStrFromRes("Неверная дата", "Қате күн")
 }
 
 
-internal func wrongEmail() -> String {
+func wrongEmail() -> String {
     getStrFromRes("Неверный емейл", "Жарамсыз электрондық пошта")
 }
 
 
-internal func wrongCvv() -> String {
+func wrongCvv() -> String {
     getStrFromRes("Неверный CVV", "Жарамсыз CVV")
 }
 
 
-internal func wrongCardNumber() -> String {
+func wrongCardNumber() -> String {
     getStrFromRes("Неправильный номер карты", "Карта нөмірі қате")
 }
 
 
-internal func yes() -> String {
+func yes() -> String {
     getStrFromRes("Да", "Иә")
 }
 
 
-internal func no() -> String {
+func no() -> String {
     getStrFromRes("Нет", "Жоқ")
 }
 
 
-internal func dropPayment() -> String {
+func dropPayment() -> String {
     getStrFromRes("Прервать оплату?", "Төлемді тоқтату керек пе?")
 }
 
 
-internal func paySuccess() -> String {
+func paySuccess() -> String {
     getStrFromRes("Оплата прошла успешно", "Төлем сәтті болды")
 }
 
 
-internal func goToMarker() -> String {
+func goToMarker() -> String {
     getStrFromRes(goToMarketRu, goToMarketKz)
 }
 
 
-internal func dropPaymentDescription() -> String {
+func dropPaymentDescription() -> String {
     getStrFromRes(
             "Нажимая “Да” введенные карточные данные не будут сохранены",
             "«Иә» түймесін басу арқылы енгізілген карта деректері сақталмайды"
@@ -158,12 +158,12 @@ internal func dropPaymentDescription() -> String {
 }
 
 
-internal func timeForPayExpired() -> String {
+func timeForPayExpired() -> String {
     getStrFromRes("Время оплаты истекло", "Төлеу уақыты аяқталды")
 }
 
 
-internal func tryFormedNewCart() -> String {
+func tryFormedNewCart() -> String {
     getStrFromRes(
             "Попробуйте сформировать\nкорзину занова",
             "Себетті қайтадан\nжасап көріңіз"
@@ -171,17 +171,17 @@ internal func tryFormedNewCart() -> String {
 }
 
 
-internal func weRepeatYourPayment() -> String {
+func weRepeatYourPayment() -> String {
     getStrFromRes("Повторяем ваш платеж", "Төлеміңізді қайталаймыз")
 }
 
 
-internal func thisNeedSomeTime() -> String {
+func thisNeedSomeTime() -> String {
     getStrFromRes("Это займет немного времени", "Бұл біраз уақытты алады")
 }
 
 
-internal func forChangeLimitInKaspi() -> String {
+func forChangeLimitInKaspi() -> String {
     getStrFromRes(
             "Для изменения лимита \nв приложении Kaspi.kz:",
             "Kaspi.kz қолданбасындағы \nшектеуді өзгерту үшін:"
@@ -189,7 +189,7 @@ internal func forChangeLimitInKaspi() -> String {
 }
 
 
-internal func forChangeLimitInHomebank() -> String {
+func forChangeLimitInHomebank() -> String {
     getStrFromRes(
             "Для изменения лимита \nв приложении Homebank:",
             "Homebank қолданбасындағы \nшектеуді өзгерту үшін:"
@@ -197,54 +197,54 @@ internal func forChangeLimitInHomebank() -> String {
 }
 
 
-internal func somethingWentWrong() -> String {
+func somethingWentWrong() -> String {
     getStrFromRes("Что-то пошло не так", "Бірдеңе дұрыс болмады")
 }
 
 
-internal func somethingWentWrongDescription() -> String {
+func somethingWentWrongDescription() -> String {
     getStrFromRes(
             "Обратитесь в службу поддержки магазина",
             "Дүкен қолдау қызметіне хабарласыңыз"
     )
 }
 
-internal func orPayWithCard() -> String {
+func orPayWithCard() -> String {
     getStrFromRes(
             "или оплатите картой",
             "немесе картамен төлеңіз"
     )
 }
 
-internal func payAnotherCard() -> String {
+func payAnotherCard() -> String {
     getStrFromRes(
             payAnotherCardRu,
             payAnotherCardKz
     )
 }
 
-internal func accessToCardRestricted() -> String {
+func accessToCardRestricted() -> String {
     getStrFromRes(
             "Доступ к сохраненным картам отменен",
             "Сақталған карталарға кіруден бас тартылды"
     )
 }
 
-internal func requestAccessToSavedCards() -> String {
+func requestAccessToSavedCards() -> String {
     getStrFromRes(
             "Запрос доступа к сохраненным картам",
             "Сақталған карталарға рұқсат сұрау"
     )
 }
 
-internal func authenticateFingerprint() -> String {
+func authenticateFingerprint() -> String {
     getStrFromRes(
             "Отсканируйте отпечаток пальца",
             "Саусақ ізін сканерлеңіз"
     )
 }
 
-internal func textCancel() -> String {
+func textCancel() -> String {
     getStrFromRes(
             "Отменить",
             "Бас тарту"

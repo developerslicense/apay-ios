@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-internal struct CardNumberView: View {
+struct CardNumberView: View {
     @State var cardNumberText: String
     @State var cardNumberError: String?
     @State var paySystemIcon: String = ""

@@ -6,7 +6,7 @@ import Foundation
 import SwiftUI
 
 // https://suragch.medium.com/getting-and-setting-the-cursor-position-in-swift-68da99bcef39
-internal struct CoreEditText: View {
+struct CoreEditText: View {
 
     @State var text: String = ""
     @State var value: String = ""
