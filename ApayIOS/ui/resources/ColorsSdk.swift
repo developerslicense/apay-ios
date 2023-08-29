@@ -19,7 +19,7 @@ internal struct ColorsSdk {
     static let bgAccent = Color("ColorBgAccent")
     static let bgSecondaryAccent = Color("ColorBgSecondaryAccent")
     static let bgElements = Color("ColorBgElements")
-    static let bgGPAY = Color("ColorBgGPAY")
+    static let bgAPAY = Color("ColorBgAPAY")
 
     // text
     static let textMain = Color("ColorTextMain")

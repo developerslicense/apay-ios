@@ -42,7 +42,8 @@ val savedCards = remember {
                         InitErrorState()
 
                     } else {
-                        InitErrorState()
+                        InitViewStartProcessingAmount()
+//                        InitViewStartProcessingAPay()
 
                     }
                     Spacer()
