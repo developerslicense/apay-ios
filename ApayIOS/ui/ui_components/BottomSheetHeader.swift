@@ -11,8 +11,6 @@ internal struct InitHeader: View {
 
     var body: some View {
         VStack {
-            Image("icLineGray")
-                    .padding(.top, 6)
 
             ZStack {
 
@@ -25,13 +23,13 @@ internal struct InitHeader: View {
                 if (actionClose != nil) {
                     Image("icCancel")
                             .padding(.horizontal, 16)
-                            .padding(.top, 10)
+                            .padding(.top, 16)
                             .onTapGesture {
                                 actionClose!()
                             }
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
                 }
-            }.frame(height: 60)
+            }.frame(height: 46)
 
             Divider().padding(.top, 6)
 
