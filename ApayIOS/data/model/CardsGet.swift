@@ -18,7 +18,7 @@ internal struct BankCard {
     var issuer: String? = nil
     var cvv: String? = nil
 
-    var typeIcon: Int? = nil
+    var typeIcon: String? = nil
 
     func getMaskedPanCleared()-> String {
         String(maskedPan?.suffix(6) ?? "")

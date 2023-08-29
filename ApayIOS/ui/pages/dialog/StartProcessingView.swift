@@ -11,22 +11,18 @@ internal struct StartProcessingView: View {
     @State var presentSheet: Bool = false
     @State var isError: Bool = false
 
-//        needShowProgressBar: Boolean = true,
+    @State var savedCards: Array<BankCard> = [
+        BankCard(maskedPan: "111111....1111", typeIcon: "icAmericanExpress"),
+        BankCard(maskedPan: "111111....2222", typeIcon: "icVisa"),
+        BankCard(maskedPan: "111111....3333", typeIcon: "icMasterCard")
+    ]
+    @State var needShowProgressBar: Bool = true
 //        actionClose: () -> Unit,
 //        actionOnLoadingCompleted: () -> Unit = {},
-//isBottomSheetType: Boolean = true,
-//backgroundColor: Color = ColorsSdk.bgBlock,
-//isAuthenticated: MutableState<Boolean>
-
-    /*    val purchaseAmount = DataHolder.purchaseAmountFormatted.collectAsState()
-
-val size = remember { mutableStateOf(IntSize.Zero) }
-val isLoading  = remember { mutableStateOf(true) }
-val selectedCard = remember { mutableStateOf<BankCard?>(null) }
-
-val savedCards = remember {
-    mutableStateOf<List<BankCard>>(emptyList())
-}*/
+    var backgroundColor: Color = ColorsSdk.bgBlock
+    @State var isAuthenticated: Bool = false
+    @State var isLoading: Bool = true
+    @State var selectedCard: BankCard? = nil
 
     var body: some View {
         ColorsSdk.bgBlock.overlay(
@@ -43,8 +39,24 @@ val savedCards = remember {
 
                     } else {
                         InitViewStartProcessingAmount()
-//                        InitViewStartProcessingAPay()
+//                        InitViewStartProcessingAPay()  //todo временно закоментировал
 
+                        if (!savedCards.isEmpty
+                                && isAuthenticated
+                           ) {
+                            InitViewStartProcessingCards( // todo внутри есть закоментированное
+                                    savedCards: savedCards,
+                                    selectedCard: selectedCard
+//                                    actionClose: actionClose
+                            )
+                        }
+
+                        /*InitViewStartProcessingButtonNext(
+                                savedCards: savedCards,
+//                                actionClose: actionClose,
+                                isAuthenticated: isAuthenticated,
+                                selectedCard: selectedCard
+                        )*/
                     }
                     Spacer()
                 }
