@@ -3,14 +3,26 @@
 //
 
 import Foundation
+import Alamofire
 
-struct AuthRequest {
+struct AuthRequest: Encodable {
     var password: String?
-    var paymentId: String? //payment_id
-    var terminalId: String? //terminal_id
+    var paymentId: String?
+    var terminalId: String?
     var user: String?
+
+    enum CodingKeys: String, CodingKey {
+        case password = "password"
+        case paymentId = "payment_id"
+        case terminalId = "terminal_id"
+        case user = "user"
+    }
 }
 
-struct AuthResponse {
-    var accessToken: String? //access_token
+struct AuthResponse: Codable {
+    var accessToken: String?
+
+    enum CodingKeys: String, CodingKey {
+        case accessToken = "access_token"
+    }
 }

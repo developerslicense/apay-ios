@@ -6,31 +6,18 @@ import Foundation
 import Combine
 import Alamofire
 
-/*
-protocol AuthServiceProtocol {
-    func auth(params: AuthRequest) -> AnyPublisher<DataResponse<AuthResponse, NetworkError>, Never>
-}
+func authService(params: AuthRequest) async -> AuthResponse? {
+    do {
+        let data = try await NetworkManager.shared.post(
+                path: "api/v1/auth/sign-in",
+                parameters: params
+        )
 
-class AuthService {
-    static let shared: AuthServiceProtocol = AuthService()
-    private init() { }
-}
+        let result: AuthResponse = try Api.parseData(data: data)
+        return result
 
-extension AuthService: AuthServiceProtocol {
-    func auth(params: AuthRequest) -> AnyPublisher<DataResponse<AuthResponse, NetworkError>, Never> {
-        let url = URL(string: "Your_URL")!
-
-        return AF.request(url,
-                        method: .get)
-                .validate()
-                .publishDecodable(type: AuthResponse.self)
-                .map { response in
-                    response.mapError { error in
-                        let backendError = response.data.flatMap { try? JSONDecoder().decode(BackendError.self, from: $0)}
-                        return NetworkError(initialError: error, backendError: backendError)
-                    }
-                }
-                .receive(on: DispatchQueue.main)
-                .eraseToAnyPublisher()
+    } catch let error {
+        print(error.localizedDescription)
+        return nil
     }
-}*/
+}

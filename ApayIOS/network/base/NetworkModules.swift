@@ -5,8 +5,6 @@
 import Foundation
 import Alamofire
 
-private let API_BASE_URL = "https://random-data-api.com"
-
 actor NetworkManager: GlobalActor {
     static let shared = NetworkManager()
 
@@ -14,21 +12,73 @@ actor NetworkManager: GlobalActor {
     }
 
     private let maxWaitTime = 15.0
-    var commonHeaders: HTTPHeaders = [
-        "user_id": "123",
-        "token": "xxx-xx"
-    ]
 
     func get(path: String, parameters: Parameters?) async throws -> Data {
-        // You must resume the continuation exactly once
-        return try await withCheckedThrowingContinuation { continuation in
+        try await executeRequest(method: .get, path: path, parameters: parameters)
+    }
+
+    func patch(path: String, parameters: Parameters?) async throws -> Data {
+        try await executeRequest(method: .patch, path: path, parameters: parameters)
+    }
+
+    func post(path: String, parameters: Encodable) async throws -> Data {
+        try await withCheckedThrowingContinuation { continuation in
             AF.request(
-                            API_BASE_URL + path,
+                            DataHolder.baseUrl + path,
+                            method: .post,
                             parameters: parameters,
-                            headers: commonHeaders,
+                            encoder: JSONParameterEncoder.default,
+                            headers: [
+                                "Content-Type": "application/json; charset=utf-8",
+                                "Authorization":
+                                DataHolder.accessToken == nil
+                                        || DataHolder.accessToken == "" ? "" : "Bearer " + DataHolder.accessToken!
+                            ],
                             requestModifier: { $0.timeoutInterval = self.maxWaitTime }
                     )
                     .responseData { response in
+                        if (!DataHolder.isProd) {
+                            print("AirbaPay ")
+                            print(parameters)
+                            print(response.debugDescription)
+                        }
+
+                        switch (response.result) {
+                        case let .success(data):
+                            continuation.resume(returning: data)
+                        case let .failure(error):
+                            continuation.resume(throwing: self.handleError(error: error))
+                        }
+                    }
+        }
+    }
+
+    func executeRequest(
+            method: HTTPMethod,
+            path: String,
+            parameters: Parameters?
+    ) async throws -> Data {
+        try await withCheckedThrowingContinuation { continuation in
+            AF.request(
+                            DataHolder.baseUrl + path,
+                            method: method,
+                            parameters: parameters,
+
+                            headers: [
+                                "Content-Type": "application/json; charset=utf-8",
+                                "Authorization":
+                                DataHolder.accessToken == nil
+                                        || DataHolder.accessToken == "" ? "" : "Bearer " + DataHolder.accessToken!
+                            ],
+                            requestModifier: { $0.timeoutInterval = self.maxWaitTime }
+                    )
+                    .responseData { response in
+                        if (!DataHolder.isProd) {
+                            print("AirbaPay ")
+                            print(parameters)
+                            print(response.debugDescription)
+                        }
+
                         switch (response.result) {
                         case let .success(data):
                             continuation.resume(returning: data)
@@ -43,6 +93,7 @@ actor NetworkManager: GlobalActor {
         if let underlyingError = error.underlyingError {
             let nserror = underlyingError as NSError
             let code = nserror.code
+
             if code == NSURLErrorNotConnectedToInternet ||
                        code == NSURLErrorTimedOut ||
                        code == NSURLErrorInternationalRoamingOff ||
@@ -50,13 +101,17 @@ actor NetworkManager: GlobalActor {
                        code == NSURLErrorCannotFindHost ||
                        code == NSURLErrorCannotConnectToHost ||
                        code == NSURLErrorNetworkConnectionLost {
+
                 var userInfo = nserror.userInfo
+
                 userInfo[NSLocalizedDescriptionKey] = "Unable to connect to the server"
+
                 let currentError = NSError(
                         domain: nserror.domain,
                         code: code,
                         userInfo: userInfo
                 )
+
                 return currentError
             }
         }

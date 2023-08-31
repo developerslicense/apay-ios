@@ -4,14 +4,12 @@
 
 import Foundation
 
-//class CardsGetResponse : ArrayList<BankCard>()
-
-struct BankCard {
+struct BankCard: Codable {
     var pan: String? = nil
-    var accountId: String? = nil// account_id
-    var maskedPan: String? = nil// masked_pan
-    var expiry: String? = nil //
-    var expiredForResponse: String? = nil //expire
+    var accountId: String? = nil
+    var maskedPan: String? = nil
+    var expiry: String? = nil
+    var expiredForResponse: String? = nil
     var name: String? = nil
     var id: String? = nil
     var type: String? = nil
@@ -22,5 +20,18 @@ struct BankCard {
 
     func getMaskedPanCleared()-> String {
         String(maskedPan?.suffix(6) ?? "")
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case accountId = "account_id"
+        case maskedPan = "masked_pan"
+        case expiredForResponse = "expire"
+        case pan = "pan"
+        case expiry = "expiry"
+        case cvv = "cvv"
+        case issuer = "issuer"
+        case type = "type"
+        case id = "id"
+        case name = "name"
     }
 }

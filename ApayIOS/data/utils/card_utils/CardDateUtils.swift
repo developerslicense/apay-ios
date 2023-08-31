@@ -39,7 +39,7 @@ func isDateValid(
         return false
     }
 
-    var date = Date()
+    let date = Date()
     var fourDigitsYear = 0
     if (year < 2000) {
         fourDigitsYear = 2000 + year

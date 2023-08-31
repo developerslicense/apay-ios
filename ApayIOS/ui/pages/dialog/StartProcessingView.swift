@@ -12,11 +12,9 @@ struct StartProcessingView: View {
     @Environment(\.dismiss) var dismiss
 
     @State var presentSheet: Bool = false
-    @State var isError: Bool = false
     @State var needShowProgressBar: Bool = true
     var actionClose: () -> Void
     var backgroundColor: Color = ColorsSdk.bgBlock
-    @State var selectedCard: BankCard? = nil
 
     @State private var isAuthenticated: Bool = false
     @State private var showToast: Bool = false
@@ -34,7 +32,7 @@ struct StartProcessingView: View {
                                         }
                                 )
 
-                                if (isError) {
+                                if (viewModel.isError) {
                                     InitErrorState()
 
                                 } else {
@@ -46,7 +44,7 @@ struct StartProcessingView: View {
                                        ) {
                                         InitViewStartProcessingCards(// todo внутри есть закоментированное
                                                 savedCards: viewModel.savedCards,
-                                                selectedCard: selectedCard
+                                                selectedCard: viewModel.selectedCard
 //                                    actionClose: actionClose
                                         )
                                     }
@@ -55,7 +53,7 @@ struct StartProcessingView: View {
                                             savedCards: viewModel.savedCards,
                                             actionClose: actionClose,
                                             isAuthenticated: isAuthenticated,
-                                            selectedCard: selectedCard
+                                            selectedCard: viewModel.selectedCard
                                     )
                                 }
                                 Spacer()
@@ -70,7 +68,7 @@ struct StartProcessingView: View {
                     airbaPayBiometricAuthenticate(
                             onSuccess: {
                                 Task {
-                                    await viewModel.fetchAppliances()
+                                    await viewModel.authAndLoadCards()
                                     isAuthenticated = true
                                     isLoading = false
                                 }
