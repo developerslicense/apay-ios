@@ -14,7 +14,7 @@ class HomePageViewModel: ObservableObject {
     @MainActor @Published var dateExpiredError: String? = nil
     @MainActor @Published var cvvError: String? = nil
 
-    func setError(
+    func changeErrorState(
             cardNumberError: String? = nil,
             dateExpiredError: String? = nil,
             cvvError: String? = nil

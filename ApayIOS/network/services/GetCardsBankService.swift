@@ -8,7 +8,8 @@ import Alamofire
 
 func getCardsBankService(
         pan: String,
-        next: () -> Void
+        next: () -> Void,
+        isLoading: @escaping (Bool) -> Void
 ) async {
 
     do {
@@ -23,6 +24,6 @@ func getCardsBankService(
 
     } catch let error {
         print(error.localizedDescription)
-
+        isLoading(false)
     }
 }

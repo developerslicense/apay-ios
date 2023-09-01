@@ -93,7 +93,7 @@ struct HomePage: View {
                         title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
                         actionClick: {
                             if !viewModel.isLoading {
-                               onClick()
+                                onClick()
                             }
                         }
                 )
@@ -146,7 +146,9 @@ struct HomePage: View {
                 && validationResult.errorCvv == nil
                 && validationResult.errorDateExpired == nil
            ) {
+            viewModel.changeErrorState()
             viewModel.isLoading = true
+
             var card = viewModel.cardNumberText
             card.replace(" ", with: "")
 
@@ -163,12 +165,15 @@ struct HomePage: View {
                                     dateExpired: viewModel.dateExpiredText,
                                     cvv: viewModel.cvvText
                             )
+                        },
+                        isLoading: { isLoading in
+                            viewModel.isLoading = isLoading
                         }
                 )
             }
 
         } else {
-            viewModel.setError(
+            viewModel.changeErrorState(
                     cardNumberError: validationResult.errorCardNumber,
                     dateExpiredError: validationResult.errorDateExpired,
                     cvvError: validationResult.errorCvv
