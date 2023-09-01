@@ -10,13 +10,14 @@ struct TestPage: View {
     @State private var sheetState = false
 
     var body: some View {
+
         ZStack {
             Button(
                     action: {
                         sheetState = true
                     },
                     label: {
-                        Text("перейти на эквайринг")
+                        Text("переход на эквайринг")
                     }
             )
         }
@@ -26,7 +27,6 @@ struct TestPage: View {
                     )
                             .presentationDetents([.medium, .large])//todo  надо придумать, что с этим сделать для разных случаев
                 }
-
     }
 }
 

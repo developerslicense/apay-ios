@@ -5,14 +5,14 @@
 import Foundation
 import SwiftUI
 
-class AirbaPaySdk {
+public class AirbaPaySdk {
 
-    enum Lang: Equatable {
+    public enum Lang: Equatable {
         case RU(lang: String = "ru")
         case KZ(lang: String = "kz")
     }
 
-    struct Goods: Encodable {
+    public struct Goods: Encodable {
         let brand: String // Брэнд продукта
         let category: String // Категория продукта
         let model: String // Модель продукта
@@ -20,7 +20,7 @@ class AirbaPaySdk {
         let price: Int // Цена продукта
     }
 
-    struct SettlementPayment: Encodable {
+    public struct SettlementPayment: Encodable {
         let amount: Int
         let companyId: String?
 
@@ -30,7 +30,7 @@ class AirbaPaySdk {
         }
     }
 
-    static func initOnCreate(
+    public static func initOnCreate(
             isProd: Bool,
             lang: Lang,
             phone: String,
@@ -82,7 +82,7 @@ class AirbaPaySdk {
 
     }
 
-    static func initProcessing(
+    public static func initProcessing(
             purchaseAmount: Int,
             invoiceId: String,
             orderNumber: String,

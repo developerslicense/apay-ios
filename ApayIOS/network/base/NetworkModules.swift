@@ -39,7 +39,7 @@ actor NetworkManager: GlobalActor {
                             DataHolder.baseUrl + path,
                             method: method,
                             parameters: parameters,
-
+                            encoder: JSONParameterEncoder.default,
                             headers: [
                                 "Content-Type": "application/json; charset=utf-8",
                                 "Authorization":

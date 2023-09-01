@@ -28,16 +28,16 @@ struct ViewButton: View {
 
     }
 
-    private func initButtonBackground(isMainBrand: Bool)-> Color  {
-        if(isMainBrand) {
+    private func initButtonBackground(isMainBrand: Bool) -> Color {
+        if isMainBrand {
             return ColorsSdk.colorBrandMain
         } else {
             return ColorsSdk.gray5
         }
     }
 
-    private func initButtonTextColor(isMainBrand: Bool)-> Color {
-        if(isMainBrand) {
+    private func initButtonTextColor(isMainBrand: Bool) -> Color {
+        if isMainBrand {
             return ColorsSdk.colorBrandInversion
         } else {
             return ColorsSdk.colorBrandMain

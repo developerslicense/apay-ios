@@ -13,7 +13,6 @@ struct InitViewStartProcessingButtonNext: View {
 
 
     var body: some View {
-
         if (!savedCards.isEmpty
                 && isAuthenticated
            ) {
