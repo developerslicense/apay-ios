@@ -54,7 +54,7 @@ struct ErrorWithInstructionPage: View {
                                 .frame(alignment: .center)
                                 .padding(.bottom, 32)
 
-                        Text(DataHolder.bankName == BanksName.kaspibank ? forChangeLimitInKaspi() : forChangeLimitInHomebank())
+                        Text(DataHolder.bankCode == BanksName.kaspibank ? forChangeLimitInKaspi() : forChangeLimitInHomebank())
                                 .multilineTextAlignment(.leading)
                                 .textStyleSemiBold()
                                 .frame(maxWidth: .infinity, alignment: .leading)

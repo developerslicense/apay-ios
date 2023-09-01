@@ -25,7 +25,7 @@ private final class SwiftUIWebViewModel: ObservableObject {
     let webView: WKWebView
 
     init() {
-        if (DataHolder.bankName == BanksName.kaspibank) {
+        if (DataHolder.bankCode == BanksName.kaspibank) {
             if (DataHolder.currentLang == AirbaPaySdk.Lang.KZ()) {
                 faqUrl = "https://static-data.object.pscloud.io/pay-manuals/Kaspi_kaz.mp4"
             } else {

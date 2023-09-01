@@ -12,7 +12,7 @@ class AirbaPaySdk {
         case KZ(lang: String = "kz")
     }
 
-    struct Goods {
+    struct Goods: Encodable {
         let brand: String // Брэнд продукта
         let category: String // Категория продукта
         let model: String // Модель продукта
@@ -20,9 +20,14 @@ class AirbaPaySdk {
         let price: Int // Цена продукта
     }
 
-    struct SettlementPayment {
+    struct SettlementPayment: Encodable {
         let amount: Int
-        let companyId: String? //company_id
+        let companyId: String?
+
+        enum CodingKeys: String, CodingKey {
+            case amount = "amount"
+            case companyId = "company_id"
+        }
     }
 
     static func initOnCreate(
@@ -48,7 +53,7 @@ class AirbaPaySdk {
             ColorsSdk.colorBrandMain = colorBrandMain!
         }
 
-        DataHolder.bankName = nil
+        DataHolder.bankCode = nil
         DataHolder.accessToken = nil
         DataHolder.isProd = isProd
         DataHolder.needShowSdkSuccessPage = needShowSdkSuccessPage

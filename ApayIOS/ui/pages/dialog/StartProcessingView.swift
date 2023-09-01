@@ -89,6 +89,5 @@ struct StartProcessingView: View {
                             .padding(.top)
                 }
     }
-
 }
 

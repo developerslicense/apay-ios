@@ -14,7 +14,7 @@ class DataHolder {
     static var isProd = true
     static var needShowSdkSuccessPage = true
 
-    static var bankName: String? = nil
+    static var bankCode: String? = nil
     static var accessToken: String? = nil
     static var cardId: String? = nil
     static var purchaseAmount = ""

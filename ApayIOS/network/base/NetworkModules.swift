@@ -14,20 +14,32 @@ actor NetworkManager: GlobalActor {
     private let maxWaitTime = 15.0
 
     func get(path: String, parameters: Parameters?) async throws -> Data {
-        try await executeRequest(method: .get, path: path, parameters: parameters)
+        try await executeRequestParameters(method: .get, path: path, parameters: parameters)
     }
 
-    func patch(path: String, parameters: Parameters?) async throws -> Data {
-        try await executeRequest(method: .patch, path: path, parameters: parameters)
+    func put(path: String, parameters: Encodable?) async throws -> Data {
+        if (parameters == nil) {
+            return try await executeRequestParameters(method: .put, path: path, parameters: nil)
+        } else {
+            return try await executeRequestEncodable(method: .put, path: path, parameters: parameters!)
+        }
     }
 
     func post(path: String, parameters: Encodable) async throws -> Data {
+        try await executeRequestEncodable(method: .post, path: path, parameters: parameters)
+    }
+
+    private func executeRequestEncodable(
+            method: HTTPMethod,
+            path: String,
+            parameters: Encodable
+    ) async throws -> Data {
         try await withCheckedThrowingContinuation { continuation in
             AF.request(
                             DataHolder.baseUrl + path,
-                            method: .post,
+                            method: method,
                             parameters: parameters,
-                            encoder: JSONParameterEncoder.default,
+
                             headers: [
                                 "Content-Type": "application/json; charset=utf-8",
                                 "Authorization":
@@ -53,7 +65,7 @@ actor NetworkManager: GlobalActor {
         }
     }
 
-    func executeRequest(
+    private func executeRequestParameters(
             method: HTTPMethod,
             path: String,
             parameters: Parameters?

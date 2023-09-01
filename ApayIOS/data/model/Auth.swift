@@ -19,7 +19,7 @@ struct AuthRequest: Encodable {
     }
 }
 
-struct AuthResponse: Codable {
+struct AuthResponse: Decodable {
     var accessToken: String?
 
     enum CodingKeys: String, CodingKey {

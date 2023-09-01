@@ -4,18 +4,32 @@
 
 import Foundation
 
-
-struct PaymentEntryRequest {
-    var cardSave: Bool // card_save
+struct PaymentEntryRequest: Encodable {
+    var cardSave: Bool
     var email: String?
-    var sendReceipt: Bool//send_receipt
+    var sendReceipt: Bool
     var card: BankCard
+
+    enum CodingKeys: String, CodingKey {
+        case cardSave = "card_save"
+        case email = "email"
+        case sendReceipt = "send_receipt"
+        case card = "card"
+    }
 }
 
-struct PaymentEntryResponse {
+struct PaymentEntryResponse: Decodable {
     var secure3D: Secure3D?
-    var errorCode: String? //error_code
-    var errorMessage: String? //error_message
-    var isRetry: Bool? // is_retry  //если true то можно через кнопку "повторить"
-    var isSecure3D: Bool?  //is_secure3D
+    var errorCode: String?
+    var errorMessage: String?
+    var isRetry: Bool?  //если true то можно через кнопку "повторить"
+    var isSecure3D: Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case secure3D = "secure3D"
+        case errorCode = "error_code"
+        case errorMessage = "error_message"
+        case isRetry = "is_retry"
+        case isSecure3D = "is_secure3D"
+    }
 }
