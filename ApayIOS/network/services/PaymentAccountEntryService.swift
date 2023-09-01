@@ -3,3 +3,25 @@
 //
 
 import Foundation
+import Combine
+import Alamofire
+
+func paymentAccountEntryService(
+        params: PaymentEntryRequest
+) async -> PaymentEntryResponse? {
+
+    do {
+        let data = try await NetworkManager.shared.put(
+                path: "api/v1/payments",
+                parameters: params
+        )
+
+        let result: PaymentEntryResponse = try Api.parseData(data: data)
+        return result
+
+    } catch let error {
+        print(error.localizedDescription)
+
+        return nil
+    }
+}
