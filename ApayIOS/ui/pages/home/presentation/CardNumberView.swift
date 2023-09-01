@@ -6,21 +6,19 @@ import Foundation
 import SwiftUI
 
 struct CardNumberView: View {
-    @State var cardNumberText: String
-    @State var cardNumberError: String?
+    @StateObject var viewModel: HomePageViewModel
     @State var paySystemIcon: String = ""
 
     var body: some View {
         let regex: Regex? = try? Regex(RegexConst.NOT_DIGITS)
 
         ViewEditText(
-                text: cardNumberText,
-                errorTitle: cardNumberError,
+                errorTitle: viewModel.cardNumberError,
                 placeholder: cardNumber(),
                 regex: regex,
                 isCardNumberMask: true,
                 actionOnTextChanged: { pan in
-
+                    viewModel.cardNumberText = pan
                 },
                 actionClickInfo: nil
         )

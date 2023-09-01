@@ -7,17 +7,10 @@ import SwiftUI
 import SwiftUI_SimpleToast
 
 struct HomePage: View {
+    @StateObject var viewModel = HomePageViewModel()
+
     @State var showDialogExit: Bool = false
     @State var switchSaveCard: Bool = false
-    @State var isLoading: Bool = true
-
-    @State var cardNumberText: String = ""
-    @State var dateExpiredText: String = ""
-    @State var cvvText: String = ""
-
-    @State var cardNumberError: String? = nil
-    @State var dateExpiredError: String? = nil
-    @State var cvvError: String? = nil
 
     @State private var sheetState = false
     @State var showToast: Bool = false
@@ -41,24 +34,17 @@ struct HomePage: View {
                             .padding(.top, 24)
                             .padding(.horizontal, 16)
 
-                    CardNumberView(
-                            cardNumberText: cardNumberText,
-                            cardNumberError: cardNumberError
-                    )
+                    CardNumberView(viewModel: viewModel)
                             .padding(.top, 16)
                             .padding(.horizontal, 16)
 
-                    HStack {
-                        DateExpiredView(
-                                dateExpiredText: dateExpiredText,
-                                dateExpiredError: dateExpiredError
-                        )
+                    HStack(alignment: .top) {
+                        DateExpiredView(viewModel: viewModel)
 
                         Spacer().frame(width: 12)
 
                         CvvView(
-                                cvvText: cvvText,
-                                cvvError: cvvError,
+                                viewModel: viewModel,
                                 actionClickInfo: {
                                     sheetState.toggle()
                                 }
@@ -85,7 +71,7 @@ struct HomePage: View {
                 }
             }
 
-            if isLoading {
+            if viewModel.isLoading {
                 ColorsSdk.gray15
                         .opacity(0.8)
                         .onTapGesture(perform: {})
@@ -106,43 +92,8 @@ struct HomePage: View {
                 .overlay(ViewButton(
                         title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
                         actionClick: {
-                            UIApplication.shared.endEditing()
-
-                            let validationResult = checkValid(
-                                    cardNumber: cardNumberText,
-                                    dateExpired: dateExpiredText,
-                                    cvv: cvvText
-                            )
-
-                            print("aaaaa ")
-                            print(validationResult)
-
-                            if (validationResult.errorCardNumber == nil
-                                    && validationResult.errorCvv == nil
-                                    && validationResult.errorDateExpired == nil
-                               ) {
-                                isLoading = true
-                                var card = cardNumberText
-                                card.replace(" ", with: "")
-
-                                Task {
-                                    await getCardsBankService(
-                                            pan: card,
-                                            next: {
-                                                startPaymentProcessing(
-                                                        isLoading: { isLoading in
-                                                            self.isLoading = isLoading
-                                                        },
-                                                        saveCard: switchSaveCard,
-                                                        cardNumber: cardNumberText,
-                                                        dateExpired: dateExpiredText,
-                                                        cvv: cvvText
-                                                )
-                                            }
-                                    )
-                                }
-                            } else {
-// todo
+                            if !viewModel.isLoading {
+                               onClick()
                             }
                         }
                 )
@@ -159,18 +110,70 @@ struct HomePage: View {
                 }
                 .onAppear {
                     if (selectedCardId != nil) {
+                        viewModel.isLoading = true
+
                         startPaymentProcessing(
                                 isLoading: { isLoading in
-                                    self.isLoading = isLoading
+                                    viewModel.isLoading = isLoading
                                 },
                                 cardId: selectedCardId!
                         )
 
                     } else {
-                        isLoading = false
+                        viewModel.isLoading = false
                     }
                 }
 
+    }
+
+    private func onClick() {
+        UIApplication.shared.endEditing()
+
+        print("aaaaa_ " + viewModel.cardNumberText +
+                " | " + viewModel.dateExpiredText +
+                " | " + viewModel.cvvText)
+
+        let validationResult = checkValid(
+                cardNumber: viewModel.cardNumberText,
+                dateExpired: viewModel.dateExpiredText,
+                cvv: viewModel.cvvText
+        )
+
+        print("aaaaa ")
+        print(validationResult)
+
+        if (validationResult.errorCardNumber == nil
+                && validationResult.errorCvv == nil
+                && validationResult.errorDateExpired == nil
+           ) {
+            viewModel.isLoading = true
+            var card = viewModel.cardNumberText
+            card.replace(" ", with: "")
+
+            Task {
+                await getCardsBankService(
+                        pan: card,
+                        next: {
+                            startPaymentProcessing(
+                                    isLoading: { isLoading in
+                                        viewModel.isLoading = isLoading
+                                    },
+                                    saveCard: switchSaveCard,
+                                    cardNumber: viewModel.cardNumberText,
+                                    dateExpired: viewModel.dateExpiredText,
+                                    cvv: viewModel.cvvText
+                            )
+                        }
+                )
+            }
+
+        } else {
+            viewModel.setError(
+                    cardNumberError: validationResult.errorCardNumber,
+                    dateExpiredError: validationResult.errorDateExpired,
+                    cvvError: validationResult.errorCvv
+            )
+        }
     }
 }
 

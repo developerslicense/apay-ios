@@ -6,8 +6,8 @@ import Foundation
 import SwiftUI
 
 struct ViewEditText: View {
-    @State var text: String
-    @State var errorTitle: String?
+    @State var text: String = ""
+    var errorTitle: String?
 
     var placeholder: String
     var regex: Regex<AnyRegexOutput>? = nil

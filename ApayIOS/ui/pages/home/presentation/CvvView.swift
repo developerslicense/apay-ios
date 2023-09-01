@@ -6,21 +6,20 @@ import Foundation
 import SwiftUI
 
 struct CvvView: View {
-    @State var cvvText: String
-    @State var cvvError: String?
+    @StateObject var viewModel: HomePageViewModel
     var actionClickInfo: () -> Void
 
     var body: some View {
         let regex: Regex? = try? Regex(RegexConst.NOT_DIGITS)
 
         ViewEditText(
-                text: cvvText,
-                errorTitle: cvvError,
+                text: viewModel.cvvText,
+                errorTitle: viewModel.cvvError,
                 placeholder: cvv(),
                 regex: regex,
                 isCvvMask: true,
                 actionOnTextChanged: { cvv in
-
+                    viewModel.cvvText = cvv
                 },
                 actionClickInfo: actionClickInfo
         )

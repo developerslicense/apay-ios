@@ -6,20 +6,19 @@ import Foundation
 import SwiftUI
 
 struct DateExpiredView: View {
-    @State var dateExpiredText: String
-    @State var dateExpiredError: String?
+    @StateObject var viewModel: HomePageViewModel
 
     var body: some View {
         let regex: Regex? = try? Regex(RegexConst.NOT_DIGITS)
 
         ViewEditText(
-                text: dateExpiredText,
-                errorTitle: dateExpiredError,
+                text: viewModel.dateExpiredText,
+                errorTitle: viewModel.dateExpiredError,
                 placeholder: dateExpired(),
                 regex: regex,
                 isDateExpiredMask: true,
                 actionOnTextChanged: { date in
-
+                    viewModel.dateExpiredText = date
                 },
                 actionClickInfo: nil
         )
