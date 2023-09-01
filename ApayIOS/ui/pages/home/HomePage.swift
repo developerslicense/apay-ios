@@ -9,6 +9,7 @@ import SwiftUI_SimpleToast
 struct HomePage: View {
     @State var showDialogExit: Bool = false
     @State var switchSaveCard: Bool = false
+    @State var isLoading: Bool = true
 
     @State var cardNumberText: String = ""
     @State var dateExpiredText: String = ""
@@ -21,6 +22,8 @@ struct HomePage: View {
     @State private var sheetState = false
     @State var showToast: Bool = false
     private let toastOptions = SimpleToastOptions(hideAfter: 5)
+
+    private var selectedCardId: String? = nil//"64e47088b45d2f8513a29185"
 
     var body: some View {
         ZStack {
@@ -81,6 +84,13 @@ struct HomePage: View {
                             .padding(.horizontal, 16)
                 }
             }
+
+            if isLoading {
+                ColorsSdk.gray15
+                        .opacity(0.8)
+                        .onTapGesture(perform: {})
+                ProgressBarView()
+            }
         }
                 .modifier(
                         Popup(
@@ -96,7 +106,44 @@ struct HomePage: View {
                 .overlay(ViewButton(
                         title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
                         actionClick: {
+                            UIApplication.shared.endEditing()
 
+                            let validationResult = checkValid(
+                                    cardNumber: cardNumberText,
+                                    dateExpired: dateExpiredText,
+                                    cvv: cvvText
+                            )
+
+                            print("aaaaa ")
+                            print(validationResult)
+
+                            if (validationResult.errorCardNumber == nil
+                                    && validationResult.errorCvv == nil
+                                    && validationResult.errorDateExpired == nil
+                               ) {
+                                isLoading = true
+                                var card = cardNumberText
+                                card.replace(" ", with: "")
+
+                                Task {
+                                    await getCardsBankService(
+                                            pan: card,
+                                            next: {
+                                                startPaymentProcessing(
+                                                        isLoading: { isLoading in
+                                                            self.isLoading = isLoading
+                                                        },
+                                                        saveCard: switchSaveCard,
+                                                        cardNumber: cardNumberText,
+                                                        dateExpired: dateExpiredText,
+                                                        cvv: cvvText
+                                                )
+                                            }
+                                    )
+                                }
+                            } else {
+// todo
+                            }
                         }
                 )
                         .frame(maxWidth: .infinity)
@@ -110,80 +157,26 @@ struct HomePage: View {
                             .cornerRadius(10)
                             .padding(.top)
                 }
+                .onAppear {
+                    if (selectedCardId != nil) {
+                        startPaymentProcessing(
+                                isLoading: { isLoading in
+                                    self.isLoading = isLoading
+                                },
+                                cardId: selectedCardId!
+                        )
+
+                    } else {
+                        isLoading = false
+                    }
+                }
 
     }
 }
 
-
-/*
-
-
-                }
-
-                ViewButton(
-                    title = "${payAmount()} ${purchaseAmount.value}",
-                    actionClick = {
-                        focusManager.clearFocus(true)
-
-                        val isValid = checkValid(
-                            emailError = emailError,
-                            cardNumber = cardNumberText.value.text,
-                            cardNumberError = cardNumberError,
-                            dateExpired = dateExpiredText.value.text,
-                            dateExpiredError = dateExpiredError,
-                            cvvError = cvvError,
-                            cvv = cvvText.value.text
-                        )
-
-                        if (isValid) {
-                            isLoading.value = true
-
-                            cardRepository.getCardsBank(
-                                pan = cardNumberText.value.text.replace(" ", ""),
-                                coroutineScope = coroutineScope,
-                                next = {
-                                    startPaymentProcessing(
-                                        navController = navController,
-                                        isLoading = isLoading,
-                                        saveCard = switchSaveCard.value,
-                                        cardNumber = cardNumberText.value.text,
-                                        cvv = cvvText.value.text,
-                                        dateExpired = dateExpiredText.value.text,
-                                        coroutineScope = coroutineScope,
-                                        authRepository = authRepository,
-                                        paymentsRepository = paymentsRepository
-                                    )
-                                }
-                            )
-                        }
-                    },
-                    modifierRoot = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(bottom = 16.dp)
-                )
-
-
-            }
-
-
-            if (isLoading.value) {
-                ProgressBarView()
-            }
-        }
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
+}
 
-    LaunchedEffect("Has CardId") {
-
-        if (selectedCardId != null) {
-            startPaymentProcessing(
-                navController = navController,
-                isLoading = isLoading,
-                coroutineScope = coroutineScope,
-                paymentsRepository = paymentsRepository,
-                cardId = selectedCardId
-            )
-
-        } else {
-            isLoading.value = false
-        }
-    }*/
