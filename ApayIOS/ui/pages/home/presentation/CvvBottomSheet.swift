@@ -6,40 +6,71 @@ import Foundation
 import SwiftUI
 
 struct CvvBottomSheet: View {
-    @Environment(\.dismiss) var dismiss
+//    @Environment(\.dismiss) var dismiss
 
     @State var presentSheet: Bool = false
     @State var detentHeight: CGFloat = 0
 
     var body: some View {
-        ColorsSdk.bgBlock.overlay(
-                VStack {
-                    InitHeader(
-                            title: "CVV",
-                            actionClose: {
-                                dismiss()
+        if #available(iOS 16.0, *) {
+            ColorsSdk.bgBlock.overlay(
+                    VStack {
+                        InitHeader(
+                                title: "CVV",
+                                actionClose: {
+//                                dismiss()
+                                }
+                        )
+
+                        Text(cvvInfo())
+                                .textStyleRegular()
+                                .padding(.horizontal, 16)
+                                .padding(.top, 22)
+
+                        Text(cvvInfo2())
+                                .textStyleRegular()
+                                .padding(.horizontal, 16)
+                                .padding(.bottom, 32)
+
+                    }
+                            .readHeight()
+                            .onPreferenceChange(HeightPreferenceKey.self) { height in
+                                if let height {
+                                    self.detentHeight = height
+                                }
                             }
-                    )
+                            .presentationDetents([.height(detentHeight)])
+            )
 
-                    Text(cvvInfo())
-                            .textStyleRegular()
-                            .padding(.horizontal, 16)
-                            .padding(.top, 22)
+        } else {
+            ColorsSdk.bgBlock.overlay(
+                    VStack {
+                        InitHeader(
+                                title: "CVV",
+                                actionClose: {
+//                                dismiss()
+                                }
+                        )
 
-                    Text(cvvInfo2())
-                            .textStyleRegular()
-                            .padding(.horizontal, 16)
-                            .padding(.bottom, 32)
+                        Text(cvvInfo())
+                                .textStyleRegular()
+                                .padding(.horizontal, 16)
+                                .padding(.top, 22)
 
-                }
-                        .readHeight()
-                        .onPreferenceChange(HeightPreferenceKey.self) { height in
-                            if let height {
-                                self.detentHeight = height
+                        Text(cvvInfo2())
+                                .textStyleRegular()
+                                .padding(.horizontal, 16)
+                                .padding(.bottom, 32)
+
+                    }
+                            .readHeight()
+                            .onPreferenceChange(HeightPreferenceKey.self) { height in
+                                if let height {
+                                    self.detentHeight = height
+                                }
                             }
-                        }
-                        .presentationDetents([.height(detentHeight)])
-        )
+            )
+        }
     }
 
 }

@@ -9,20 +9,7 @@ struct ErrorWithInstructionPage: View {
 
     private let errorCode: ErrorsCode = ErrorsCode(code: 5999)
     @State private var isPlayedOnce = false
-    /*val showDialogExit = remember {
-        mutableStateOf(false)
-    }
-
-    BackHandler {
-        showDialogExit.value = true
-    }*/
-
-    /* try {
-      bankName = ModalRoute.of(context)?.settings.arguments as String
-
-    } catch (e) {
-      bankName = BanksName.kaspi.name
-    }*/
+    @State var showDialogExit: Bool = false
 
     var body: some View {
         ZStack {
@@ -35,6 +22,12 @@ struct ErrorWithInstructionPage: View {
                 ScrollView {
 
                     VStack {
+                        ViewToolbar(
+                                title: "",
+                                actionShowDialogExit: { showDialogExit = true }
+                        )
+                                .frame(maxWidth: .infinity, alignment: .leading)
+
                         Spacer().frame(height: metrics.size.height * 0.05)
 
                         Image("icPayFailed")
@@ -103,7 +96,14 @@ struct ErrorWithInstructionPage: View {
                         },
                         alignment: .bottom
                 )
-
+                .modifier(
+                        Popup(
+                                isPresented: showDialogExit,
+                                content: {
+                                    DialogExit(onDismissRequest: { showDialogExit = false })
+                                })
+                )
+                .onTapGesture(perform: { showDialogExit = false })
     }
 
     private func initTopButton() -> some View {

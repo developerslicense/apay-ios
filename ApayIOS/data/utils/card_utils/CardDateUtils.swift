@@ -20,7 +20,7 @@ func isDateValid(
     var month: Int
     // The value contains a forward slash if the month and year has been
     // entered.
-    if (value?.contains(try! Regex("(/)")) == true) {
+    if (value?.contains("/") == true) {
 
         let split = value!.split(separator: "/")
         // The value before the slash is the month while the value to right of

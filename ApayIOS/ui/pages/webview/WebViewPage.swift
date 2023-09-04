@@ -8,23 +8,24 @@ import WebKit
 
 struct WebViewPage: View {
 
+    var faqUrl: String?
     @State var showDialogExit: Bool = false
     @StateObject private var model = SwiftUIWebViewModel()
+    @EnvironmentObject var router: NavigateUtils.Router
+
+    init() {
+        model.faqUrl = faqUrl
+    }
 
     var body: some View {
         ZStack {
             ColorsSdk.bgMain
             VStack {
-                Image("icArrowBack")
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                        .foregroundColor(.black)
-                        .padding(.top, 12)
-                        .padding(.leading, 12)
+                ViewToolbar(
+                        title: "",
+                        actionShowDialogExit: { showDialogExit = true }
+                )
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .onTapGesture(perform: {
-                            showDialogExit = true
-                        })
 
                 SwiftUIWebView(webView: model.webView)
                         .onAppear {
@@ -45,7 +46,7 @@ struct WebViewPage: View {
 
 private final class SwiftUIWebViewModel: ObservableObject {
 
-    @Published var faqUrl: String? = DataHolder.redirectUrl
+    @Published var faqUrl: String?
 
     let webView: WKWebView
 
@@ -62,8 +63,6 @@ private final class SwiftUIWebViewModel: ObservableObject {
 }
 
 private struct SwiftUIWebView: UIViewRepresentable {
-    typealias UIViewType = WKWebView
-
     let webView: WKWebView
 
     func makeUIView(context: Context) -> WKWebView {

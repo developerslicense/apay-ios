@@ -61,7 +61,6 @@
 		7E0E4B40CE52A4ADF0427B1C /* NumberClearerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4ACAE22A948CA7D40016 /* NumberClearerUtils.swift */; };
 		7E0E4B838E5CCC44A12E6480 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4FE567E01C3E55C295E6 /* Regex.swift */; };
 		7E0E4B8C52FFE22278B08C67 /* MaskUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4746FAA131C860B0819A /* MaskUtils.swift */; };
-		7E0E4B9681D951F35ABB7C02 /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4644B22E02F7E0800CA1 /* Routes.swift */; };
 		7E0E4BD43973E973169A3531 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E49BA314F516AB7016425 /* Fonts.swift */; };
 		7E0E4BDC49521D84EA68B694 /* CardUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E404DEDED5BFB5370E2DE /* CardUtils.swift */; };
 		7E0E4BEC91D36F53F5A14767 /* SavedCardPayProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E41AC176CD47140E5CE26 /* SavedCardPayProcessing.swift */; };
@@ -150,7 +149,6 @@
 		7E0E45E96B0A4E8DCFA1D2E5 /* HomePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		7E0E4607C8C697A8DB5884A6 /* CardsPanResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardsPanResponse.swift; sourceTree = "<group>"; };
 		7E0E460F6E54B2B4816460B8 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file.ttf; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
-		7E0E4644B22E02F7E0800CA1 /* Routes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		7E0E464AEA9AFCF0DB485A40 /* TopInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopInfoView.swift; sourceTree = "<group>"; };
 		7E0E4669AF56C9D7716D0767 /* CardType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardType.swift; sourceTree = "<group>"; };
 		7E0E467BB2196E09204E1B13 /* GetCardsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCardsService.swift; sourceTree = "<group>"; };
@@ -396,7 +394,6 @@
 				7E0E419FD37CA9A3585CACC9 /* BanksName.swift */,
 				7E0E4BEF9C2223D41EBEB598 /* ErrorsCode.swift */,
 				7E0E419D843E66EB23F8B8CE /* Strings.swift */,
-				7E0E4644B22E02F7E0800CA1 /* Routes.swift */,
 				7E0E4FE567E01C3E55C295E6 /* Regex.swift */,
 			);
 			path = constants;
@@ -868,7 +865,6 @@
 				7E0E4CC403E5A8A6246683AE /* BaseStrings.swift in Sources */,
 				7E0E4F093C9838FA12AD9FC0 /* DataHolder.swift in Sources */,
 				7E0E4119E8A069E9AE44FD7B /* AirbaPaySdk.swift in Sources */,
-				7E0E4B9681D951F35ABB7C02 /* Routes.swift in Sources */,
 				7E0E4B838E5CCC44A12E6480 /* Regex.swift in Sources */,
 				7E0E499B0DB6517923BA8BC1 /* Auth.swift in Sources */,
 				7E0E479079EE6F306AD23584 /* CardsGet.swift in Sources */,
@@ -1101,6 +1097,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1132,6 +1129,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -8,6 +8,7 @@ import SwiftUI_SimpleToast
 
 struct TestPage: View {
     @State private var sheetState = false
+    @EnvironmentObject var router: NavigateUtils.Router
 
     var body: some View {
 
@@ -25,7 +26,7 @@ struct TestPage: View {
                     StartProcessingView(
                             actionClose: { sheetState = false }
                     )
-                            .presentationDetents([.medium, .large])//todo  надо придумать, что с этим сделать для разных случаев
+//                            .presentationDetents([.medium, .large])//todo  надо придумать, что с этим сделать для разных случаев
                 }
     }
 }

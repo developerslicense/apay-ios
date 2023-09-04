@@ -7,7 +7,8 @@ import SwiftUI
 
 func startPaymentProcessing(
         isLoading: @escaping (Bool) -> Void,
-        cardId: String
+        cardId: String,
+        router: NavigateUtils.Router
 ) {
     Task {
         await startCreatePayment(

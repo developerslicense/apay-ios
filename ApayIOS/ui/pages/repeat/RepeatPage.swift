@@ -6,12 +6,20 @@ import Foundation
 import SwiftUI
 
 struct RepeatPage: View {
+    @State var showDialogExit: Bool = false
+
     var body: some View {
         ZStack {
             ColorsSdk.bgMain
 
             GeometryReader { metrics in
                 VStack {
+                    ViewToolbar(
+                            title: "",
+                            actionShowDialogExit: { showDialogExit = true }
+                    )
+                            .frame(maxWidth: .infinity, alignment: .leading)
+
                     Spacer().frame(height: metrics.size.height * 0.30)
 
                     Text(weRepeatYourPayment())
@@ -32,6 +40,14 @@ struct RepeatPage: View {
                 }
             }
         }
+                .modifier(
+                        Popup(
+                                isPresented: showDialogExit,
+                                content: {
+                                    DialogExit(onDismissRequest: { showDialogExit = false })
+                                })
+                )
+                .onTapGesture(perform: { showDialogExit = false })
     }
 
 }

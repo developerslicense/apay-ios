@@ -89,7 +89,6 @@ public class AirbaPaySdk {
             goods: Array<Goods>,
             settlementPayments: Array<SettlementPayment>?
     ) {
-        DataHolder.redirectUrl = nil
         DataHolder.purchaseAmount = String(purchaseAmount)
         DataHolder.orderNumber = orderNumber
         DataHolder.invoiceId = invoiceId

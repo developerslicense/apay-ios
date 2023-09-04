@@ -10,12 +10,12 @@ struct CardNumberView: View {
     @State var paySystemIcon: String = ""
 
     var body: some View {
-        let regex: Regex? = try? Regex(RegexConst.NOT_DIGITS)
+//        let regex: Regex? = try? Regex(RegexConst.NOT_DIGITS)
 
         ViewEditText(
                 errorTitle: viewModel.cardNumberError,
                 placeholder: cardNumber(),
-                regex: regex,
+//                regex: regex,
                 isCardNumberMask: true,
                 actionOnTextChanged: { pan in
                     viewModel.cardNumberText = pan

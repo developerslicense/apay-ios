@@ -9,13 +9,13 @@ struct DateExpiredView: View {
     @StateObject var viewModel: HomePageViewModel
 
     var body: some View {
-        let regex: Regex? = try? Regex(RegexConst.NOT_DIGITS)
+//        let regex: Regex? = try? Regex(RegexConst.NOT_DIGITS)
 
         ViewEditText(
                 text: viewModel.dateExpiredText,
                 errorTitle: viewModel.dateExpiredError,
                 placeholder: dateExpired(),
-                regex: regex,
+//                regex: regex,
                 isDateExpiredMask: true,
                 actionOnTextChanged: { date in
                     viewModel.dateExpiredText = date

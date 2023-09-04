@@ -43,7 +43,8 @@ func startPaymentProcessing(
         saveCard: Bool = false,
         cardNumber: String,
         dateExpired: String? = nil,
-        cvv: String? = nil
+        cvv: String? = nil,
+        router: NavigateUtils.Router
 ) {
 
     Task {
@@ -59,22 +60,15 @@ func startPaymentProcessing(
                 saveCardSaved: saveCard,
                 on3DS: { secure3D in
                     isLoading(false)
-                    /*openWebView(
-                                redirectUrl: secure3D?.action,
-                                navController: navController
-                        )*/
+                    router.route(to: \.webViewPage, secure3D?.action)
                 },
                 onSuccess: {
                     isLoading(false)
-//                    openSuccess(navController)
+                    router.route(to: \.successPage)
                 },
                 onError: { errorCode in
                     isLoading(false)
-
-                    /*openErrorPageWithCondition(
-                                errorCode: errorCode.code,
-                                navController: navController
-                        )*/
+                    router.route(to: \.errorPage, errorCode.code)
                 }
         )
     }

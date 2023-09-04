@@ -10,7 +10,7 @@ struct ViewEditText: View {
     var errorTitle: String?
 
     var placeholder: String
-    var regex: Regex<AnyRegexOutput>? = nil
+//    var regex: Regex<AnyRegexOutput>? = nil
     var isDateExpiredMask: Bool = false
     var isCardNumberMask: Bool = false
     var isCvvMask: Bool = false
@@ -28,7 +28,7 @@ struct ViewEditText: View {
                     isCardNumberMask: isCardNumberMask,
                     isCvvMask: isCvvMask,
                     placeholder: placeholder,
-                    regex: regex,
+//                    regex: regex,
                     keyboardType: keyboardType,
                     actionOnTextChanged: actionOnTextChanged,
                     actionClickInfo: actionClickInfo

@@ -10,28 +10,24 @@ import Foundation
 func getCardTypeFromNumber(
         input: String
 ) -> String {
-    if (input.contains(try! Regex("^((34)|(37))"))) {
+    let range = NSRange(location: 0, length: input.utf16.count)
+
+    let regex1 = try! NSRegularExpression(pattern: "^((34)|(37))")
+    if regex1.firstMatch(in: input, options: [], range: range) != nil {
         return CardType.AMERICAN_EXPRESS
-
-    } /*else if (input.contains(try! Regex("^(62)"))) {
-        return CardType.CHINA_UNION_PAY
-
-    } else if (input.contains(try! Regex("^(220[0–4])"))) {
-        return CardType.MIR
-
-    } else if (input.contains(try! Regex("^((5018)|(5020)|(5038)|(5893)|(6304)|(6759)|(6761)|(6762)|(6763))"))) {
-        return CardType.MAESTRO
-
-    } */
-    else if (input.contains(try! Regex("^((5[1-5])|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720))"))) {
-        return CardType.MASTER_CARD
-
-    } else if (input.contains(try! Regex("^4"))) {
-        return CardType.VISA
-
-    } else {
-        return ""//CardType.INVALID
     }
+
+    let regex2 = try! NSRegularExpression(pattern: "^((5[1-5])|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720))")
+    if regex2.firstMatch(in: input, options: [], range: range) != nil {
+        return CardType.MASTER_CARD
+    }
+
+    let regex3 = try! NSRegularExpression(pattern: "^4")
+    if regex3.firstMatch(in: input, options: [], range: range) != nil {
+        return CardType.VISA
+    }
+
+    return ""//CardType.INVALID
 }
 
 func validateCardNumWithLuhnAlgorithm(

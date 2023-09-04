@@ -8,6 +8,7 @@ import SwiftUI_SimpleToast
 
 struct HomePage: View {
     @StateObject var viewModel = HomePageViewModel()
+    @EnvironmentObject var router: NavigateUtils.Router
 
     @State var showDialogExit: Bool = false
     @State var switchSaveCard: Bool = false
@@ -116,7 +117,8 @@ struct HomePage: View {
                                 isLoading: { isLoading in
                                     viewModel.isLoading = isLoading
                                 },
-                                cardId: selectedCardId!
+                                cardId: selectedCardId!,
+                                router: router
                         )
 
                     } else {
@@ -150,7 +152,8 @@ struct HomePage: View {
             viewModel.isLoading = true
 
             var card = viewModel.cardNumberText
-            card.replace(" ", with: "")
+//            card.replace(" ", with: "")
+            card = card.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
 
             Task {
                 await getCardsBankService(
@@ -163,7 +166,8 @@ struct HomePage: View {
                                     saveCard: switchSaveCard,
                                     cardNumber: viewModel.cardNumberText,
                                     dateExpired: viewModel.dateExpiredText,
-                                    cvv: viewModel.cvvText
+                                    cvv: viewModel.cvvText,
+                                    router: router
                             )
                         },
                         isLoading: { isLoading in

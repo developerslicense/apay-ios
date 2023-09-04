@@ -10,6 +10,8 @@ import SwiftUI
 import WebKit
 
 struct SuccessPage: View {
+    @EnvironmentObject var router: NavigateUtils.Router
+
     var body: some View {
         ZStack {
             ColorsSdk.bgMain
@@ -40,7 +42,7 @@ struct SuccessPage: View {
                 .overlay(ViewButton(
                         title: goToMarker(),
                         actionClick: {
-
+                            router.popToRoot()
                         }
                 )
                         .frame(maxWidth: .infinity)

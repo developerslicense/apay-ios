@@ -19,7 +19,7 @@ struct CoreEditText: View {
     var isCardNumberMask: Bool
     var isCvvMask: Bool
     var placeholder: String
-    var regex: Regex<AnyRegexOutput>?
+//    var regex: Regex<AnyRegexOutput>? // доступен с 16-го айоса
     var keyboardType: UIKeyboardType
 
     var actionOnTextChanged: (String) -> Void

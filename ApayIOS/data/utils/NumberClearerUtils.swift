@@ -45,17 +45,19 @@ private func clearNumberForLocale(
     let saved = amount ?? ""
     var amount = amount ?? ""
 
-    let regex = try! Regex(RegexConst.numberCleanRu)
+//    let regex = try! Regex(RegexConst.numberCleanRu) //todo нужен 16-й айос
+//    let range = NSRange(location: 0, length: amount.utf16.count)
+//    let regex = try! NSRegularExpression(pattern: RegexConst.numberCleanRu)
 
     if (isPhoneNumber) {
         if (amount.starts(with: "7 ")) {
-            amount.replace("+7", with: "")
+            amount = amount.replacingOccurrences(of: "+7", with: "", options: .literal, range: nil)
 
             if (amount.starts(with: "7")) {
                 amount = String(amount.dropFirst())
             }
         } else if (amount.starts(with: "8") || amount.contains("+7")) {
-            amount.replace("+7", with: "")
+            amount = amount.replacingOccurrences(of: "+7", with: "", options: .literal, range: nil)
 
             if (amount.starts(with: "8")) {
                 amount = String(amount.dropFirst())
@@ -63,8 +65,10 @@ private func clearNumberForLocale(
         }
     }
 
-    amount.replace(regex, with: "")
-    amount.replace(",", with: ".")
+    amount = amount.filter("0123456789.,".contains)
+//    amount.replace(regex, with: "")
+    amount = amount.replacingOccurrences(of: ",", with: ".", options: .literal, range: nil)
+
     var amountLocaleCleaned = amount
 
     let comas = amountLocaleCleaned.split(separator: ".")
@@ -82,7 +86,8 @@ private func clearNumberForLocale(
     }
 
     if (isUserEntered) {
-        amountLocaleCleaned.replace(".", with: "")
+        amountLocaleCleaned = amountLocaleCleaned.replacingOccurrences(of: ".", with: "", options: .literal, range: nil)
+//        amountLocaleCleaned.replace(".", with: "")
     }
 
     return amountLocaleCleaned

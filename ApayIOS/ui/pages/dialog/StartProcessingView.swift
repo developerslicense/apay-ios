@@ -9,7 +9,7 @@ import SwiftUI_SimpleToast
 struct StartProcessingView: View {
     @StateObject var viewModel = StartProcessingViewModel()
 
-    @Environment(\.dismiss) var dismiss
+//    @Environment(\.dismiss) var dismiss
 
     @State var presentSheet: Bool = false
     @State var needShowProgressBar: Bool = true
@@ -28,7 +28,7 @@ struct StartProcessingView: View {
                                 InitHeader(
                                         title: paymentByCard(),
                                         actionClose: {
-                                            dismiss()
+//                                            dismiss()
                                         }
                                 )
 

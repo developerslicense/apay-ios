@@ -10,19 +10,32 @@ struct SwitchedView: View {
     @State var switchCheckedState = false
     var actionOnTrue: () -> Void
 
-
     var body: some View {
 
-        Toggle(text, isOn: $switchCheckedState)
-                .textStyleSemiBold()
-                .frame(height: 48)
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, 16)
-                .tint(ColorsSdk.colorBrandMain)
-                .onChange(of: switchCheckedState) { value in
-                    if (value) {
-                        actionOnTrue()
+        if #available(iOS 16.0, *) {
+            Toggle(text, isOn: $switchCheckedState)
+                    .textStyleSemiBold()
+                    .frame(height: 48)
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 16)
+                    .tint(ColorsSdk.colorBrandMain)
+                    .onChange(of: switchCheckedState) { value in
+                        if (value) {
+                            actionOnTrue()
+                        }
                     }
-                }
+
+        } else {
+            Toggle(text, isOn: $switchCheckedState)
+                    .textStyleSemiBold()
+                    .frame(height: 48)
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 16)
+                    .onChange(of: switchCheckedState) { value in
+                        if (value) {
+                            actionOnTrue()
+                        }
+                    }
+        }
     }
 }

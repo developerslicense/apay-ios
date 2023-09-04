@@ -8,13 +8,7 @@ import SwiftUI
 struct ErrorPage: View {
 
     var errorCode: ErrorsCode
-    /*val showDialogExit = remember {
-        mutableStateOf(false)
-    }
-
-    BackHandler {
-        showDialogExit.value = true
-    }*/
+    @State var showDialogExit: Bool = false
 
     var body: some View {
         ZStack {
@@ -25,6 +19,12 @@ struct ErrorPage: View {
 
                 VStack {
                     Spacer().frame(height: metrics.size.height * 0.15)
+
+                    ViewToolbar(
+                            title: "",
+                            actionShowDialogExit: { showDialogExit = true }
+                    )
+                            .frame(maxWidth: .infinity, alignment: .leading)
 
                     Image("icPayFailed")
                             .resizable()
@@ -56,6 +56,14 @@ struct ErrorPage: View {
                         },
                         alignment: .bottom
                 )
+                .modifier(
+                        Popup(
+                                isPresented: showDialogExit,
+                                content: {
+                                    DialogExit(onDismissRequest: { showDialogExit = false })
+                                })
+                )
+                .onTapGesture(perform: { showDialogExit = false })
 
     }
 

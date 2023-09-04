@@ -6,6 +6,8 @@ import Foundation
 import SwiftUI
 
 struct ErrorSomethingWrongPage: View {
+    @State var showDialogExit: Bool = false
+
     var body: some View {
         ZStack {
             ColorsSdk.bgMain
@@ -15,6 +17,12 @@ struct ErrorSomethingWrongPage: View {
                 let iconHeight = metrics.size.width * 0.6
 
                 VStack {
+                    ViewToolbar(
+                            title: "",
+                            actionShowDialogExit: { showDialogExit = true }
+                    )
+                            .frame(maxWidth: .infinity, alignment: .leading)
+
                     Spacer().frame(height: metrics.size.height * 0.25)
 
                     Image("icSomethingWrong")
@@ -47,6 +55,14 @@ struct ErrorSomethingWrongPage: View {
                         .frame(maxWidth: .infinity)
                         .padding(.bottom, 24)
                         .padding(.horizontal, 16), alignment: .bottom)
+                .modifier(
+                        Popup(
+                                isPresented: showDialogExit,
+                                content: {
+                                    DialogExit(onDismissRequest: { showDialogExit = false })
+                                })
+                )
+                .onTapGesture(perform: { showDialogExit = false })
     }
 }
 

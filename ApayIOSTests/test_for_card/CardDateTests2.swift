@@ -86,7 +86,7 @@ final class CardDateTests2: XCTestCase {
             checkSuccess(month: "12", year: i)
         }
 
-        /* здесь может вылетать ошибка в зависимости от месяца нынешнего года и самого года.
+        /** здесь может вылетать ошибка в зависимости от месяца нынешнего года и самого года.
          поэтому, нужно менять год и checkError с checkSuccess в зависимости от того, какой сейчас
          месяц или год. на момент написания теста это было 17е августа 2023
          поэтому, были
@@ -105,7 +105,7 @@ final class CardDateTests2: XCTestCase {
         checkError(month: "06", year: year)
         checkError(month: "07", year: year)
         checkError(month: "08", year: year)
-        checkSuccess(month: "09", year: year)
+        checkError(month: "09", year: year)
         checkSuccess(month: "10", year: year)
         checkSuccess(month: "11", year: year)
         checkSuccess(month: "12", year: year)

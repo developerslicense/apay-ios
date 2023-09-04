@@ -36,6 +36,4 @@ class DataHolder {
 
     static var purchaseAmountFormatted: String = ""
 
-    static var redirectUrl: String? = nil
-
 }

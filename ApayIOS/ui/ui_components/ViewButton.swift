@@ -53,7 +53,7 @@ struct BaseButtonStyle: ButtonStyle {
         configuration.label
                 .padding()
                 .background(backgroundColor)
-                .foregroundStyle(textColor)
+                .foregroundColor(textColor)
                 .cornerRadius(8)
     }
 }
