@@ -10,7 +10,7 @@ import SwiftUI
 import WebKit
 
 struct SuccessPage: View {
-    @EnvironmentObject var router: NavigateUtils.Router
+    @EnvironmentObject var router: NavigateCoordinatorUtils.Router
 
     var body: some View {
         ZStack {

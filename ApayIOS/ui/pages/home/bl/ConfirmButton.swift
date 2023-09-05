@@ -44,7 +44,7 @@ func startPaymentProcessing(
         cardNumber: String,
         dateExpired: String? = nil,
         cvv: String? = nil,
-        router: NavigateUtils.Router
+        router: NavigateCoordinatorUtils.Router
 ) {
 
     Task {

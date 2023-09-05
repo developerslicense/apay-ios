@@ -6,10 +6,12 @@ import Foundation
 import SwiftUI
 import Stinsen
 
-final class NavigateUtils: NavigationCoordinatable {
-    let stack = NavigationStack(initial: \NavigateUtils.startPage)
+final class NavigateCoordinatorUtils: NavigationCoordinatable {
+    let stack = NavigationStack(initial: \NavigateCoordinatorUtils.startDialog)
+//    let stack = NavigationStack(initial: \NavigateCoordinatorUtils.startPage)
 
-    @Root var startPage = openStartPage
+//    @Root var startPage = openStartPage
+    @Root(.modal) var startDialog = openStartDialog
     @Route(.push) var homePage = openHome // todo Root ???
     @Route(.push) var repeatPage = openRepeat
     @Route(.push) var errorPage = openErrorPageWithCondition
@@ -18,7 +20,11 @@ final class NavigateUtils: NavigationCoordinatable {
 //    @Route(.modal) var forgotPassword = makeForgotPassword
 
     @ViewBuilder func openStartPage() -> some View { // todo надо придумать, что сделать для разделения на тест и реал
-        TestPage()
+        StartProcessingView(actionClose: { self.popToRoot() })
+    }
+
+    @ViewBuilder func openStartDialog() -> some View {
+        HomePage()
     }
 
     @ViewBuilder func openHome() -> some View {

@@ -7,7 +7,7 @@ import SwiftUI
 
 struct RepeatPage: View {
     @State var showDialogExit: Bool = false
-    @EnvironmentObject var router: NavigateUtils.Router
+    @EnvironmentObject var router: NavigateCoordinatorUtils.Router
 
     var body: some View {
         ZStack {

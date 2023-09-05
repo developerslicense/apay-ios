@@ -8,7 +8,7 @@ import SwiftUI_SimpleToast
 
 struct HomePage: View {
     @StateObject var viewModel = HomePageViewModel()
-    @EnvironmentObject var router: NavigateUtils.Router
+    @EnvironmentObject var router: NavigateCoordinatorUtils.Router
 
     @State var showDialogExit: Bool = false
     @State var switchSaveCard: Bool = false

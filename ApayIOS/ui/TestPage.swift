@@ -4,30 +4,36 @@
 
 import Foundation
 import SwiftUI
-import SwiftUI_SimpleToast
 
 struct TestPage: View {
     @State private var sheetState = false
-    @EnvironmentObject var router: NavigateUtils.Router
+    @EnvironmentObject var router: NavigateCoordinatorUtils.Router
 
     var body: some View {
+        TestPageContent(openSheet: { router.route(to: \.startDialog) })
 
+       /* AirbaPaySdkProcessingPage(
+                content: TestPageContent(openSheet: { router.route(to: \.startDialog) }),
+                sheetState: sheetState
+        )
+*/
+    }
+}
+
+struct TestPageContent: View {
+    let openSheet: () -> Void
+
+    var body: some View {
         ZStack {
             Button(
                     action: {
-                        sheetState = true
+                        openSheet()
                     },
                     label: {
                         Text("переход на эквайринг")
                     }
             )
         }
-                .sheet(isPresented: $sheetState) {
-                    StartProcessingView(
-                            actionClose: { sheetState = false }
-                    )
-//                            .presentationDetents([.medium, .large])//todo  надо придумать, что с этим сделать для разных случаев
-                }
     }
 }
 

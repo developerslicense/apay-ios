@@ -11,9 +11,10 @@ struct WebViewPage: View {
     var faqUrl: String?
     @State var showDialogExit: Bool = false
     @StateObject private var model = SwiftUIWebViewModel()
-    @EnvironmentObject var router: NavigateUtils.Router
+    @EnvironmentObject var router: NavigateCoordinatorUtils.Router
 
     init() {
+
         model.faqUrl = faqUrl
     }
 
@@ -70,5 +71,7 @@ private struct SwiftUIWebView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: WKWebView, context: Context) {
+        print("aaaaaaa updateUIView")
+        print(uiView.url)
     }
 }
