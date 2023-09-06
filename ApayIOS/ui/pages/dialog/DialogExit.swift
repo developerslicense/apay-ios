@@ -7,6 +7,7 @@ import SwiftUI
 
 struct DialogExit: View {
     var onDismissRequest: () -> Void
+    var backToApp: () -> Void
 
     var body: some View {
 
@@ -35,6 +36,7 @@ struct DialogExit: View {
                                             .frame(alignment: .center)
                                             .padding(.top, 8)
                                             .padding(.bottom, 24)
+                                            .padding(.horizontal, 16)
 
                                     ViewButton(
                                             title: no(),
@@ -49,8 +51,7 @@ struct DialogExit: View {
                                             title: yes(),
                                             isMainBrand: false,
                                             actionClick: {
-                                                onDismissRequest()
-                                                //todo возврат назад
+                                                backToApp()
                                             }
                                     )
                                             .frame(maxWidth: .infinity)

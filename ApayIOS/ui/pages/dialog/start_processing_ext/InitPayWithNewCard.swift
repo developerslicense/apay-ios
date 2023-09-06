@@ -41,6 +41,7 @@ struct InitViewStartProcessingPayWithNewCard: View {
                 )
                 .frame(width: .infinity)
                 .padding(.horizontal, 16)
+                .onTapGesture(perform: { actionClick() })
 
     }
 }

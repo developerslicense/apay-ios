@@ -7,8 +7,8 @@ import SwiftUI
 import SwiftUI_SimpleToast
 
 struct HomePage: View {
+    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     @StateObject var viewModel = HomePageViewModel()
-    @EnvironmentObject var router: NavigateCoordinatorUtils.Router
 
     @State var showDialogExit: Bool = false
     @State var switchSaveCard: Bool = false
@@ -17,7 +17,15 @@ struct HomePage: View {
     @State var showToast: Bool = false
     private let toastOptions = SimpleToastOptions(hideAfter: 5)
 
-    private var selectedCardId: String? = nil//"64e47088b45d2f8513a29185"
+    var selectedCardId: String? = nil
+
+    init(
+            @ObservedObject navigateCoordinator: AirbaPayCoordinator,
+            selectedCardId: String? = nil
+    ) {
+        self.navigateCoordinator = navigateCoordinator
+        self.selectedCardId = selectedCardId
+    }
 
     var body: some View {
         ZStack {
@@ -27,7 +35,9 @@ struct HomePage: View {
                 VStack {
                     ViewToolbar(
                             title: paymentOfPurchase(),
-                            actionShowDialogExit: { showDialogExit = true }
+                            actionShowDialogExit: {
+                                showDialogExit = true
+                            }
                     )
                             .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -83,7 +93,10 @@ struct HomePage: View {
                         Popup(
                                 isPresented: showDialogExit,
                                 content: {
-                                    DialogExit(onDismissRequest: { showDialogExit = false })
+                                    DialogExit(
+                                            onDismissRequest: { showDialogExit = false },
+                                            backToApp: { navigateCoordinator.backToApp() }
+                                    )
                                 })
                 )
                 .onTapGesture(perform: { showDialogExit = false })
@@ -110,6 +123,7 @@ struct HomePage: View {
                             .padding(.top)
                 }
                 .onAppear {
+
                     if (selectedCardId != nil) {
                         viewModel.isLoading = true
 
@@ -118,7 +132,7 @@ struct HomePage: View {
                                     viewModel.isLoading = isLoading
                                 },
                                 cardId: selectedCardId!,
-                                router: router
+                                navigateCoordinator: navigateCoordinator
                         )
 
                     } else {
@@ -141,9 +155,6 @@ struct HomePage: View {
                 cvv: viewModel.cvvText
         )
 
-        print("aaaaa ")
-        print(validationResult)
-
         if (validationResult.errorCardNumber == nil
                 && validationResult.errorCvv == nil
                 && validationResult.errorDateExpired == nil
@@ -152,7 +163,6 @@ struct HomePage: View {
             viewModel.isLoading = true
 
             var card = viewModel.cardNumberText
-//            card.replace(" ", with: "")
             card = card.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
 
             Task {
@@ -167,7 +177,7 @@ struct HomePage: View {
                                     cardNumber: viewModel.cardNumberText,
                                     dateExpired: viewModel.dateExpiredText,
                                     cvv: viewModel.cvvText,
-                                    router: router
+                                    navigateCoordinator: navigateCoordinator
                             )
                         },
                         isLoading: { isLoading in

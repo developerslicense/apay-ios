@@ -27,6 +27,7 @@
 		7E0E43CCBB3782A69DB4E871 /* InitCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4CBF22A82512D3EB157A /* InitCards.swift */; };
 		7E0E445C4141066BBD0271F9 /* TestPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4FFB61E525F711672857 /* TestPage.swift */; };
 		7E0E4493D80D0953F5D9B6A4 /* ViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4207AACAD47D68A029FF /* ViewButton.swift */; };
+		7E0E44AC1D744BFC80C2E7A2 /* AirbaPayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4F1BAA121DDE0F86B7DF /* AirbaPayView.swift */; };
 		7E0E44DA1BDB5D48A06FC241 /* PaymentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4253AB9A342658701F4B /* PaymentInfo.swift */; };
 		7E0E451FD5339A631B840765 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E45E96B0A4E8DCFA1D2E5 /* HomePage.swift */; };
 		7E0E4548149D89ADC992DF8E /* InstructionWebViewClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E49920B29342ACD65C22E /* InstructionWebViewClient.swift */; };
@@ -73,7 +74,6 @@
 		7E0E4D58DA69E029ED6149E7 /* CardNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E487452847A3821101311 /* CardNumberView.swift */; };
 		7E0E4D8085D6A3F2D8436A0E /* ConfirmButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4ACF85C13FA9EFD34B7B /* ConfirmButton.swift */; };
 		7E0E4DC8E9AD6A749B15E7FE /* StartProcessingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E47E506FEE024DA5CE22C /* StartProcessingView.swift */; };
-		7E0E4DCA0C8742D8EA445595 /* NavigateCoordinatorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E48C70AA5519DD7966EA4 /* NavigateCoordinatorUtils.swift */; };
 		7E0E4DE331F006CA1FCD56C1 /* PaymentAccountEntryRetryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E49479CB67F759CF45C85 /* PaymentAccountEntryRetryService.swift */; };
 		7E0E4E0E6342A0833F0C59D3 /* CoreEditText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E4757E188BEB3DDB5570D /* CoreEditText.swift */; };
 		7E0E4EF4494680946703A9C0 /* ViewToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E49F85FF292EA2283E256 /* ViewToolbar.swift */; };
@@ -91,6 +91,7 @@
 		DC0FCBF32A8A2AAB009C33EF /* SuccessPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0FCBF22A8A2AAB009C33EF /* SuccessPage.swift */; };
 		DC0FCBF92A8A5020009C33EF /* ColorsSdk.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0FCBF82A8A5020009C33EF /* ColorsSdk.swift */; };
 		DC1FF08F2A8B976F00E561DC /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1FF08E2A8B976F00E561DC /* ColorUtils.swift */; };
+		DC80CC862AA7423200E41CBC /* PathPresenter in Frameworks */ = {isa = PBXBuildFile; productRef = DC80CC852AA7423200E41CBC /* PathPresenter */; };
 		DC82DD632A8E4B3700E8B6AC /* CardLuhnAlgorithmTests2.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC82DD622A8E4B3700E8B6AC /* CardLuhnAlgorithmTests2.swift */; };
 		DC82DD652A8E4B8200E8B6AC /* CardDateTests2.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC82DD642A8E4B8200E8B6AC /* CardDateTests2.swift */; };
 		F1B022DB31D6316D1043E9AE /* Pods_ApayIOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EFABC8AD5562CDCE26B3241 /* Pods_ApayIOSTests.framework */; };
@@ -161,7 +162,6 @@
 		7E0E47E506FEE024DA5CE22C /* StartProcessingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartProcessingView.swift; sourceTree = "<group>"; };
 		7E0E487452847A3821101311 /* CardNumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardNumberView.swift; sourceTree = "<group>"; };
 		7E0E487FE752010A6FC4B18B /* ViewEditText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewEditText.swift; sourceTree = "<group>"; };
-		7E0E48C70AA5519DD7966EA4 /* NavigateCoordinatorUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigateCoordinatorUtils.swift; sourceTree = "<group>"; };
 		7E0E48F5255651E4DB9353C9 /* WebViewPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewPage.swift; sourceTree = "<group>"; };
 		7E0E49479CB67F759CF45C85 /* PaymentAccountEntryRetryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAccountEntryRetryService.swift; sourceTree = "<group>"; };
 		7E0E4949601130990749DCDC /* PaymentCreate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentCreate.swift; sourceTree = "<group>"; };
@@ -189,6 +189,7 @@
 		7E0E4E75DBC5434830FCE98F /* StartProcessingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartProcessingViewModel.swift; sourceTree = "<group>"; };
 		7E0E4EB387A52E1880097F6B /* SwitchedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchedView.swift; sourceTree = "<group>"; };
 		7E0E4ED23B37A5EE71E8DA23 /* CreatePaymentService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePaymentService.swift; sourceTree = "<group>"; };
+		7E0E4F1BAA121DDE0F86B7DF /* AirbaPayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirbaPayView.swift; sourceTree = "<group>"; };
 		7E0E4F586AD160C175A26160 /* InitPayWithNewCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitPayWithNewCard.swift; sourceTree = "<group>"; };
 		7E0E4F9934EAC5D546EFC255 /* BottomSheetUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetUtils.swift; sourceTree = "<group>"; };
 		7E0E4FE567E01C3E55C295E6 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
@@ -218,6 +219,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC80CC862AA7423200E41CBC /* PathPresenter in Frameworks */,
 				9180B8BB7CD28337E14403BC /* Pods_ApayIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -510,6 +512,7 @@
 				DC0FCBE72A8A26EA009C33EF /* ui */,
 				7E0E47A48DAA8230D8C988A8 /* AirbaPaySdk.swift */,
 				7E0E411C1E33F6D6E63DE60D /* network */,
+				7E0E4F1BAA121DDE0F86B7DF /* AirbaPayView.swift */,
 			);
 			path = ApayIOS;
 			sourceTree = "<group>";
@@ -603,7 +606,6 @@
 				7E0E4746FAA131C860B0819A /* MaskUtils.swift */,
 				7E0E463BC070A5FA4793AE13 /* card_utils */,
 				7E0E4250D0C791B4A9F0A32D /* AirbaPayBiometric.swift */,
-				7E0E48C70AA5519DD7966EA4 /* NavigateCoordinatorUtils.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -627,6 +629,7 @@
 			);
 			name = ApayIOS;
 			packageProductDependencies = (
+				DC80CC852AA7423200E41CBC /* PathPresenter */,
 			);
 			productName = ApayIOS;
 			productReference = DC0FCBBA2A8A26D5009C33EF /* ApayIOS.app */;
@@ -704,6 +707,7 @@
 			);
 			mainGroup = DC0FCBB12A8A26D4009C33EF;
 			packageReferences = (
+				DC80CC842AA7423200E41CBC /* XCRemoteSwiftPackageReference "PathPresenter" */,
 			);
 			productRefGroup = DC0FCBBB2A8A26D5009C33EF /* Products */;
 			projectDirPath = "";
@@ -923,7 +927,7 @@
 				7E0E4D8085D6A3F2D8436A0E /* ConfirmButton.swift in Sources */,
 				7E0E4BEC91D36F53F5A14767 /* SavedCardPayProcessing.swift in Sources */,
 				7E0E47196C8AC2740CD4AC47 /* HomePageViewModel.swift in Sources */,
-				7E0E4DCA0C8742D8EA445595 /* NavigateCoordinatorUtils.swift in Sources */,
+				7E0E44AC1D744BFC80C2E7A2 /* AirbaPayView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1263,6 +1267,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DC80CC842AA7423200E41CBC /* XCRemoteSwiftPackageReference "PathPresenter" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alexdremov/PathPresenter";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DC80CC852AA7423200E41CBC /* PathPresenter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DC80CC842AA7423200E41CBC /* XCRemoteSwiftPackageReference "PathPresenter" */;
+			productName = PathPresenter;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DC0FCBB22A8A26D5009C33EF /* Project object */;
 }

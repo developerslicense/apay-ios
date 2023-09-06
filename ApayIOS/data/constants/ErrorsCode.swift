@@ -129,7 +129,7 @@ struct ErrorsCode {
     )
 }
 
-struct ErrorsCodeBase {
+struct ErrorsCodeBase: Equatable {
     var code: Int = 1
     var messageRu: String = ""
     var messageKz: String = ""

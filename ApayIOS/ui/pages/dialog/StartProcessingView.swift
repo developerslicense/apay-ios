@@ -7,9 +7,8 @@ import SwiftUI
 import SwiftUI_SimpleToast
 
 struct StartProcessingView: View {
+    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     @StateObject var viewModel = StartProcessingViewModel()
-
-//    @Environment(\.dismiss) var dismiss
 
     @State var presentSheet: Bool = false
     @State var needShowProgressBar: Bool = true
@@ -28,7 +27,7 @@ struct StartProcessingView: View {
                                 InitHeader(
                                         title: paymentByCard(),
                                         actionClose: {
-//                                            dismiss()
+                                            navigateCoordinator.backToApp()
                                         }
                                 )
 
@@ -43,13 +42,14 @@ struct StartProcessingView: View {
                                             && isAuthenticated
                                        ) {
                                         InitViewStartProcessingCards(// todo внутри есть закоментированное
+                                                navigateCoordinator: navigateCoordinator,
                                                 savedCards: viewModel.savedCards,
                                                 selectedCard: viewModel.selectedCard
-//                                    actionClose: actionClose
                                         )
                                     }
 
                                     InitViewStartProcessingButtonNext(
+                                            navigateCoordinator: navigateCoordinator,
                                             savedCards: viewModel.savedCards,
                                             actionClose: actionClose,
                                             isAuthenticated: isAuthenticated,

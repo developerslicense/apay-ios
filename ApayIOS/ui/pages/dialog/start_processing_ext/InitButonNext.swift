@@ -6,6 +6,7 @@ import Foundation
 import SwiftUI
 
 struct InitViewStartProcessingButtonNext: View {
+    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     var savedCards: Array<BankCard>
     var actionClose: () -> Void
     var isAuthenticated: Bool
@@ -20,10 +21,7 @@ struct InitViewStartProcessingButtonNext: View {
                     title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
                     actionClick: {
                         actionClose()
-                        /*
-                val intent = Intent(context, AirbaPayActivity::class.java)
-                intent.putExtra(ARG_CARD_ID, selectedCard.value?.id)
-                context.startActivity(intent)*/
+                        navigateCoordinator.openHome(cardId: selectedCard?.id)
                     }
             )
                     .padding(.horizontal, 16)
@@ -35,8 +33,7 @@ struct InitViewStartProcessingButtonNext: View {
                     title: paymentByCard2(),
                     actionClick: {
                         actionClose()
-//                        val intent = Intent(context, AirbaPayActivity::class.java)
-//                        context.startActivity(intent)
+                        navigateCoordinator.openHome()
                     }
             )
                     .padding(.horizontal, 16)

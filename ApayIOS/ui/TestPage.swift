@@ -4,36 +4,67 @@
 
 import Foundation
 import SwiftUI
+import PathPresenter
 
-struct TestPage: View {
-    @State private var sheetState = false
-    @EnvironmentObject var router: NavigateCoordinatorUtils.Router
-
-    var body: some View {
-        TestPageContent(openSheet: { router.route(to: \.startDialog) })
-
-       /* AirbaPaySdkProcessingPage(
-                content: TestPageContent(openSheet: { router.route(to: \.startDialog) }),
-                sheetState: sheetState
-        )
-*/
-    }
-}
-
-struct TestPageContent: View {
-    let openSheet: () -> Void
+struct TestPage1: View {
+    @State var path = PathPresenter.Path()
 
     var body: some View {
         ZStack {
-            Button(
-                    action: {
-                        openSheet()
-                    },
-                    label: {
-                        Text("переход на эквайринг")
+
+            PathPresenter.RoutingView(path: $path) {
+                ZStack {
+                    ColorsSdk.bgMain
+                    Button(
+                            action: {
+                                path.append(TestPage2(back: { path.removeLast() }))
+                            },
+                            label: {
+                                Text("переход на УСЛОВНЫЙ чекаут")
+                            }
+                    )
+                }
+            }
+        }
+    }
+}
+
+
+struct TestPage2: View {
+    var back: () -> Void
+    @ObservedObject var navigateCoordinator = AirbaPayCoordinator()
+
+    var body: some View {
+
+            AirbaPayView(
+                    navigateCoordinator: navigateCoordinator,
+                    contentView: {
+                        ZStack {
+                            ColorsSdk.bgMain
+                            VStack {
+                                Spacer()
+                                Button(
+                                        action: {
+                                            back()
+                                        },
+                                        label: {
+                                            Text("НАЗАД").foregroundColor(ColorsSdk.colorBrandMain)
+                                        }
+                                )
+                                Spacer(minLength: 50)
+                                Button(
+                                        action: {
+                                            navigateCoordinator.startProcessing()
+                                        },
+                                        label: {
+                                            Text("переход на эквайринг")
+                                        }
+                                )
+                                Spacer()
+                            }
+                        }
                     }
             )
-        }
     }
 }
 

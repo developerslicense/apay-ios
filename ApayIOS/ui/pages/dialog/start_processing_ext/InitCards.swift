@@ -6,6 +6,7 @@ import Foundation
 import SwiftUI
 
 struct InitViewStartProcessingCards: View {
+    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     var savedCards: Array<BankCard>
     @State var selectedCard: BankCard?
     @State var selected: Int = 0
@@ -35,9 +36,7 @@ struct InitViewStartProcessingCards: View {
 
             InitViewStartProcessingPayWithNewCard(
                     actionClick: {
-//                        actionClose()
-//                        val intent = Intent(context, AirbaPayActivity::class.java)
-//                        context.startActivity(intent)
+                        navigateCoordinator.openHome()
                     }
             )
                     .padding(.top, 32)
