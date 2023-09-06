@@ -8,7 +8,7 @@ import SwiftUI
 func startPaymentProcessing(
         isLoading: @escaping (Bool) -> Void,
         cardId: String,
-        router: NavigateCoordinatorUtils.Router
+        navigateCoordinator: AirbaPayCoordinator
 ) {
     Task {
         await startCreatePayment(
@@ -16,22 +16,15 @@ func startPaymentProcessing(
                 isLoading: isLoading,
                 on3DS: { redirectUrl in
                     isLoading(false)
-//                            openWebView(
-//                                    redirectUrl = redirectUrl,
-//                                    navController = navController
-//                            )
+                    navigateCoordinator.openWebView(redirectUrl: redirectUrl)
                 },
                 onSuccess: {
                     isLoading(false)
-//                    openSuccess(navController)
+                    navigateCoordinator.openSuccess()
                 },
                 onError: { errorCode in
                     isLoading(false)
-
-//                            openErrorPageWithCondition(
-//                                    errorCode = errorCode.code,
-//                                    navController = navController
-//                            )
+                    navigateCoordinator.openErrorPageWithCondition(errorCode: errorCode.code)
                 }
         )
     }

@@ -6,9 +6,17 @@ import Foundation
 import SwiftUI
 
 struct ErrorPage: View {
-
+    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     var errorCode: ErrorsCode
     @State var showDialogExit: Bool = false
+
+    init(
+            errorCode: ErrorsCode,
+            @ObservedObject navigateCoordinator: AirbaPayCoordinator
+    ) {
+        self.errorCode = errorCode
+        self.navigateCoordinator = navigateCoordinator
+    }
 
     var body: some View {
         ZStack {
@@ -60,7 +68,10 @@ struct ErrorPage: View {
                         Popup(
                                 isPresented: showDialogExit,
                                 content: {
-                                    DialogExit(onDismissRequest: { showDialogExit = false })
+                                    DialogExit(
+                                            onDismissRequest: { showDialogExit = false },
+                                            backToApp: { navigateCoordinator.backToApp() }
+                                    )
                                 })
                 )
                 .onTapGesture(perform: { showDialogExit = false })
@@ -71,7 +82,7 @@ struct ErrorPage: View {
         ViewButton(
                 title: errorCode.getError().buttonTop(),
                 actionClick: {
-
+                    errorCode.getError().clickOnTop(navigateCoordinator: navigateCoordinator)
                 }
         )
                 .frame(maxWidth: .infinity)
@@ -84,7 +95,7 @@ struct ErrorPage: View {
                 title: errorCode.getError().buttonBottom(),
                 isMainBrand: false,
                 actionClick: {
-
+                    errorCode.getError().clickOnBottom(navigateCoordinator: navigateCoordinator)
                 }
         )
                 .frame(maxWidth: .infinity)
@@ -95,6 +106,6 @@ struct ErrorPage: View {
 
 struct ErrorPage_Previews: PreviewProvider {
     static var previews: some View {
-        ErrorPage(errorCode: ErrorsCode(code: 5009))
+        ErrorPage(errorCode: ErrorsCode(code: 5009), navigateCoordinator: AirbaPayCoordinator())
     }
 }

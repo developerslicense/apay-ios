@@ -44,7 +44,7 @@ func startPaymentProcessing(
         cardNumber: String,
         dateExpired: String? = nil,
         cvv: String? = nil,
-        router: NavigateCoordinatorUtils.Router
+        navigateCoordinator: AirbaPayCoordinator
 ) {
 
     Task {
@@ -60,15 +60,15 @@ func startPaymentProcessing(
                 saveCardSaved: saveCard,
                 on3DS: { secure3D in
                     isLoading(false)
-                    router.route(to: \.webViewPage, secure3D?.action)
+                    navigateCoordinator.openWebView(redirectUrl: secure3D?.action)
                 },
                 onSuccess: {
                     isLoading(false)
-                    router.route(to: \.successPage)
+                    navigateCoordinator.openSuccess()
                 },
                 onError: { errorCode in
                     isLoading(false)
-                    router.route(to: \.errorPage, errorCode.code)
+                    navigateCoordinator.openErrorPageWithCondition(errorCode: errorCode.code)
                 }
         )
     }

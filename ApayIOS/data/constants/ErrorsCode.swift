@@ -174,69 +174,48 @@ struct ErrorsCodeBase: Equatable {
 
 
     func clickOnTop(
-//            navController: NavController,
-            finish: () -> Void
+            navigateCoordinator: AirbaPayCoordinator
     ) {
-        /*switch code {
+        switch code {
             case 5002:
-                    backToHome(navController)
+                    navigateCoordinator.backToHome()
 
             case 5003:
-                    backToHome(navController)
+                    navigateCoordinator.backToHome()
 
             case 5006:
-                    backToHome(navController)
+                    navigateCoordinator.backToHome()
 
             case 5007:
-                    openRepeat(navController)
+                    navigateCoordinator.openRepeat()
 
             case 5008:
-                    openRepeat(navController)
+                    navigateCoordinator.openRepeat()
 
             case 5009:
-                    openRepeat(navController)
+                    navigateCoordinator.openRepeat()
 
             case 5999:
-                    openRepeat(navController)
+                    navigateCoordinator.openRepeat()
+
             default:
-                    finish()
-        }*/
+                    navigateCoordinator.backToApp()
+        }
     }
 
     func clickOnBottom(
-//        navController: NavController,
-            finish: () -> Void
+            navigateCoordinator: AirbaPayCoordinator
     ) {
-       /* switch code {
+        switch code {
         case 5008:
-            backToHome(navController)
+            navigateCoordinator.backToHome()
 
         case 5999:
-            backToHome(navController)
+            navigateCoordinator.backToHome()
 
         default:
-            finish()
-        }*/
+            navigateCoordinator.backToApp()
+        }
     }
 }
 
-/*func initErrorsCodeByCode(code: Int) -> ErrorsCodeBase {
-    switch code {
-    case 5002:
-        return ErrorsCode.error_5002
-    case 5003:
-        return ErrorsCode.error_5003
-    case 5006:
-        return ErrorsCode.error_5006
-    case 5007:
-        return ErrorsCode.error_5007
-    case 5008:
-        return ErrorsCode.error_5008
-    case 5009:
-        return ErrorsCode.error_5009
-    case 5999:
-        return ErrorsCode.error_5999
-    default:
-        return ErrorsCode.error_1
-    }
-}*/

@@ -7,15 +7,16 @@ import SwiftUI
 import WebKit
 
 struct WebViewPage: View {
-
-    var faqUrl: String?
+    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+    @StateObject private var viewModel = SwiftUIWebViewModel()
     @State var showDialogExit: Bool = false
-    @StateObject private var model = SwiftUIWebViewModel()
-    @EnvironmentObject var router: NavigateCoordinatorUtils.Router
 
-    init() {
-
-        model.faqUrl = faqUrl
+    init(
+            @ObservedObject navigateCoordinator: AirbaPayCoordinator,
+            redirectUrl: String?
+    ) {
+        self.navigateCoordinator = navigateCoordinator
+        viewModel.redirectUrl = redirectUrl
     }
 
     var body: some View {
@@ -28,9 +29,9 @@ struct WebViewPage: View {
                 )
                         .frame(maxWidth: .infinity, alignment: .leading)
 
-                SwiftUIWebView(webView: model.webView)
+                SwiftUIWebView(webView: viewModel.webView)
                         .onAppear {
-                            model.loadUrl()
+                            viewModel.loadUrl()
                         }
             }
         }
@@ -38,7 +39,10 @@ struct WebViewPage: View {
                         Popup(
                                 isPresented: showDialogExit,
                                 content: {
-                                    DialogExit(onDismissRequest: { showDialogExit = false })
+                                    DialogExit(
+                                            onDismissRequest: { showDialogExit = false },
+                                            backToApp: { navigateCoordinator.backToApp() }
+                                    )
                                 })
                 )
                 .onTapGesture(perform: { showDialogExit = false })
@@ -47,7 +51,7 @@ struct WebViewPage: View {
 
 private final class SwiftUIWebViewModel: ObservableObject {
 
-    @Published var faqUrl: String?
+    @Published var redirectUrl: String?
 
     let webView: WKWebView
 
@@ -56,7 +60,7 @@ private final class SwiftUIWebViewModel: ObservableObject {
     }
 
     func loadUrl() {
-        guard let url = URL(string: faqUrl ?? "") else {
+        guard let url = URL(string: redirectUrl ?? "") else {
             return
         }
         webView.load(URLRequest(url: url))

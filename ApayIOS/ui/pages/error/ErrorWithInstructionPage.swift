@@ -6,6 +6,7 @@ import Foundation
 import SwiftUI
 
 struct ErrorWithInstructionPage: View {
+    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
 
     private let errorCode: ErrorsCode = ErrorsCode(code: 5999)
     @State private var isPlayedOnce = false
@@ -100,7 +101,10 @@ struct ErrorWithInstructionPage: View {
                         Popup(
                                 isPresented: showDialogExit,
                                 content: {
-                                    DialogExit(onDismissRequest: { showDialogExit = false })
+                                    DialogExit(
+                                            onDismissRequest: { showDialogExit = false },
+                                            backToApp: { navigateCoordinator.backToApp() }
+                                    )
                                 })
                 )
                 .onTapGesture(perform: { showDialogExit = false })
@@ -110,7 +114,7 @@ struct ErrorWithInstructionPage: View {
         ViewButton(
                 title: errorCode.getError().buttonTop(),
                 actionClick: {
-
+                    errorCode.getError().clickOnTop(navigateCoordinator: navigateCoordinator)
                 }
         )
                 .frame(maxWidth: .infinity)
@@ -123,7 +127,7 @@ struct ErrorWithInstructionPage: View {
                 title: errorCode.getError().buttonBottom(),
                 isMainBrand: false,
                 actionClick: {
-
+                    errorCode.getError().clickOnBottom(navigateCoordinator: navigateCoordinator)
                 }
         )
                 .frame(maxWidth: .infinity)
@@ -134,6 +138,6 @@ struct ErrorWithInstructionPage: View {
 
 struct ErrorWithInstructionPage_Previews: PreviewProvider {
     static var previews: some View {
-        ErrorWithInstructionPage()
+        ErrorWithInstructionPage(navigateCoordinator: AirbaPayCoordinator())
     }
 }

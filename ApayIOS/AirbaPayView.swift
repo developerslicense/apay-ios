@@ -31,7 +31,8 @@ public class AirbaPayCoordinator: ObservableObject {
     }
 
     func backToHome() {
-
+        backToApp()
+        openHome()
     }
 
     func backToApp() {
@@ -41,31 +42,31 @@ public class AirbaPayCoordinator: ObservableObject {
     }
 
     func openWebView(redirectUrl: String?) {
-        path.append(WebViewPage(redirectUrl: redirectUrl))
+        path.append(WebViewPage(navigateCoordinator: self, redirectUrl: redirectUrl))
     }
 
     func openSuccess() {
-        path.append(SuccessPage())
+        path.append(SuccessPage(navigateCoordinator: self))
     }
 
     func openRepeat() {
-        path.append(RepeatPage())
+        path.append(RepeatPage(navigateCoordinator: self))
     }
 
     func openErrorPageWithCondition(errorCode: Int?) {
         let error = ErrorsCode(code: errorCode ?? 1).getError()
 
         if (error == ErrorsCode().error_1) {
-            path.append(ErrorSomethingWrongPage())
+            path.append(ErrorSomethingWrongPage(navigateCoordinator: self))
 
         } else if (error.code == ErrorsCode().error_5020.code || errorCode == nil) {
-            path.append(ErrorFinalPage())
+            path.append(ErrorFinalPage(navigateCoordinator: self))
 
         } else if (error.code == ErrorsCode().error_5999.code && DataHolder.bankCode?.isEmpty == false) {
-            path.append(ErrorWithInstructionPage())
+            path.append(ErrorWithInstructionPage(navigateCoordinator: self))
 
         } else {
-            path.append(ErrorPage(errorCode: ErrorsCode(code: errorCode ?? 1)))
+            path.append(ErrorPage(errorCode: ErrorsCode(code: errorCode ?? 1), navigateCoordinator: self))
         }
     }
 

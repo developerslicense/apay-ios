@@ -6,6 +6,7 @@ import Foundation
 import SwiftUI
 
 struct ErrorFinalPage: View {
+    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
 
     var body: some View {
         ZStack {
@@ -43,7 +44,7 @@ struct ErrorFinalPage: View {
                 .overlay(ViewButton(
                         title: goToMarker(),
                         actionClick: {
-
+                            navigateCoordinator.backToApp()
                         }
                 )
                         .frame(maxWidth: .infinity)
@@ -54,6 +55,6 @@ struct ErrorFinalPage: View {
 
 struct ErrorFinalPage_Previews: PreviewProvider {
     static var previews: some View {
-        ErrorFinalPage()
+        ErrorFinalPage(navigateCoordinator: AirbaPayCoordinator())
     }
 }

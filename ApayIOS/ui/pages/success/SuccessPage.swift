@@ -10,7 +10,7 @@ import SwiftUI
 import WebKit
 
 struct SuccessPage: View {
-    @EnvironmentObject var router: NavigateCoordinatorUtils.Router
+    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
 
     var body: some View {
         ZStack {
@@ -42,7 +42,7 @@ struct SuccessPage: View {
                 .overlay(ViewButton(
                         title: goToMarker(),
                         actionClick: {
-                            router.popToRoot()
+                            navigateCoordinator.backToApp()
                         }
                 )
                         .frame(maxWidth: .infinity)
@@ -53,6 +53,6 @@ struct SuccessPage: View {
 
 struct SuccessPage_Previews: PreviewProvider {
     static var previews: some View {
-        SuccessPage()
+        SuccessPage(navigateCoordinator: AirbaPayCoordinator())
     }
 }

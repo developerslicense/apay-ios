@@ -6,6 +6,7 @@ import Foundation
 import SwiftUI
 
 struct ErrorSomethingWrongPage: View {
+    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     @State var showDialogExit: Bool = false
 
     var body: some View {
@@ -59,7 +60,10 @@ struct ErrorSomethingWrongPage: View {
                         Popup(
                                 isPresented: showDialogExit,
                                 content: {
-                                    DialogExit(onDismissRequest: { showDialogExit = false })
+                                    DialogExit(
+                                            onDismissRequest: { showDialogExit = false },
+                                            backToApp: { navigateCoordinator.backToApp() }
+                                    )
                                 })
                 )
                 .onTapGesture(perform: { showDialogExit = false })
@@ -68,6 +72,6 @@ struct ErrorSomethingWrongPage: View {
 
 struct ErrorSomethingWrongPage_Previews: PreviewProvider {
     static var previews: some View {
-        ErrorSomethingWrongPage()
+        ErrorSomethingWrongPage(navigateCoordinator: AirbaPayCoordinator())
     }
 }

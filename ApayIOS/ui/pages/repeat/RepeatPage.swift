@@ -6,8 +6,8 @@ import Foundation
 import SwiftUI
 
 struct RepeatPage: View {
+    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     @State var showDialogExit: Bool = false
-    @EnvironmentObject var router: NavigateCoordinatorUtils.Router
 
     var body: some View {
         ZStack {
@@ -45,26 +45,31 @@ struct RepeatPage: View {
                         Popup(
                                 isPresented: showDialogExit,
                                 content: {
-                                    DialogExit(onDismissRequest: { showDialogExit = false })
+                                    DialogExit(
+                                            onDismissRequest: { showDialogExit = false },
+                                            backToApp: { navigateCoordinator.backToApp() }
+                                    )
                                 })
                 )
                 .onTapGesture(perform: { showDialogExit = false })
                 .onAppear {
+
                     Task {
                         if let response = await paymentAccountEntryRetryService() {
                             if response.isSecure3D == true {
-                                router.route(to: \.webViewPage, response.secure3D?.action)
+                                navigateCoordinator.openWebView(redirectUrl: response.secure3D?.action)
 
                             } else if (response.errorCode != "0") {
-                                router.route(to: \.errorPage, Int(response.errorCode ?? "1"))
+                                navigateCoordinator.openErrorPageWithCondition(
+                                        errorCode: Int(response.errorCode ?? "1")
+                                )
 
                             } else {
-                                router.route(to: \.successPage)
+                                navigateCoordinator.openSuccess()
                             }
 
                         } else {
-                            router.route(to: \.errorPage, 1)
-
+                            navigateCoordinator.openErrorPageWithCondition(errorCode: 1)
                         }
                     }
                 }
@@ -75,7 +80,7 @@ struct RepeatPage: View {
 
 struct RepeatPage_Previews: PreviewProvider {
     static var previews: some View {
-        RepeatPage()
+        RepeatPage(navigateCoordinator: AirbaPayCoordinator())
     }
 }
 
