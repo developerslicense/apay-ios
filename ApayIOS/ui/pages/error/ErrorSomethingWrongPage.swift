@@ -11,6 +11,7 @@ struct ErrorSomethingWrongPage: View {
 
     var body: some View {
         ZStack {
+            ColorsSdk.gray30
             ColorsSdk.bgMain
 
             GeometryReader { metrics in
@@ -50,7 +51,7 @@ struct ErrorSomethingWrongPage: View {
                 .overlay(ViewButton(
                         title: goToMarker(),
                         actionClick: {
-
+                            navigateCoordinator.backToApp()
                         }
                 )
                         .frame(maxWidth: .infinity)

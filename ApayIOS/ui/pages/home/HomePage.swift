@@ -29,6 +29,7 @@ struct HomePage: View {
 
     var body: some View {
         ZStack {
+            ColorsSdk.gray30
             ColorsSdk.bgBlock
 
             GeometryReader { metrics in

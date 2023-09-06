@@ -10,6 +10,7 @@ struct ErrorFinalPage: View {
 
     var body: some View {
         ZStack {
+            ColorsSdk.gray30
             ColorsSdk.bgMain
 
             GeometryReader { metrics in
