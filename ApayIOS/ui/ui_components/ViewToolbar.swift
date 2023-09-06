@@ -27,6 +27,6 @@ struct ViewToolbar: View {
                     .padding(.trailing, 30)
                     .frame(maxWidth: .infinity, alignment: .center)
 
-        }
+        }.background(ColorsSdk.bgBlock)
     }
 }

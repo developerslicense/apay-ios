@@ -8,15 +8,15 @@ import WebKit
 
 struct WebViewPage: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
-    @StateObject private var viewModel = SwiftUIWebViewModel()
     @State var showDialogExit: Bool = false
+    var redirectUrl: String?
 
     init(
             @ObservedObject navigateCoordinator: AirbaPayCoordinator,
             redirectUrl: String?
     ) {
         self.navigateCoordinator = navigateCoordinator
-        viewModel.redirectUrl = redirectUrl
+        self.redirectUrl = redirectUrl
     }
 
     var body: some View {
@@ -31,10 +31,7 @@ struct WebViewPage: View {
                 )
                         .frame(maxWidth: .infinity, alignment: .leading)
 
-                SwiftUIWebView(webView: viewModel.webView)
-                        .onAppear {
-                            viewModel.loadUrl()
-                        }
+                SwiftUIWebView(url: redirectUrl)
             }
         }
                 .modifier(
@@ -51,33 +48,20 @@ struct WebViewPage: View {
     }
 }
 
-private final class SwiftUIWebViewModel: ObservableObject {
-
-    @Published var redirectUrl: String?
-
-    let webView: WKWebView
-
-    init() {
-        webView = WKWebView(frame: .zero)
-    }
-
-    func loadUrl() {
-        guard let url = URL(string: redirectUrl ?? "") else {
-            return
-        }
-        webView.load(URLRequest(url: url))
-    }
-}
-
 private struct SwiftUIWebView: UIViewRepresentable {
     let webView: WKWebView
+
+    init(url: String?) {
+        webView = WKWebView(frame: .zero)
+        webView.load(URLRequest(url: URL(string: url ?? "https://")!))
+    }
 
     func makeUIView(context: Context) -> WKWebView {
         webView
     }
 
     func updateUIView(_ uiView: WKWebView, context: Context) {
-        print("aaaaaaa updateUIView")
-        print(uiView.url)
+
     }
+
 }
