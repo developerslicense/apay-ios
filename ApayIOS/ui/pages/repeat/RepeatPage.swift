@@ -60,9 +60,9 @@ struct RepeatPage: View {
                             if response.isSecure3D == true {
                                 navigateCoordinator.openWebView(redirectUrl: response.secure3D?.action)
 
-                            } else if (response.errorCode != "0") {
+                            } else if (response.errorCode != 0) {
                                 navigateCoordinator.openErrorPageWithCondition(
-                                        errorCode: Int(response.errorCode ?? "1")
+                                        errorCode: response.errorCode ?? 1
                                 )
 
                             } else {

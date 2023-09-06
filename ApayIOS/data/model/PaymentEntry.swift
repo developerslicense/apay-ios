@@ -20,7 +20,7 @@ struct PaymentEntryRequest: Encodable {
 
 struct PaymentEntryResponse: Decodable {
     var secure3D: Secure3D?
-    var errorCode: String?
+    var errorCode: Int?
     var errorMessage: String?
     var isRetry: Bool?  //если true то можно через кнопку "повторить"
     var isSecure3D: Bool?

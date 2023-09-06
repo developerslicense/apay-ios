@@ -126,8 +126,8 @@ private func onSuccessAuth(
     )
 
     if let entryResponse = await paymentAccountEntryService(params: params) {
-        if (entryResponse.errorCode != "0") {
-            let error = ErrorsCode(code: Int(entryResponse.errorCode ?? "1")!).getError()
+        if (entryResponse.errorCode != 0) {
+            let error = ErrorsCode(code: entryResponse.errorCode ?? 1).getError()
             onError(error)
 
         } else if (entryResponse.isSecure3D == true) {
