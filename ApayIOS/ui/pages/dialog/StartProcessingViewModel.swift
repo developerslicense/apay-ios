@@ -52,7 +52,6 @@ class StartProcessingViewModel: ObservableObject {
 
         } else {
             await MainActor.run {
-                isError = true
                 isLoading = false
             }
         }

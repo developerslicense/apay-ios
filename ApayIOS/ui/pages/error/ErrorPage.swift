@@ -41,6 +41,7 @@ struct ErrorPage: View {
                             .padding(.bottom, 24)
 
                     Text(errorCode.getError().message())
+                            .multilineTextAlignment(.center)
                             .textStyleH3()
                             .frame(alignment: .center)
                             .padding(.bottom, 8)
@@ -87,7 +88,7 @@ struct ErrorPage: View {
                 }
         )
                 .frame(maxWidth: .infinity)
-                .padding(.bottom, 16)
+                .padding(.bottom, 8)
                 .padding(.horizontal, 16)
     }
 

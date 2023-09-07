@@ -77,7 +77,7 @@ func startPaymentProcessing(
 private func startCreatePayment(
         cardSaved: BankCard,
         saveCardSaved: Bool,
-        on3DS: (Secure3D?) -> Void,
+        on3DS: @escaping (Secure3D?) -> Void,
         onSuccess: @escaping () -> Void,
         onError: @escaping (ErrorsCodeBase) -> Void
 ) async {
@@ -106,17 +106,18 @@ private func startCreatePayment(
         } else {
             onError(ErrorsCode().error_1)
         }
-    } else {
 
+    } else {
+        onError(ErrorsCode().error_1)
     }
 }
 
 private func onSuccessAuth(
         saveCardSaved: Bool,
         cardSaved: BankCard,
-        onError: (ErrorsCodeBase) -> Void,
-        on3DS: (Secure3D?) -> Void,
-        onSuccess: () -> Void
+        onError: @escaping (ErrorsCodeBase) -> Void,
+        on3DS: @escaping (Secure3D?) -> Void,
+        onSuccess: @escaping () -> Void
 ) async {
     let params = PaymentEntryRequest(
             cardSave: saveCardSaved,
@@ -128,13 +129,13 @@ private func onSuccessAuth(
     if let entryResponse = await paymentAccountEntryService(params: params) {
         if (entryResponse.errorCode != 0) {
             let error = ErrorsCode(code: entryResponse.errorCode ?? 1).getError()
-            onError(error)
+            DispatchQueue.main.async { onError(error) }
 
         } else if (entryResponse.isSecure3D == true) {
-            on3DS(entryResponse.secure3D)
+            DispatchQueue.main.async { on3DS(entryResponse.secure3D) }
 
         } else {
-            onSuccess()
+            DispatchQueue.main.async { onSuccess() }
         }
 
     } else {

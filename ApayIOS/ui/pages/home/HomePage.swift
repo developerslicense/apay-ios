@@ -146,10 +146,6 @@ struct HomePage: View {
     private func onClick() {
         UIApplication.shared.endEditing()
 
-        print("aaaaa_ " + viewModel.cardNumberText +
-                " | " + viewModel.dateExpiredText +
-                " | " + viewModel.cvvText)
-
         let validationResult = checkValid(
                 cardNumber: viewModel.cardNumberText,
                 dateExpired: viewModel.dateExpiredText,
