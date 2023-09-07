@@ -12,9 +12,7 @@ struct CoreEditText: View {
     @State var value: String = ""
     @State var paySystemIcon: String = ""
 
-    @State var isError: Bool
-    @State var complete: Bool = false
-
+    var isError: Bool
     var isDateExpiredMask: Bool
     var isCardNumberMask: Bool
     var isCvvMask: Bool
