@@ -39,7 +39,6 @@ class MaskUtils {
         if (patternArr.isEmpty
                 || optionForTest) {
             let temp = Array(pattern)
-//            let temp = pattern.split(separator: "") //todo 16 ios
             for ch in temp {
                 patternArr.append(String(ch))
             }
@@ -55,7 +54,6 @@ class MaskUtils {
         }
 
         let temp = Array(text)
-//        let temp = text.split(separator: "")
         for ch in temp {
             textArr.append(String(ch))
         }

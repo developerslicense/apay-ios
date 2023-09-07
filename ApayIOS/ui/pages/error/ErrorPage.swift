@@ -21,19 +21,19 @@ struct ErrorPage: View {
     var body: some View {
         ZStack {
             ColorsSdk.gray30
-            ColorsSdk.bgMain
+            ColorsSdk.bgBlock
 
             GeometryReader { metrics in
                 let iconSize = metrics.size.width * 0.60
 
                 VStack {
-                    Spacer().frame(height: metrics.size.height * 0.15)
-
                     ViewToolbar(
                             title: "",
                             actionShowDialogExit: { showDialogExit = true }
                     )
                             .frame(maxWidth: .infinity, alignment: .leading)
+
+                    Spacer().frame(height: metrics.size.height * 0.15)
 
                     Image("icPayFailed")
                             .resizable()

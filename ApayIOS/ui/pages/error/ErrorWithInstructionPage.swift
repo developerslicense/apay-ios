@@ -15,7 +15,7 @@ struct ErrorWithInstructionPage: View {
     var body: some View {
         ZStack {
             ColorsSdk.gray30
-            ColorsSdk.bgMain
+            ColorsSdk.bgBlock
 
             GeometryReader { metrics in
                 let iconSize = metrics.size.width * 0.30

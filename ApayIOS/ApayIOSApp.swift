@@ -9,10 +9,6 @@ import SwiftUI
 
 @main
 struct ApayIOSApp: App {
-    init() {
-        testInitOnCreate()
-        testInitProcessing()
-    }
 
     var body: some Scene {
         WindowGroup {

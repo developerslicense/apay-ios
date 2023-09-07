@@ -8,6 +8,7 @@ import PathPresenter
 
 struct TestPage1: View {
     @State var path = PathPresenter.Path()
+    @State var phone: String = "77051111111"
 
     var body: some View {
         ZStack {
@@ -15,14 +16,32 @@ struct TestPage1: View {
             PathPresenter.RoutingView(path: $path) {
                 ZStack {
                     ColorsSdk.bgMain
-                    Button(
-                            action: {
-                                path.append(TestPage2(back: { path.removeLast() }))
-                            },
-                            label: {
-                                Text("переход на УСЛОВНЫЙ чекаут")
-                            }
-                    )
+
+                    VStack(alignment: .center) {
+                        Text("Можно изменить номер телефона")
+                        TextField("", text: $phone)
+                                .frame(width: 200, height: 50)
+                                .background( ColorsSdk.stateBgWarning)
+                                .overlay(
+                                        RoundedRectangle(cornerRadius: 8)
+                                                .stroke(ColorsSdk.gray5, lineWidth: 1)
+                                )
+                                .padding(.bottom, 150)
+
+                        Button(
+                                action: {
+                                    path.append(
+                                            TestPage2(
+                                                back: { path.removeLast() },
+                                                phone: phone
+                                            )
+                                    )
+                                },
+                                label: {
+                                    Text("переход на УСЛОВНЫЙ чекаут")
+                                }
+                        )
+                    }
                 }
             }
         }
@@ -32,6 +51,7 @@ struct TestPage1: View {
 
 struct TestPage2: View {
     var back: () -> Void
+    var phone: String = ""
     @ObservedObject var navigateCoordinator = AirbaPayCoordinator()
 
     var body: some View {
@@ -54,6 +74,8 @@ struct TestPage2: View {
                                 Spacer(minLength: 50)
                                 Button(
                                         action: {
+                                            testInitOnCreate(phone: phone)
+                                            testInitProcessing()
                                             navigateCoordinator.startProcessing()
                                         },
                                         label: {
@@ -65,14 +87,15 @@ struct TestPage2: View {
                         }
                     }
             )
+
     }
 }
 
-func testInitOnCreate() {
+func testInitOnCreate(phone: String = "77051111111") {
     AirbaPaySdk.initOnCreate(
             isProd: false,
             lang: AirbaPaySdk.Lang.RU(),
-            phone: "77051111111",
+            phone: phone,
             userEmail: "test@test.com",
             shopId: "test-merchant",
             password: "123456",
@@ -87,6 +110,8 @@ func testInitOnCreate() {
 func testInitProcessing() {
     let someInvoiceId = Date().timeIntervalSince1970
     let someOrderNumber = Date().timeIntervalSince1970
+    print("someOrderNumber" + String(someOrderNumber))
+    print("someInvoiceId" + String(someInvoiceId))
 
 
     let goods = [

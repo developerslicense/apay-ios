@@ -92,43 +92,37 @@ private struct SwiftUIWebView: UIViewRepresentable {
         }
 
         func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> ()) {
-            print("sssssssssss")
-            print(navigationAction.request.url)
 
             if(navigationAction.navigationType == .other) {
+                decisionHandler(.allow)
+                return
+
+            } else {
                 if let redirectedUrl = navigationAction.request.url {
 
-
-                    if redirectedUrl.absoluteURL.path.contains("status=auth") ||
-                            redirectedUrl.absoluteURL.path.contains("status=success") {
-
+                    if redirectedUrl.absoluteString.contains("status=auth") == true ||
+                               redirectedUrl.absoluteString.contains("status=success") == true {
                         navigateCoordinator.openSuccess()
 
-                    } else if redirectedUrl.absoluteURL.path.contains("status=error") {
-/*val splitted = url.split(Regex("&"))
-                    val result = splitted.first { element -> element.contains("errorCode") }
-                    val resultSplitted = result.split(Regex("="))
-
-                    val code = resultSplitted[1]
-                        .replace("errorMsg", "") //todo временный костыль удаления "errorMsg" на период, пока не будет исправлено на бэке
-                        .toInt()
-
-                    openErrorPageWithCondition(
-                        errorCode = code,
-                        navController = navController!!
-                    )*/
-                        navigateCoordinator.openErrorPageWithCondition(errorCode: 1) //todo
+                    } else if redirectedUrl.absoluteString.contains("status=error") == true {
+                        let temp = redirectedUrl.absoluteString.components(separatedBy: "&") ?? []
+                    print(temp)
+                        let result = temp.first { text in
+                            text.contains("errorCode")
+                        }
+                        print(result)
+                        let errorCode: String = result?.components(separatedBy: "=")[1] ?? "1"
+                        print(errorCode)
+                        let errorCodeInt: Int? = Int(errorCode)
+                        navigateCoordinator.openErrorPageWithCondition(errorCode: errorCodeInt)
 
                     } else {
-//                        webView.load(URLRequest(url: redirectedUrl))
                         decisionHandler(.allow)
                         return
                     }
                 }
-
-                decisionHandler(.cancel)
-                return
             }
+
             decisionHandler(.allow)
         }
     }
