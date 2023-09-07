@@ -5,9 +5,10 @@ target 'ApayIOS' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
   
-  pod 'SVGKit', :git => 'https://github.com/SVGKit/SVGKit.git', :branch => '3.x'
-
   # Pods for ApayIOS
+  pod 'SwiftUI-SimpleToast', :git => 'https://github.com/sanzaru/SimpleToast.git'
+  pod 'Alamofire'
+  pod 'Stinsen'
 
   target 'ApayIOSTests' do
     inherit! :search_paths

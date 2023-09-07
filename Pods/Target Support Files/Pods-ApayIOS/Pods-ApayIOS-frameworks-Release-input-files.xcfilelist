@@ -1,3 +1,4 @@
 ${PODS_ROOT}/Target Support Files/Pods-ApayIOS/Pods-ApayIOS-frameworks.sh
-${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework
-${BUILT_PRODUCTS_DIR}/SVGKit/SVGKit.framework
+${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/Stinsen/Stinsen.framework
+${BUILT_PRODUCTS_DIR}/SwiftUI-SimpleToast/SwiftUI_SimpleToast.framework

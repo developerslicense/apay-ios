@@ -9,9 +9,20 @@ import SwiftUI
 
 @main
 struct ApayIOSApp: App {
+
     var body: some Scene {
         WindowGroup {
-            SuccessPage()
+
+//            NavigateUtils().view()
+//            RepeatPage()
+//            ErrorSomethingWrongPage()
+//            ErrorFinalPage()
+//            ErrorWithInstructionPage()
+//            ErrorPage(errorCode: ErrorsCode(code: 5009))
+//            WebViewPage()
+//            HomePage()
+            TestPage1()
+
         }
     }
 }

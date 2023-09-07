@@ -7,93 +7,53 @@
 
 import Foundation
 import SwiftUI
-import SVGKit
 import WebKit
 
 struct SuccessPage: View {
+    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+
     var body: some View {
         ZStack {
-            ColorSdk.bgBlock
-            
-            VStack {
-                Image("icPaySuccess")
-                    .imageScale(.large)
-                    .foregroundColor(.accentColor)
-                Text("Hello, world!")
-                        .textStyleH1()
-                        .background(ColorSdk.stateError)
-                Text("Hello, world!")
-                        .textStyleH1_()
-                        .background(ColorSdk.stateSuccess)
+            ColorsSdk.gray30
+            ColorsSdk.bgBlock
+
+            GeometryReader { metrics in
+                let iconSize = metrics.size.width * 0.60
+
+                VStack {
+                    Spacer().frame(height: metrics.size.height * 0.20)
+
+                    Image("icPaySuccess")
+                            .resizable()
+                            .frame(width: iconSize, height: iconSize)
+                            .padding(.bottom, 37)
+
+                    Text(paySuccess())
+                            .textStyleH3()
+                            .frame(alignment: .center)
+
+                    Spacer()
+                            .frame(height: metrics.size.height * 0.35)
+                            .frame(width: metrics.size.width * 1.0)
+
+
+                }
             }
         }
+                .overlay(ViewButton(
+                        title: goToMarker(),
+                        actionClick: {
+                            navigateCoordinator.backToApp()
+                        }
+                )
+                        .frame(maxWidth: .infinity)
+                        .padding(.bottom, 24)
+                        .padding(.horizontal, 16), alignment: .bottom)
     }
 }
 
 struct SuccessPage_Previews: PreviewProvider {
     static var previews: some View {
-        SuccessPage()
+        SuccessPage(navigateCoordinator: AirbaPayCoordinator())
     }
 }
-
-/*
- BackHandler {
-        (context as Activity).finish()
-    }
-
-    ConstraintLayout(
-        modifier = Modifier
-            .background(ColorsSdk.bgMain)
-            .clipToBounds()
-            .fillMaxSize()
-    ) {
-
-        val (spaceRef, iconRef, textRef, buttonRef) = createRefs()
-        Spacer(
-            modifier = Modifier
-                .fillMaxHeight(0.25f)
-                .constrainAs(spaceRef) {
-                    top.linkTo(parent.top)
-                }
-        )
-        Image(
-            painter = painterResource(R.drawable.pay_success),
-            contentDescription = "pay_success",
-            modifier = Modifier
-                .fillMaxWidth(0.5f)
-                .constrainAs(iconRef) {
-                    top.linkTo(spaceRef.bottom)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
-        )
-
-        Text(
-            text = paySuccess(),
-            style = LocalFonts.current.h3,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .constrainAs(textRef) {
-                    top.linkTo(iconRef.bottom, margin = 24.dp)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
-        )
-
-        ViewButton(
-            title = goToMarker(),
-            actionClick = {
-                (context as Activity).finish()
-            },
-            modifierRoot = Modifier
-                .padding(horizontal = 16.dp)
-                .padding(vertical = 20.dp)
-                .constrainAs(buttonRef) {
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
-        )
-    }
-
- */
