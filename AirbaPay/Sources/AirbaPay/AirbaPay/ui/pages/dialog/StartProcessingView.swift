@@ -4,7 +4,8 @@
 
 import Foundation
 import SwiftUI
-import SwiftUI_SimpleToast
+//import SwiftUI_SimpleToast
+import SimpleToast
 
 struct StartProcessingView: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
