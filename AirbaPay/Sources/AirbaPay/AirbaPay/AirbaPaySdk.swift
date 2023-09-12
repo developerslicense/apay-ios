@@ -10,14 +10,25 @@ public class AirbaPaySdk {
     public init() {}
 
     public enum Lang: Equatable {
-        public init() {}
-
+        
         case RU(lang: String = "ru")
         case KZ(lang: String = "kz")
     }
 
     public struct Goods: Encodable {
-        public init() {}
+        public init(
+            brand: String,
+            category: String,
+            model: String,
+            quantity: Int,
+            price: Int
+        ) {
+            self.brand = brand
+            self.category = category
+            self.model = model
+            self.quantity = quantity
+            self.price = price
+        }
 
         let brand: String // Брэнд продукта
         let category: String // Категория продукта
@@ -30,7 +41,13 @@ public class AirbaPaySdk {
         let amount: Int
         let companyId: String?
 
-        public init() {}
+        public init(
+            amount: Int,
+            companyId: String?
+        ) {
+            self.amount = amount
+            self.companyId = companyId
+        }
 
         enum CodingKeys: String, CodingKey {
             case amount = "amount"
