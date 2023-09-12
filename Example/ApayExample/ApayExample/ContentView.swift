@@ -5,6 +5,7 @@
 import Foundation
 import SwiftUI
 import PathPresenter
+import AirbaPay
 
 struct TestPage1: View {
     @State var path = PathPresenter.Path()
@@ -60,7 +61,7 @@ struct TestPage2: View {
                     navigateCoordinator: navigateCoordinator,
                     contentView: {
                         ZStack {
-                            ColorsSdk.bgMain
+                            Color.white
                             VStack {
                                 Spacer()
                                 Button(

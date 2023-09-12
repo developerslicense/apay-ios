@@ -8,7 +8,7 @@ import SwiftUI
 struct InitViewStartProcessingAPay: View {
     var body: some View {
         VStack {
-            Image("icAPayWhite")
+            Image("icAPayWhite", bundle: DataHolder.moduleBundle)
 
         }
                 .frame(maxWidth: .infinity)

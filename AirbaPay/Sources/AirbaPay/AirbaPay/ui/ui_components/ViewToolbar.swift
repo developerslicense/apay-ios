@@ -11,7 +11,7 @@ struct ViewToolbar: View {
 
     var body: some View {
         HStack {
-            Image("icArrowBack")
+            Image("icArrowBack", bundle: DataHolder.moduleBundle)
                     .resizable()
                     .frame(width: 32, height: 32)
                     .foregroundColor(.black)

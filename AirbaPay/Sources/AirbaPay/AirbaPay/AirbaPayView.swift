@@ -11,6 +11,8 @@ import PathPresenter
 public class AirbaPayCoordinator: ObservableObject {
     @Published var path = PathPresenter.Path()
 
+    public init() {}
+
     func startProcessing() {
         path.append(
                 StartProcessingView(

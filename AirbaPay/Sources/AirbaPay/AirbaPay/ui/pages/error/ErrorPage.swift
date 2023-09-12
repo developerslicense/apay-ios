@@ -35,7 +35,7 @@ struct ErrorPage: View {
 
                     Spacer().frame(height: metrics.size.height * 0.15)
 
-                    Image("icPayFailed")
+                    Image("icPayFailed", bundle: DataHolder.moduleBundle)
                             .resizable()
                             .frame(width: iconSize, height: iconSize)
                             .padding(.bottom, 24)

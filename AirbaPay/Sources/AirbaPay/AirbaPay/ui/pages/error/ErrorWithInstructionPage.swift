@@ -32,7 +32,7 @@ struct ErrorWithInstructionPage: View {
 
                         Spacer().frame(height: metrics.size.height * 0.05)
 
-                        Image("icPayFailed")
+                        Image("icPayFailed", bundle: DataHolder.moduleBundle)
                                 .resizable()
                                 .frame(width: iconSize, height: iconSize)
                                 .padding(.bottom, 24)
@@ -65,7 +65,7 @@ struct ErrorWithInstructionPage: View {
                                         .foregroundColor(ColorsSdk.gray10)
                                         .offset(y: -20)
                                 ZStack {
-                                    Image("icPlay")
+                                    Image("icPlay", bundle: DataHolder.moduleBundle)
                                             .resizable()
                                             .frame(width: 50, height: 50)
                                 }

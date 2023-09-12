@@ -27,7 +27,7 @@ struct ErrorSomethingWrongPage: View {
 
                     Spacer().frame(height: metrics.size.height * 0.25)
 
-                    Image("icSomethingWrong")
+                    Image("icSomethingWrong", bundle: DataHolder.moduleBundle)
                             .resizable()
                             .frame(width: iconWidth, height: iconHeight)
                             .padding(.bottom, 24)

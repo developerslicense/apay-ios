@@ -8,7 +8,7 @@ import SwiftUI
 struct InitErrorState: View {
     var body: some View {
         VStack {
-            Image("icSomethingWrong")
+            Image("icSomethingWrong", bundle: DataHolder.moduleBundle)
                     .padding(.top, 24)
                     .padding(.bottom, 24)
 

@@ -36,4 +36,5 @@ class DataHolder {
 
     static var purchaseAmountFormatted: String = ""
 
+    static var moduleBundle: Bundle? = Bundle.module
 }

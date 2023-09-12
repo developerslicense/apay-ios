@@ -21,7 +21,7 @@ struct DialogExit: View {
                 ColorsSdk.bgBlock
                         .overlay(
                                 VStack {
-                                    Image("icWarningRedOval")
+                                    Image("icWarningRedOval", bundle: DataHolder.moduleBundle)
                                             .resizable()
                                             .frame(width: iconSize, height: iconSize)
 

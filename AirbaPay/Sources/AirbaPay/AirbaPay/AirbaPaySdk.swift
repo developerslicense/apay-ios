@@ -7,12 +7,18 @@ import SwiftUI
 
 public class AirbaPaySdk {
 
+    public init() {}
+
     public enum Lang: Equatable {
+        public init() {}
+
         case RU(lang: String = "ru")
         case KZ(lang: String = "kz")
     }
 
     public struct Goods: Encodable {
+        public init() {}
+
         let brand: String // Брэнд продукта
         let category: String // Категория продукта
         let model: String // Модель продукта
@@ -23,6 +29,8 @@ public class AirbaPaySdk {
     public struct SettlementPayment: Encodable {
         let amount: Int
         let companyId: String?
+
+        public init() {}
 
         enum CodingKeys: String, CodingKey {
             case amount = "amount"

@@ -23,7 +23,7 @@ struct SuccessPage: View {
                 VStack {
                     Spacer().frame(height: metrics.size.height * 0.20)
 
-                    Image("icPaySuccess")
+                    Image("icPaySuccess", bundle: DataHolder.moduleBundle)
                             .resizable()
                             .frame(width: iconSize, height: iconSize)
                             .padding(.bottom, 37)

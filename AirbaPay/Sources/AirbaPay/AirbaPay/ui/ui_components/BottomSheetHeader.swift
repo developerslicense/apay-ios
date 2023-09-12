@@ -21,7 +21,7 @@ struct InitHeader: View {
 
 
                 if (actionClose != nil) {
-                    Image("icCancel")
+                    Image("icCancel", bundle: DataHolder.moduleBundle)
                             .padding(.horizontal, 16)
                             .padding(.top, 16)
                             .onTapGesture {

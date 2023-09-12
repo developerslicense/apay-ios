@@ -8,19 +8,19 @@ import SwiftUI
 struct BottomImages: View {
     var body: some View {
         HStack {
-            Image("icPciExpressBlack")
+            Image("icPciExpressBlack", bundle: DataHolder.moduleBundle)
                     .resizable()
                     .frame(width: 32, height: 32)
             Spacer()
-            Image("icMasterCardBlack")
+            Image("icMasterCardBlack", bundle: DataHolder.moduleBundle)
                     .resizable()
                     .frame(width: 32, height: 32)
             Spacer()
-            Image("icVisaBlack")
+            Image("icVisaBlack", bundle: DataHolder.moduleBundle)
                     .resizable()
                     .frame(width: 32, height: 32)
             Spacer()
-            Image("icAmericanExpressBlack")
+            Image("icAmericanExpressBlack", bundle: DataHolder.moduleBundle)
                     .resizable()
                     .frame(width: 32, height: 32)
         }

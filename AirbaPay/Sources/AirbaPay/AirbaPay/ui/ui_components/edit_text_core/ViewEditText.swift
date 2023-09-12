@@ -36,7 +36,7 @@ struct ViewEditText: View {
 
             if (errorTitle != nil) {
                 HStack {
-                    Image("icAlarm")
+                    Image("icAlarm", bundle: DataHolder.moduleBundle)
 
                     Text(errorTitle ?? "")
                             .foregroundColor(ColorsSdk.stateError)

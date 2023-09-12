@@ -38,7 +38,7 @@ struct CoreEditText: View {
     var body: some View {
         HStack {
             if (actionClickInfo != nil) {
-                Image(isError ? "icHintError" : "icHint")
+                Image(isError ? "icHintError" : "icHint", bundle: DataHolder.moduleBundle)
                         .resizable()
                         .frame(width: 24, height: 24)
                         .onTapGesture(perform: {
@@ -49,7 +49,7 @@ struct CoreEditText: View {
             if isCardNumberMask
                        && !text.isEmpty
                        && !paySystemIcon.isEmpty {
-                Image(paySystemIcon)
+                Image(paySystemIcon, bundle: DataHolder.moduleBundle)
                         .resizable()
                         .frame(width: 24, height: 24)
             }
@@ -101,7 +101,7 @@ struct CoreEditText: View {
 
 
             if !text.isEmpty {
-                Image("icClose")
+                Image("icClose", bundle: DataHolder.moduleBundle)
                         .resizable()
                         .frame(width: 14, height: 14)
                         .onTapGesture(perform: {
