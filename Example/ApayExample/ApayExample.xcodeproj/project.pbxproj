@@ -45,6 +45,7 @@
 		DCFA478C2AB019F500E52A79 /* ApayExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApayExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCFA47902AB019F500E52A79 /* ApayExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApayExampleUITests.swift; sourceTree = "<group>"; };
 		DCFA47922AB019F500E52A79 /* ApayExampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApayExampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		DCFA47D92AB06DB500E52A79 /* AirbaPay */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AirbaPay; path = ../../AirbaPay; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +134,7 @@
 		DCFA47D42AB056DF00E52A79 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				DCFA47D92AB06DB500E52A79 /* AirbaPay */,
 			);
 			name = Packages;
 			sourceTree = "<group>";

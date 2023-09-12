@@ -63,7 +63,6 @@ public class AirbaPaySdk {
             shopId: String,
             password: String,
             terminalId: String,
-            needShowSdkSuccessPage: Bool,
             failureCallback: String,
             successCallback: String,
             colorBrandMain: Color? = nil,
@@ -81,7 +80,7 @@ public class AirbaPaySdk {
         DataHolder.bankCode = nil
         DataHolder.accessToken = nil
         DataHolder.isProd = isProd
-        DataHolder.needShowSdkSuccessPage = needShowSdkSuccessPage
+
         if (DataHolder.isProd) {
             DataHolder.baseUrl = "https://ps.airbapay.kz/acquiring-api/sdk/"
         } else {

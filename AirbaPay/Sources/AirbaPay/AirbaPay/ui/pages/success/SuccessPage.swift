@@ -11,32 +11,38 @@ import WebKit
 
 struct SuccessPage: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+    var customView: AnyView? = nil
 
     var body: some View {
         ZStack {
             ColorsSdk.gray30
             ColorsSdk.bgBlock
 
-            GeometryReader { metrics in
-                let iconSize = metrics.size.width * 0.60
+            if customView != nil {
+                customView
 
-                VStack {
-                    Spacer().frame(height: metrics.size.height * 0.20)
+            } else {
+                GeometryReader { metrics in
+                    let iconSize = metrics.size.width * 0.60
 
-                    Image("icPaySuccess", bundle: DataHolder.moduleBundle)
-                            .resizable()
-                            .frame(width: iconSize, height: iconSize)
-                            .padding(.bottom, 37)
+                    VStack {
+                        Spacer().frame(height: metrics.size.height * 0.20)
 
-                    Text(paySuccess())
-                            .textStyleH3()
-                            .frame(alignment: .center)
+                        Image("icPaySuccess", bundle: DataHolder.moduleBundle)
+                                .resizable()
+                                .frame(width: iconSize, height: iconSize)
+                                .padding(.bottom, 37)
 
-                    Spacer()
-                            .frame(height: metrics.size.height * 0.35)
-                            .frame(width: metrics.size.width * 1.0)
+                        Text(paySuccess())
+                                .textStyleH3()
+                                .frame(alignment: .center)
+
+                        Spacer()
+                                .frame(height: metrics.size.height * 0.35)
+                                .frame(width: metrics.size.width * 1.0)
 
 
+                    }
                 }
             }
         }

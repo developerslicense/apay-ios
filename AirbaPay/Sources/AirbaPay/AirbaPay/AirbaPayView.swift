@@ -9,11 +9,14 @@ import PathPresenter
 // https://github.com/alexdremov/PathPresenter?ref=alexdremov.me
 
 public class AirbaPayCoordinator: ObservableObject {
+    var customSuccessPageView: AnyView? = nil
     @Published var path = PathPresenter.Path()
 
-    public init() {}
+    public init(customSuccessPageView: AnyView? = nil) {
+        self.customSuccessPageView = customSuccessPageView
+    }
 
-    func startProcessing() {
+    public func startProcessing() {
         path.append(
                 StartProcessingView(
                         navigateCoordinator: self,
@@ -23,7 +26,7 @@ public class AirbaPayCoordinator: ObservableObject {
         )
     }
 
-    func openHome(cardId: String? = nil) {
+    public func openHome(cardId: String? = nil) {
         path.append(
                 HomePage(
                         navigateCoordinator: self,
@@ -32,30 +35,30 @@ public class AirbaPayCoordinator: ObservableObject {
         )
     }
 
-    func backToHome() {
+    public func backToHome() {
         backToApp()
         openHome()
     }
 
-    func backToApp() {
+    public func backToApp() {
         while !path.isEmpty {
             path.removeLast()
         }
     }
 
-    func openWebView(redirectUrl: String?) {
+    public func openWebView(redirectUrl: String?) {
         path.append(WebViewPage(navigateCoordinator: self, redirectUrl: redirectUrl))
     }
 
-    func openSuccess() {
-        path.append(SuccessPage(navigateCoordinator: self))
+    public func openSuccess() {
+        path.append(SuccessPage(navigateCoordinator: self, customView: customSuccessPageView))
     }
 
-    func openRepeat() {
+    public func openRepeat() {
         path.append(RepeatPage(navigateCoordinator: self))
     }
 
-    func openErrorPageWithCondition(errorCode: Int?) {
+    public func openErrorPageWithCondition(errorCode: Int?) {
         let error = ErrorsCode(code: errorCode ?? 1).getError()
 
         if (error == ErrorsCode().error_1) {

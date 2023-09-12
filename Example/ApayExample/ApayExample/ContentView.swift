@@ -53,7 +53,9 @@ struct TestPage1: View {
 struct TestPage2: View {
     var back: () -> Void
     var phone: String = ""
-    @ObservedObject var navigateCoordinator = AirbaPayCoordinator()
+    @ObservedObject var navigateCoordinator = AirbaPayCoordinator(
+        //            customSuccessPageView: AnyView(TestCustomSuccessPage())
+    )
 
     var body: some View {
 
@@ -101,10 +103,11 @@ func testInitOnCreate(phone: String = "77051111111") {
             shopId: "test-merchant",
             password: "123456",
             terminalId: "64216e7ccc4a48db060dd689",
-            needShowSdkSuccessPage: true,
             failureCallback: "https://site.kz/failure-clb",
             successCallback: "https://site.kz/success-clb" //todo исправь насчет опциональности в документации
 //            colorBrandMain = Color.Red
+            //            customSuccessPageView: AnyView(TestCustomSuccessPage())
+
     )
 }
 
@@ -150,4 +153,11 @@ func testInitProcessing() {
             goods: goods,
             settlementPayments: settlementPayment //todo исправь насчет опциональности в документации
     )
+}
+
+
+struct TestCustomSuccessPage: View {
+    var body: some View {
+        Button(action: {}, label: { Text("TestSuccessPage")})
+    }
 }
