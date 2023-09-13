@@ -32,10 +32,10 @@ func startPaymentProcessing(
 
 func startCreatePayment(
         cardId: String,
-        isLoading: (Bool) -> Void,
-        on3DS: (String?) -> Void,
-        onSuccess: () -> Void,
-        onError: (ErrorsCodeBase) -> Void
+        isLoading: @escaping (Bool) -> Void,
+        on3DS: @escaping (String?) -> Void,
+        onSuccess: @escaping () -> Void,
+        onError: @escaping (ErrorsCodeBase) -> Void
 ) async {
     if let result = await createPaymentService(cardId: cardId) {
         if result.status == "new" {
