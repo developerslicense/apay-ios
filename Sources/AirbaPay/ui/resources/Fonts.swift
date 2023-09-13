@@ -118,7 +118,7 @@ extension View {
 public enum AirbaPayFonts {
     public static func registerCustomFonts() {
         for font in ["Montserrat-SemiBold.ttf", "Montserrat-Bold.ttf", "Montserrat-Regular.ttf"] {
-            guard let url = Bundle.designSystem.url(forResource: font, withExtension: nil) else { return }
+            guard let url = DataHolder.moduleBundle?.url(forResource: font, withExtension: nil) else { return }
             CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
         }
     }
