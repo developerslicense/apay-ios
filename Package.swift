@@ -12,7 +12,8 @@ let package = Package(
             // Products define the executables and libraries a package produces, making them visible to other packages.
             .library(
                     name: "AirbaPay",
-                    targets: ["AirbaPay"])
+                    targets: ["AirbaPay"]
+            )
         ],
         dependencies: [
             .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.8.0")),
@@ -26,6 +27,9 @@ let package = Package(
                     name: "AirbaPay",
                     dependencies: [
                         "Alamofire", "PathPresenter", "SimpleToast"
+                    ],
+                    resources: [
+                        .process("Sources/ui/resources"),
                     ]
             ),
             .testTarget(

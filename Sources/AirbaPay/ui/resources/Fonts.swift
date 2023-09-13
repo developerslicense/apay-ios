@@ -108,6 +108,20 @@ extension View {
     func fontWithLineHeight(font: Font, lineHeight: CGFloat, textColor: Color? = nil) -> some View {
         ModifiedContent(content: self, modifier: FontWithLineHeight(font: font, lineHeight: lineHeight, textColor: textColor))
     }
+
+    public func loadCustomFonts() -> some View {
+        AirbaPayFonts.registerCustomFonts()
+        return self
+    }
+}
+
+public enum AirbaPayFonts {
+    public static func registerCustomFonts() {
+        for font in ["Montserrat-SemiBold.ttf", "Montserrat-Bold.ttf", "Montserrat-Regular.ttf"] {
+            guard let url = DataHolder.moduleBundle?.url(forResource: font, withExtension: nil) else { return }
+            CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
+        }
+    }
 }
 
 struct FontWithLineHeight: ViewModifier {
