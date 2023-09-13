@@ -39,20 +39,20 @@ func startCreatePayment(
 ) async {
     if let result = await createPaymentService(cardId: cardId) {
         if result.status == "new" {
-            isLoading(false)
+            DispatchQueue.main.async { isLoading(false) }
 
         } else if result.status == "success"
                           || result.status == "auth" {
-            onSuccess()
+            DispatchQueue.main.async { onSuccess() }
 
         } else if result.status == "secure3D" {
-            on3DS(result.redirectURL)
+            DispatchQueue.main.async { on3DS(result.redirectURL) }
 
         } else {
-            onError(ErrorsCode().error_1)
+            DispatchQueue.main.async { onError(ErrorsCode().error_1) }
         }
 
     } else {
-        onError(ErrorsCode().error_1)
+        DispatchQueue.main.async { onError(ErrorsCode().error_1) }
     }
 }
