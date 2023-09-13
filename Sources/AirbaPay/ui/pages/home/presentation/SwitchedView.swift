@@ -8,7 +8,7 @@ import SwiftUI
 struct SwitchedView: View {
     var text: String
     @State var switchCheckedState = false
-    var actionOnTrue: () -> Void
+    var actionOnChanged: (Bool) -> Void
 
     var body: some View {
 
@@ -20,9 +20,7 @@ struct SwitchedView: View {
                     .padding(.horizontal, 16)
                     .tint(ColorsSdk.colorBrandMain)
                     .onChange(of: switchCheckedState) { value in
-                        if (value) {
-                            actionOnTrue()
-                        }
+                        actionOnChanged(value)
                     }
 
         } else {
@@ -32,9 +30,7 @@ struct SwitchedView: View {
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, 16)
                     .onChange(of: switchCheckedState) { value in
-                        if (value) {
-                            actionOnTrue()
-                        }
+                        actionOnChanged(value)
                     }
         }
     }

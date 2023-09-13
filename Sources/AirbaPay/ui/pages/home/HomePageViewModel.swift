@@ -5,6 +5,7 @@
 import Foundation
 
 class HomePageViewModel: ObservableObject {
+    @MainActor @Published var switchSaveCard: Bool = false
     @MainActor @Published var isLoading: Bool = false
     @MainActor @Published var cardNumberText: String = ""
     @MainActor @Published var dateExpiredText: String = ""
@@ -14,6 +15,8 @@ class HomePageViewModel: ObservableObject {
     @MainActor @Published var dateExpiredError: String? = nil
     @MainActor @Published var cvvError: String? = nil
 
+    var switchSaveCard: Bool = false
+
     func changeErrorState(
             cardNumberError: String? = nil,
             dateExpiredError: String? = nil,
@@ -21,7 +24,6 @@ class HomePageViewModel: ObservableObject {
     ) {
         Task {
             await MainActor.run {
-                isLoading = false
                 self.cardNumberError = cardNumberError
                 self.dateExpiredError = dateExpiredError
                 self.cvvError = cvvError

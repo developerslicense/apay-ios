@@ -69,10 +69,12 @@ struct HomePage: View {
                     SwitchedView(
                             text: saveCardData(),
                             switchCheckedState: switchSaveCard,
-                            actionOnTrue: {
-                                withAnimation {
-                                    showToast.toggle()
+                            actionOnChanged: { isSwitched in
+                                if isSwitched {
+                                    withAnimation { showToast.toggle() }
                                 }
+
+                                viewModel.switchSaveCard = isSwitched
                             }
                     )
                             .padding(.top, 24)
@@ -171,7 +173,7 @@ struct HomePage: View {
                                     isLoading: { isLoading in
                                         viewModel.isLoading = isLoading
                                     },
-                                    saveCard: switchSaveCard,
+                                    saveCard: viewModel.switchSaveCard,
                                     cardNumber: viewModel.cardNumberText,
                                     dateExpired: viewModel.dateExpiredText,
                                     cvv: viewModel.cvvText,
@@ -185,6 +187,7 @@ struct HomePage: View {
             }
 
         } else {
+            viewModel.isLoading = false
             viewModel.changeErrorState(
                     cardNumberError: validationResult.errorCardNumber,
                     dateExpiredError: validationResult.errorDateExpired,
