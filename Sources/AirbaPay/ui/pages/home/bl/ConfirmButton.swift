@@ -92,7 +92,6 @@ private func startCreatePayment(
         if let res = await authService(params: authParams) {
             await MainActor.run {
                 DataHolder.accessToken = res.accessToken
-
             }
 
             await onSuccessAuth(
@@ -104,11 +103,11 @@ private func startCreatePayment(
             )
 
         } else {
-            onError(ErrorsCode().error_1)
+            DispatchQueue.main.async { onError(ErrorsCode().error_1) }
         }
 
     } else {
-        onError(ErrorsCode().error_1)
+        DispatchQueue.main.async { onError(ErrorsCode().error_1) }
     }
 }
 
@@ -139,7 +138,7 @@ private func onSuccessAuth(
         }
 
     } else {
-        onError(ErrorsCode().error_1)
+        DispatchQueue.main.async { onError(ErrorsCode().error_1) }
     }
 
 }
