@@ -5,7 +5,6 @@
 import Foundation
 
 class HomePageViewModel: ObservableObject {
-    @MainActor @Published var switchSaveCard: Bool = false
     @MainActor @Published var isLoading: Bool = false
     @MainActor @Published var cardNumberText: String = ""
     @MainActor @Published var dateExpiredText: String = ""
