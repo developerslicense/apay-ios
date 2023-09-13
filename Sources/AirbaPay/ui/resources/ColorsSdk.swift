@@ -10,52 +10,52 @@ import SwiftUI
 
 struct ColorsSdk {
     
-    static var colorBrandMain = Color("ColorBrandMain")
-    static var colorBrandInversion = Color("ColorBrandInversion")
+    static var colorBrandMain = Color("ColorBrandMain", bundle: DataHolder.moduleBundle)
+    static var colorBrandInversion = Color("ColorBrandInversion", bundle: DataHolder.moduleBundle)
     
     // block
-    static let bgBlock = Color("ColorBgBlock")
-    static let bgMain = Color("ColorBgMain")
-    static let bgAccent = Color("ColorBgAccent")
-    static let bgSecondaryAccent = Color("ColorBgSecondaryAccent")
-    static let bgElements = Color("ColorBgElements")
-    static let bgAPAY = Color("ColorBgAPAY")
+    static let bgBlock = Color("ColorBgBlock", bundle: DataHolder.moduleBundle)
+    static let bgMain = Color("ColorBgMain", bundle: DataHolder.moduleBundle)
+    static let bgAccent = Color("ColorBgAccent", bundle: DataHolder.moduleBundle)
+    static let bgSecondaryAccent = Color("ColorBgSecondaryAccent", bundle: DataHolder.moduleBundle)
+    static let bgElements = Color("ColorBgElements", bundle: DataHolder.moduleBundle)
+    static let bgAPAY = Color("ColorBgAPAY", bundle: DataHolder.moduleBundle)
 
     // text
-    static let textMain = Color("ColorTextMain")
-    static let textLight = Color("ColorTextLight")
-    static let textSecondary = Color("ColorTextSecondary")
-    static let textInversion = Color("ColorTextInversion")
-    static let textBlue = Color("ColorTextBlue")
+    static let textMain = Color("ColorTextMain", bundle: DataHolder.moduleBundle)
+    static let textLight = Color("ColorTextLight", bundle: DataHolder.moduleBundle)
+    static let textSecondary = Color("ColorTextSecondary", bundle: DataHolder.moduleBundle)
+    static let textInversion = Color("ColorTextInversion", bundle: DataHolder.moduleBundle)
+    static let textBlue = Color("ColorTextBlue", bundle: DataHolder.moduleBundle)
 
     // icons
-    static let iconMain = Color("ColorIconMain")
-    static let iconSecondary = Color("ColorIconSecondary")
-    static let iconInversion = Color("ColorIconInversion")
+    static let iconMain = Color("ColorIconMain", bundle: DataHolder.moduleBundle)
+    static let iconSecondary = Color("ColorIconSecondary", bundle: DataHolder.moduleBundle)
+    static let iconInversion = Color("ColorIconInversion", bundle: DataHolder.moduleBundle)
 
     // buttons
-    static let buttonSecondaryDelete = Color("ColorButtonSecondaryDelete")
-    static let buttonDefault = Color("ColorButtonDefault")
+    static let buttonSecondaryDelete = Color("ColorButtonSecondaryDelete", bundle: DataHolder.moduleBundle)
+    static let buttonDefault = Color("ColorButtonDefault", bundle: DataHolder.moduleBundle)
 
     // state
-    static let stateSuccess = Color("ColorStateSuccess")
-    static let stateBdSuccess = Color("ColorStateBdSuccess")
-    static let stateError = Color("ColorStateError")
-    static let stateBgError = Color("ColorStateBgError")
-    static let stateWarning = Color("ColorStateWarning")
-    static let stateBgWarning = Color("ColorStateBgWarning")
+    static let stateSuccess = Color("ColorStateSuccess", bundle: DataHolder.moduleBundle)
+    static let stateBdSuccess = Color("ColorStateBdSuccess", bundle: DataHolder.moduleBundle)
+    static let stateError = Color("ColorStateError", bundle: DataHolder.moduleBundle)
+    static let stateBgError = Color("ColorStateBgError", bundle: DataHolder.moduleBundle)
+    static let stateWarning = Color("ColorStateWarning", bundle: DataHolder.moduleBundle)
+    static let stateBgWarning = Color("ColorStateBgWarning", bundle: DataHolder.moduleBundle)
 
     // gray
-    static let gray0 = Color("ColorGray0")
-    static let gray5 = Color("ColorGray5")
-    static let gray10 = Color("ColorGray10")
-    static let gray15 = Color("ColorGray15")
-    static let gray20 = Color("ColorGray20")
-    static let gray25 = Color("ColorGray25")
-    static let gray30 = Color("ColorGray30")
-    static let technical = Color("ColorTechnical")
+    static let gray0 = Color("ColorGray0", bundle: DataHolder.moduleBundle)
+    static let gray5 = Color("ColorGray5", bundle: DataHolder.moduleBundle)
+    static let gray10 = Color("ColorGray10", bundle: DataHolder.moduleBundle)
+    static let gray15 = Color("ColorGray15", bundle: DataHolder.moduleBundle)
+    static let gray20 = Color("ColorGray20", bundle: DataHolder.moduleBundle)
+    static let gray25 = Color("ColorGray25", bundle: DataHolder.moduleBundle)
+    static let gray30 = Color("ColorGray30", bundle: DataHolder.moduleBundle)
+    static let technical = Color("ColorTechnical", bundle: DataHolder.moduleBundle)
 
-    static let transparent = Color("ColorTransparent")
+    static let transparent = Color("ColorTransparent", bundle: DataHolder.moduleBundle)
     
     
 }
