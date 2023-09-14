@@ -10,6 +10,9 @@ import SimpleToast
 struct HomePage: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     @StateObject var viewModel = HomePageViewModel()
+    @StateObject var cardNumberEditTextViewModel = CoreEditTextViewModel()
+    @StateObject var dateExpiredEditTextViewModel = CoreEditTextViewModel()
+    @StateObject var cvvEditTextViewModel = CoreEditTextViewModel()
 
     @State var showDialogExit: Bool = false
     @State var switchSaveCard: Bool = false
@@ -51,6 +54,7 @@ struct HomePage: View {
 
                     CardNumberView(
                             viewModel: viewModel,
+                            editTextViewModel: cardNumberEditTextViewModel,
                             actionClickScanner: {
                                 showCardScanner = true
                             }
@@ -59,12 +63,16 @@ struct HomePage: View {
                             .padding(.horizontal, 16)
 
                     HStack(alignment: .top) {
-                        DateExpiredView(viewModel: viewModel)
+                        DateExpiredView(
+                                viewModel: viewModel,
+                                editTextViewModel: dateExpiredEditTextViewModel
+                        )
 
                         Spacer().frame(width: 12)
 
                         CvvView(
                                 viewModel: viewModel,
+                                editTextViewModel: cvvEditTextViewModel,
                                 actionClickInfo: {
                                     sheetState.toggle()
                                 }
@@ -97,7 +105,7 @@ struct HomePage: View {
                 CardScannerPage(
                         onSuccess: { cardNumber in
                             showCardScanner = false
-                            viewModel.cardNumberText = cardNumber
+                            cardNumberEditTextViewModel.changeText(text: cardNumber)
                         },
                         onBackEmpty: {
                             showCardScanner = false

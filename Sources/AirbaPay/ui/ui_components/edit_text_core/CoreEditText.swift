@@ -6,10 +6,22 @@ import Foundation
 import SwiftUI
 
 // https://suragch.medium.com/getting-and-setting-the-cursor-position-in-swift-68da99bcef39
+
+class CoreEditTextViewModel: ObservableObject {
+    @MainActor @Published var text: String = ""
+
+    func changeText(text: String) {
+        Task {
+            await MainActor.run {
+                self.text = text
+            }
+        }
+    }
+}
+
 struct CoreEditText: View {
 
-    @State var text: String = ""
-    @State var value: String = ""
+    @StateObject var viewModel: CoreEditTextViewModel
     @State var paySystemIcon: String = ""
 
     var isError: Bool
@@ -48,7 +60,7 @@ struct CoreEditText: View {
             }
 
             if isCardNumberMask
-                       && !text.isEmpty
+                       && !viewModel.text.isEmpty
                        && !paySystemIcon.isEmpty {
                 Image(paySystemIcon, bundle: DataHolder.moduleBundle)
                         .resizable()
@@ -56,7 +68,7 @@ struct CoreEditText: View {
             }
 
             ZStack(alignment: .leading) {
-                if text.isEmpty {
+                if viewModel.text.isEmpty {
                     Text(placeholder)
                             .foregroundColor(ColorsSdk.textLight)
                             .frame(width: .infinity, alignment: .leading)
@@ -64,11 +76,11 @@ struct CoreEditText: View {
                 }
 
                 if (isCvvMask) {
-                    let textField = SecureField("", text: $text)
+                    let textField = SecureField("", text: $viewModel.text)
 
                     textField
                             .onChange(
-                                    of: text,
+                                    of: viewModel.text,
                                     perform: { newValue in
                                         onPerformed(newValue: newValue)
                                     }
@@ -81,11 +93,11 @@ struct CoreEditText: View {
                             .accentColor(ColorsSdk.colorBrandMain)
 
                 } else {
-                    let textField = TextField("", text: $text)
+                    let textField = TextField("", text: $viewModel.text)
 
                     textField
                             .onChange(
-                                    of: text,
+                                    of: viewModel.text,
                                     perform: { newValue in
                                         onPerformed(newValue: newValue)
                                     }
@@ -101,12 +113,12 @@ struct CoreEditText: View {
                     .frame(minHeight: 24)
 
 
-            if !text.isEmpty && !isCardNumberMask {
+            if !viewModel.text.isEmpty && !isCardNumberMask {
                 Image("icClose", bundle: DataHolder.moduleBundle)
                         .resizable()
                         .frame(width: 14, height: 14)
                         .onTapGesture(perform: {
-                            text = ""
+                            viewModel.text = ""
                             actionOnTextChanged("")
                         })
 
@@ -135,7 +147,7 @@ struct CoreEditText: View {
         }
 
         if (newValue.count > textBeforeChange.count) {
-            text = maskUtils.format(
+            viewModel.text = maskUtils.format(
                     text: getNumberClearedWithMaxSymbol(
                             amount: newValue,
                             maxSize: 16
@@ -143,7 +155,7 @@ struct CoreEditText: View {
             )
         }
 
-        textBeforeChange = text
-        actionOnTextChanged(text)
+        textBeforeChange = viewModel.text
+        actionOnTextChanged(viewModel.text)
     }
 }

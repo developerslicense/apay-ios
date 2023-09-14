@@ -7,12 +7,13 @@ import SwiftUI
 
 struct DateExpiredView: View {
     @StateObject var viewModel: HomePageViewModel
+    @StateObject var editTextViewModel: CoreEditTextViewModel
 
     var body: some View {
 //        let regex: Regex? = try? Regex(RegexConst.NOT_DIGITS)
 
         ViewEditText(
-                text: viewModel.dateExpiredText,
+                viewModel: editTextViewModel,
                 errorTitle: viewModel.dateExpiredError,
                 placeholder: dateExpired(),
 //                regex: regex,

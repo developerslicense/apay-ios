@@ -6,7 +6,7 @@ import Foundation
 import SwiftUI
 
 struct ViewEditText: View {
-    @State var text: String = ""
+    @StateObject var viewModel: CoreEditTextViewModel
     var errorTitle: String?
 
     var placeholder: String
@@ -22,7 +22,7 @@ struct ViewEditText: View {
 
         VStack {
             CoreEditText(
-                    text: text,
+                    viewModel: viewModel,
                     isError: errorTitle != nil,
                     isDateExpiredMask: isDateExpiredMask,
                     isCardNumberMask: isCardNumberMask,
