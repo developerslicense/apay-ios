@@ -47,7 +47,12 @@ struct HomePage: View {
                             .padding(.top, 24)
                             .padding(.horizontal, 16)
 
-                    CardNumberView(viewModel: viewModel)
+                    CardNumberView(
+                            viewModel: viewModel,
+                            actionClickScanner: {
+                                navigateCoordinator.openCardScanner()
+                            }
+                    )
                             .padding(.top, 16)
                             .padding(.horizontal, 16)
 

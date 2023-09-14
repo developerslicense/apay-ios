@@ -58,6 +58,10 @@ public class AirbaPayCoordinator: ObservableObject {
         path.append(RepeatPage(navigateCoordinator: self))
     }
 
+    func openCardScanner() {
+        path.append(CardScannerPage(navigateCoordinator: self))
+    }
+
     public func openErrorPageWithCondition(errorCode: Int?) {
         let error = ErrorsCode(code: errorCode ?? 1).getError()
 

@@ -22,6 +22,7 @@ struct CoreEditText: View {
 
     var actionOnTextChanged: (String) -> Void
     var actionClickInfo: (() -> Void)? = nil
+    var actionClickScanner: (() -> Void)? = nil
 
     @State private var textBeforeChange: String = ""
     @State private var cursorPositionForShow: Int = 5
@@ -37,7 +38,7 @@ struct CoreEditText: View {
 
     var body: some View {
         HStack {
-            if (actionClickInfo != nil) {
+            if actionClickInfo != nil {
                 Image(isError ? "icHintError" : "icHint", bundle: DataHolder.moduleBundle)
                         .resizable()
                         .frame(width: 24, height: 24)
@@ -100,13 +101,19 @@ struct CoreEditText: View {
                     .frame(minHeight: 24)
 
 
-            if !text.isEmpty {
+            if !text.isEmpty && !isCardNumberMask {
                 Image("icClose", bundle: DataHolder.moduleBundle)
                         .resizable()
                         .frame(width: 14, height: 14)
                         .onTapGesture(perform: {
                             text = ""
                             actionOnTextChanged("")
+                        })
+
+            } else if isCardNumberMask {
+                Image("icCardScan", bundle: DataHolder.moduleBundle)
+                        .onTapGesture(perform: {
+                            actionClickScanner?()
                         })
             }
         }

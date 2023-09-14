@@ -10,13 +10,13 @@ struct ViewEditText: View {
     var errorTitle: String?
 
     var placeholder: String
-//    var regex: Regex<AnyRegexOutput>? = nil
     var isDateExpiredMask: Bool = false
     var isCardNumberMask: Bool = false
     var isCvvMask: Bool = false
     var keyboardType: UIKeyboardType = .decimalPad
     var actionOnTextChanged: (String) -> Void
     var actionClickInfo: (() -> Void)?
+    var actionClickScanner: (() -> Void)? = nil
 
     var body: some View {
 
@@ -28,10 +28,10 @@ struct ViewEditText: View {
                     isCardNumberMask: isCardNumberMask,
                     isCvvMask: isCvvMask,
                     placeholder: placeholder,
-//                    regex: regex,
                     keyboardType: keyboardType,
                     actionOnTextChanged: actionOnTextChanged,
-                    actionClickInfo: actionClickInfo
+                    actionClickInfo: actionClickInfo,
+                    actionClickScanner: actionClickScanner
             )
 
             if (errorTitle != nil) {

@@ -8,6 +8,7 @@ import SwiftUI
 struct CardNumberView: View {
     @StateObject var viewModel: HomePageViewModel
     @State var paySystemIcon: String = ""
+    var actionClickScanner: (() -> Void)?
 
     var body: some View {
 //        let regex: Regex? = try? Regex(RegexConst.NOT_DIGITS)
@@ -20,7 +21,8 @@ struct CardNumberView: View {
                 actionOnTextChanged: { pan in
                     viewModel.cardNumberText = pan
                 },
-                actionClickInfo: nil
+                actionClickInfo: nil,
+                actionClickScanner: actionClickScanner
         )
     }
 }
