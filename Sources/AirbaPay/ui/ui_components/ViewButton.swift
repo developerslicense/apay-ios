@@ -9,6 +9,7 @@ struct ViewButton: View {
     var title: String
     var isMainBrand: Bool = true
     var actionClick: () -> Void
+    var isVisible: Bool = true
 
     var body: some View {
         let button = BaseButtonStyle(
@@ -16,16 +17,17 @@ struct ViewButton: View {
                 backgroundColor: initButtonBackground(isMainBrand: isMainBrand)
         )
 
-        Button(
-                action: {
-                    actionClick()
-                },
-                label: {
-                    Text(title).frame(maxWidth: .infinity)
-
-                }
-        ).buttonStyle(button)
-
+        if isVisible {
+            Button(
+                    action: {
+                        actionClick()
+                    },
+                    label: {
+                        Text(title).frame(maxWidth: .infinity)
+                    }
+            )
+                    .buttonStyle(button)
+        }
     }
 
     private func initButtonBackground(isMainBrand: Bool) -> Color {

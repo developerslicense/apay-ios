@@ -7,7 +7,7 @@ import SwiftUI
 
 struct ViewToolbar: View {
     var title: String?
-    var actionShowDialogExit: () -> Void
+    var actionClickBack: () -> Void
 
     var body: some View {
         HStack {
@@ -18,7 +18,7 @@ struct ViewToolbar: View {
                     .padding(.top, 12)
                     .padding(.leading, 12)
                     .onTapGesture(perform: {
-                        actionShowDialogExit()
+                        actionClickBack()
                     })
 
             Text(title ?? "")
