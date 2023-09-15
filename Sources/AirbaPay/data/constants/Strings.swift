@@ -250,3 +250,11 @@ func textCancel() -> String {
             "Бас тарту"
     )
 }
+
+func cardParserCancel() -> String {
+    getStrFromRes(
+            "Не вышло считать карту",
+            "Картаны оқу мүмкін болмады"
+    )
+}
+

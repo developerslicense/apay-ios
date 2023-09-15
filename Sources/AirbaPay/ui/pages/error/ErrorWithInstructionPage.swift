@@ -26,7 +26,7 @@ struct ErrorWithInstructionPage: View {
                     VStack {
                         ViewToolbar(
                                 title: "",
-                                actionShowDialogExit: { showDialogExit = true }
+                                actionClickBack: { showDialogExit = true }
                         )
                                 .frame(maxWidth: .infinity, alignment: .leading)
 

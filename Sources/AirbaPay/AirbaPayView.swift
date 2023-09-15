@@ -46,6 +46,12 @@ public class AirbaPayCoordinator: ObservableObject {
         }
     }
 
+    func onBack() {
+        if !path.isEmpty {
+            path.removeLast()
+        }
+    }
+
     public func openWebView(redirectUrl: String?) {
         path.append(WebViewPage(navigateCoordinator: self, redirectUrl: redirectUrl))
     }

@@ -10,12 +10,17 @@ import SimpleToast
 struct HomePage: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     @StateObject var viewModel = HomePageViewModel()
+    @StateObject var cardNumberEditTextViewModel = CoreEditTextViewModel()
+    @StateObject var dateExpiredEditTextViewModel = CoreEditTextViewModel()
+    @StateObject var cvvEditTextViewModel = CoreEditTextViewModel()
 
     @State var showDialogExit: Bool = false
     @State var switchSaveCard: Bool = false
+    @State var showCardScanner: Bool = false
 
     @State private var sheetState = false
-    @State var showToast: Bool = false
+    @State var saveCardToast: Bool = false
+    @State var errorCardParserToast: Bool = false
     private let toastOptions = SimpleToastOptions(hideAfter: 5)
 
     var selectedCardId: String? = nil
@@ -37,7 +42,7 @@ struct HomePage: View {
                 VStack {
                     ViewToolbar(
                             title: paymentOfPurchase(),
-                            actionShowDialogExit: {
+                            actionClickBack: {
                                 showDialogExit = true
                             }
                     )
@@ -47,17 +52,27 @@ struct HomePage: View {
                             .padding(.top, 24)
                             .padding(.horizontal, 16)
 
-                    CardNumberView(viewModel: viewModel)
+                    CardNumberView(
+                            viewModel: viewModel,
+                            editTextViewModel: cardNumberEditTextViewModel,
+                            actionClickScanner: {
+                                showCardScanner = true
+                            }
+                    )
                             .padding(.top, 16)
                             .padding(.horizontal, 16)
 
                     HStack(alignment: .top) {
-                        DateExpiredView(viewModel: viewModel)
+                        DateExpiredView(
+                                viewModel: viewModel,
+                                editTextViewModel: dateExpiredEditTextViewModel
+                        )
 
                         Spacer().frame(width: 12)
 
                         CvvView(
                                 viewModel: viewModel,
+                                editTextViewModel: cvvEditTextViewModel,
                                 actionClickInfo: {
                                     sheetState.toggle()
                                 }
@@ -71,7 +86,7 @@ struct HomePage: View {
                             switchCheckedState: switchSaveCard,
                             actionOnChanged: { isSwitched in
                                 if isSwitched {
-                                    withAnimation { showToast.toggle() }
+                                    withAnimation { saveCardToast.toggle() }
                                 }
 
                                 viewModel.switchSaveCard = isSwitched
@@ -84,6 +99,19 @@ struct HomePage: View {
                             .padding(.top, 35)
                             .padding(.horizontal, 16)
                 }
+            }
+
+            if showCardScanner {
+                CardScannerPage(
+                        onSuccess: { cardNumber in
+                            showCardScanner = false
+                            cardNumberEditTextViewModel.changeText(text: cardNumber)
+                        },
+                        onBackEmpty: {
+                            showCardScanner = false
+                            withAnimation { errorCardParserToast.toggle() }
+                        }
+                )
             }
 
             if viewModel.isLoading {
@@ -107,19 +135,31 @@ struct HomePage: View {
                 .sheet(isPresented: $sheetState) {
                     CvvBottomSheet()
                 }
-                .overlay(ViewButton(
-                        title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
-                        actionClick: {
-                            if !viewModel.isLoading {
-                                onClick()
-                            }
-                        }
+                .overlay(
+                        ViewButton(
+                                title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
+                                actionClick: {
+                                    if !viewModel.isLoading {
+                                        onClick()
+                                    }
+                                },
+                                isVisible: !showCardScanner && !viewModel.isLoading
+                        )
+                                .frame(maxWidth: .infinity)
+                                .padding(.bottom, 24)
+                                .padding(.horizontal, 16),
+                        alignment: .bottom
                 )
-                        .frame(maxWidth: .infinity)
-                        .padding(.bottom, 24)
-                        .padding(.horizontal, 16), alignment: .bottom)
-                .simpleToast(isPresented: $showToast, options: toastOptions) {
+                .simpleToast(isPresented: $saveCardToast, options: toastOptions) {
                     Label(cardDataSaved(), systemImage: "icAdd")
+                            .padding()
+                            .background(Color.gray.opacity(0.9))
+                            .foregroundColor(Color.white)
+                            .cornerRadius(10)
+                            .padding(.top)
+                }
+                .simpleToast(isPresented: $errorCardParserToast, options: toastOptions) {
+                    Label(cardParserCancel(), systemImage: "icAdd")
                             .padding()
                             .background(Color.gray.opacity(0.9))
                             .foregroundColor(Color.white)

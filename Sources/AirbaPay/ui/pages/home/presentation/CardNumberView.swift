@@ -7,12 +7,15 @@ import SwiftUI
 
 struct CardNumberView: View {
     @StateObject var viewModel: HomePageViewModel
+    @StateObject var editTextViewModel: CoreEditTextViewModel
     @State var paySystemIcon: String = ""
+    var actionClickScanner: (() -> Void)?
 
     var body: some View {
 //        let regex: Regex? = try? Regex(RegexConst.NOT_DIGITS)
 
         ViewEditText(
+                viewModel: editTextViewModel,
                 errorTitle: viewModel.cardNumberError,
                 placeholder: cardNumber(),
 //                regex: regex,
@@ -20,7 +23,8 @@ struct CardNumberView: View {
                 actionOnTextChanged: { pan in
                     viewModel.cardNumberText = pan
                 },
-                actionClickInfo: nil
+                actionClickInfo: nil,
+                actionClickScanner: actionClickScanner
         )
     }
 }
