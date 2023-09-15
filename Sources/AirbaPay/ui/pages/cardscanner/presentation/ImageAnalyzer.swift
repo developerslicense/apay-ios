@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Reg
 import Vision
 
 protocol ImageAnalyzerProtocol: AnyObject {
