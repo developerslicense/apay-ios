@@ -29,7 +29,7 @@ let package = Package(
                         "Alamofire", "PathPresenter", "SimpleToast"
                     ],
                     resources: [
-                        .process("Sources/ui/resources/**"),
+                        .process("resources"),
                     ]
             ),
             .testTarget(
