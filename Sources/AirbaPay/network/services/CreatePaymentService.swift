@@ -16,6 +16,11 @@ func createPaymentService(cardId: String) async -> PaymentCreateResponse? {
     return await executeRequest(params: params, cardId: cardId)
 }
 
+func createPaymentService() async -> PaymentCreateResponse? {
+    let params = initParamsForCreatePayment(cardId: nil)
+    return await executeRequest(params: params)
+}
+
 private func executeRequest(
         params: PaymentCreateRequest,
         cardId: String? = nil

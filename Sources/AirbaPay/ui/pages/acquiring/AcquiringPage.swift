@@ -7,7 +7,7 @@ import SwiftUI
 import WebKit
 import Combine
 
-struct WebViewPage: View {
+struct AcquiringPage: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     @State var showDialogExit: Bool = false
     var redirectUrl: String?

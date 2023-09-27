@@ -37,12 +37,17 @@ struct StartProcessingView: View {
 
                                 } else {
                                     InitViewStartProcessingAmount()
-                                    //                        InitViewStartProcessingAPay()  //todo временно закоментировал
+                                    InitViewStartProcessingAPay(
+                                            isLoading: { isLoading in
+                                                self.isLoading = isLoading
+                                            },
+                                            navigateCoordinator: navigateCoordinator
+                                    )
 
                                     if (!viewModel.savedCards.isEmpty
                                             && isAuthenticated
                                        ) {
-                                        InitViewStartProcessingCards(// todo внутри есть закоментированное
+                                        InitViewStartProcessingCards(
                                                 navigateCoordinator: navigateCoordinator,
                                                 savedCards: viewModel.savedCards,
                                                 selectedCard: viewModel.selectedCard
