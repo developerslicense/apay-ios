@@ -66,6 +66,7 @@ struct StartProcessingView: View {
                             }
 
                             if (isLoading) {
+                                ColorsSdk.bgMain
                                 ProgressBarView()
                             }
                         }
