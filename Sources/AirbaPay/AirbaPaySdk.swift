@@ -6,7 +6,9 @@ import Foundation
 import SwiftUI
 
 public class AirbaPaySdk {
-
+    // todo возможно, когда-нибудь можно будет переделать на это
+    //   https://anuragajwani.medium.com/how-to-build-universal-ios-frameworks-using-xcframeworks-4c2790cfa623
+    //   и можно будет избавиться от боли с тестированием правок
     public init() {}
 
     public enum Lang: Equatable {
