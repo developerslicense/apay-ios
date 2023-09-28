@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  GetApplePayService.swift
 //
 //
 //  Created by miyasaka on 2020/07/31.

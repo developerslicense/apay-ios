@@ -8,7 +8,7 @@ struct PaymentEntryRequest: Encodable {
     var cardSave: Bool
     var email: String?
     var sendReceipt: Bool
-    var card: BankCard
+    var card: BankCard?
 
     enum CodingKeys: String, CodingKey {
         case cardSave = "card_save"

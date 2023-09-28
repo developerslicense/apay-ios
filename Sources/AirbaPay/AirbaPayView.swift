@@ -53,7 +53,11 @@ public class AirbaPayCoordinator: ObservableObject {
     }
 
     public func openWebView(redirectUrl: String?) {
-        path.append(WebViewPage(navigateCoordinator: self, redirectUrl: redirectUrl))
+        path.append(AcquiringPage(navigateCoordinator: self, redirectUrl: redirectUrl))
+    }
+    
+    public func openApplePay(redirectUrl: String?) {
+        path.append(ApplePayPage(redirectUrl: redirectUrl, navigateCoordinator: self))
     }
 
     public func openSuccess() {
