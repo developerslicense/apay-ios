@@ -9,15 +9,15 @@ import PathPresenter
 // https://github.com/alexdremov/PathPresenter?ref=alexdremov.me
 
 public class AirbaPayCoordinator: ObservableObject {
-    var actionOnOpenProcessing: @escaping () -> Void
-    var actionOnCloseProcessing: @escaping () -> Void
+    var actionOnOpenProcessing: () -> Void
+    var actionOnCloseProcessing: () -> Void
     var customSuccessPageView: AnyView? = nil
     @Published var path = PathPresenter.Path()
 
     public init(
             customSuccessPageView: AnyView? = nil,
-            actionOnOpenProcessing: () -> Void = {},
-            actionOnCloseProcessing: () -> Void = {}
+            actionOnOpenProcessing: @escaping () -> Void = {},
+            actionOnCloseProcessing: @escaping () -> Void = {}
     ) {
         self.customSuccessPageView = customSuccessPageView
         self.actionOnOpenProcessing = actionOnOpenProcessing
