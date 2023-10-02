@@ -9,11 +9,19 @@ import PathPresenter
 // https://github.com/alexdremov/PathPresenter?ref=alexdremov.me
 
 public class AirbaPayCoordinator: ObservableObject {
+    var actionOnOpenProcessing: () -> Void
+    var actionOnCloseProcessing: () -> Void
     var customSuccessPageView: AnyView? = nil
     @Published var path = PathPresenter.Path()
 
-    public init(customSuccessPageView: AnyView? = nil) {
+    public init(
+            customSuccessPageView: AnyView? = nil,
+            actionOnOpenProcessing: @escaping () -> Void = {},
+            actionOnCloseProcessing: @escaping () -> Void = {}
+    ) {
         self.customSuccessPageView = customSuccessPageView
+        self.actionOnOpenProcessing = actionOnOpenProcessing
+        self.actionOnCloseProcessing = actionOnCloseProcessing
     }
 
     public func startProcessing() {
@@ -27,6 +35,7 @@ public class AirbaPayCoordinator: ObservableObject {
     }
 
     public func openHome(cardId: String? = nil) {
+        actionOnOpenProcessing()
         path.append(
                 HomePage(
                         navigateCoordinator: self,
@@ -36,7 +45,9 @@ public class AirbaPayCoordinator: ObservableObject {
     }
 
     public func backToHome() {
-        backToApp()
+        while !path.isEmpty {
+            path.removeLast()
+        }
         openHome()
     }
 
@@ -44,6 +55,7 @@ public class AirbaPayCoordinator: ObservableObject {
         while !path.isEmpty {
             path.removeLast()
         }
+        actionOnCloseProcessing()
     }
 
     func onBack() {
@@ -57,6 +69,7 @@ public class AirbaPayCoordinator: ObservableObject {
     }
     
     public func openApplePay(redirectUrl: String?) {
+        actionOnOpenProcessing()
         path.append(ApplePayPage(redirectUrl: redirectUrl, navigateCoordinator: self))
     }
 
