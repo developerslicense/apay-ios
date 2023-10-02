@@ -14,8 +14,14 @@ public class AirbaPayCoordinator: ObservableObject {
     var customSuccessPageView: AnyView? = nil
     @Published var path = PathPresenter.Path()
 
-    public init(customSuccessPageView: AnyView? = nil) {
+    public init(
+            customSuccessPageView: AnyView? = nil,
+            actionOnOpenProcessing: () -> Void = {},
+            actionOnCloseProcessing: () -> Void = {}
+    ) {
         self.customSuccessPageView = customSuccessPageView
+        self.actionOnOpenProcessing = actionOnOpenProcessing
+        self.actionOnCloseProcessing = actionOnCloseProcessing
     }
 
     public func startProcessing() {
