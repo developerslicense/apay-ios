@@ -9,6 +9,8 @@ import PathPresenter
 // https://github.com/alexdremov/PathPresenter?ref=alexdremov.me
 
 public class AirbaPayCoordinator: ObservableObject {
+    var actionOnOpenProcessing: () -> Void
+    var actionOnCloseProcessing: () -> Void
     var customSuccessPageView: AnyView? = nil
     @Published var path = PathPresenter.Path()
 
@@ -27,6 +29,7 @@ public class AirbaPayCoordinator: ObservableObject {
     }
 
     public func openHome(cardId: String? = nil) {
+        actionOnOpenProcessing()
         path.append(
                 HomePage(
                         navigateCoordinator: self,
@@ -36,7 +39,9 @@ public class AirbaPayCoordinator: ObservableObject {
     }
 
     public func backToHome() {
-        backToApp()
+        while !path.isEmpty {
+            path.removeLast()
+        }
         openHome()
     }
 
@@ -44,6 +49,7 @@ public class AirbaPayCoordinator: ObservableObject {
         while !path.isEmpty {
             path.removeLast()
         }
+        actionOnCloseProcessing()
     }
 
     func onBack() {
