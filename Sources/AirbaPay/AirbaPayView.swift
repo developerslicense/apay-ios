@@ -57,7 +57,7 @@ public class AirbaPayCoordinator: ObservableObject {
         while !path.isEmpty {
             path.removeLast()
         }
-        actionOnCloseProcessing()
+        actionOnCloseProcessing(result)
     }
 
     func onBack() {
