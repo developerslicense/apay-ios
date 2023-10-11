@@ -113,7 +113,7 @@ public class AirbaPaySdk {
             invoiceId: String,
             orderNumber: String,
             goods: Array<Goods>,
-            settlementPayments: Array<SettlementPayment>?
+            settlementPayments: Array<SettlementPayment>? = nil
     ) {
         DataHolder.purchaseAmount = String(purchaseAmount)
         DataHolder.orderNumber = orderNumber

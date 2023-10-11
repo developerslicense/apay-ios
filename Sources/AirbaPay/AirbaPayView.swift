@@ -10,14 +10,14 @@ import PathPresenter
 
 public class AirbaPayCoordinator: ObservableObject {
     public var actionOnOpenProcessing: () -> Void
-    public var actionOnCloseProcessing: () -> Void
+    public var actionOnCloseProcessing: (Bool) -> Void
     var customSuccessPageView: AnyView? = nil
     @Published var path = PathPresenter.Path()
 
     public init(
             customSuccessPageView: AnyView? = nil,
             actionOnOpenProcessing: @escaping () -> Void = {},
-            actionOnCloseProcessing: @escaping () -> Void = {}
+            actionOnCloseProcessing: @escaping (Bool) -> Void = { result in }
     ) {
         self.customSuccessPageView = customSuccessPageView
         self.actionOnOpenProcessing = actionOnOpenProcessing
@@ -51,11 +51,13 @@ public class AirbaPayCoordinator: ObservableObject {
         openHome()
     }
 
-    public func backToApp() {
+    public func backToApp(
+            result: Bool = false
+    ) {
         while !path.isEmpty {
             path.removeLast()
         }
-        actionOnCloseProcessing()
+        actionOnCloseProcessing(result)
     }
 
     func onBack() {

@@ -49,7 +49,7 @@ struct SuccessPage: View {
                 .overlay(ViewButton(
                         title: goToMarker(),
                         actionClick: {
-                            navigateCoordinator.backToApp()
+                            navigateCoordinator.backToApp(result: true)
                         }
                 )
                         .frame(maxWidth: .infinity)
