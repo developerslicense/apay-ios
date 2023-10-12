@@ -31,7 +31,7 @@ public class AirbaPayCoordinator: ObservableObject {
         path.append(
                 StartProcessingView(
                         navigateCoordinator: self,
-                        actionClose: {}
+                        actionClose: self.actionOnDismiss
                 ),
                 type: .sheet(onDismiss: self.actionOnDismiss)
         )
