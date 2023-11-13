@@ -81,10 +81,11 @@ struct StartProcessingView: View {
                                 }
                             },
                             onError: {
-                                showToast = true
-                                isLoading = false
+                                Task {
+                                    await viewModel.authAndLoadCards()
+                                    isLoading = false
+                                }
                             }
-
                     )
                 }
                 .simpleToast(isPresented: $showToast, options: toastOptions) {
