@@ -37,12 +37,15 @@ struct StartProcessingView: View {
 
                                 } else {
                                     InitViewStartProcessingAmount()
-                                    InitViewStartProcessingAPay(
-                                            isLoading: { isLoading in
-                                                self.isLoading = isLoading
-                                            },
-                                            navigateCoordinator: navigateCoordinator
-                                    )
+
+                                    if DataHolder.needApplePay {
+                                        InitViewStartProcessingAPay(
+                                                isLoading: { isLoading in
+                                                    self.isLoading = isLoading
+                                                },
+                                                navigateCoordinator: navigateCoordinator
+                                        )
+                                    }
 
                                     if (!viewModel.savedCards.isEmpty
                                             && isAuthenticated
