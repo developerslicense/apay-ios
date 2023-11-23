@@ -16,7 +16,7 @@ func startPaymentProcessing(
                 isLoading: isLoading,
                 on3DS: { redirectUrl in
                     isLoading(false)
-                    navigateCoordinator.openWebView(redirectUrl: redirectUrl)
+                    navigateCoordinator.openAcquiring(redirectUrl: redirectUrl)
                 },
                 onSuccess: {
                     isLoading(false)

@@ -60,7 +60,7 @@ func startPaymentProcessing(
                 saveCardSaved: saveCard,
                 on3DS: { secure3D in
                     isLoading(false)
-                    navigateCoordinator.openWebView(redirectUrl: secure3D?.action)
+                    navigateCoordinator.openAcquiring(redirectUrl: secure3D?.action)
                 },
                 onSuccess: {
                     isLoading(false)
