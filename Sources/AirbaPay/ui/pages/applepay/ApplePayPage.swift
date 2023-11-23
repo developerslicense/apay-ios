@@ -21,34 +21,10 @@ struct ApplePayPage: View {
     }
 
     var body: some View {
-        ZStack {
-            ColorsSdk.gray30
-            ColorsSdk.bgMain
-
-            VStack {
-                ViewToolbar(
-                        title: "",
-                        actionClickBack: { showDialogExit = true }
-                )
-                        .frame(maxWidth: .infinity, alignment: .leading)
-
-                SwiftUIWebView(
-                        url: redirectUrl,
-                        navigateCoordinator: navigateCoordinator
-                )
-            }
-        }
-                .modifier(
-                        Popup(
-                                isPresented: showDialogExit,
-                                content: {
-                                    DialogExit(
-                                            onDismissRequest: { showDialogExit = false },
-                                            backToApp: { navigateCoordinator.backToApp() }
-                                    )
-                                })
-                )
-                .onTapGesture(perform: { showDialogExit = false })
+        SwiftUIWebView(
+                url: redirectUrl,
+                navigateCoordinator: navigateCoordinator
+        )
     }
 }
 
@@ -76,7 +52,6 @@ private struct SwiftUIWebView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: WKWebView, context: Context) {
-
     }
 
     class Coordinator: NSObject, WKNavigationDelegate {
@@ -95,6 +70,11 @@ private struct SwiftUIWebView: UIViewRepresentable {
 
             if(navigationAction.navigationType == .other) {
                 decisionHandler(.allow)
+
+                if (navigationAction.request.url?.absoluteString ?? "").contains("acquiring-api") == true {
+                    navigateCoordinator.openAcquiring(redirectUrl: navigationAction.request.url?.absoluteString)
+                }
+
                 return
 
             } else {
@@ -106,14 +86,13 @@ private struct SwiftUIWebView: UIViewRepresentable {
 
                     } else if redirectedUrl.absoluteString.contains("status=error") == true {
                         let temp = redirectedUrl.absoluteString.components(separatedBy: "&") ?? []
-                        print(temp)
                         let result = temp.first { text in
                             text.contains("errorCode")
                         }
-                        print(result)
+
                         let errorCode: String = result?.components(separatedBy: "=")[1] ?? "1"
-                        print(errorCode)
                         let errorCodeInt: Int? = Int(errorCode)
+
                         navigateCoordinator.openErrorPageWithCondition(errorCode: errorCodeInt)
 
                     } else {

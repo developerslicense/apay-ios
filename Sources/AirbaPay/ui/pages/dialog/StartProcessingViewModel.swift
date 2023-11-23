@@ -9,34 +9,62 @@ class StartProcessingViewModel: ObservableObject {
     @MainActor @Published var isError: Bool = false
     @MainActor @Published var savedCards: [BankCard] = []
     @MainActor @Published var selectedCard: BankCard? = nil
+    @MainActor @Published var appleResult: ApplePayButtonResponse? = nil
 
-    func authAndLoadCards() async {
+    func authAndLoadData() async {
         await MainActor.run {
             isLoading = true
             self.isError = false
         }
 
-        let authParams = AuthRequest(
+        let firstAuthParams = AuthRequest(
                 password: DataHolder.password,
                 paymentId: nil,
                 terminalId: DataHolder.terminalId,
                 user: DataHolder.shopId
         )
 
-        if let res = await authService(params: authParams) {
+        if let res = await authService(params: firstAuthParams) {
             await MainActor.run {
                 DataHolder.accessToken = res.accessToken
-
-            }
-            await loadCards()
-
-        } else {
-            await MainActor.run {
-                isError = true
-                isLoading = false
             }
         }
 
+        if let result: PaymentCreateResponse = await createPaymentService() {
+            let authParams = AuthRequest(
+                    password: DataHolder.password,
+                    paymentId: result.id,
+                    terminalId: DataHolder.terminalId,
+                    user: DataHolder.shopId
+            )
+
+
+            if let res = await authService(params: authParams) {
+                await MainActor.run {
+                    DataHolder.accessToken = res.accessToken
+
+                }
+
+                await loadCards()
+
+                let tempAppleResult = await getApplePayService()
+                await MainActor.run {
+                    appleResult = tempAppleResult
+                }
+
+            } else {
+                await MainActor.run {
+                    isError = true
+                    isLoading = false
+                }
+            }
+
+        } else {
+            await MainActor.run {
+                isLoading = false
+                isError = true
+            }
+        }
     }
 
     private func loadCards() async {

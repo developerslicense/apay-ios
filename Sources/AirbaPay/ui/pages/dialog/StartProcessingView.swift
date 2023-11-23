@@ -4,7 +4,6 @@
 
 import Foundation
 import SwiftUI
-//import SwiftUI_SimpleToast
 import SimpleToast
 
 struct StartProcessingView: View {
@@ -38,12 +37,11 @@ struct StartProcessingView: View {
                                 } else {
                                     InitViewStartProcessingAmount()
 
-                                    if DataHolder.needApplePay {
+                                    if DataHolder.needApplePay
+                                               && viewModel.appleResult != nil {
                                         InitViewStartProcessingAPay(
-                                                isLoading: { isLoading in
-                                                    self.isLoading = isLoading
-                                                },
-                                                navigateCoordinator: navigateCoordinator
+                                                navigateCoordinator: navigateCoordinator,
+                                                appleResult: viewModel.appleResult
                                         )
                                     }
 
@@ -62,7 +60,8 @@ struct StartProcessingView: View {
                                             savedCards: viewModel.savedCards,
                                             actionClose: actionClose,
                                             isAuthenticated: isAuthenticated,
-                                            selectedCard: viewModel.selectedCard
+                                            selectedCard: viewModel.selectedCard,
+                                            needTopPadding: viewModel.appleResult == nil || !viewModel.savedCards.isEmpty
                                     )
                                 }
                                 Spacer()
