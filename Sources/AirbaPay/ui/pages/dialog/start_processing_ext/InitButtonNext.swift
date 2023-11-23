@@ -11,7 +11,7 @@ struct InitViewStartProcessingButtonNext: View {
     var actionClose: () -> Void
     var isAuthenticated: Bool
     var selectedCard: BankCard?
-
+    var needTopPadding: Bool = true
 
     var body: some View {
         if (!savedCards.isEmpty
@@ -25,7 +25,7 @@ struct InitViewStartProcessingButtonNext: View {
                     }
             )
                     .padding(.horizontal, 16)
-                    .padding(.top, 16)
+                    .padding(.top, needTopPadding ? 16 : 0)
                     .padding(.bottom, 32)
 
         } else {
