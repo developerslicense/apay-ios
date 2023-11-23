@@ -77,14 +77,14 @@ struct StartProcessingView: View {
                     airbaPayBiometricAuthenticate(
                             onSuccess: {
                                 Task {
-                                    await viewModel.authAndLoadCards()
+                                    await viewModel.authAndLoadData()
                                     isAuthenticated = true
                                     isLoading = false
                                 }
                             },
                             onError: {
                                 Task {
-                                    await viewModel.authAndLoadCards()
+                                    await viewModel.authAndLoadData()
                                     isLoading = false
                                 }
                             }
