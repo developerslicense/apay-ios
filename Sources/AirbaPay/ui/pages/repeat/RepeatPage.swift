@@ -58,7 +58,7 @@ struct RepeatPage: View {
                     Task {
                         if let response = await paymentAccountEntryRetryService() {
                             if response.isSecure3D == true {
-                                navigateCoordinator.openWebView(redirectUrl: response.secure3D?.action)
+                                navigateCoordinator.openAcquiring(redirectUrl: response.secure3D?.action)
 
                             } else if (response.errorCode != 0) {
                                 navigateCoordinator.openErrorPageWithCondition(
