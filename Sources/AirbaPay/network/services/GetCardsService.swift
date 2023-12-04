@@ -6,10 +6,10 @@ import Foundation
 import Combine
 import Alamofire
 
-func getCardsService(phone: String) async -> [BankCard]? {
+func getCardsService(accountId: String) async -> [BankCard]? {
     do {
         let data = try await NetworkManager.shared.get(
-                path: "api/v1/cards/" + phone,
+                path: "api/v1/cards/" + accountId,
                 parameters: nil
         )
 

@@ -46,7 +46,7 @@ private func initParamsForCreatePayment(
 ) -> PaymentCreateRequest {
 
     PaymentCreateRequest(
-            accountId: DataHolder.userPhone,
+            accountId: DataHolder.accountId,
             invoiceId: DataHolder.invoiceId,
             orderNumber: DataHolder.orderNumber,
             cardId: cardId,

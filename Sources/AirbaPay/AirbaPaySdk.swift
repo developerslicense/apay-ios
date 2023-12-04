@@ -60,6 +60,7 @@ public class AirbaPaySdk {
     public static func initOnCreate(
             isProd: Bool,
             lang: Lang,
+            accountId: String,
             phone: String,
             userEmail: String?,
             shopId: String,
@@ -89,6 +90,7 @@ public class AirbaPaySdk {
             DataHolder.baseUrl = "https://sps.airbapay.kz/acquiring-api/sdk/"
         }
 
+        DataHolder.accountId = accountId
         DataHolder.userPhone = phone
         DataHolder.userEmail = userEmail
 
