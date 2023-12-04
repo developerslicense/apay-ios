@@ -39,7 +39,7 @@ class StartProcessingViewModel: ObservableObject {
     }
 
     private func loadCards() async {
-        if let res = await getCardsService(phone: DataHolder.userPhone) {
+        if let res = await getCardsService(accountId: DataHolder.accountId) {
             await MainActor.run {
                 isLoading = false
                 savedCards = res
