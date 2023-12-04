@@ -21,43 +21,41 @@ struct ApplePayPage: View {
     }
 
     var body: some View {
-        var body: some View {
+        VStack {
             VStack {
-                VStack {
-                    ViewToolbar(
-                            title: "",
-                            actionClickBack: { showDialogExit = true }
-                    )
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                }
-
-                ZStack {
-                    ColorsSdk.gray30
-                    ColorsSdk.bgMain
-
-                    SwiftUIWebView(
-                            url: redirectUrl,
-                            navigateCoordinator: navigateCoordinator
-                    )
-
-
-                    ColorsSdk.gray30
-                    ColorsSdk.bgMain
-                    ProgressBarView()
-                }
+                ViewToolbar(
+                        title: "",
+                        actionClickBack: { showDialogExit = true }
+                )
+                        .frame(maxWidth: .infinity, alignment: .leading)
             }
-                    .modifier(
-                            Popup(
-                                    isPresented: showDialogExit,
-                                    content: {
-                                        DialogExit(
-                                                onDismissRequest: { showDialogExit = false },
-                                                backToApp: { navigateCoordinator.backToApp() }
-                                        )
-                                    })
-                    )
-                    .onTapGesture(perform: { showDialogExit = false })
+
+            ZStack {
+                ColorsSdk.gray30
+                ColorsSdk.bgMain
+
+                SwiftUIWebView(
+                        url: redirectUrl,
+                        navigateCoordinator: navigateCoordinator
+                )
+
+
+                ColorsSdk.gray30
+                ColorsSdk.bgMain
+                ProgressBarView()
+            }
         }
+                .modifier(
+                        Popup(
+                                isPresented: showDialogExit,
+                                content: {
+                                    DialogExit(
+                                            onDismissRequest: { showDialogExit = false },
+                                            backToApp: { navigateCoordinator.backToApp() }
+                                    )
+                                })
+                )
+                .onTapGesture(perform: { showDialogExit = false })
     }
 }
 
