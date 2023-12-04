@@ -37,11 +37,10 @@ struct StartProcessingView: View {
                                 } else {
                                     InitViewStartProcessingAmount()
 
-                                    if DataHolder.needApplePay
-                                               && viewModel.appleResult != nil {
+                                    if DataHolder.needApplePay {
                                         InitViewStartProcessingAPay(
-                                                navigateCoordinator: navigateCoordinator,
-                                                appleResult: viewModel.appleResult
+                                                isLoading: { _isLoading in isLoading = _isLoading },
+                                                navigateCoordinator: navigateCoordinator
                                         )
                                     }
 
@@ -61,7 +60,7 @@ struct StartProcessingView: View {
                                             actionClose: actionClose,
                                             isAuthenticated: isAuthenticated,
                                             selectedCard: viewModel.selectedCard,
-                                            needTopPadding: viewModel.appleResult == nil || !viewModel.savedCards.isEmpty
+                                            needTopPadding: !viewModel.savedCards.isEmpty
                                     )
                                 }
                                 Spacer()
