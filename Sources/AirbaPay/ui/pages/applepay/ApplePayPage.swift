@@ -42,7 +42,7 @@ struct ApplePayPage: View {
 
                 ColorsSdk.gray30
                 ColorsSdk.bgMain
-                ProgressBarView()
+//                ProgressBarView()
             }
         }
                 .modifier(

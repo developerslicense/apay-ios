@@ -116,7 +116,7 @@ struct HomePage: View {
 
             if viewModel.isLoading {
                 ColorsSdk.gray15
-                        .opacity(0.8)
+                        .opacity(0.99)
                         .onTapGesture(perform: {})
                 ProgressBarView()
             }
@@ -143,7 +143,7 @@ struct HomePage: View {
                                         onClick()
                                     }
                                 },
-                                isVisible: !showCardScanner && !viewModel.isLoading
+                                isVisible: !showCardScanner && !viewModel.isLoading && !showDialogExit
                         )
                                 .frame(maxWidth: .infinity)
                                 .padding(.bottom, 24)
