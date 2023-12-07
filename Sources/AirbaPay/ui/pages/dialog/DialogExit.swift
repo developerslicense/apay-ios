@@ -13,58 +13,55 @@ struct DialogExit: View {
 
         GeometryReader { metrics in
             let iconSize = metrics.size.width * 0.20
-            let dialogHeight = iconSize * 5
 
             ZStack {
                 ColorsSdk.bgAccent.opacity(0.5)
 
-                ColorsSdk.bgBlock
-                        .overlay(
-                                VStack {
-                                    Image("icWarningRedOval", bundle: DataHolder.moduleBundle)
-                                            .resizable()
-                                            .frame(width: iconSize, height: iconSize)
+                VStack {
+                    Image("icWarningRedOval", bundle: DataHolder.moduleBundle)
+                            .resizable()
+                            .frame(width: iconSize, height: iconSize)
+                            .padding(.top, 16)
 
-                                    Text(dropPayment())
-                                            .textStyleSubtitleBold()
-                                            .frame(alignment: .center)
-                                            .padding(.top, 16)
+                    Text(dropPayment())
+                            .textStyleSubtitleBold()
+                            .frame(alignment: .center)
+                            .padding(.top, 16)
 
-                                    Text(dropPaymentDescription())
-                                            .multilineTextAlignment(.center)
-                                            .textStyleBodyRegular()
-                                            .frame(alignment: .center)
-                                            .padding(.top, 8)
-                                            .padding(.bottom, 24)
-                                            .padding(.horizontal, 16)
+                    Text(dropPaymentDescription())
+                            .multilineTextAlignment(.center)
+                            .textStyleBodyRegular()
+                            .frame(alignment: .center)
+                            .padding(.top, 8)
+                            .padding(.bottom, 24)
+                            .padding(.horizontal, 16)
 
-                                    ViewButton(
-                                            title: no(),
-                                            actionClick: {
-                                                onDismissRequest()
-                                            }
-                                    )
-                                            .frame(maxWidth: .infinity)
-                                            .padding(.horizontal, 16)
+                    ViewButton(
+                            title: no(),
+                            actionClick: {
+                                onDismissRequest()
+                            }
+                    )
+                            .frame(maxWidth: .infinity)
+                            .padding(.horizontal, 16)
 
-                                    ViewButton(
-                                            title: yes(),
-                                            isMainBrand: false,
-                                            actionClick: {
-                                                backToApp()
-                                            }
-                                    )
-                                            .frame(maxWidth: .infinity)
-                                            .padding(.horizontal, 16)
+                    ViewButton(
+                            title: yes(),
+                            isMainBrand: false,
+                            actionClick: {
+                                backToApp()
+                            }
+                    )
+                            .frame(maxWidth: .infinity)
+                            .padding(.horizontal, 16)
+                            .padding(.bottom, 8)
 
-                                }
-                        )
+                }
+                        .background(ColorsSdk.bgBlock)
                         .cornerRadius(8)
-                        .padding(16)
-                        .frame(height: dialogHeight)
-                        .frame(width: metrics.size.width * 0.8)
+                        .padding(.horizontal, 24)
+                        .frame(alignment: .center)
             }
-                    .frame(width: metrics.size.width)
         }
     }
 }

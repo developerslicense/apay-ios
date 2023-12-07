@@ -143,7 +143,7 @@ struct HomePage: View {
                                         onClick()
                                     }
                                 },
-                                isVisible: !showCardScanner && !viewModel.isLoading
+                                isVisible: !showCardScanner && !viewModel.isLoading && !showDialogExit
                         )
                                 .frame(maxWidth: .infinity)
                                 .padding(.bottom, 24)
