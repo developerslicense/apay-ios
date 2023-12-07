@@ -116,7 +116,7 @@ struct HomePage: View {
 
             if viewModel.isLoading {
                 ColorsSdk.gray15
-                        .opacity(0.8)
+                        .opacity(0.99)
                         .onTapGesture(perform: {})
                 ProgressBarView()
             }
