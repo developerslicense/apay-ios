@@ -33,7 +33,7 @@ public class AirbaPayCoordinator: ObservableObject {
                         navigateCoordinator: self,
                         actionClose: {}
                 ),
-                type: .sheet(onDismiss: self.actionOnDismiss)
+                type: .sheet(onDismiss: .actionOnDismiss)
         )
     }
 

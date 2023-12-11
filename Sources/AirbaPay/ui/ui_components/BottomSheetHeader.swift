@@ -12,26 +12,27 @@ struct InitHeader: View {
     var body: some View {
         VStack {
 
+            Image("icGrayLine")
+                    .padding(.top, 11)
+
             ZStack {
 
                 Text(title)
                         .textStyleSubtitleBold()
-                        .padding(.top, 16)
                         .frame(width: .infinity, alignment: .center)
 
 
                 if (actionClose != nil) {
                     Image("icCancel", bundle: DataHolder.moduleBundle)
                             .padding(.horizontal, 16)
-                            .padding(.top, 16)
                             .onTapGesture {
                                 actionClose!()
                             }
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
                 }
-            }.frame(height: 46)
+            }.frame(height: 45)
 
-            Divider().padding(.top, 6)
+            Divider()
 
         }
     }
