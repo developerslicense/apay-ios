@@ -28,7 +28,7 @@ struct InitViewStartProcessingPayWithNewCard: View {
             Text(payAnotherCard())
                     .foregroundColor(ColorsSdk.colorBrandMain)
                     .textStyleSemiBold()
-                    .padding(.leading, 12)
+                    .padding(.leading, 6)
                     .padding(.top, 7)
                     .padding(.bottom, 7)
 
