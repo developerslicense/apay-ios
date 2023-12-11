@@ -57,6 +57,7 @@ struct BaseButtonStyle: ButtonStyle {
                 .background(backgroundColor)
                 .foregroundColor(textColor)
                 .cornerRadius(8)
+                .textStyleSubtitleBold()
     }
 }
 
