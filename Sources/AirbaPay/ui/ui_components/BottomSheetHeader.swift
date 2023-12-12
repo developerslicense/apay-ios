@@ -12,7 +12,7 @@ struct InitHeader: View {
     var body: some View {
         VStack {
 
-            Image("icGrayLine")
+            Image("icGrayLine", bundle: DataHolder.moduleBundle)
                     .padding(.top, 11)
 
             ZStack {

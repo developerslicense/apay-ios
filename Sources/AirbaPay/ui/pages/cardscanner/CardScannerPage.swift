@@ -16,15 +16,20 @@ struct CardScannerPage: View {
                 ColorsSdk.bgBlock
                 ColorsSdk.bgAccent.opacity(0.9)
 
-                VStack {
-                    ViewToolbar(
-                            title: "",
-                            actionClickBack: {
-                                onBackEmpty()
-                            }
-                    )
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                VStack(alignment: .leading) {
+//                    ViewToolbar(
+//                            title: "",
+//                            actionClickBack: {
+//                                onBackEmpty()
+//                            }
+//                    )
+//                            .frame(maxWidth: .infinity, alignment: .leading)
+
+                    Image("icFlash", bundle: DataHolder.moduleBundle)
+                            .padding(.top, 24)
+                            .padding(.horizontal, 16)
                             .padding(.bottom, 100)
+
 
                     VStack {
                         CardScanner()
@@ -46,12 +51,12 @@ struct CardScannerPage: View {
                                         onBackEmpty()
                                     }
                                 }
-
                     }
-                            .frame(width: geometry.size.width - 32, height: geometry.size.height / 3)
+                            .frame(width: .infinity, height: geometry.size.height / 3)
                             .background(ColorsSdk.transparent)
                             .border(ColorsSdk.colorBrandMain, width: 5)
                             .cornerRadius(16)
+                            .padding(.horizontal, 16)
 
                     Spacer()
 

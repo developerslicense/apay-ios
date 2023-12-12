@@ -16,6 +16,7 @@ protocol CameraViewDelegate: AnyObject {
 
 final class CameraView: UIView {
     weak var delegate: CameraViewDelegate?
+    var torch: Torch? = nil
 
     // MARK: - Capture related
 
@@ -75,7 +76,10 @@ final class CameraView: UIView {
     }
 
     func startSession() {
-        videoSession?.startRunning()
+        Task {
+            videoSession?.startRunning()
+            torch?.toggle() //todo
+        }
     }
 
     func setupCamera() {
@@ -94,6 +98,25 @@ final class CameraView: UIView {
                                                         position: .back) else {
             delegate?.didError(with: CreditCardScannerError(kind: .cameraSetup))
             return
+        }
+
+        torch = Torch(device: videoDevice)
+
+        do {
+            try videoDevice.lockForConfiguration()
+            if videoDevice.isFocusModeSupported(.autoFocus) {
+                videoDevice.focusMode = .continuousAutoFocus
+            }
+            // Set the exposure point and mode for auto-exposure.
+//            videoDevice.exposurePointOfInterest = devicePoint
+            videoDevice.exposureMode = .autoExpose
+
+            // Enable monitoring for changes in the subject area.
+            videoDevice.isSubjectAreaChangeMonitoringEnabled = true
+
+            videoDevice.unlockForConfiguration()
+        } catch {
+            print("Failed to configure focus: \(error)")
         }
 
         do {

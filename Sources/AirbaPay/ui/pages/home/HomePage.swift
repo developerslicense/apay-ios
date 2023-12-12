@@ -85,10 +85,6 @@ struct HomePage: View {
                             text: saveCardData(),
                             switchCheckedState: switchSaveCard,
                             actionOnChanged: { isSwitched in
-//                                if isSwitched {
-//                                    withAnimation { saveCardToast.toggle() }
-//                                }
-
                                 viewModel.switchSaveCard = isSwitched
                             }
                     )
