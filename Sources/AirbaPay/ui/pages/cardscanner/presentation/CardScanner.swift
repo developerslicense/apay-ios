@@ -45,17 +45,21 @@ public struct CardScanner: UIViewControllerRepresentable {
 // MARK: - COORDINATOR
 
 extension CardScanner {
-    
+
     public func makeCoordinator() -> Coordinator {
-        return Coordinator(onDismiss: self.onDismiss, onError: self.onError, onSuccess: self.onSuccess)
+        return Coordinator(
+                onDismiss: self.onDismiss,
+                onError: self.onError,
+                onSuccess: self.onSuccess
+        )
     }
-    
+
     public class Coordinator: NSObject, CreditCardScannerViewControllerDelegate {
-        
+
         private var onDismiss: (() -> Void)?
         private var onError: ((CreditCardScannerError) -> Void)?
         private var onSuccess: ((CreditCard) -> Void)?
-        
+
         public init(onDismiss: (() -> Void)?, onError: ((CreditCardScannerError) -> Void)?, onSuccess: ((CreditCard) -> Void)?) {
             self.onDismiss = onDismiss
             self.onError = onError
