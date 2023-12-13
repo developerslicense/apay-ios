@@ -1,6 +1,14 @@
 import Foundation
 import AVFoundation
 
+protocol TorchProtocol {
+    func clickOnTorch()
+}
+
+class TorchHolder {
+    static var observer: TorchProtocol? = nil
+}
+
 struct Torch {
     enum State {
         case off

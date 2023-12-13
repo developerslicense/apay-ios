@@ -12,9 +12,7 @@ public struct CardScanner: UIViewControllerRepresentable {
     private var onDismiss: (() -> Void)?
     private var onError: ((CreditCardScannerError) -> Void)?
     private var onSuccess: ((CreditCard) -> Void)?
-    
-    public init() {}
-    
+
     public func makeUIViewController(context: Context) -> some UIViewController {
         let viewController = CreditCardScannerViewController(delegate: context.coordinator)
         return viewController

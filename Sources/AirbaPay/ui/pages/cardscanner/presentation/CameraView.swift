@@ -14,7 +14,7 @@ protocol CameraViewDelegate: AnyObject {
     func didError(with: CreditCardScannerError)
 }
 
-final class CameraView: UIView {
+final class CameraView: UIView, TorchProtocol {
     weak var delegate: CameraViewDelegate?
     var torch: Torch? = nil
 
@@ -33,6 +33,7 @@ final class CameraView: UIView {
     init(delegate: CameraViewDelegate) {
         self.delegate = delegate
         super.init(frame: .zero)
+        TorchHolder.observer = self
     }
 
     @available(*, unavailable)
@@ -71,6 +72,12 @@ final class CameraView: UIView {
         AVCaptureVideoPreviewLayer.self
     }
 
+    func clickOnTorch() {
+        Task {
+            torch?.toggle()
+        }
+    }
+
     func stopSession() {
         videoSession?.stopRunning()
     }
@@ -78,7 +85,6 @@ final class CameraView: UIView {
     func startSession() {
         Task {
             videoSession?.startRunning()
-            torch?.toggle() //todo
         }
     }
 
@@ -94,8 +100,8 @@ final class CameraView: UIView {
         session.sessionPreset = imageRatio.preset
 
         guard let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera,
-                                                        for: .video,
-                                                        position: .back) else {
+                for: .video,
+                position: .back) else {
             delegate?.didError(with: CreditCardScannerError(kind: .cameraSetup))
             return
         }
@@ -164,9 +170,9 @@ final class CameraView: UIView {
         let cuttedX: CGFloat = 20.0
 
         let cuttedRect = CGRect(x: cuttedX,
-                                y: cuttedY,
-                                width: cuttedWidth,
-                                height: cuttedHeight)
+                y: cuttedY,
+                width: cuttedWidth,
+                height: cuttedHeight)
 
         let maskLayer = CAShapeLayer()
         let path = UIBezierPath(roundedRect: cuttedRect, cornerRadius: 10.0)
@@ -192,9 +198,9 @@ final class CameraView: UIView {
         let interestHeight = interestWidth * CreditCard.heightRatioAgainstWidth
         let interestY = (imageHeight / 2.0) - (interestHeight / 2.0)
         regionOfInterest = CGRect(x: interestX,
-                                  y: interestY,
-                                  width: interestWidth,
-                                  height: interestHeight)
+                y: interestY,
+                width: interestWidth,
+                height: interestHeight)
     }
 }
 

@@ -5,6 +5,7 @@
 import Foundation
 import SwiftUI
 
+
 struct CardScannerPage: View {
     var onSuccess: (String) -> Void
     var onBackEmpty: () -> Void
@@ -20,6 +21,7 @@ struct CardScannerPage: View {
 //                    ViewToolbar(
 //                            title: "",
 //                            actionClickBack: {
+//                                TorchHolder.torch = nil
 //                                onBackEmpty()
 //                            }
 //                    )
@@ -29,7 +31,9 @@ struct CardScannerPage: View {
                             .padding(.top, 24)
                             .padding(.horizontal, 16)
                             .padding(.bottom, 100)
-
+                            .onTapGesture {
+                                TorchHolder.observer?.clickOnTorch()
+                            }
 
                     VStack {
                         CardScanner()
