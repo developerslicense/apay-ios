@@ -56,6 +56,7 @@ struct HomePage: View {
                             viewModel: viewModel,
                             editTextViewModel: cardNumberEditTextViewModel,
                             actionClickScanner: {
+                                UIApplication.shared.endEditing()
                                 showCardScanner = true
                             }
                     )

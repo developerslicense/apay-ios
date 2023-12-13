@@ -146,7 +146,7 @@ struct CoreEditText: View {
             }
         }
 
-        if (newValue.count > textBeforeChange.count) {
+        if (newValue.count > textBeforeChange.count || !newValue.contains(" ")) {
             viewModel.text = maskUtils.format(
                     text: getNumberClearedWithMaxSymbol(
                             amount: newValue,
