@@ -147,14 +147,6 @@ struct HomePage: View {
                                 .padding(.horizontal, 16),
                         alignment: .bottom
                 )
-                .simpleToast(isPresented: $saveCardToast, options: toastOptions) {
-                    Label(cardDataSaved(), systemImage: "icAdd")
-                            .padding()
-                            .background(Color.gray.opacity(0.9))
-                            .foregroundColor(Color.white)
-                            .cornerRadius(10)
-                            .padding(.top)
-                }
                 .simpleToast(isPresented: $errorCardParserToast, options: toastOptions) {
                     Label(cardParserCancel(), systemImage: "icAdd")
                             .padding()

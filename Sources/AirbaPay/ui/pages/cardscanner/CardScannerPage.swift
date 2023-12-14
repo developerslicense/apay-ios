@@ -18,15 +18,6 @@ struct CardScannerPage: View {
                 ColorsSdk.bgAccent.opacity(0.9)
 
                 VStack(alignment: .leading) {
-//                    ViewToolbar(
-//                            title: "",
-//                            actionClickBack: {
-//                                TorchHolder.torch = nil
-//                                onBackEmpty()
-//                            }
-//                    )
-//                            .frame(maxWidth: .infinity, alignment: .leading)
-
                     Image("icFlash", bundle: DataHolder.moduleBundle)
                             .padding(.top, 24)
                             .padding(.horizontal, 16)
@@ -64,6 +55,24 @@ struct CardScannerPage: View {
 
                     Spacer()
 
+                    VStack {
+                        ViewButton(
+                                title: textCancel(),
+                                isMainBrand: false,
+                                isRedText: true,
+                                actionClick: {
+                                    TorchHolder.observer = nil
+                                    onBackEmpty()
+                                }
+                        )
+                                .frame(maxWidth: .infinity)
+                                .padding(.top, 8)
+                                .padding(.bottom, 24)
+                                .padding(.horizontal, 16)
+                    }
+
+                            .frame(width: .infinity, height: 80)
+                            .background(ColorsSdk.iconInversion)
                 }
             }
         }
