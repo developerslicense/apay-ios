@@ -7,7 +7,6 @@ import SwiftUI
 
 struct ErrorSomethingWrongPage: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
-    @State var showDialogExit: Bool = false
 
     var body: some View {
         ZStack {
@@ -19,13 +18,8 @@ struct ErrorSomethingWrongPage: View {
                 let iconHeight = metrics.size.width * 0.6
 
                 VStack {
-                    ViewToolbar(
-                            title: "",
-                            actionClickBack: { showDialogExit = true }
-                    )
-                            .frame(maxWidth: .infinity, alignment: .leading)
 
-                    Spacer().frame(height: metrics.size.height * 0.25)
+                    Spacer().frame(height: metrics.size.height * 0.27)
 
                     Image("icSomethingWrong", bundle: DataHolder.moduleBundle)
                             .resizable()
@@ -57,17 +51,7 @@ struct ErrorSomethingWrongPage: View {
                         .frame(maxWidth: .infinity)
                         .padding(.bottom, 24)
                         .padding(.horizontal, 16), alignment: .bottom)
-                .modifier(
-                        Popup(
-                                isPresented: showDialogExit,
-                                content: {
-                                    DialogExit(
-                                            onDismissRequest: { showDialogExit = false },
-                                            backToApp: { navigateCoordinator.backToApp() }
-                                    )
-                                })
-                )
-                .onTapGesture(perform: { showDialogExit = false })
+
     }
 }
 

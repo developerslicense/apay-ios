@@ -114,7 +114,6 @@ final class CameraView: UIView, TorchProtocol {
                 videoDevice.focusMode = .continuousAutoFocus
             }
             // Set the exposure point and mode for auto-exposure.
-//            videoDevice.exposurePointOfInterest = devicePoint
             videoDevice.exposureMode = .autoExpose
 
             // Enable monitoring for changes in the subject area.
