@@ -5,8 +5,7 @@ import UIKit
 import Vision
 
 public class DGCardScanner: UIViewController {
-    public static var appearance = Appearance()
-    
+
     // MARK: - Private Properties
     private let captureSession = AVCaptureSession()
     private lazy var previewLayer: AVCaptureVideoPreviewLayer = {
@@ -55,8 +54,9 @@ public class DGCardScanner: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         setupCaptureSession()
-        //        DispatchQueue.global(qos: .background).async {
-        captureSession.startRunning()
+//        DispatchQueue.global(qos: .background).async { // перестает работать
+        self.captureSession.startRunning()
+//        }
     }
 
     override public func viewDidLayoutSubviews() {
@@ -87,7 +87,7 @@ public class DGCardScanner: UIViewController {
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "my.image.handling.queue"))
         captureSession.addOutput(videoOutput)
         guard let connection = videoOutput.connection(with: AVMediaType.video),
-            connection.isVideoOrientationSupported else {
+              connection.isVideoOrientationSupported else {
             return
         }
         connection.videoOrientation = .portrait
@@ -120,7 +120,7 @@ public class DGCardScanner: UIViewController {
         DispatchQueue.main.async {
             self.dismiss(animated: true, completion: nil)
         }
-        
+
     }
 
     private func stop() {
@@ -129,6 +129,7 @@ public class DGCardScanner: UIViewController {
 
     // MARK: - Payment detection
     private func handleObservedPaymentCard(in frame: CVImageBuffer) {
+
         DispatchQueue.global(qos: .userInitiated).async {
             self.extractPaymentCardData(frame: frame)
         }
@@ -178,41 +179,41 @@ public class DGCardScanner: UIViewController {
                 creditCardNumber = line
                 continue
             }
-            
+
             let last5Characters = String(trimmed.suffix(5))
             if last5Characters.isDate {
                 creditCardDate = last5Characters
                 continue
             }
-            
+
             if trimmed.contains("card") && trimmed.isOnlyAlpha {
                 if let cardName = parseCardName(line), cardName.isEmpty == false {
                     creditCardName = cardName
                     continue
                 }
             }
-            
+
             if let cardName = CARD.allCases.first(where: { trimmed.contains($0.rawValue.lowercased()) }).map({ $0.rawValue }) {
                 creditCardName = cardName
             }
         }
-        
-        guard let creditCardName = self.creditCardName, let creditCardDate = self.creditCardDate, let creditCardNumber = self.creditCardNumber else { return }
-        
-        let cardInformation: CardInformation = .init(cardName: creditCardName, cardDate: creditCardDate, cardNumber: creditCardNumber)
+
+        guard /*let creditCardName = self.creditCardName, */let creditCardDate = self.creditCardDate, let creditCardNumber = self.creditCardNumber else { return }
+
+        let cardInformation: CardInformation = .init(/*cardName: creditCardName,*/ cardDate: creditCardDate, cardNumber: creditCardNumber)
         if self.cardInformation == cardInformation {
             self.matchedCount += 1
         } else {
             self.matchedCount = 0
         }
-        
+
         self.cardInformation = cardInformation
-        
+
         if self.matchedCount >= 4 {
-            scanCompleted(creditCardNumber: creditCardNumber, creditCardDate: creditCardDate, creditCardName: creditCardName)
+            scanCompleted(creditCardNumber: creditCardNumber, creditCardDate: creditCardDate, creditCardName: ""/*creditCardName*/)
         }
     }
-    
+
     private func parseCardName(_ cardName: String) -> String? {
         let cardName = cardName.uppercased()
         if let range = cardName.range(of: "CARD") {
@@ -295,15 +296,10 @@ class PartialTransparentView: UIView {
     }
 }
 
-extension DGCardScanner {
-    public class Appearance {
-        public var helperText = "카드를 가운데에 정렬시키세요."
-    }
-}
 
 extension DGCardScanner {
     struct CardInformation: Equatable {
-        let cardName: String
+//        let cardName: String
         let cardDate: String
         let cardNumber: String
     }
