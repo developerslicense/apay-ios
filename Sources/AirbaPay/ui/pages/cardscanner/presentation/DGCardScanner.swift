@@ -14,7 +14,13 @@ public class DGCardScanner: UIViewController, TorchProtocol {
         return preview
     }()
 
-    private let device = AVCaptureDevice.default(for: .video)
+    private let device = AVCaptureDevice.DiscoverySession(
+            deviceTypes: [.builtInWideAngleCamera,
+                          .builtInDualCamera,
+                          .builtInTrueDepthCamera],
+            mediaType: .video,
+            position: .back).devices.first ?? AVCaptureDevice.default(for: .video)
+
 
     private var viewGuide: PartialTransparentView!
 
