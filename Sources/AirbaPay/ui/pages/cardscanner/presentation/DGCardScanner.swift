@@ -4,7 +4,7 @@ import CoreImage
 import UIKit
 import Vision
 
-public class DGCardScanner: UIViewController {
+public class DGCardScanner: UIViewController, TorchProtocol {
 
     // MARK: - Private Properties
     private let captureSession = AVCaptureSession()
@@ -21,10 +21,10 @@ public class DGCardScanner: UIViewController {
     private var creditCardNumber: String?
     private var creditCardName: String?
     private var creditCardDate: String?
-    private var cardInformation: CardInformation?
     private var matchedCount = 0
 
     private let videoOutput = AVCaptureVideoDataOutput()
+    private var torch: Torch?
 
     // MARK: - Instance dependencies
     private let resultsHandler: (_ number: String, _ date: String, _ name: String) -> Void
@@ -33,6 +33,7 @@ public class DGCardScanner: UIViewController {
     init(resultsHandler: @escaping (_ number: String, _ date: String, _ name: String) -> Void) {
         self.resultsHandler = resultsHandler
         super.init(nibName: nil, bundle: nil)
+        TorchHolder.observer = self
     }
 
     public class func getScanner(resultsHandler: @escaping (_ number: String, _ date: String, _ name: String) -> Void) -> UIViewController {
@@ -59,6 +60,12 @@ public class DGCardScanner: UIViewController {
 //        }
     }
 
+    func clickOnTorch() {
+        Task {
+            torch?.toggle()
+        }
+    }
+
     override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         previewLayer.frame = view.bounds
@@ -74,6 +81,8 @@ public class DGCardScanner: UIViewController {
 
     private func addCameraInput() {
         guard let device = device else { return }
+        torch = Torch(device: device)
+
         let cameraInput = try! AVCaptureDeviceInput(device: device)
         captureSession.addInput(cameraInput)
     }
@@ -157,13 +166,14 @@ public class DGCardScanner: UIViewController {
         resizeFilter.setValue(aspectRatio, forKey: kCIInputAspectRatioKey)
         let outputImage = resizeFilter.outputImage
 
-        let croppedImage = outputImage!.cropped(to: CGRect(x: viewX, y: viewY, width: widht, height: height))
+//        let croppedImage = outputImage!.cropped(to: CGRect(x: viewX, y: viewY, width: widht, height: height))
 
         let request = VNRecognizeTextRequest()
         request.recognitionLevel = .accurate
         request.usesLanguageCorrection = false
 
-        let stillImageRequestHandler = VNImageRequestHandler(ciImage: croppedImage, options: [:])
+        let stillImageRequestHandler = VNImageRequestHandler(ciImage: outputImage!, options: [:])
+//        let stillImageRequestHandler = VNImageRequestHandler(ciImage: croppedImage, options: [:])
         try? stillImageRequestHandler.perform([request])
 
         guard let texts = request.results, texts.count > 0 else {
@@ -171,46 +181,16 @@ public class DGCardScanner: UIViewController {
             return
         }
 
-        let arrayLines = texts.flatMap({ $0.topCandidates(20).map({ $0.string }) })
+        let arrayLines = texts.flatMap({ $0.topCandidates(200).map({ $0.string }) })
 
         for line in arrayLines {
-            let trimmed = line.replacingOccurrences(of: " ", with: "").lowercased()
-            if trimmed.count >= 15 && trimmed.count <= 16 && trimmed.isOnlyNumbers {
-                creditCardNumber = line
-                continue
+
+            let number = getNumberCleared(amount: line)
+            let isValid = validateCardNumWithLuhnAlgorithm(number: number)
+
+            if isValid {
+                scanCompleted(creditCardNumber: number, creditCardDate: "", creditCardName: "")
             }
-
-            let last5Characters = String(trimmed.suffix(5))
-            if last5Characters.isDate {
-                creditCardDate = last5Characters
-                continue
-            }
-
-            if trimmed.contains("card") && trimmed.isOnlyAlpha {
-                if let cardName = parseCardName(line), cardName.isEmpty == false {
-                    creditCardName = cardName
-                    continue
-                }
-            }
-
-            if let cardName = CARD.allCases.first(where: { trimmed.contains($0.rawValue.lowercased()) }).map({ $0.rawValue }) {
-                creditCardName = cardName
-            }
-        }
-
-        guard /*let creditCardName = self.creditCardName, */let creditCardDate = self.creditCardDate, let creditCardNumber = self.creditCardNumber else { return }
-
-        let cardInformation: CardInformation = .init(/*cardName: creditCardName,*/ cardDate: creditCardDate, cardNumber: creditCardNumber)
-        if self.cardInformation == cardInformation {
-            self.matchedCount += 1
-        } else {
-            self.matchedCount = 0
-        }
-
-        self.cardInformation = cardInformation
-
-        if self.matchedCount >= 4 {
-            scanCompleted(creditCardNumber: creditCardNumber, creditCardDate: creditCardDate, creditCardName: ""/*creditCardName*/)
         }
     }
 
@@ -294,21 +274,4 @@ class PartialTransparentView: UIView {
             path.fill()
         }
     }
-}
-
-
-extension DGCardScanner {
-    struct CardInformation: Equatable {
-//        let cardName: String
-        let cardDate: String
-        let cardNumber: String
-    }
-}
-
-enum CARD: String, CaseIterable {
-    case NH
-    case Shinhan
-    case KB
-    case WOORI
-    case KAKAOBANK
 }
