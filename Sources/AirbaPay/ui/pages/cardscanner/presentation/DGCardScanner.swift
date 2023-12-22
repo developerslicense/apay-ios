@@ -199,18 +199,6 @@ public class DGCardScanner: UIViewController, TorchProtocol {
             }
         }
     }
-
-    private func parseCardName(_ cardName: String) -> String? {
-        let cardName = cardName.uppercased()
-        if let range = cardName.range(of: "CARD") {
-            return String(cardName[..<range.lowerBound])
-        }
-        return nil
-    }
-
-    private func tapticFeedback() {
-        UINotificationFeedbackGenerator().notificationOccurred(.success)
-    }
 }
 
 // MARK: - AVCaptureVideoDataOutputSampleBufferDelegate
@@ -222,62 +210,5 @@ extension DGCardScanner: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
 
         handleObservedPaymentCard(in: frame)
-    }
-}
-
-// MARK: - Extensions
-private extension String {
-    var isOnlyAlpha: Bool {
-        return !isEmpty && range(of: "[^a-zA-Z]", options: .regularExpression) == nil
-    }
-
-    var isOnlyNumbers: Bool {
-        return !isEmpty && range(of: "[^0-9]", options: .regularExpression) == nil
-    }
-
-    // Date Pattern MM/YY or MM/YYYY
-    var isDate: Bool {
-        let arrayDate = components(separatedBy: "/")
-        if arrayDate.count == 2 {
-            if let month = Int(arrayDate[0]) {
-                return month <= 12 && month >= 1
-            }
-        }
-        return false
-    }
-}
-
-// MARK: - Class PartialTransparentView
-class PartialTransparentView: UIView {
-    var rectsArray: [CGRect]?
-
-    convenience init(rectsArray: [CGRect]) {
-        self.init()
-
-        self.rectsArray = rectsArray
-
-        backgroundColor = UIColor.black.withAlphaComponent(0.6)
-        isOpaque = false
-    }
-
-    override func draw(_ rect: CGRect) {
-        backgroundColor?.setFill()
-        UIRectFill(rect)
-
-        guard let rectsArray = rectsArray else {
-            return
-        }
-
-        for holeRect in rectsArray {
-            let path = UIBezierPath(roundedRect: holeRect, cornerRadius: 10)
-
-            let holeRectIntersection = rect.intersection(holeRect)
-
-            UIRectFill(holeRectIntersection)
-
-            UIColor.clear.setFill()
-            UIGraphicsGetCurrentContext()?.setBlendMode(CGBlendMode.copy)
-            path.fill()
-        }
     }
 }
