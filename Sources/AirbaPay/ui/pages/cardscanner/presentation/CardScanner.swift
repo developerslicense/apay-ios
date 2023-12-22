@@ -10,7 +10,7 @@ import SwiftUI
 public struct CardScanner: UIViewControllerRepresentable {
 
     private var onDismiss: (() -> Void)?
-    private var onError: ((CreditCardScannerError) -> Void)?
+    private var onError: (() -> Void)?
     private var onSuccess: ((CreditCard) -> Void)?
 
     public func makeUIViewController(context: Context) -> some UIViewController {
@@ -35,7 +35,7 @@ public struct CardScanner: UIViewControllerRepresentable {
         return copy
     }
 
-    public func onError(perform callback: @escaping (CreditCardScannerError) -> ()) -> Self {
+    public func onError(perform callback: @escaping () -> ()) -> Self {
         var copy = self
         copy.onError = callback
         return copy

@@ -23,9 +23,7 @@ struct CardScannerPage: View {
                             .onDismiss {
                                 // Do something when the view dismissed.
                             }
-                            .onError { error in
-                                // The 'error' above gives you 'CreditCardScannerError' struct below.
-                                print(error)
+                            .onError {
                                 onBackEmpty()
                             }
                             .onSuccess { card in
