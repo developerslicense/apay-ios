@@ -14,7 +14,7 @@ public struct CardScanner: UIViewControllerRepresentable {
     private var onSuccess: ((CreditCard) -> Void)?
 
     public func makeUIViewController(context: Context) -> some UIViewController {
-        let viewController = DGCardScanner { number, date, name in
+        let viewController = DGCardScannerViewController { number, date, name in
 
             var card = CreditCard()
             card.number = number

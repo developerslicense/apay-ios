@@ -10,7 +10,7 @@ import AVFoundation
 import UIKit
 import Vision
 
-extension DGCardScanner {
+extension DGCardScannerViewController {
 
     func onCaptureCardNumber(image: CVPixelBuffer/*sampleBuffer: CMSampleBuffer*/) {
 //        guard let frame = CMSampleBufferGetImageBuffer(sampleBuffer) else {

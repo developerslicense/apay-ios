@@ -3,7 +3,7 @@ import CoreImage
 import UIKit
 import Vision
 
-public class DGCardScanner: UIViewController, TorchProtocol, AVCaptureVideoDataOutputSampleBufferDelegate {
+public class DGCardScannerViewController: UIViewController, TorchProtocol, AVCaptureVideoDataOutputSampleBufferDelegate {
 
     // MARK: - Private Properties
     private let captureSession = AVCaptureSession()

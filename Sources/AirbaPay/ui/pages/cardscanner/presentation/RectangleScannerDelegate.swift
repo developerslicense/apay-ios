@@ -10,7 +10,7 @@ import Vision
 import AVFoundation
 import UIKit
 
-extension DGCardScanner {
+extension DGCardScannerViewController {
     func onCaptureRectangle(sampleBuffer: CMSampleBuffer) {
         guard let frame = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             debugPrint("unable to get image from sample buffer")
