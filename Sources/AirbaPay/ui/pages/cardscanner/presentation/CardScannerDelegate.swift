@@ -10,22 +10,23 @@ import AVFoundation
 import UIKit
 import Vision
 
-extension DGCardScanner: AVCaptureVideoDataOutputSampleBufferDelegate {
-    public func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        guard let frame = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-            debugPrint("unable to get image from sample buffer")
-            return
-        }
+extension DGCardScanner {
+
+    func onCaptureCardNumber(image: CVPixelBuffer/*sampleBuffer: CMSampleBuffer*/) {
+//        guard let frame = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+//            debugPrint("unable to get image from sample buffer")
+//            return
+//        }
 
         DispatchQueue.global(qos: .userInitiated).async {
-            self.extractPaymentCardData(frame: frame)
+            self.extractPaymentCardData(frame: image/*frame*/)
         }
     }
 
     private func extractPaymentCardData(frame: CVImageBuffer) {
         let ciImage = CIImage(cvImageBuffer: frame)
-        let widht = UIScreen.main.bounds.width - (UIScreen.main.bounds.width * 0.2)
-        let height = widht - (widht * 0.45)
+//        let widht = UIScreen.main.bounds.width - (UIScreen.main.bounds.width * 0.2)
+//        let height = widht - (widht * 0.45)
 //        let viewX = (UIScreen.main.bounds.width / 2) - (widht / 2)
 //        let viewY = (UIScreen.main.bounds.height / 2) - (height / 2) - 100 + height
 
@@ -44,14 +45,14 @@ extension DGCardScanner: AVCaptureVideoDataOutputSampleBufferDelegate {
         resizeFilter.setValue(aspectRatio, forKey: kCIInputAspectRatioKey)
         let outputImage = resizeFilter.outputImage
 
-    //        let croppedImage = outputImage!.cropped(to: CGRect(x: viewX, y: viewY, width: widht, height: height))
+        //        let croppedImage = outputImage!.cropped(to: CGRect(x: viewX, y: viewY, width: widht, height: height))
 
         let request = VNRecognizeTextRequest()
         request.recognitionLevel = .accurate
         request.usesLanguageCorrection = false
 
         let stillImageRequestHandler = VNImageRequestHandler(ciImage: outputImage!, options: [:])
-    //        let stillImageRequestHandler = VNImageRequestHandler(ciImage: croppedImage, options: [:])
+        //        let stillImageRequestHandler = VNImageRequestHandler(ciImage: croppedImage, options: [:])
         try? stillImageRequestHandler.perform([request])
 
         guard let texts = request.results, texts.count > 0 else {

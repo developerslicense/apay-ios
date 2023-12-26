@@ -1,14 +1,13 @@
-
 import AVFoundation
 import CoreImage
 import UIKit
 import Vision
 
-public class DGCardScanner: UIViewController, TorchProtocol {
+public class DGCardScanner: UIViewController, TorchProtocol, AVCaptureVideoDataOutputSampleBufferDelegate {
 
     // MARK: - Private Properties
     private let captureSession = AVCaptureSession()
-    private lazy var previewLayer: AVCaptureVideoPreviewLayer = {
+    lazy var previewLayer: AVCaptureVideoPreviewLayer = {
         let preview = AVCaptureVideoPreviewLayer(session: self.captureSession)
         preview.videoGravity = .resizeAspect
         return preview
@@ -31,6 +30,7 @@ public class DGCardScanner: UIViewController, TorchProtocol {
 
     private let videoOutput = AVCaptureVideoDataOutput()
     private var torch: Torch?
+    var maskLayer = CAShapeLayer()
 
     // MARK: - Instance dependencies
     private let resultsHandler: (_ number: String, _ date: String, _ name: String) -> Void
@@ -40,10 +40,6 @@ public class DGCardScanner: UIViewController, TorchProtocol {
         self.resultsHandler = resultsHandler
         super.init(nibName: nil, bundle: nil)
         TorchHolder.observer = self
-    }
-
-    public class func getScanner(resultsHandler: @escaping (_ number: String, _ date: String, _ name: String) -> Void) -> UIViewController {
-        DGCardScanner(resultsHandler: resultsHandler)
     }
 
     required init?(coder: NSCoder) {
@@ -56,6 +52,10 @@ public class DGCardScanner: UIViewController, TorchProtocol {
 
     deinit {
         stop()
+    }
+
+    public func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        onCaptureRectangle(sampleBuffer: sampleBuffer)
     }
 
     override public func viewDidLoad() {
@@ -75,6 +75,8 @@ public class DGCardScanner: UIViewController, TorchProtocol {
     override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         previewLayer.frame = view.bounds
+////        self.previewLayer.frame = self.view.frame
+
     }
 
     // MARK: - Add Views
@@ -86,7 +88,9 @@ public class DGCardScanner: UIViewController, TorchProtocol {
     }
 
     private func addCameraInput() {
-        guard let device = device else { return }
+        guard let device = device else {
+            return
+        }
         torch = Torch(device: device)
 
         let cameraInput = try! AVCaptureDeviceInput(device: device)
@@ -95,14 +99,21 @@ public class DGCardScanner: UIViewController, TorchProtocol {
 
     private func addPreviewLayer() {
         view.layer.addSublayer(previewLayer)
+
+        /// это есть в viewController
+/////        self.previewLayer.videoGravity = .resizeAspectFill
+/////        self.view.layer.addSublayer(self.previewLayer)
+/////        self.previewLayer.frame = self.view.frame
     }
 
     private func addVideoOutput() {
         videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as NSString: NSNumber(value: kCVPixelFormatType_32BGRA)] as [String: Any]
+        videoOutput.alwaysDiscardsLateVideoFrames = true
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "my.image.handling.queue"))
         captureSession.addOutput(videoOutput)
         guard let connection = videoOutput.connection(with: AVMediaType.video),
-              connection.isVideoOrientationSupported else {
+              connection.isVideoOrientationSupported
+        else {
             return
         }
         connection.videoOrientation = .portrait
