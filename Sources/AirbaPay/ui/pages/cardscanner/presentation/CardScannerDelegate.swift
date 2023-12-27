@@ -1,6 +1,5 @@
 //
 //  CardScannerDelegate.swift
-//  ios-pay_compleated-2
 //
 //  Created by Mikhail Belikov on 22.12.2023.
 //
@@ -12,23 +11,15 @@ import Vision
 
 extension DGCardScannerViewController {
 
-    func onCaptureCardNumber(image: CVPixelBuffer/*sampleBuffer: CMSampleBuffer*/) {
-//        guard let frame = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-//            debugPrint("unable to get image from sample buffer")
-//            return
-//        }
+    func onCaptureCardNumber(image: CVPixelBuffer) {
 
         DispatchQueue.global(qos: .userInitiated).async {
-            self.extractPaymentCardData(frame: image/*frame*/)
+            self.extractPaymentCardData(frame: image)
         }
     }
 
     private func extractPaymentCardData(frame: CVImageBuffer) {
         let ciImage = CIImage(cvImageBuffer: frame)
-//        let widht = UIScreen.main.bounds.width - (UIScreen.main.bounds.width * 0.2)
-//        let height = widht - (widht * 0.45)
-//        let viewX = (UIScreen.main.bounds.width / 2) - (widht / 2)
-//        let viewY = (UIScreen.main.bounds.height / 2) - (height / 2) - 100 + height
 
         let resizeFilter = CIFilter(name: "CILanczosScaleTransform")!
 

@@ -110,3 +110,10 @@ private func clearNumberMaxSymbols(
         return String(amountSplited?[0] ?? "")
     }
 }
+
+func roundNumberTo(
+        number: CGFloat,
+        maximumFractionDigits: Int = 1
+) -> CGFloat {
+    return round(number * 100) / 100.0
+}

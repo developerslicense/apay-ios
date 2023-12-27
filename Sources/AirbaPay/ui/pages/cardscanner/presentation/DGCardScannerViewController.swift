@@ -52,6 +52,7 @@ public class DGCardScannerViewController: UIViewController, TorchProtocol, AVCap
 
     deinit {
         stop()
+        RectangleCorrectHolder.observer = nil
     }
 
     public func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
@@ -121,7 +122,7 @@ public class DGCardScannerViewController: UIViewController, TorchProtocol, AVCap
 
     private func addGuideView() {
         let widht = UIScreen.main.bounds.width - (UIScreen.main.bounds.width * 0.2)
-        let height = widht - (widht * 0.45)
+        let height = widht - (widht * 0.35)// 45
         let viewX = (UIScreen.main.bounds.width / 2) - (widht / 2)
         let viewY = (UIScreen.main.bounds.height / 2) - (height / 2) - 100
 
