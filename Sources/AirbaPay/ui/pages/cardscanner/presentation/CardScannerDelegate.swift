@@ -36,14 +36,11 @@ extension DGCardScannerViewController {
         resizeFilter.setValue(aspectRatio, forKey: kCIInputAspectRatioKey)
         let outputImage = resizeFilter.outputImage
 
-        //        let croppedImage = outputImage!.cropped(to: CGRect(x: viewX, y: viewY, width: widht, height: height))
-
         let request = VNRecognizeTextRequest()
         request.recognitionLevel = .accurate
         request.usesLanguageCorrection = false
 
         let stillImageRequestHandler = VNImageRequestHandler(ciImage: outputImage!, options: [:])
-        //        let stillImageRequestHandler = VNImageRequestHandler(ciImage: croppedImage, options: [:])
         try? stillImageRequestHandler.perform([request])
 
         guard let texts = request.results, texts.count > 0 else {
