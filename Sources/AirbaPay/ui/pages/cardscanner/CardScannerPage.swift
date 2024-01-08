@@ -37,26 +37,6 @@ struct CardScannerPage: View {
                                 }
                             }
 
-                    Spacer()
-
-                    VStack {
-                        ViewButton(
-                                title: textCancel(),
-                                isMainBrand: false,
-                                isRedText: true,
-                                actionClick: {
-                                    TorchHolder.observer = nil
-                                    onBackEmpty()
-                                }
-                        )
-                                .frame(maxWidth: .infinity)
-                                .padding(.top, 8)
-                                .padding(.bottom, 24)
-                                .padding(.horizontal, 16)
-                    }
-
-                            .frame(width: .infinity, height: 80)
-                            .background(ColorsSdk.iconInversion)
 
                 }
                         .overlay(
@@ -69,7 +49,27 @@ struct CardScannerPage: View {
                                         },
                                 alignment: .topLeading
                         )
+                        .overlay(
+                                VStack {
+                                    ViewButton(
+                                            title: textCancel(),
+                                            isMainBrand: false,
+                                            isRedText: true,
+                                            actionClick: {
+                                                TorchHolder.observer = nil
+                                                onBackEmpty()
+                                            }
+                                    )
+                                            .frame(maxWidth: .infinity)
+                                            .padding(.top, 8)
+                                            .padding(.bottom, 24)
+                                            .padding(.horizontal, 16)
+                                }
 
+                                        .frame(width: .infinity, height: 80)
+                                        .background(ColorsSdk.iconInversion),
+                                alignment: .bottom
+                        )
             }
         }
 

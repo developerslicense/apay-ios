@@ -76,8 +76,6 @@ public class DGCardScannerViewController: UIViewController, TorchProtocol, AVCap
     override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         previewLayer.frame = view.bounds
-////        self.previewLayer.frame = self.view.frame
-
     }
 
     // MARK: - Add Views
@@ -100,11 +98,6 @@ public class DGCardScannerViewController: UIViewController, TorchProtocol, AVCap
 
     private func addPreviewLayer() {
         view.layer.addSublayer(previewLayer)
-
-        /// это есть в viewController
-/////        self.previewLayer.videoGravity = .resizeAspectFill
-/////        self.view.layer.addSublayer(self.previewLayer)
-/////        self.previewLayer.frame = self.view.frame
     }
 
     private func addVideoOutput() {
@@ -122,9 +115,9 @@ public class DGCardScannerViewController: UIViewController, TorchProtocol, AVCap
 
     private func addGuideView() {
         let widht = UIScreen.main.bounds.width - (UIScreen.main.bounds.width * 0.2)
-        let height = widht - (widht * 0.35)// 45
+        let height = widht - (widht * 0.35)
         let viewX = (UIScreen.main.bounds.width / 2) - (widht / 2)
-        let viewY = (UIScreen.main.bounds.height / 2) - (height / 2) - 100
+        let viewY = (UIScreen.main.bounds.height / 4)
 
         viewGuide = PartialTransparentView(rectsArray: [CGRect(x: viewX, y: viewY, width: widht, height: height)])
 
