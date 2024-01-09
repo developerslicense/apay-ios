@@ -14,14 +14,14 @@ struct ProgressBarView: View {
         ZStack {
             ProgressView(value: 1.0, total: 1.0)
                     .progressViewStyle(CircularProgressBarStyle(
-                            strokeColor: needInversedProgressBar ? ColorsSdk.colorBrandMain : ColorsSdk.gray10)
+                            strokeColor: needInversedProgressBar ? ColorsSdk.colorBrand : ColorsSdk.gray10)
                     )
                     .frame(width: 120, height: 120)
                     .contentShape(Rectangle())
 
             ProgressView(value: progress, total: 1.0)
                     .progressViewStyle(CircularProgressBarStyle(
-                            strokeColor: needInversedProgressBar ? ColorsSdk.gray10 : ColorsSdk.colorBrandMain)
+                            strokeColor: needInversedProgressBar ? ColorsSdk.gray10 : ColorsSdk.colorBrand)
                     )
                     .frame(width: 120, height: 120)
         }
@@ -40,7 +40,7 @@ struct ProgressBarView: View {
 
 private struct CircularProgressBarStyle: ProgressViewStyle {
     var strokeWidth = 5.0
-    var strokeColor = ColorsSdk.colorBrandMain
+    var strokeColor = ColorsSdk.colorBrand
 
     func makeBody(configuration: Configuration) -> some View {
         let fractionCompleted = configuration.fractionCompleted ?? 0

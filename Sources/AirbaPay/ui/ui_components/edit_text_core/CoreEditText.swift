@@ -90,7 +90,7 @@ struct CoreEditText: View {
                             .textStyleRegular(textColor: isError ? ColorsSdk.stateError : ColorsSdk.textMain)
                             .foregroundColor(ColorsSdk.transparent)
                             .frame(width: .infinity, alignment: .leading)
-                            .accentColor(ColorsSdk.colorBrandMain)
+                            .accentColor(ColorsSdk.colorBrand)
 
                 } else {
                     let textField = TextField("", text: $viewModel.text)
@@ -107,7 +107,7 @@ struct CoreEditText: View {
                             .textStyleRegular(textColor: isError ? ColorsSdk.stateError : ColorsSdk.textMain)
                             .foregroundColor(ColorsSdk.transparent)
                             .frame(width: .infinity, alignment: .leading)
-                            .accentColor(ColorsSdk.colorBrandMain)
+                            .accentColor(ColorsSdk.colorBrand)
                 }
             }
                     .frame(minHeight: 24)

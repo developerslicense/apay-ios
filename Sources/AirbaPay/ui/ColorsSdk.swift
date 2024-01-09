@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ColorsSdk {
     
+    static let colorBrand = Color("ColorBrandMain", bundle: DataHolder.moduleBundle)
     static var colorBrandMain = Color("ColorBrandMain", bundle: DataHolder.moduleBundle)
     static var colorBrandInversion = Color("ColorBrandInversion", bundle: DataHolder.moduleBundle)
     

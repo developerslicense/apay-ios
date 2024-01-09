@@ -68,7 +68,7 @@ struct InitCard: View {
                 ZStack {
                     if (isSelected) {
                         Circle()
-                                .fill(ColorsSdk.colorBrandMain)
+                                .fill(ColorsSdk.colorBrand)
                                 .frame(width: 20, height: 20)
                         Circle()
                                 .fill(ColorsSdk.gray0)
