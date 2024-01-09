@@ -16,7 +16,7 @@ func checkValid(
     if (cardNumber == nil || cardNumber?.isEmpty == true) {
         errorCardNumber = needFillTheField()
 
-    } else if (!validateCardNumWithLuhnAlgorithm(number: cardNumber)) {
+    } else if (!validateCardNumWithLuhnAlgorithm(number: cardNumber) && cardNumber?.contains("•") == false) {
         errorCardNumber = wrongCardNumber()
     }
 
@@ -48,8 +48,18 @@ func startPaymentProcessing(
 ) {
 
     Task {
+        var cardCleared: String = ""
+
+        if cardNumber.contains("*") || cardNumber.contains("•") {
+            cardCleared = cardNumber
+                    .replacingOccurrences(of: " ", with: "")
+                    .replacingOccurrences(of: "•", with: "*")
+        } else {
+            cardCleared = getNumberCleared(amount: cardNumber)
+        }
+
         let cardSaved = BankCard(
-                pan: getNumberCleared(amount: cardNumber),
+                pan: cardCleared,
                 expiry: dateExpired,
                 name: "Card Holder",
                 cvv: cvv

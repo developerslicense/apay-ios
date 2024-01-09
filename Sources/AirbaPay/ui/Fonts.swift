@@ -21,7 +21,7 @@ extension View {
         fontWithLineHeight(
 //                font: .system(size: 16).weight(Font.Weight.regular),
                 font: Font.custom("Montserrat-Regular", fixedSize: 16),
-                lineHeight: 1.5 //24
+                lineHeight: 4 //1.5 //24  // (lineHeight - size) / 2
         )
     }
 

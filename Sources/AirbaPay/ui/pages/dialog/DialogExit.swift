@@ -55,6 +55,7 @@ struct DialogExit: View {
                             .frame(maxWidth: .infinity)
                             .padding(.horizontal, 16)
                             .padding(.bottom, 8)
+                            .padding(.top, 8)
 
                 }
                         .background(ColorsSdk.bgBlock)

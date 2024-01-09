@@ -8,6 +8,7 @@ import SwiftUI
 struct ViewButton: View {
     var title: String
     var isMainBrand: Bool = true
+    var isRedText: Bool = false
     var actionClick: () -> Void
     var isVisible: Bool = true
 
@@ -39,7 +40,9 @@ struct ViewButton: View {
     }
 
     private func initButtonTextColor(isMainBrand: Bool) -> Color {
-        if isMainBrand {
+        if isRedText {
+            return ColorsSdk.stateError
+        } else if isMainBrand {
             return ColorsSdk.colorBrandInversion
         } else {
             return ColorsSdk.colorBrandMain
@@ -57,6 +60,7 @@ struct BaseButtonStyle: ButtonStyle {
                 .background(backgroundColor)
                 .foregroundColor(textColor)
                 .cornerRadius(8)
+                .textStyleSubtitleBold()
     }
 }
 

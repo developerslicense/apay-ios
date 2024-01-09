@@ -39,7 +39,7 @@ struct InitViewStartProcessingCards: View {
                         navigateCoordinator.openHome()
                     }
             )
-                    .padding(.top, 32)
+                    .padding(.top, 16)
         }
     }
 }

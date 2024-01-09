@@ -21,7 +21,11 @@ struct InitViewStartProcessingButtonNext: View {
                     title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
                     actionClick: {
                         actionClose()
-                        navigateCoordinator.openHome(cardId: selectedCard?.id)
+                        navigateCoordinator.openHome(
+                                cardId: selectedCard?.id,
+                                maskedPan: selectedCard?.maskedPan,
+                                dateExpired: selectedCard?.getExpiredCleared()
+                        )
                     }
             )
                     .padding(.horizontal, 16)
@@ -37,7 +41,7 @@ struct InitViewStartProcessingButtonNext: View {
                     }
             )
                     .padding(.horizontal, 16)
-                    .padding(.top, 16)
+                    .padding(.top, 8)
                     .padding(.bottom, 32)
         }
     }

@@ -9,6 +9,7 @@ struct CardScannerPage: View {
     var onSuccess: (String) -> Void
     var onBackEmpty: () -> Void
 
+
     var body: some View {
 
         GeometryReader { geometry in
@@ -16,46 +17,59 @@ struct CardScannerPage: View {
                 ColorsSdk.bgBlock
                 ColorsSdk.bgAccent.opacity(0.9)
 
-                VStack {
-                    ViewToolbar(
-                            title: "",
-                            actionClickBack: {
+                VStack(alignment: .leading) {
+
+                    CardScanner()
+                            .onDismiss {
+                                // Do something when the view dismissed.
+                            }
+                            .onError {
                                 onBackEmpty()
                             }
-                    )
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.bottom, 100)
+                            .onSuccess { card in
+                                // The card above gives you 'CreditCard' struct below.
 
-                    VStack {
-                        CardScanner()
-                                .onDismiss {
-                                    // Do something when the view dismissed.
-                                }
-                                .onError { error in
-                                    // The 'error' above gives you 'CreditCardScannerError' struct below.
-                                    print(error)
+                                print(card)
+                                if card.number != nil {
+                                    onSuccess(card.number!)
+                                } else {
                                     onBackEmpty()
                                 }
-                                .onSuccess { card in
-                                    // The card above gives you 'CreditCard' struct below.
+                            }
 
-                                    print(card)
-                                    if card.number != nil {
-                                        onSuccess(card.number!)
-                                    } else {
-                                        onBackEmpty()
-                                    }
-                                }
-
-                    }
-                            .frame(width: geometry.size.width - 32, height: geometry.size.height / 3)
-                            .background(ColorsSdk.transparent)
-                            .border(ColorsSdk.colorBrandMain, width: 5)
-                            .cornerRadius(16)
-
-                    Spacer()
 
                 }
+                        .overlay(
+                                Image("icFlash", bundle: DataHolder.moduleBundle) //todo ???
+                                        .padding(.top, 24)
+                                        .padding(.horizontal, 16)
+                                        .padding(.bottom, 100)
+                                        .onTapGesture {
+                                            TorchHolder.observer?.clickOnTorch()
+                                        },
+                                alignment: .topLeading
+                        )
+                        .overlay(
+                                VStack {
+                                    ViewButton(
+                                            title: textCancel(),
+                                            isMainBrand: false,
+                                            isRedText: true,
+                                            actionClick: {
+                                                TorchHolder.observer = nil
+                                                onBackEmpty()
+                                            }
+                                    )
+                                            .frame(maxWidth: .infinity)
+                                            .padding(.top, 8)
+                                            .padding(.bottom, 24)
+                                            .padding(.horizontal, 16)
+                                }
+
+                                        .frame(width: .infinity, height: 80)
+                                        .background(ColorsSdk.iconInversion),
+                                alignment: .bottom
+                        )
             }
         }
 

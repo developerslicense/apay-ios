@@ -8,7 +8,6 @@ import SwiftUI
 struct ErrorPage: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     var errorCode: ErrorsCode
-    @State var showDialogExit: Bool = false
 
     init(
             errorCode: ErrorsCode,
@@ -27,13 +26,8 @@ struct ErrorPage: View {
                 let iconSize = metrics.size.width * 0.60
 
                 VStack {
-                    ViewToolbar(
-                            title: "",
-                            actionClickBack: { showDialogExit = true }
-                    )
-                            .frame(maxWidth: .infinity, alignment: .leading)
 
-                    Spacer().frame(height: metrics.size.height * 0.15)
+                    Spacer().frame(height: metrics.size.height * 0.17)
 
                     Image("icPayFailed", bundle: DataHolder.moduleBundle)
                             .resizable()
@@ -66,17 +60,6 @@ struct ErrorPage: View {
                         },
                         alignment: .bottom
                 )
-                .modifier(
-                        Popup(
-                                isPresented: showDialogExit,
-                                content: {
-                                    DialogExit(
-                                            onDismissRequest: { showDialogExit = false },
-                                            backToApp: { navigateCoordinator.backToApp() }
-                                    )
-                                })
-                )
-                .onTapGesture(perform: { showDialogExit = false })
 
     }
 
@@ -103,11 +86,5 @@ struct ErrorPage: View {
                 .frame(maxWidth: .infinity)
                 .padding(.bottom, 24)
                 .padding(.horizontal, 16)
-    }
-}
-
-struct ErrorPage_Previews: PreviewProvider {
-    static var previews: some View {
-        ErrorPage(errorCode: ErrorsCode(code: 5009), navigateCoordinator: AirbaPayCoordinator())
     }
 }
