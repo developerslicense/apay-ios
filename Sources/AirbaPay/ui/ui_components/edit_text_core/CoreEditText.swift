@@ -146,7 +146,13 @@ struct CoreEditText: View {
             }
         }
 
-        if (newValue.count > textBeforeChange.count || !newValue.contains(" ")) {
+        if newValue.contains("*") {
+            viewModel.text = newValue.replacingOccurrences(of: "*", with: "•")
+
+        } else if (!newValue.contains("•")
+                && (newValue.count > textBeforeChange.count
+                || !newValue.contains(" ") && !textBeforeChange.contains("/"))
+                  ) {
             viewModel.text = maskUtils.format(
                     text: getNumberClearedWithMaxSymbol(
                             amount: newValue,

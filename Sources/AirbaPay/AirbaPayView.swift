@@ -37,12 +37,18 @@ public class AirbaPayCoordinator: ObservableObject {
         )
     }
 
-    public func openHome(cardId: String? = nil) {
+    public func openHome(
+            cardId: String? = nil,
+            maskedPan: String? = nil,
+            dateExpired: String? = nil
+    ) {
         actionOnOpenProcessing()
         path.append(
                 HomePage(
                         navigateCoordinator: self,
-                        selectedCardId: cardId
+                        selectedCardId: cardId,
+                        maskedPan: maskedPan,
+                        dateExpired: dateExpired
                 )
         )
     }

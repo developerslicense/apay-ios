@@ -24,6 +24,13 @@ struct BankCard: Codable {
         return String(replaced)
     }
 
+    func getExpiredCleared()-> String {
+        let text = expiredForResponse?.prefix(7) ?? ""
+        let replaced = text.dropFirst(2).replacingOccurrences(of: "-", with: "", options: .literal, range: nil)
+        let result = replaced.suffix(2) + replaced.prefix(2)
+        return String(result)
+    }
+
     enum CodingKeys: String, CodingKey {
         case accountId = "account_id"
         case maskedPan = "masked_pan"

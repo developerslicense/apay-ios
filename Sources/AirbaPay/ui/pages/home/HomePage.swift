@@ -4,7 +4,6 @@
 
 import Foundation
 import SwiftUI
-//import SwiftUI_SimpleToast
 import SimpleToast
 
 struct HomePage: View {
@@ -24,13 +23,19 @@ struct HomePage: View {
     private let toastOptions = SimpleToastOptions(hideAfter: 5)
 
     var selectedCardId: String? = nil
+    var maskedPan: String? = nil
+    var dateExpired: String? = nil
 
     init(
             @ObservedObject navigateCoordinator: AirbaPayCoordinator,
-            selectedCardId: String? = nil
+            selectedCardId: String? = nil,
+            maskedPan: String? = nil,
+            dateExpired: String? = nil
     ) {
         self.navigateCoordinator = navigateCoordinator
         self.selectedCardId = selectedCardId
+        self.maskedPan = maskedPan
+        self.dateExpired = dateExpired
     }
 
     var body: some View {
@@ -86,6 +91,10 @@ struct HomePage: View {
                             text: saveCardData(),
                             switchCheckedState: switchSaveCard,
                             actionOnChanged: { isSwitched in
+                                if isSwitched {
+                                    withAnimation { saveCardToast.toggle() }
+                                }
+
                                 viewModel.switchSaveCard = isSwitched
                             }
                     )
@@ -99,6 +108,7 @@ struct HomePage: View {
             }
 
             if showCardScanner {
+
                 CardScannerPage(
                         onSuccess: { cardNumber in
                             showCardScanner = false
@@ -159,6 +169,13 @@ struct HomePage: View {
 
                     if (selectedCardId != nil) {
                         viewModel.isLoading = true
+
+                        if maskedPan != nil {
+                            cardNumberEditTextViewModel.changeText(text: maskedPan!)
+                        }
+                        if dateExpired != nil {
+                            dateExpiredEditTextViewModel.changeText(text: dateExpired!)
+                        }
 
                         startPaymentProcessing(
                                 isLoading: { isLoading in
