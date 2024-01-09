@@ -22,13 +22,13 @@ struct ApplePayPage: View {
 
     var body: some View {
         VStack {
-            VStack {
-                ViewToolbar(
-                        title: "",
-                        actionClickBack: { showDialogExit = true }
-                )
-                        .frame(maxWidth: .infinity, alignment: .leading)
-            }
+//            VStack {
+//                ViewToolbar(
+//                    title: "",
+//                    actionClickBack: { showDialogExit = true }
+//                )
+//                .frame(maxWidth: .infinity, alignment: .leading)
+//            }
 
             ZStack {
                 ColorsSdk.gray30
@@ -45,17 +45,17 @@ struct ApplePayPage: View {
 //                ProgressBarView()
             }
         }
-                .modifier(
-                        Popup(
-                                isPresented: showDialogExit,
-                                content: {
-                                    DialogExit(
-                                            onDismissRequest: { showDialogExit = false },
-                                            backToApp: { navigateCoordinator.backToApp() }
-                                    )
-                                })
-                )
-                .onTapGesture(perform: { showDialogExit = false })
+//                 .modifier(
+//                         Popup(
+//                                 isPresented: showDialogExit,
+//                                 content: {
+//                                     DialogExit(
+//                                             onDismissRequest: { showDialogExit = false },
+//                                             backToApp: { navigateCoordinator.backToApp() }
+//                                     )
+//                                 })
+//                 )
+//                 .onTapGesture(perform: { showDialogExit = false })
     }
 }
 

@@ -18,6 +18,7 @@ struct StartProcessingView: View {
     @State private var isAuthenticated: Bool = false
     @State private var showToast: Bool = false
     @State private var isLoading: Bool = true
+    @State private var needApplePay: Bool = false
     private let toastOptions = SimpleToastOptions(hideAfter: 5)
 
     var body: some View {
@@ -40,7 +41,8 @@ struct StartProcessingView: View {
                                     if DataHolder.needApplePay {
                                         InitViewStartProcessingAPay(
                                                 isLoading: { _isLoading in isLoading = _isLoading },
-                                                navigateCoordinator: navigateCoordinator
+                                                navigateCoordinator: navigateCoordinator,
+                                                viewModel: viewModel
                                         )
                                     }
 
@@ -64,6 +66,14 @@ struct StartProcessingView: View {
                                     )
                                 }
                                 Spacer()
+
+                                if viewModel.applePayUrl != nil {
+                                    ApplePayPage(
+                                            redirectUrl: viewModel.applePayUrl,
+                                            navigateCoordinator: navigateCoordinator
+                                    )
+                                            .frame(height: 1)
+                                }
                             }
 
                             if (isLoading) {

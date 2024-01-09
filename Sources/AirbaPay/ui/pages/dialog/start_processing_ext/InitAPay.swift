@@ -8,6 +8,7 @@ import SwiftUI
 struct InitViewStartProcessingAPay: View {
     var isLoading: (Bool) -> Void
     var navigateCoordinator: AirbaPayCoordinator
+    var viewModel: StartProcessingViewModel
 
     var body: some View {
 
@@ -23,10 +24,14 @@ struct InitViewStartProcessingAPay: View {
                 .padding(.horizontal, 16)
                 .onTapGesture {
                     isLoading(true)
+                    viewModel.applePayUrl = nil
 
                     startPaymentProcessingApplePay(
                             isLoading: isLoading,
-                            navigateCoordinator: navigateCoordinator
+                            navigateCoordinator: navigateCoordinator,
+                            onSuccess: { result in
+                                viewModel.applePayUrl = result
+                            }
                     )
                 }
     }
@@ -34,7 +39,8 @@ struct InitViewStartProcessingAPay: View {
 
 private func startPaymentProcessingApplePay(
         isLoading: @escaping (Bool) -> Void,
-        navigateCoordinator: AirbaPayCoordinator
+        navigateCoordinator: AirbaPayCoordinator,
+        onSuccess: @escaping (String?) -> Void
 ) {
 
     Task {
@@ -42,7 +48,9 @@ private func startPaymentProcessingApplePay(
         await startCreatePayment(
                 onSuccess: { response in
                     isLoading(false)
-                    navigateCoordinator.openApplePay(redirectUrl: response?.buttonUrl)
+//                    navigateCoordinator.openApplePay(redirectUrl: response?.buttonUrl)
+                    onSuccess(response?.buttonUrl)
+
                 },
                 onError: { errorCode in
                     isLoading(false)

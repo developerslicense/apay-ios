@@ -9,6 +9,7 @@ class StartProcessingViewModel: ObservableObject {
     @MainActor @Published var isError: Bool = false
     @MainActor @Published var savedCards: [BankCard] = []
     @MainActor @Published var selectedCard: BankCard? = nil
+    @MainActor @Published var applePayUrl: String? = nil
 
     func authAndLoadData() async {
         await MainActor.run {

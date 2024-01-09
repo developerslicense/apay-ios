@@ -81,7 +81,7 @@ public class AirbaPayCoordinator: ObservableObject {
     
     public func openApplePay(redirectUrl: String?) {
         actionOnOpenProcessing()
-        path.append(ApplePayPage(redirectUrl: redirectUrl, navigateCoordinator: self))
+//        path.append(ApplePayPage(redirectUrl: redirectUrl, navigateCoordinator: self))
     }
 
     public func openSuccess() {
