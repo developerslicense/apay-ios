@@ -17,19 +17,19 @@ struct InitViewStartProcessingPayWithNewCard: View {
 
                         ZStack {
                             Rectangle()
-                                    .fill(ColorsSdk.colorBrandMain)
+                                    .fill(ColorsSdk.colorBrand)
                                     .frame(height: 1.5)
                                     .frame(width: 8)
 
                             Rectangle()
-                                    .fill(ColorsSdk.colorBrandMain)
+                                    .fill(ColorsSdk.colorBrand)
                                     .frame(height: 8)
                                     .frame(width: 1.5)
                         }
 
 
                         Text(payAnotherCard())
-                                .foregroundColor(ColorsSdk.colorBrandMain)
+                                .foregroundColor(ColorsSdk.colorBrand)
                                 .textStyleSemiBold()
                                 .padding(.leading, 6)
                                 .padding(.top, 7)
