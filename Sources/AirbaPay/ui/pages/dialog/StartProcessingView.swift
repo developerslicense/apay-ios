@@ -38,12 +38,19 @@ struct StartProcessingView: View {
                                 } else {
                                     InitViewStartProcessingAmount()
 
-                                    if DataHolder.needApplePay {
-                                        InitViewStartProcessingAPay(
-                                                isLoading: { _isLoading in isLoading = _isLoading },
-                                                navigateCoordinator: navigateCoordinator,
-                                                viewModel: viewModel
+                                    if DataHolder.needApplePay && viewModel.applePayUrl != nil {
+//                                        InitViewStartProcessingAPay(
+//                                            isLoading: { _isLoading in isLoading = _isLoading },
+//                                            navigateCoordinator: navigateCoordinator,
+//                                            viewModel: viewModel
+//                                        )
+                                        ApplePayPage(
+                                                redirectUrl: viewModel.applePayUrl,
+                                                navigateCoordinator: navigateCoordinator
                                         )
+                                                .frame(width: .infinity, height: 48)
+                                                .padding(.top, 8)
+                                                .padding(.horizontal, 16)
                                     }
 
                                     if (!viewModel.savedCards.isEmpty
@@ -67,13 +74,13 @@ struct StartProcessingView: View {
                                 }
                                 Spacer()
 
-                                if viewModel.applePayUrl != nil {
-                                    ApplePayPage(
-                                            redirectUrl: viewModel.applePayUrl,
-                                            navigateCoordinator: navigateCoordinator
-                                    )
-                                            .frame(height: 1)
-                                }
+//                                if viewModel.applePayUrl != nil {
+//                                    ApplePayPage(
+//                                        redirectUrl: viewModel.applePayUrl,
+//                                        navigateCoordinator: navigateCoordinator
+//                                    )
+//                                    .frame(height: 1)
+//                                }
                             }
 
                             if (isLoading) {
@@ -83,12 +90,15 @@ struct StartProcessingView: View {
                         }
                 )
                 .onAppear {
+
+
                     airbaPayBiometricAuthenticate(
                             onSuccess: {
                                 Task {
                                     await viewModel.authAndLoadData()
                                     isAuthenticated = true
                                     isLoading = false
+
                                 }
                             },
                             onError: {
@@ -98,6 +108,7 @@ struct StartProcessingView: View {
                                 }
                             }
                     )
+
                 }
                 .simpleToast(isPresented: $showToast, options: toastOptions) {
                     Label(accessToCardRestricted(), systemImage: "icAdd")

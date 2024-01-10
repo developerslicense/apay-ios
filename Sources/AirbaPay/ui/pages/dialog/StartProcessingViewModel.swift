@@ -29,14 +29,37 @@ class StartProcessingViewModel: ObservableObject {
                 DataHolder.accessToken = res.accessToken
 
             }
+            await startCreatePayment(
+                    onSuccess: { result in
+                        DispatchQueue.main.async {
+                            self.applePayUrl = result?.buttonUrl
+                        }
+                    },
+                    onError: { e in
+                        DispatchQueue.main.async {
+                            //  self.isError = true
+                            self.isLoading = false
+                        }
+                    }
+            )
             await loadCards()
 
         } else {
+            await startCreatePayment(
+                    onSuccess: { result in
+                        DispatchQueue.main.async {
+                            self.applePayUrl = result?.buttonUrl
+                        }
+                    },
+                    onError: { e in
+                    }
+            )
             await MainActor.run {
                 isError = true
                 isLoading = false
             }
         }
+
     }
 
     private func loadCards() async {

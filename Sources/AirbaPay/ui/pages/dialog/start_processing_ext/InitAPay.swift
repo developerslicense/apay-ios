@@ -5,7 +5,7 @@
 import Foundation
 import SwiftUI
 
-struct InitViewStartProcessingAPay: View {
+/*struct InitViewStartProcessingAPay: View { // это старый способ инициализации эпплпэя
     var isLoading: (Bool) -> Void
     var navigateCoordinator: AirbaPayCoordinator
     var viewModel: StartProcessingViewModel
@@ -37,7 +37,7 @@ struct InitViewStartProcessingAPay: View {
     }
 }
 
-private func startPaymentProcessingApplePay(
+func startPaymentProcessingApplePay(
         isLoading: @escaping (Bool) -> Void,
         navigateCoordinator: AirbaPayCoordinator,
         onSuccess: @escaping (String?) -> Void
@@ -58,9 +58,9 @@ private func startPaymentProcessingApplePay(
                 }
         )
     }
-}
+}*/
 
-private func startCreatePayment(
+func startCreatePayment(
         onSuccess: @escaping (ApplePayButtonResponse?) -> Void,
         onError: @escaping (ErrorsCodeBase) -> Void
 ) async {
