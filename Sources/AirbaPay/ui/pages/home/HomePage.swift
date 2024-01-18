@@ -48,7 +48,15 @@ struct HomePage: View {
                     ViewToolbar(
                             title: paymentOfPurchase(),
                             actionClickBack: {
-                                showDialogExit = true
+                                if (
+                                           dateExpiredEditTextViewModel.text.isEmpty == false
+                                                   || cardNumberEditTextViewModel.text.isEmpty == false
+                                                   || cvvEditTextViewModel.text.isEmpty
+                                   ) {
+                                    showDialogExit = true
+                                } else {
+                                    navigateCoordinator.backToStartPage()
+                                }
                             }
                     )
                             .frame(maxWidth: .infinity, alignment: .leading)

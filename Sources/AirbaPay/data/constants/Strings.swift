@@ -258,3 +258,9 @@ func cardParserCancel() -> String {
     )
 }
 
+func cvvEnter() -> String  {
+    getStrFromRes(
+            "Ввод CVV",
+            "CVV енгізу"
+    )
+}

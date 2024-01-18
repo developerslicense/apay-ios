@@ -58,8 +58,3 @@ struct SuccessPage: View {
     }
 }
 
-struct SuccessPage_Previews: PreviewProvider {
-    static var previews: some View {
-        SuccessPage(navigateCoordinator: AirbaPayCoordinator())
-    }
-}
