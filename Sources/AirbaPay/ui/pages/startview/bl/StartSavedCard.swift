@@ -10,30 +10,38 @@ func startSavedCard(
         cardId: String,
         cvv: String,
         isLoading: @escaping (Bool) -> Void,
-        on3DS: @escaping (String?) -> Void,
-        onSuccess: @escaping () -> Void,
-        onError: @escaping (ErrorsCodeBase) -> Void
-) async {
-    let params = PaymentSavedCardRequest(cvv: cvv)
-    if let result = await paymentSavedCardService(
-            cardId: cardId,
-            params: params
-    ) {
-        if result.status == "new" {
-            DispatchQueue.main.async { isLoading(false) }
+        showCvv: @escaping () -> Void,
+        navigateCoordinator: AirbaPayCoordinator
+) {
+    isLoading(true)
 
-        } else if result.status == "success"
-                          || result.status == "auth" {
-            DispatchQueue.main.async { onSuccess() }
+    Task {
+        let params = PaymentSavedCardRequest(cvv: cvv)
 
-        } else if result.status == "secure3D" {
-            DispatchQueue.main.async { on3DS(result.secure3D?.action) }
+        if let result = await paymentSavedCardService(
+                cardId: cardId,
+                params: params
+        ) {
+            DispatchQueue.main.async {
+                isLoading(false)
 
+                if result.status == "new" {
+                    showCvv()
+
+                } else if result.status == "success"
+                                  || result.status == "auth" {
+                    navigateCoordinator.openSuccess()
+
+
+                } else if result.status == "secure3D" {
+                    navigateCoordinator.openAcquiring(redirectUrl: result.secure3D?.action)
+
+                } else {
+                    navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+                }
+            }
         } else {
-            DispatchQueue.main.async { onError(ErrorsCode().error_1) }
+            DispatchQueue.main.async { navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code) }
         }
-
-    } else {
-        DispatchQueue.main.async { onError(ErrorsCode().error_1) }
     }
 }

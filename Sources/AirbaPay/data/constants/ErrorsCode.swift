@@ -178,13 +178,13 @@ struct ErrorsCodeBase: Equatable {
     ) {
         switch code {
         case 5002:
-            navigateCoordinator.backToHome()
+            navigateCoordinator.backToStartPage()
 
         case 5003:
-            navigateCoordinator.backToHome()
+            navigateCoordinator.backToStartPage()
 
         case 5006:
-            navigateCoordinator.backToHome()
+            navigateCoordinator.backToStartPage()
 
         case 5007:
             navigateCoordinator.openRepeat()
@@ -208,10 +208,10 @@ struct ErrorsCodeBase: Equatable {
     ) {
         switch code {
         case 5008:
-            navigateCoordinator.backToHome()
+            navigateCoordinator.backToStartPage()
 
         case 5999:
-            navigateCoordinator.backToHome()
+            navigateCoordinator.backToStartPage()
 
         default:
             navigateCoordinator.backToApp()

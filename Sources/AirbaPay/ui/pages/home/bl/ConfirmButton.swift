@@ -30,23 +30,19 @@ func startPaymentProcessing(
         )
 
         if let entryResponse: PaymentEntryResponse = await paymentDefaultService(params: params) {
-            if (entryResponse.errorCode != 0) {
+            DispatchQueue.main.async {
                 if (entryResponse.errorCode != 0) {
                     let error = ErrorsCode(code: entryResponse.errorCode ?? 1).getError()
-                    DispatchQueue.main.async {
-                        navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
-                    }
+                    navigateCoordinator.openErrorPageWithCondition(errorCode: error.code)
 
                 } else if (entryResponse.isSecure3D == true) {
-                    DispatchQueue.main.async {
-                        navigateCoordinator.openAcquiring(redirectUrl: entryResponse.secure3D?.action)
-                    }
+                    navigateCoordinator.openAcquiring(redirectUrl: entryResponse.secure3D?.action)
 
                 } else {
-                    DispatchQueue.main.async {
-                        navigateCoordinator.openSuccess()
-                    }
+                    navigateCoordinator.openSuccess()
+
                 }
+
             }
         } else {
             DispatchQueue.main.async {

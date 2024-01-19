@@ -12,25 +12,28 @@ struct StartProcessingView: View {
 
     @State var presentSheet: Bool = false
     @State var needShowProgressBar: Bool = true
-    var actionClose: () -> Void
     var backgroundColor: Color = ColorsSdk.bgBlock
 
     @State private var isAuthenticated: Bool = false
     @State private var showToast: Bool = false
     @State private var isLoading: Bool = true
     @State private var needApplePay: Bool = false
+    @State private var sheetState = false
+
     private let toastOptions = SimpleToastOptions(hideAfter: 5)
 
     var body: some View {
         ColorsSdk.bgBlock.overlay(
                         ZStack {
                             VStack {
-                                InitHeader(
+
+                                ViewToolbar(
                                         title: paymentByCard(),
-                                        actionClose: {
+                                        actionClickBack: {
                                             navigateCoordinator.backToApp()
                                         }
                                 )
+                                        .frame(maxWidth: .infinity, alignment: .leading)
 
                                 if (viewModel.isError) {
                                     InitErrorState()
@@ -39,11 +42,6 @@ struct StartProcessingView: View {
                                     InitViewStartProcessingAmount()
 
                                     if DataHolder.needApplePay && viewModel.applePayUrl != nil {
-//                                        InitViewStartProcessingAPay(
-//                                            isLoading: { _isLoading in isLoading = _isLoading },
-//                                            navigateCoordinator: navigateCoordinator,
-//                                            viewModel: viewModel
-//                                        )
                                         ApplePayPage(
                                                 redirectUrl: viewModel.applePayUrl,
                                                 navigateCoordinator: navigateCoordinator
@@ -66,21 +64,17 @@ struct StartProcessingView: View {
                                     InitViewStartProcessingButtonNext(
                                             navigateCoordinator: navigateCoordinator,
                                             savedCards: viewModel.savedCards,
-                                            actionClose: actionClose,
-                                            isAuthenticated: isAuthenticated,
+                                            showCvv: { sheetState.toggle() },
+                                            isLoading: { b in
+                                                isLoading = b
+                                            },
                                             selectedCard: viewModel.selectedCard,
+                                            isAuthenticated: isAuthenticated,
                                             needTopPadding: !viewModel.savedCards.isEmpty
                                     )
                                 }
                                 Spacer()
 
-//                                if viewModel.applePayUrl != nil {
-//                                    ApplePayPage(
-//                                        redirectUrl: viewModel.applePayUrl,
-//                                        navigateCoordinator: navigateCoordinator
-//                                    )
-//                                    .frame(height: 1)
-//                                }
                             }
 
                             if (isLoading) {
@@ -108,6 +102,9 @@ struct StartProcessingView: View {
                                 }
                             }
                     )
+
+                }
+                .sheet(isPresented: $sheetState) {
 
                 }
                 .simpleToast(isPresented: $showToast, options: toastOptions) {

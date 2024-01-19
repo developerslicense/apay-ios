@@ -8,9 +8,10 @@ import SwiftUI
 struct InitViewStartProcessingButtonNext: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     var savedCards: Array<BankCard>
-    var actionClose: () -> Void
-    var isAuthenticated: Bool
+    var showCvv: () -> Void
+    var isLoading: (Bool) -> Void
     var selectedCard: BankCard?
+    var isAuthenticated: Bool = true
     var needTopPadding: Bool = true
 
     var body: some View {
@@ -20,11 +21,12 @@ struct InitViewStartProcessingButtonNext: View {
             ViewButton(
                     title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
                     actionClick: {
-                        actionClose()
-                        navigateCoordinator.openHome(
-                                cardId: selectedCard?.id,
-                                maskedPan: selectedCard?.maskedPan,
-                                dateExpired: selectedCard?.getExpiredCleared()
+                        startSavedCard(
+                                cardId: selectedCard?.id ?? "",
+                                cvv: selectedCard?.cvv ?? "",
+                                isLoading: isLoading,
+                                showCvv: showCvv,
+                                navigateCoordinator: navigateCoordinator
                         )
                     }
             )
@@ -36,7 +38,6 @@ struct InitViewStartProcessingButtonNext: View {
             ViewButton(
                     title: paymentByCard2(),
                     actionClick: {
-                        actionClose()
                         navigateCoordinator.openHome()
                     }
             )

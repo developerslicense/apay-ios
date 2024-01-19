@@ -49,13 +49,14 @@ struct HomePage: View {
                             title: paymentOfPurchase(),
                             actionClickBack: {
                                 if (
-                                           dateExpiredEditTextViewModel.text.isEmpty == false
-                                                   || cardNumberEditTextViewModel.text.isEmpty == false
-                                                   || cvvEditTextViewModel.text.isEmpty
+                                           viewModel.dateExpiredText.isEmpty
+                                                   && viewModel.cardNumberText.isEmpty
+                                                   && viewModel.cvvText.isEmpty
                                    ) {
-                                    showDialogExit = true
-                                } else {
                                     navigateCoordinator.backToStartPage()
+
+                                } else {
+                                    showDialogExit = true
                                 }
                             }
                     )
@@ -189,7 +190,10 @@ struct HomePage: View {
                                 isLoading: { isLoading in
                                     viewModel.isLoading = isLoading
                                 },
-                                cardId: selectedCardId!,
+                                saveCard: viewModel.switchSaveCard,
+                                cardNumber: viewModel.cardNumberText,
+                                dateExpired: viewModel.dateExpiredText,
+                                cvv: viewModel.cvvText,
                                 navigateCoordinator: navigateCoordinator
                         )
 

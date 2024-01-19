@@ -37,7 +37,6 @@ class StartProcessingViewModel: ObservableObject {
                     },
                     onError: { e in
                         DispatchQueue.main.async {
-                            //  self.isError = true
                             self.isLoading = false
                         }
                     }
