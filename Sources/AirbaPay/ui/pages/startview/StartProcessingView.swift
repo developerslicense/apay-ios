@@ -9,6 +9,7 @@ import SimpleToast
 struct StartProcessingView: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     @StateObject var viewModel = StartProcessingViewModel()
+    @StateObject var cvvEditTextViewModel = CoreEditTextViewModel()
 
     @State var presentSheet: Bool = false
     @State var needShowProgressBar: Bool = true
@@ -19,6 +20,8 @@ struct StartProcessingView: View {
     @State private var isLoading: Bool = true
     @State private var needApplePay: Bool = false
     @State private var sheetState = false
+
+    @State var detentHeight: CGFloat = 0
 
     private let toastOptions = SimpleToastOptions(hideAfter: 5)
 
@@ -56,19 +59,17 @@ struct StartProcessingView: View {
                                        ) {
                                         InitViewStartProcessingCards(
                                                 navigateCoordinator: navigateCoordinator,
-                                                savedCards: viewModel.savedCards,
-                                                selectedCard: viewModel.selectedCard
+                                                viewModel: viewModel
                                         )
                                     }
 
                                     InitViewStartProcessingButtonNext(
                                             navigateCoordinator: navigateCoordinator,
-                                            savedCards: viewModel.savedCards,
+                                            viewModel: viewModel,
                                             showCvv: { sheetState.toggle() },
                                             isLoading: { b in
                                                 isLoading = b
                                             },
-                                            selectedCard: viewModel.selectedCard,
                                             isAuthenticated: isAuthenticated,
                                             needTopPadding: !viewModel.savedCards.isEmpty
                                     )
@@ -105,6 +106,31 @@ struct StartProcessingView: View {
 
                 }
                 .sheet(isPresented: $sheetState) {
+                    if #available(iOS 16.0, *) {
+                        EnterCvvBottomSheet(
+                                actionClose: {
+                                    sheetState.toggle()
+                                },
+                                actionClickInfo: { }, //todo
+                                cardMasked: viewModel.selectedCard?.getMaskedPanClearedWithPoint() ?? "",
+                                navigateCoordinator: navigateCoordinator,
+                                editTextViewModel: cvvEditTextViewModel
+                        )
+                                .presentationDetents([.medium])
+
+
+                    } else {
+                        EnterCvvBottomSheet(
+                                actionClose: {
+                                    sheetState.toggle()
+                                },
+                                actionClickInfo: { }, //todo
+                                cardMasked: viewModel.selectedCard?.getMaskedPanClearedWithPoint() ?? "",
+                                navigateCoordinator: navigateCoordinator,
+                                editTextViewModel: cvvEditTextViewModel
+                        )
+
+                    }
 
                 }
                 .simpleToast(isPresented: $showToast, options: toastOptions) {

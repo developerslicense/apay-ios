@@ -7,8 +7,7 @@ import SwiftUI
 
 struct InitViewStartProcessingCards: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
-    var savedCards: Array<BankCard>
-    @State var selectedCard: BankCard?
+    @StateObject var viewModel = StartProcessingViewModel()
     @State var selected: Int = 0
 
     var body: some View {
@@ -19,15 +18,15 @@ struct InitViewStartProcessingCards: View {
                     .padding(.top, 32)
 
             LazyVStack {
-                ForEach(0...savedCards.count - 1, id: \.self) { index in
-                    let card = savedCards[index]
+                ForEach(0...viewModel.savedCards.count - 1, id: \.self) { index in
+                    let card = viewModel.savedCards[index]
                     InitCard(
                             card: card,
                             isSelected: selected == index,
                             isFirst: index == 0,
                             clickOnCard: {
                                 selected = index
-                                selectedCard = card
+                                viewModel.selectedCard = card
                             }
                     )
                 }

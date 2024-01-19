@@ -7,23 +7,22 @@ import SwiftUI
 
 struct InitViewStartProcessingButtonNext: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
-    var savedCards: Array<BankCard>
+    @StateObject var viewModel = StartProcessingViewModel()
     var showCvv: () -> Void
     var isLoading: (Bool) -> Void
-    var selectedCard: BankCard?
     var isAuthenticated: Bool = true
     var needTopPadding: Bool = true
 
     var body: some View {
-        if (!savedCards.isEmpty
+        if (!viewModel.savedCards.isEmpty
                 && isAuthenticated
            ) {
             ViewButton(
                     title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
                     actionClick: {
                         startSavedCard(
-                                cardId: selectedCard?.id ?? "",
-                                cvv: selectedCard?.cvv ?? "",
+                                cardId: viewModel.selectedCard?.id ?? "",
+                                cvv: viewModel.selectedCard?.cvv ?? "",
                                 isLoading: isLoading,
                                 showCvv: showCvv,
                                 navigateCoordinator: navigateCoordinator

@@ -54,8 +54,8 @@ struct HomePage: View {
                                                    && viewModel.cvvText.isEmpty
                                    ) {
                                     navigateCoordinator.backToStartPage()
-
-                                } else {
+                                }
+                                else {
                                     showDialogExit = true
                                 }
                             }
@@ -149,7 +149,7 @@ struct HomePage: View {
                 )
                 .onTapGesture(perform: { showDialogExit = false })
                 .sheet(isPresented: $sheetState) {
-                    CvvBottomSheet()
+                    CvvBottomSheet(actionClose: { sheetState.toggle() } )
                 }
                 .overlay(
                         ViewButton(
