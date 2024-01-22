@@ -9,27 +9,32 @@ import SimpleToast
 struct StartProcessingView: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     @StateObject var viewModel = StartProcessingViewModel()
+    @StateObject var cvvEditTextViewModel = CoreEditTextViewModel()
 
     @State var presentSheet: Bool = false
     @State var needShowProgressBar: Bool = true
-    var actionClose: () -> Void
     var backgroundColor: Color = ColorsSdk.bgBlock
 
     @State private var isAuthenticated: Bool = false
     @State private var showToast: Bool = false
     @State private var isLoading: Bool = true
-    private let toastOptions = SimpleToastOptions(hideAfter: 5)
+    @State private var needApplePay: Bool = false
+    @State private var sheetState = false
+
+    @State var detentHeight: CGFloat = 0
 
     var body: some View {
         ColorsSdk.bgBlock.overlay(
                         ZStack {
                             VStack {
-                                InitHeader(
+
+                                ViewToolbar(
                                         title: paymentByCard(),
-                                        actionClose: {
+                                        actionClickBack: {
                                             navigateCoordinator.backToApp()
                                         }
                                 )
+                                        .frame(maxWidth: .infinity, alignment: .leading)
 
                                 if (viewModel.isError) {
                                     InitErrorState()
@@ -37,11 +42,14 @@ struct StartProcessingView: View {
                                 } else {
                                     InitViewStartProcessingAmount()
 
-                                    if DataHolder.needApplePay {
-                                        InitViewStartProcessingAPay(
-                                                isLoading: { _isLoading in isLoading = _isLoading },
+                                    if DataHolder.needApplePay && viewModel.applePayUrl != nil {
+                                        ApplePayPage(
+                                                redirectUrl: viewModel.applePayUrl,
                                                 navigateCoordinator: navigateCoordinator
                                         )
+                                                .frame(width: .infinity, height: 48)
+                                                .padding(.top, 8)
+                                                .padding(.horizontal, 16)
                                     }
 
                                     if (!viewModel.savedCards.isEmpty
@@ -49,21 +57,23 @@ struct StartProcessingView: View {
                                        ) {
                                         InitViewStartProcessingCards(
                                                 navigateCoordinator: navigateCoordinator,
-                                                savedCards: viewModel.savedCards,
-                                                selectedCard: viewModel.selectedCard
+                                                viewModel: viewModel
                                         )
                                     }
 
                                     InitViewStartProcessingButtonNext(
                                             navigateCoordinator: navigateCoordinator,
-                                            savedCards: viewModel.savedCards,
-                                            actionClose: actionClose,
+                                            viewModel: viewModel,
+                                            showCvv: { sheetState.toggle() },
+                                            isLoading: { b in
+                                                isLoading = b
+                                            },
                                             isAuthenticated: isAuthenticated,
-                                            selectedCard: viewModel.selectedCard,
                                             needTopPadding: !viewModel.savedCards.isEmpty
                                     )
                                 }
                                 Spacer()
+
                             }
 
                             if (isLoading) {
@@ -73,12 +83,15 @@ struct StartProcessingView: View {
                         }
                 )
                 .onAppear {
+
+
                     airbaPayBiometricAuthenticate(
                             onSuccess: {
                                 Task {
                                     await viewModel.authAndLoadData()
                                     isAuthenticated = true
                                     isLoading = false
+
                                 }
                             },
                             onError: {
@@ -88,15 +101,39 @@ struct StartProcessingView: View {
                                 }
                             }
                     )
+
                 }
-                .simpleToast(isPresented: $showToast, options: toastOptions) {
-                    Label(accessToCardRestricted(), systemImage: "icAdd")
-                            .padding()
-                            .background(Color.gray.opacity(0.9))
-                            .foregroundColor(Color.white)
-                            .cornerRadius(10)
-                            .padding(.top)
+                .sheet(isPresented: $sheetState) {
+                    if #available(iOS 16.0, *) {
+                        EnterCvvBottomSheet(
+                                actionClose: {
+                                    sheetState.toggle()
+                                },
+                                isLoading: { b in isLoading = b },
+                                toggleCvv: { sheetState.toggle() },
+                                navigateCoordinator: navigateCoordinator,
+                                viewModel: viewModel,
+                                editTextViewModel: cvvEditTextViewModel
+                        )
+                                .presentationDetents([.medium])
+
+
+                    } else {
+                        EnterCvvBottomSheet(
+                                actionClose: {
+                                    sheetState.toggle()
+                                },
+                                isLoading: { b in isLoading = b },
+                                toggleCvv: { sheetState.toggle() },
+                                navigateCoordinator: navigateCoordinator,
+                                viewModel: viewModel,
+                                editTextViewModel: cvvEditTextViewModel
+                        )
+
+                    }
+
                 }
+
     }
 }
 

@@ -22,13 +22,13 @@ struct ApplePayPage: View {
 
     var body: some View {
         VStack {
-            VStack {
-                ViewToolbar(
-                        title: "",
-                        actionClickBack: { showDialogExit = true }
-                )
-                        .frame(maxWidth: .infinity, alignment: .leading)
-            }
+//            VStack {
+//                ViewToolbar(
+//                    title: "",
+//                    actionClickBack: { showDialogExit = true }
+//                )
+//                .frame(maxWidth: .infinity, alignment: .leading)
+//            }
 
             ZStack {
                 ColorsSdk.gray30
@@ -40,22 +40,22 @@ struct ApplePayPage: View {
                 )
 
 
-                ColorsSdk.gray30
-                ColorsSdk.bgMain
+//                ColorsSdk.gray30
+//                ColorsSdk.bgMain
 //                ProgressBarView()
             }
         }
-                .modifier(
-                        Popup(
-                                isPresented: showDialogExit,
-                                content: {
-                                    DialogExit(
-                                            onDismissRequest: { showDialogExit = false },
-                                            backToApp: { navigateCoordinator.backToApp() }
-                                    )
-                                })
-                )
-                .onTapGesture(perform: { showDialogExit = false })
+//                 .modifier(
+//                         Popup(
+//                                 isPresented: showDialogExit,
+//                                 content: {
+//                                     DialogExit(
+//                                             onDismissRequest: { showDialogExit = false },
+//                                             backToApp: { navigateCoordinator.backToApp() }
+//                                     )
+//                                 })
+//                 )
+//                 .onTapGesture(perform: { showDialogExit = false })
     }
 }
 
@@ -97,20 +97,22 @@ private struct SwiftUIWebView: UIViewRepresentable {
             self.viewModel = viewModel
         }
 
-        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        /*func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) { // это автоклик
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+
                 let js = """
-                             var parentDOM = document.getElementById('root');
-                             parentDOM.getElementsByClassName('apple-pay-btn')[0].click();
-                         """
+                    var parentDOM = document.getElementById('root');
+                    parentDOM.getElementsByClassName('apple-pay-btn')[0].click();
+                """
 
                 webView.evaluateJavaScript(js, completionHandler: nil)
             })
-        }
+        }*/
 
         func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> ()) {
 
-            if (navigationAction.navigationType == .other) {
+            if(navigationAction.navigationType == .other) {
                 decisionHandler(.allow)
 
                 if (navigationAction.request.url?.absoluteString ?? "").contains("acquiring-api") == true {
@@ -148,6 +150,7 @@ private struct SwiftUIWebView: UIViewRepresentable {
         }
     }
 
+
     func makeCoordinator() -> SwiftUIWebView.Coordinator {
         Coordinator(
                 navigateCoordinator: navigateCoordinator,
@@ -160,7 +163,7 @@ private class WebViewModel: ObservableObject {
     @Published var link: String
     @Published var didFinishLoading: Bool = false
 
-    init(link: String) {
+    init (link: String) {
         self.link = link
     }
 }

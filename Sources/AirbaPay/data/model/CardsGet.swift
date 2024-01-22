@@ -19,8 +19,12 @@ struct BankCard: Codable {
     var typeIcon: String? = nil
 
     func getMaskedPanCleared()-> String {
+        return String(maskedPan?.suffix(6) ?? "")
+    }
+
+    func getMaskedPanClearedWithPoint()-> String {
         let text = maskedPan?.suffix(6) ?? ""
-        let replaced = text.replacingOccurrences(of: "**", with: "••", options: .literal, range: nil)
+        let replaced = text.replacingOccurrences(of: "*", with: "•", options: .literal, range: nil)
         return String(replaced)
     }
 

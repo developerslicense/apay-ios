@@ -21,8 +21,8 @@ class DataHolder {
     static var orderNumber = ""
     static var invoiceId = ""
     static var shopId = ""
-    static var accountId = ""
     static var userEmail: String? = nil
+    static var accountId = ""
     static var userPhone = ""
     static var password = ""
     static var terminalId  = ""
@@ -38,4 +38,6 @@ class DataHolder {
     static var purchaseAmountFormatted: String = ""
 
     static var moduleBundle: Bundle? = Bundle.module
+
+    static var redirectToCustomSuccessPage: (() -> Void)? = nil
 }

@@ -30,34 +30,20 @@ public class AirbaPayCoordinator: ObservableObject {
     public func startProcessing() {
         path.append(
                 StartProcessingView(
-                        navigateCoordinator: self,
-                        actionClose: {}
-                ),
-                type: .sheet(onDismiss: self.actionOnDismiss)
-        )
-    }
-
-    public func openHome(
-            cardId: String? = nil,
-            maskedPan: String? = nil,
-            dateExpired: String? = nil
-    ) {
-        actionOnOpenProcessing()
-        path.append(
-                HomePage(
-                        navigateCoordinator: self,
-                        selectedCardId: cardId,
-                        maskedPan: maskedPan,
-                        dateExpired: dateExpired
+                        navigateCoordinator: self
                 )
         )
     }
 
-    public func backToHome() {
-        while !path.isEmpty {
+    public func openHome() {
+        actionOnOpenProcessing()
+        path.append(HomePage(navigateCoordinator: self))
+    }
+
+    public func backToStartPage() {
+        while path.count > 1 {
             path.removeLast()
         }
-        openHome()
     }
 
     public func backToApp(
@@ -78,10 +64,10 @@ public class AirbaPayCoordinator: ObservableObject {
     public func openAcquiring(redirectUrl: String?) {
         path.append(AcquiringPage(navigateCoordinator: self, redirectUrl: redirectUrl))
     }
-    
+
     public func openApplePay(redirectUrl: String?) {
         actionOnOpenProcessing()
-        path.append(ApplePayPage(redirectUrl: redirectUrl, navigateCoordinator: self))
+//        path.append(ApplePayPage(redirectUrl: redirectUrl, navigateCoordinator: self))
     }
 
     public func openSuccess() {

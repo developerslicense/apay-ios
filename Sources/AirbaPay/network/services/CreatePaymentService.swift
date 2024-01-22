@@ -6,18 +6,8 @@ import Foundation
 import Combine
 import Alamofire
 
-func createPaymentService(saveCard: Bool) async -> PaymentCreateResponse? {
-    let params = initParamsForCreatePayment(saveCard: saveCard)
-    return await executeRequest(params: params)
-}
-
-func createPaymentService(cardId: String) async -> PaymentCreateResponse? {
-    let params = initParamsForCreatePayment(cardId: cardId)
-    return await executeRequest(params: params, cardId: cardId)
-}
-
 func createPaymentService() async -> PaymentCreateResponse? {
-    let params = initParamsForCreatePayment(cardId: nil)
+    let params = initParamsForCreatePayment()
     return await executeRequest(params: params)
 }
 
@@ -40,16 +30,12 @@ private func executeRequest(
     }
 }
 
-private func initParamsForCreatePayment(
-        saveCard: Bool? = nil,
-        cardId: String? = nil
-) -> PaymentCreateRequest {
+private func initParamsForCreatePayment() -> PaymentCreateRequest {
 
     PaymentCreateRequest(
             accountId: DataHolder.accountId,
             invoiceId: DataHolder.invoiceId,
             orderNumber: DataHolder.orderNumber,
-            cardId: cardId,
             language: DataHolder.currentLang == AirbaPaySdk.Lang.RU() ? "ru" : "kz",
             phone: DataHolder.userPhone,
             email: DataHolder.userEmail,
@@ -58,7 +44,6 @@ private func initParamsForCreatePayment(
             successBackUrl: DataHolder.successBackUrl,
             successCallback: DataHolder.successCallback,
             amount: Double(DataHolder.purchaseAmount),
-            cardSave: saveCard,
             settlement: DataHolder.settlementPayments != nil
                     ? SettlementPaymentsRequest(payments: DataHolder.settlementPayments!)
                     : nil,

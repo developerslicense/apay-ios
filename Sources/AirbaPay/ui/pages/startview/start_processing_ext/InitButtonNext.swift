@@ -7,24 +7,25 @@ import SwiftUI
 
 struct InitViewStartProcessingButtonNext: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
-    var savedCards: Array<BankCard>
-    var actionClose: () -> Void
-    var isAuthenticated: Bool
-    var selectedCard: BankCard?
+    @StateObject var viewModel = StartProcessingViewModel()
+    var showCvv: () -> Void
+    var isLoading: (Bool) -> Void
+    var isAuthenticated: Bool = true
     var needTopPadding: Bool = true
 
     var body: some View {
-        if (!savedCards.isEmpty
+        if (!viewModel.savedCards.isEmpty
                 && isAuthenticated
            ) {
             ViewButton(
                     title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
                     actionClick: {
-                        actionClose()
-                        navigateCoordinator.openHome(
-                                cardId: selectedCard?.id,
-                                maskedPan: selectedCard?.maskedPan,
-                                dateExpired: selectedCard?.getExpiredCleared()
+                        startSavedCard(
+                                cardId: viewModel.selectedCard?.id ?? "",
+                                cvv: viewModel.selectedCard?.cvv ?? "",
+                                isLoading: isLoading,
+                                showCvv: showCvv,
+                                navigateCoordinator: navigateCoordinator
                         )
                     }
             )
@@ -36,7 +37,6 @@ struct InitViewStartProcessingButtonNext: View {
             ViewButton(
                     title: paymentByCard2(),
                     actionClick: {
-                        actionClose()
                         navigateCoordinator.openHome()
                     }
             )

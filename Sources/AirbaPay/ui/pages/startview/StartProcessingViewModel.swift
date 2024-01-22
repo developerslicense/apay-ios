@@ -9,6 +9,7 @@ class StartProcessingViewModel: ObservableObject {
     @MainActor @Published var isError: Bool = false
     @MainActor @Published var savedCards: [BankCard] = []
     @MainActor @Published var selectedCard: BankCard? = nil
+    @MainActor @Published var applePayUrl: String? = nil
 
     func authAndLoadData() async {
         await MainActor.run {
@@ -28,14 +29,36 @@ class StartProcessingViewModel: ObservableObject {
                 DataHolder.accessToken = res.accessToken
 
             }
+            await startCreatePayment(
+                    onSuccess: { result in
+                        DispatchQueue.main.async {
+                            self.applePayUrl = result?.buttonUrl
+                        }
+                    },
+                    onError: { e in
+                        DispatchQueue.main.async {
+                            self.isLoading = false
+                        }
+                    }
+            )
             await loadCards()
 
         } else {
+            await startCreatePayment(
+                    onSuccess: { result in
+                        DispatchQueue.main.async {
+                            self.applePayUrl = result?.buttonUrl
+                        }
+                    },
+                    onError: { e in
+                    }
+            )
             await MainActor.run {
                 isError = true
                 isLoading = false
             }
         }
+
     }
 
     private func loadCards() async {

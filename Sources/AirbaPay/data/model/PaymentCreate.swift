@@ -8,7 +8,6 @@ struct PaymentCreateRequest: Encodable {
     var accountId: String?
     var invoiceId: String?
     var orderNumber: String?
-    var cardId: String?
 
     var language: String?
     var phone: String?
@@ -20,7 +19,6 @@ struct PaymentCreateRequest: Encodable {
     var successCallback: String?
     var amount: Double?
 
-    var cardSave: Bool?
     var settlement: SettlementPaymentsRequest?
     var autoCharge: Int = 0
     var currency: String = "KZT"
@@ -32,7 +30,6 @@ struct PaymentCreateRequest: Encodable {
         case accountId = "account_id"
         case invoiceId = "invoice_id"
         case orderNumber = "order_number"
-        case cardId = "card_id"
 
         case language = "language"
         case email = "email"
@@ -44,7 +41,6 @@ struct PaymentCreateRequest: Encodable {
         case successCallback = "success_callback"
         case amount = "amount"
 
-        case cardSave = "card_save"
         case settlement = "settlement"
         case autoCharge = "auto_charge"
         case currency = "currency"

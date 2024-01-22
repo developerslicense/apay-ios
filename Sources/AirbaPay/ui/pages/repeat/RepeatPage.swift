@@ -79,9 +79,3 @@ struct RepeatPage: View {
 }
 
 
-struct RepeatPage_Previews: PreviewProvider {
-    static var previews: some View {
-        RepeatPage(navigateCoordinator: AirbaPayCoordinator())
-    }
-}
-

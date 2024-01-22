@@ -48,7 +48,16 @@ struct HomePage: View {
                     ViewToolbar(
                             title: paymentOfPurchase(),
                             actionClickBack: {
-                                showDialogExit = true
+                                if (
+                                           viewModel.dateExpiredText.isEmpty
+                                                   && viewModel.cardNumberText.isEmpty
+                                                   && viewModel.cvvText.isEmpty
+                                   ) {
+                                    navigateCoordinator.backToStartPage()
+                                }
+                                else {
+                                    showDialogExit = true
+                                }
                             }
                     )
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -140,7 +149,7 @@ struct HomePage: View {
                 )
                 .onTapGesture(perform: { showDialogExit = false })
                 .sheet(isPresented: $sheetState) {
-                    CvvBottomSheet()
+                    CvvBottomSheet(actionClose: { sheetState.toggle() } )
                 }
                 .overlay(
                         ViewButton(
@@ -181,7 +190,10 @@ struct HomePage: View {
                                 isLoading: { isLoading in
                                     viewModel.isLoading = isLoading
                                 },
-                                cardId: selectedCardId!,
+                                saveCard: viewModel.switchSaveCard,
+                                cardNumber: viewModel.cardNumberText,
+                                dateExpired: viewModel.dateExpiredText,
+                                cvv: viewModel.cvvText,
                                 navigateCoordinator: navigateCoordinator
                         )
 

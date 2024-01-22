@@ -6,8 +6,7 @@ import Foundation
 import SwiftUI
 
 struct CvvBottomSheet: View {
-//    @Environment(\.dismiss) var dismiss
-
+    var actionClose: () -> Void
     @State var presentSheet: Bool = false
     @State var detentHeight: CGFloat = 0
 
@@ -18,7 +17,7 @@ struct CvvBottomSheet: View {
                         InitHeader(
                                 title: "CVV",
                                 actionClose: {
-//                                dismiss()
+                                    actionClose()
                                 }
                         )
 
@@ -48,7 +47,7 @@ struct CvvBottomSheet: View {
                         InitHeader(
                                 title: "CVV",
                                 actionClose: {
-//                                dismiss()
+                                    actionClose()
                                 }
                         )
 
@@ -61,14 +60,10 @@ struct CvvBottomSheet: View {
                                 .textStyleRegular()
                                 .padding(.horizontal, 16)
                                 .padding(.bottom, 32)
+                        Spacer()
 
                     }
-                            .readHeight()
-                            .onPreferenceChange(HeightPreferenceKey.self) { height in
-                                if let height {
-                                    self.detentHeight = height
-                                }
-                            }
+
             )
         }
     }
