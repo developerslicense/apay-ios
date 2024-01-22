@@ -23,8 +23,6 @@ struct StartProcessingView: View {
 
     @State var detentHeight: CGFloat = 0
 
-    private let toastOptions = SimpleToastOptions(hideAfter: 5)
-
     var body: some View {
         ColorsSdk.bgBlock.overlay(
                         ZStack {
@@ -111,9 +109,10 @@ struct StartProcessingView: View {
                                 actionClose: {
                                     sheetState.toggle()
                                 },
-                                actionClickInfo: { }, //todo
-                                cardMasked: viewModel.selectedCard?.getMaskedPanClearedWithPoint() ?? "",
+                                isLoading: { b in isLoading = b },
+                                toggleCvv: { sheetState.toggle() },
                                 navigateCoordinator: navigateCoordinator,
+                                viewModel: viewModel,
                                 editTextViewModel: cvvEditTextViewModel
                         )
                                 .presentationDetents([.medium])
@@ -124,23 +123,17 @@ struct StartProcessingView: View {
                                 actionClose: {
                                     sheetState.toggle()
                                 },
-                                actionClickInfo: { }, //todo
-                                cardMasked: viewModel.selectedCard?.getMaskedPanClearedWithPoint() ?? "",
+                                isLoading: { b in isLoading = b },
+                                toggleCvv: { sheetState.toggle() },
                                 navigateCoordinator: navigateCoordinator,
+                                viewModel: viewModel,
                                 editTextViewModel: cvvEditTextViewModel
                         )
 
                     }
 
                 }
-                .simpleToast(isPresented: $showToast, options: toastOptions) {
-                    Label(accessToCardRestricted(), systemImage: "icAdd")
-                            .padding()
-                            .background(Color.gray.opacity(0.9))
-                            .foregroundColor(Color.white)
-                            .cornerRadius(10)
-                            .padding(.top)
-                }
+
     }
 }
 

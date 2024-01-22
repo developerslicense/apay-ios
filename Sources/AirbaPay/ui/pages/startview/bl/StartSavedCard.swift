@@ -37,7 +37,7 @@ func startSavedCard(
                     navigateCoordinator.openAcquiring(redirectUrl: result.secure3D?.action)
 
                 } else {
-                    navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+                    navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_5006.code)
                 }
             }
         } else {
