@@ -11,7 +11,6 @@ import SimpleToast
 struct EnterCvvBottomSheet: View {
     var actionClose: () -> Void
     var isLoading: (Bool) -> Void
-    var toggleCvv: () -> Void
 
     var navigateCoordinator: AirbaPayCoordinator
     @StateObject var viewModel = StartProcessingViewModel()
@@ -68,12 +67,11 @@ struct EnterCvvBottomSheet: View {
                     title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
                     actionClick: {
                         if editTextViewModel.text.count == 3 {
-                            toggleCvv()
+                            actionClose()
                             startSavedCard(
                                     cardId: viewModel.selectedCard?.id ?? "",
                                     cvv: editTextViewModel.text,
                                     isLoading: isLoading,
-                                    showCvv: toggleCvv,
                                     navigateCoordinator: navigateCoordinator
                             )
                         } else {

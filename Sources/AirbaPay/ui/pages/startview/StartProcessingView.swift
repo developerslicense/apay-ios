@@ -64,7 +64,7 @@ struct StartProcessingView: View {
                                     InitViewStartProcessingButtonNext(
                                             navigateCoordinator: navigateCoordinator,
                                             viewModel: viewModel,
-                                            showCvv: { sheetState.toggle() },
+                                            toggleCvv: { sheetState.toggle() },
                                             isLoading: { b in
                                                 isLoading = b
                                             },
@@ -84,23 +84,33 @@ struct StartProcessingView: View {
                 )
                 .onAppear {
 
+                    if DataHolder.isAuthenticated {
+                        Task {
+                            await viewModel.authAndLoadData()
+                            isLoading = false
+                            isAuthenticated = true
 
-                    airbaPayBiometricAuthenticate(
-                            onSuccess: {
-                                Task {
-                                    await viewModel.authAndLoadData()
-                                    isAuthenticated = true
-                                    isLoading = false
+                        }
+                    } else {
 
+                        airbaPayBiometricAuthenticate(
+                                onSuccess: {
+                                    Task {
+                                        await viewModel.authAndLoadData()
+                                        isAuthenticated = true
+                                        DataHolder.isAuthenticated = true
+                                        isLoading = false
+
+                                    }
+                                },
+                                onError: {
+                                    Task {
+                                        await viewModel.authAndLoadData()
+                                        isLoading = false
+                                    }
                                 }
-                            },
-                            onError: {
-                                Task {
-                                    await viewModel.authAndLoadData()
-                                    isLoading = false
-                                }
-                            }
-                    )
+                        )
+                    }
 
                 }
                 .sheet(isPresented: $sheetState) {
@@ -110,7 +120,6 @@ struct StartProcessingView: View {
                                     sheetState.toggle()
                                 },
                                 isLoading: { b in isLoading = b },
-                                toggleCvv: { sheetState.toggle() },
                                 navigateCoordinator: navigateCoordinator,
                                 viewModel: viewModel,
                                 editTextViewModel: cvvEditTextViewModel
@@ -124,7 +133,6 @@ struct StartProcessingView: View {
                                     sheetState.toggle()
                                 },
                                 isLoading: { b in isLoading = b },
-                                toggleCvv: { sheetState.toggle() },
                                 navigateCoordinator: navigateCoordinator,
                                 viewModel: viewModel,
                                 editTextViewModel: cvvEditTextViewModel

@@ -47,4 +47,24 @@ func paymentSavedCardService(
     }
 }
 
+func paymentGetCvv(
+        cardId: String
+) async -> GetCvvResponse? {
+
+    do {
+        let data = try await NetworkManager.shared.get(
+                path: "api/v1/payments/cvv/" + cardId,
+                parameters: nil
+        )
+
+        let result: GetCvvResponse = try Api.parseData(data: data)
+        return result
+
+    } catch let error {
+        print(error.localizedDescription)
+
+        return nil
+    }
+}
+
 
