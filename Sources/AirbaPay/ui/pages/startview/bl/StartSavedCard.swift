@@ -6,17 +6,43 @@
 
 import Foundation
 
+func checkNeedCvv(
+        cardId: String,
+        isLoading: @escaping (Bool) -> Void,
+        toggleCvv: @escaping () -> Void,
+        navigateCoordinator: AirbaPayCoordinator
+) {
+    Task {
+        if let result = await paymentGetCvv(cardId: cardId) {
+            if (result.requestCvv! == true) {
+                toggleCvv()
+            } else {
+                startSavedCard(
+                        cardId: cardId,
+                        cvv: nil,
+                        isLoading: isLoading,
+                        navigateCoordinator: navigateCoordinator
+                )
+            }
+        } else {
+            DispatchQueue.main.async {
+                isLoading(false)
+                navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_5006.code)
+            }
+        }
+    }
+}
+
 func startSavedCard(
         cardId: String,
-        cvv: String,
+        cvv: String?,
         isLoading: @escaping (Bool) -> Void,
-        showCvv: @escaping () -> Void,
         navigateCoordinator: AirbaPayCoordinator
 ) {
     isLoading(true)
 
     Task {
-        let params = PaymentSavedCardRequest(cvv: cvv)
+        let params = PaymentSavedCardRequest(cvv: cvv ?? "")
 
         if let result = await paymentSavedCardService(
                 cardId: cardId,
@@ -25,11 +51,8 @@ func startSavedCard(
             DispatchQueue.main.async {
                 isLoading(false)
 
-                if result.status == "new" {
-                    showCvv()
-
-                } else if result.status == "success"
-                                  || result.status == "auth" {
+                if result.status == "success"
+                           || result.status == "auth" {
                     navigateCoordinator.openSuccess()
 
 
@@ -41,7 +64,10 @@ func startSavedCard(
                 }
             }
         } else {
-            DispatchQueue.main.async { navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code) }
+            DispatchQueue.main.async {
+                isLoading(false)
+                navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_5006.code)
+            }
         }
     }
 }

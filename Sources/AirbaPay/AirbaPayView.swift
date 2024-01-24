@@ -28,11 +28,7 @@ public class AirbaPayCoordinator: ObservableObject {
     }
 
     public func startProcessing() {
-        path.append(
-                StartProcessingView(
-                        navigateCoordinator: self
-                )
-        )
+        path.append(StartProcessingView(navigateCoordinator: self))
     }
 
     public func openHome() {
@@ -41,9 +37,10 @@ public class AirbaPayCoordinator: ObservableObject {
     }
 
     public func backToStartPage() {
-        while path.count > 1 {
+        while path.count > 0 {
             path.removeLast()
         }
+        startProcessing()
     }
 
     public func backToApp(
@@ -65,11 +62,6 @@ public class AirbaPayCoordinator: ObservableObject {
         path.append(AcquiringPage(navigateCoordinator: self, redirectUrl: redirectUrl))
     }
 
-    public func openApplePay(redirectUrl: String?) {
-        actionOnOpenProcessing()
-//        path.append(ApplePayPage(redirectUrl: redirectUrl, navigateCoordinator: self))
-    }
-
     public func openSuccess() {
         path.append(SuccessPage(navigateCoordinator: self, customView: customSuccessPageView))
     }
@@ -79,6 +71,7 @@ public class AirbaPayCoordinator: ObservableObject {
     }
 
     public func openErrorPageWithCondition(errorCode: Int?) {
+        backToStartPage()
         let error = ErrorsCode(code: errorCode ?? 1).getError()
 
         if (error == ErrorsCode().error_1) {

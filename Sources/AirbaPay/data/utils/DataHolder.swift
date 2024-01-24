@@ -40,4 +40,5 @@ class DataHolder {
     static var moduleBundle: Bundle? = Bundle.module
 
     static var redirectToCustomSuccessPage: (() -> Void)? = nil
+    static var isAuthenticated: Bool = false
 }

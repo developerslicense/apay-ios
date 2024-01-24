@@ -8,7 +8,7 @@ import SwiftUI
 struct InitViewStartProcessingButtonNext: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     @StateObject var viewModel = StartProcessingViewModel()
-    var showCvv: () -> Void
+    var toggleCvv: () -> Void
     var isLoading: (Bool) -> Void
     var isAuthenticated: Bool = true
     var needTopPadding: Bool = true
@@ -20,11 +20,10 @@ struct InitViewStartProcessingButtonNext: View {
             ViewButton(
                     title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
                     actionClick: {
-                        startSavedCard(
+                        checkNeedCvv(
                                 cardId: viewModel.selectedCard?.id ?? "",
-                                cvv: viewModel.selectedCard?.cvv ?? "",
                                 isLoading: isLoading,
-                                showCvv: showCvv,
+                                toggleCvv: toggleCvv,
                                 navigateCoordinator: navigateCoordinator
                         )
                     }
