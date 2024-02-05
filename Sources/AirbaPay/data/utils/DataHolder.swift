@@ -42,5 +42,5 @@ class DataHolder {
     static var featureApplePay: Bool = false
     static var featureSavedCards: Bool = false
 
-    static var googlePayButtonUrl: String? = nil
+    static var applePayButtonUrl: String? = nil
 }

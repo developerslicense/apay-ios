@@ -29,10 +29,6 @@ class StartProcessingViewModel: ObservableObject {
         )
 
         if let res = await authService(params: authParams) {
-            await MainActor.run {
-                DataHolder.accessToken = res.accessToken
-
-            }
             await startCreatePayment(
                     onSuccess: { result in
                         DispatchQueue.main.async {

@@ -18,10 +18,6 @@ func startCreatePayment(
         )
 
         if let res = await authService(params: authParams) {
-            await MainActor.run {
-                DataHolder.accessToken = res.accessToken
-            }
-
             await onSuccessAuth(
                     onError: onError,
                     onSuccess: onSuccess
