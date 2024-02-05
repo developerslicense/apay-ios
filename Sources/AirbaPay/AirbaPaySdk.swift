@@ -115,15 +115,13 @@ public class AirbaPaySdk {
             invoiceId: String,
             orderNumber: String,
             goods: Array<Goods>,
-            settlementPayments: Array<SettlementPayment>? = nil,
-            needApplePay: Bool = true
+            settlementPayments: Array<SettlementPayment>? = nil
     ) {
         DataHolder.purchaseAmount = String(purchaseAmount)
         DataHolder.orderNumber = orderNumber
         DataHolder.invoiceId = invoiceId
         DataHolder.goods = goods
         DataHolder.settlementPayments = settlementPayments
-        DataHolder.needApplePay = needApplePay
 
         DataHolder.purchaseAmountFormatted = Money.initInt(amount: purchaseAmount).getFormatted()
     }

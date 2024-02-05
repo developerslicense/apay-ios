@@ -18,7 +18,6 @@ struct StartProcessingView: View {
     @State private var isAuthenticated: Bool = false
     @State private var showToast: Bool = false
     @State private var isLoading: Bool = true
-    @State private var needApplePay: Bool = false
     @State private var sheetState = false
 
     @State var detentHeight: CGFloat = 0
@@ -40,9 +39,9 @@ struct StartProcessingView: View {
                                     InitErrorState()
 
                                 } else {
-                                    InitViewStartProcessingAmount()
+                                    TopInfoView(purchaseAmount: DataHolder.purchaseAmountFormatted)
 
-                                    if DataHolder.needApplePay && viewModel.applePayUrl != nil {
+                                    if DataHolder.featureApplePay && viewModel.applePayUrl != nil {
                                         ApplePayPage(
                                                 redirectUrl: viewModel.applePayUrl,
                                                 navigateCoordinator: navigateCoordinator

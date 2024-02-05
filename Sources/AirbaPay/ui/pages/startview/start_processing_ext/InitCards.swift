@@ -12,10 +12,13 @@ struct InitViewStartProcessingCards: View {
 
     var body: some View {
         VStack {
-            Text(orPayWithCard())
-                    .foregroundColor(ColorsSdk.textLight)
-                    .textStyleRegular()
-                    .padding(.top, 32)
+            if DataHolder.featureApplePay {
+
+                Text(orPayWithCard())
+                        .foregroundColor(ColorsSdk.textLight)
+                        .textStyleRegular()
+                        .padding(.top, 32)
+            }
 
             LazyVStack {
                 ForEach(0...viewModel.savedCards.count - 1, id: \.self) { index in
