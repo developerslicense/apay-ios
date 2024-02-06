@@ -22,18 +22,15 @@ struct HomePage: View {
     @State var errorCardParserToast: Bool = false
     private let toastOptions = SimpleToastOptions(hideAfter: 5)
 
-    var selectedCardId: String? = nil
     var maskedPan: String? = nil
     var dateExpired: String? = nil
 
     init(
             @ObservedObject navigateCoordinator: AirbaPayCoordinator,
-            selectedCardId: String? = nil,
             maskedPan: String? = nil,
             dateExpired: String? = nil
     ) {
         self.navigateCoordinator = navigateCoordinator
-        self.selectedCardId = selectedCardId
         self.maskedPan = maskedPan
         self.dateExpired = dateExpired
     }
@@ -188,34 +185,6 @@ struct HomePage: View {
                             .cornerRadius(10)
                             .padding(.top)
                 }
-                .onAppear {
-
-                    if (selectedCardId != nil) {
-                        viewModel.isLoading = true
-
-                        if maskedPan != nil {
-                            cardNumberEditTextViewModel.changeText(text: maskedPan!)
-                        }
-                        if dateExpired != nil {
-                            dateExpiredEditTextViewModel.changeText(text: dateExpired!)
-                        }
-
-                        startPaymentProcessing(
-                                isLoading: { isLoading in
-                                    viewModel.isLoading = isLoading
-                                },
-                                saveCard: viewModel.switchSaveCard,
-                                cardNumber: viewModel.cardNumberText,
-                                dateExpired: viewModel.dateExpiredText,
-                                cvv: viewModel.cvvText,
-                                navigateCoordinator: navigateCoordinator
-                        )
-
-                    } else {
-                        viewModel.isLoading = false
-                    }
-                }
-
     }
 
     private func onClick() {

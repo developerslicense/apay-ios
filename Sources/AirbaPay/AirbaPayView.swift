@@ -71,7 +71,10 @@ public class AirbaPayCoordinator: ObservableObject {
     }
 
     public func openErrorPageWithCondition(errorCode: Int?) {
-        backToStartPage()
+        while path.count > 0 {
+            path.removeLast()
+        }
+
         let error = ErrorsCode(code: errorCode ?? 1).getError()
 
         if (error == ErrorsCode().error_1) {
