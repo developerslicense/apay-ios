@@ -34,7 +34,7 @@ func validateCardNumWithLuhnAlgorithm(
         number: String?
 ) -> Bool {
     let input = getNumberCleared(amount: number)
-    if ((input.count) < 16) {
+    if ((input.count) < 15) {
         return false
     }
 

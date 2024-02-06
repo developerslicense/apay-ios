@@ -14,6 +14,7 @@ func authService(params: AuthRequest) async -> AuthResponse? {
         )
 
         let result: AuthResponse = try Api.parseData(data: data)
+        DataHolder.accessToken = result.accessToken
         return result
 
     } catch let error {

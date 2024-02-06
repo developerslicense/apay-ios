@@ -53,7 +53,11 @@ struct HomePage: View {
                                                    && viewModel.cardNumberText.isEmpty
                                                    && viewModel.cvvText.isEmpty
                                    ) {
-                                    navigateCoordinator.backToStartPage()
+                                    if !DataHolder.featureSavedCards || !DataHolder.hasSavedCards {
+                                        navigateCoordinator.backToApp()
+                                    } else {
+                                        navigateCoordinator.backToStartPage()
+                                    }
                                 }
                                 else {
                                     showDialogExit = true
@@ -65,6 +69,16 @@ struct HomePage: View {
                     TopInfoView(purchaseAmount: DataHolder.purchaseAmountFormatted)
                             .padding(.top, 24)
                             .padding(.horizontal, 16)
+
+                    if DataHolder.featureApplePay {
+                        ApplePayPage(
+                                redirectUrl: DataHolder.applePayButtonUrl,
+                                navigateCoordinator: navigateCoordinator
+                        )
+                                .frame(width: .infinity, height: 48)
+                                .padding(.top, 16)
+                                .padding(.horizontal, 16)
+                    }
 
                     CardNumberView(
                             viewModel: viewModel,

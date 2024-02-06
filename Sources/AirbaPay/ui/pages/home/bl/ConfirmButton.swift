@@ -31,6 +31,8 @@ func startPaymentProcessing(
 
         if let entryResponse: PaymentEntryResponse = await paymentDefaultService(params: params) {
             DispatchQueue.main.async {
+                DataHolder.isApplePayFlow = false
+
                 if (entryResponse.errorCode != 0) {
                     let error = ErrorsCode(code: entryResponse.errorCode ?? 1).getError()
                     navigateCoordinator.openErrorPageWithCondition(errorCode: error.code)

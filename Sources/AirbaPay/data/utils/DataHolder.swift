@@ -12,7 +12,6 @@ class DataHolder {
     static var sendTimeout = 60
 
     static var isProd = true
-    static var needApplePay = true
 
     static var bankCode: String? = nil
     static var accessToken: String? = nil
@@ -40,5 +39,10 @@ class DataHolder {
     static var moduleBundle: Bundle? = Bundle.module
 
     static var redirectToCustomSuccessPage: (() -> Void)? = nil
-    static var isAuthenticated: Bool = false
+    static var featureApplePay: Bool = false
+    static var featureSavedCards: Bool = false
+
+    static var applePayButtonUrl: String? = nil
+    static var isApplePayFlow: Bool = true
+    static var hasSavedCards: Bool = false
 }

@@ -10,38 +10,31 @@ struct InitViewStartProcessingButtonNext: View {
     @StateObject var viewModel = StartProcessingViewModel()
     var toggleCvv: () -> Void
     var isLoading: (Bool) -> Void
-    var isAuthenticated: Bool = true
     var needTopPadding: Bool = true
 
     var body: some View {
-        if (!viewModel.savedCards.isEmpty
-                && isAuthenticated
-           ) {
-            ViewButton(
-                    title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
-                    actionClick: {
-                        checkNeedCvv(
-                                cardId: viewModel.selectedCard?.id ?? "",
-                                isLoading: isLoading,
-                                toggleCvv: toggleCvv,
-                                navigateCoordinator: navigateCoordinator
-                        )
-                    }
-            )
-                    .padding(.horizontal, 16)
-                    .padding(.top, needTopPadding ? 16 : 0)
-                    .padding(.bottom, 32)
+        ViewButton(
+                title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
+                actionClick: {
+                    airbaPayBiometricAuthenticate(
+                            onSuccess: {
+                                DataHolder.isApplePayFlow = false
 
-        } else {
-            ViewButton(
-                    title: paymentByCard2(),
-                    actionClick: {
-                        navigateCoordinator.openHome()
-                    }
-            )
-                    .padding(.horizontal, 16)
-                    .padding(.top, 8)
-                    .padding(.bottom, 32)
-        }
+                                checkNeedCvv(
+                                        cardId: viewModel.selectedCard?.id ?? "",
+                                        isLoading: isLoading,
+                                        toggleCvv: toggleCvv,
+                                        navigateCoordinator: navigateCoordinator
+                                )
+
+                            }
+                    )
+                }
+        )
+                .padding(.horizontal, 16)
+                .padding(.top, needTopPadding ? 16 : 0)
+                .padding(.bottom, 32)
+
+
     }
 }

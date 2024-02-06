@@ -218,8 +218,8 @@ func orPayWithCard() -> String {
 
 func payAnotherCard() -> String {
     getStrFromRes(
-            payAnotherCardRu,
-            payAnotherCardKz
+            "Другая карта",
+            "Басқа карта"
     )
 }
 

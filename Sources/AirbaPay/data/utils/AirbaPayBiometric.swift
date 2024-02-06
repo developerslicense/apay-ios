@@ -6,8 +6,7 @@ import Foundation
 import LocalAuthentication
 
 func airbaPayBiometricAuthenticate(
-        onSuccess: @escaping () -> Void,
-        onError: @escaping () -> Void
+        onSuccess: @escaping () -> Void
 ) {
     let context = LAContext()
     var error: NSError?
@@ -25,12 +24,8 @@ func airbaPayBiometricAuthenticate(
 
             if success {
                 onSuccess()
-            } else {
-                onError()
             }
         }
 
-    } else {
-        onError()
     }
 }

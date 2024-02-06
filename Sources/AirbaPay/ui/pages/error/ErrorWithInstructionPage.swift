@@ -87,7 +87,9 @@ struct ErrorWithInstructionPage: View {
         }
                 .overlay(
                         VStack {
-                            initTopButton()
+                            if !DataHolder.isApplePayFlow {
+                                initTopButton()
+                            }
                             initBottomButton()
                         },
                         alignment: .bottom
