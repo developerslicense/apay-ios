@@ -8,14 +8,14 @@ import Foundation
 import Combine
 import Alamofire
 
-func getMerchantInfoService() async -> [MerchantsResponse]? {
+func getMerchantInfoService() async -> MerchantsResponse? {
     do {
         let data = try await NetworkManager.shared.get(
                 path: "api/v1/merchants",
                 parameters: nil
         )
 
-        let result: [MerchantsResponse] = try Api.parseData(data: data)
+        let result: MerchantsResponse = try Api.parseData(data: data)
 
         return result
 
