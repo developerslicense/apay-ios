@@ -158,7 +158,10 @@ struct HomePage: View {
                                     )
                                 })
                 )
-                .onTapGesture(perform: { showDialogExit = false })
+                .onTapGesture(perform: {
+                    showDialogExit = false
+                    UIApplication.shared.endEditing()
+                })
                 .sheet(isPresented: $sheetState) {
                     CvvBottomSheet(actionClose: { sheetState.toggle() } )
                 }
