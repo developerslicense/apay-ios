@@ -16,7 +16,6 @@ struct StartProcessingView: View {
     var backgroundColor: Color = ColorsSdk.bgBlock
 
     @State private var showToast: Bool = false
-    @State private var isLoading: Bool = true
     @State private var sheetState = false
 
     @State var detentHeight: CGFloat = 0
@@ -67,7 +66,7 @@ struct StartProcessingView: View {
                                         viewModel: viewModel,
                                         toggleCvv: { sheetState.toggle() },
                                         isLoading: { b in
-                                            isLoading = b
+                                            viewModel.isLoading = b
                                         },
                                         needTopPadding: !viewModel.savedCards.isEmpty
                                 )
@@ -75,7 +74,7 @@ struct StartProcessingView: View {
                                     .frame(height: .infinity)
 
 
-                            if (isLoading) {
+                            if (viewModel.isLoading) {
                                 ColorsSdk.bgMain
                                 ProgressBarView()
                             }
@@ -98,7 +97,6 @@ struct StartProcessingView: View {
 
                                 }
                         )
-                        isLoading = false
 
                     }
 
@@ -110,7 +108,7 @@ struct StartProcessingView: View {
                                 actionClose: {
                                     sheetState.toggle()
                                 },
-                                isLoading: { b in isLoading = b },
+                                isLoading: { b in viewModel.isLoading = b },
                                 navigateCoordinator: navigateCoordinator,
                                 viewModel: viewModel,
                                 editTextViewModel: cvvEditTextViewModel
@@ -123,7 +121,7 @@ struct StartProcessingView: View {
                                 actionClose: {
                                     sheetState.toggle()
                                 },
-                                isLoading: { b in isLoading = b },
+                                isLoading: { b in viewModel.isLoading = b },
                                 navigateCoordinator: navigateCoordinator,
                                 viewModel: viewModel,
                                 editTextViewModel: cvvEditTextViewModel

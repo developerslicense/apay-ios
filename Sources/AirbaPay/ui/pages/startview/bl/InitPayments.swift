@@ -12,16 +12,11 @@ func initPayments(
 ) {
     Task {
         if let result = await createPaymentService() {
-            if (DataHolder.featureApplePay) {
-                authForApplePay(
-                        paymentCreateResponse: result,
-                        navigateCoordinator: navigateCoordinator,
-                        onApplePayResult: onApplePayResult
-                )
-
-            } else {
-                onApplePayResult(nil)
-            }
+            authWithPaymentIdAndForApplePay(
+                    paymentCreateResponse: result,
+                    navigateCoordinator: navigateCoordinator,
+                    onApplePayResult: onApplePayResult
+            )
 
         } else {
             navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
@@ -30,7 +25,7 @@ func initPayments(
 }
 
 
-private func authForApplePay(
+private func authWithPaymentIdAndForApplePay(
         paymentCreateResponse: PaymentCreateResponse,
         navigateCoordinator: AirbaPayCoordinator,
         onApplePayResult: @escaping (String?) -> Void
@@ -44,7 +39,13 @@ private func authForApplePay(
         )
 
         if let result = await authService(params: params) {
-            loadApplePayButton(onApplePayResult: onApplePayResult)
+            if (DataHolder.featureApplePay) {
+                loadApplePayButton(onApplePayResult: onApplePayResult)
+
+            } else {
+                onApplePayResult(nil)
+            }
+
         } else {
             navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
         }

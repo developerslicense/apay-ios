@@ -47,7 +47,12 @@ private func initPaymentsWithNextStep(
                     )
 
                 } else {
-                    navigateCoordinator.openHome()
+                    Task {
+                        await MainActor.run {
+                            viewModel.isLoading = false
+                            navigateCoordinator.openHome()
+                        }
+                    }
                 }
 
             },
@@ -63,17 +68,21 @@ private func fetchCards(
         if let result = await getCardsService(accountId: DataHolder.accountId) {
             await MainActor.run {
                 viewModel.savedCards = result
+                DataHolder.hasSavedCards = !result.isEmpty
+                viewModel.isLoading = false
 
                 if result.isEmpty {
                     navigateCoordinator.openHome()
                 } else {
                     viewModel.selectedCard = result[0]
-                    viewModel.isLoading = false
                 }
             }
 
         } else {
-            navigateCoordinator.openHome()
+            await MainActor.run {
+                viewModel.isLoading = false
+                navigateCoordinator.openHome()
+            }
         }
     }
 

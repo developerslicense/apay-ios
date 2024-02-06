@@ -44,4 +44,5 @@ class DataHolder {
 
     static var applePayButtonUrl: String? = nil
     static var isApplePayFlow: Bool = true
+    static var hasSavedCards: Bool = false
 }
