@@ -12,8 +12,8 @@ func fetchMerchantsWithNextStep(
 ) {
     Task {
         if let result = await getMerchantInfoService() {
-            DataHolder.featureSavedCards = result.configuration?.renderSaveCards ?? false
-            DataHolder.featureApplePay = result.configuration?.renderApplePayButton ?? false
+            DataHolder.featureSavedCards = result.config?.renderSaveCards ?? false
+            DataHolder.featureApplePay = result.config?.renderApplePayButton ?? false
 
         }
 
