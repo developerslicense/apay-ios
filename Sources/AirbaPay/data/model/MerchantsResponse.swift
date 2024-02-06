@@ -7,16 +7,16 @@
 import Foundation
 
 struct MerchantsResponse: Codable {
-    
-    var configuration: Configuration? = nil
+
+    var configuration: MerchantConfiguration? = nil
 
     enum CodingKeys: String, CodingKey {
         case configuration = "configuration"
     }
 }
 
-struct Configuration: Codable {
-    
+struct MerchantConfiguration: Codable {
+
     var saveCard: Bool? = nil
     var renderSaveCards: Bool? = nil
     var renderApplePayButton: Bool? = nil

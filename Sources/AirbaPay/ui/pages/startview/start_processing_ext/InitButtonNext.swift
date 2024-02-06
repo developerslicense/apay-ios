@@ -16,7 +16,7 @@ struct InitViewStartProcessingButtonNext: View {
         ViewButton(
                 title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
                 actionClick: {
-                    initAuth(
+                    airbaPayBiometricAuthenticate(
                             onSuccess: {
                                 checkNeedCvv(
                                         cardId: viewModel.selectedCard?.id ?? "",
