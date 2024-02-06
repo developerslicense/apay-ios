@@ -8,10 +8,10 @@ import Foundation
 
 struct MerchantsResponse: Codable {
 
-    var configuration: MerchantConfiguration? = nil
+    var config: MerchantConfiguration? = nil
 
     enum CodingKeys: String, CodingKey {
-        case configuration = "configuration"
+        case config = "configuration"
     }
 }
 
