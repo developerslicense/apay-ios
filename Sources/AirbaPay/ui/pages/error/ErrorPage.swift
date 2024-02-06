@@ -55,7 +55,9 @@ struct ErrorPage: View {
         }
                 .overlay(
                         VStack {
-                            initTopButton()
+                            if !DataHolder.isApplePayFlow {
+                                initTopButton()
+                            }
                             initBottomButton()
                         },
                         alignment: .bottom

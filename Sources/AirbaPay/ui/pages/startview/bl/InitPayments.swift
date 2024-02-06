@@ -33,19 +33,18 @@ func initPayments(
 private func authForApplePay(
         paymentCreateResponse: PaymentCreateResponse,
         navigateCoordinator: AirbaPayCoordinator,
-        onApplePayResult: (String?) -> Void
+        onApplePayResult: @escaping (String?) -> Void
 ) {
     Task {
         let params = AuthRequest(
-
+                password: DataHolder.password,
+                paymentId: paymentCreateResponse.id,
+                terminalId: DataHolder.terminalId,
+                user: DataHolder.shopId
         )
 
         if let result = await authService(params: params) {
-            loadApplePayButton(
-                    onApplePayResult: { url in
-
-                    }
-            )
+            loadApplePayButton(onApplePayResult: onApplePayResult)
         } else {
             navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
         }

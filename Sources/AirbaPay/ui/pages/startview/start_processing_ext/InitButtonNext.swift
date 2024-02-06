@@ -18,6 +18,8 @@ struct InitViewStartProcessingButtonNext: View {
                 actionClick: {
                     airbaPayBiometricAuthenticate(
                             onSuccess: {
+                                DataHolder.isApplePayFlow = false
+
                                 checkNeedCvv(
                                         cardId: viewModel.selectedCard?.id ?? "",
                                         isLoading: isLoading,

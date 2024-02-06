@@ -84,7 +84,7 @@ struct StartProcessingView: View {
 
                 )
                 .onAppear {
-
+                    DataHolder.isApplePayFlow = true
                     Task {
                         await viewModel.authAndLoadData(
                                 onSuccess: {

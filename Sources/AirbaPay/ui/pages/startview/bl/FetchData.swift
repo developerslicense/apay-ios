@@ -15,17 +15,12 @@ func fetchMerchantsWithNextStep(
             DataHolder.featureSavedCards = result.configuration?.renderSaveCards ?? false
             DataHolder.featureApplePay = result.configuration?.renderApplePayButton ?? false
 
-            initPaymentsWithNextStep(
-                    viewModel: viewModel,
-                    navigateCoordinator: navigateCoordinator
-            )
-
-        } else {
-            initPaymentsWithNextStep(
-                    viewModel: viewModel,
-                    navigateCoordinator: navigateCoordinator
-            )
         }
+
+        initPaymentsWithNextStep(
+                viewModel: viewModel,
+                navigateCoordinator: navigateCoordinator
+        )
     }
 }
 
@@ -81,5 +76,6 @@ private func fetchCards(
             navigateCoordinator.openHome()
         }
     }
+
 }
  
