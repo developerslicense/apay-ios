@@ -50,6 +50,6 @@ class DataHolder {
 }
 
 public class TestAirbaPayStates {
-    static var shutDownTestFeatureApplePay: Bool = false
-    static var shutDownTestFeatureSavedCards: Bool = false
+    public static var shutDownTestFeatureApplePay: Bool = false
+    public static var shutDownTestFeatureSavedCards: Bool = false
 }
