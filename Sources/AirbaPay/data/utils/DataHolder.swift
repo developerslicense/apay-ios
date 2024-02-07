@@ -49,7 +49,7 @@ class DataHolder {
     static var autoCharge: Int = 0
 }
 
-class TestAirbaPayStates {
+public class TestAirbaPayStates {
     static var shutDownTestFeatureApplePay: Bool = false
     static var shutDownTestFeatureSavedCards: Bool = false
 }
