@@ -17,6 +17,10 @@ actor NetworkManager: GlobalActor {
         try await executeRequestParameters(method: .get, path: path, parameters: parameters)
     }
 
+    func delete(path: String, parameters: Parameters?) async throws -> Data {
+        try await executeRequestParameters(method: .delete, path: path, parameters: parameters)
+    }
+
     func put(path: String, parameters: Encodable?) async throws -> Data {
         if (parameters == nil) {
             return try await executeRequestParameters(method: .put, path: path, parameters: nil)

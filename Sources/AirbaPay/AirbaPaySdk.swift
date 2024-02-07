@@ -69,7 +69,8 @@ public class AirbaPaySdk {
             failureCallback: String,
             successCallback: String,
             colorBrandMain: Color? = nil,
-            colorBrandInversion: Color? = nil
+            colorBrandInversion: Color? = nil,
+            autoCharge: Int = 0
     ) {
 
         if (colorBrandInversion != nil) {
@@ -105,6 +106,7 @@ public class AirbaPaySdk {
         DataHolder.shopId = shopId
         DataHolder.password = password
         DataHolder.terminalId = terminalId
+        DataHolder.autoCharge = autoCharge
 
         DataHolder.currentLang = lang
 

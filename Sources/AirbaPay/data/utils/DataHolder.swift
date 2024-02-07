@@ -36,7 +36,8 @@ class DataHolder {
 
     static var purchaseAmountFormatted: String = ""
 
-    static var moduleBundle: Bundle? = Bundle.module
+    static var moduleBundle: Bundle?
+            = Bundle.module /** в случае, если переносишь код в приложение, указывай Bundle.main*/
 
     static var redirectToCustomSuccessPage: (() -> Void)? = nil
     static var featureApplePay: Bool = false
@@ -45,4 +46,10 @@ class DataHolder {
     static var applePayButtonUrl: String? = nil
     static var isApplePayFlow: Bool = true
     static var hasSavedCards: Bool = false
+    static var autoCharge: Int = 0
+}
+
+class TestAirbaPayStates {
+    static var shutDownTestFeatureApplePay: Bool = false
+    static var shutDownTestFeatureSavedCards: Bool = false
 }
