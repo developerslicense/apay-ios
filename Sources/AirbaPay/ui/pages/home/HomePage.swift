@@ -18,7 +18,6 @@ struct HomePage: View {
     @State var showCardScanner: Bool = false
 
     @State private var sheetState = false
-    @State var saveCardToast: Bool = false
     @State var errorCardParserToast: Bool = false
     private let toastOptions = SimpleToastOptions(hideAfter: 5)
 
@@ -107,18 +106,16 @@ struct HomePage: View {
                             .padding(.horizontal, 16)
                             .frame(width: .infinity)
 
-                    SwitchedView(
-                            text: saveCardData(),
-                            switchCheckedState: switchSaveCard,
-                            actionOnChanged: { isSwitched in
-                                if isSwitched {
-                                    withAnimation { saveCardToast.toggle() }
+                    if DataHolder.featureSavedCards {
+                        SwitchedView(
+                                text: saveCardData(),
+                                switchCheckedState: switchSaveCard,
+                                actionOnChanged: { isSwitched in
+                                    viewModel.switchSaveCard = isSwitched
                                 }
-
-                                viewModel.switchSaveCard = isSwitched
-                            }
-                    )
-                            .padding(.top, 24)
+                        )
+                                .padding(.top, 24)
+                    }
 
 
                     BottomImages()

@@ -47,6 +47,7 @@ private func initParamsForCreatePayment() -> PaymentCreateRequest {
             settlement: DataHolder.settlementPayments != nil
                     ? SettlementPaymentsRequest(payments: DataHolder.settlementPayments!)
                     : nil,
+            autoCharge: DataHolder.autoCharge,
             cart: DataHolder.goods!
     )
 }
