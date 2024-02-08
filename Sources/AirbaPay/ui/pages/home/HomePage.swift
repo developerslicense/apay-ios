@@ -17,7 +17,7 @@ struct HomePage: View {
     @State var switchSaveCard: Bool = false
     @State var showCardScanner: Bool = false
 
-    @State private var sheetState = false
+    @State var cvvToast: Bool = false
     @State var errorCardParserToast: Bool = false
     private let toastOptions = SimpleToastOptions(
             alignment: .bottom,
@@ -102,7 +102,7 @@ struct HomePage: View {
                                 viewModel: viewModel,
                                 editTextViewModel: cvvEditTextViewModel,
                                 actionClickInfo: {
-                                    sheetState.toggle()
+                                    withAnimation { cvvToast.toggle() }
                                 }
                         )
                     }
@@ -125,7 +125,24 @@ struct HomePage: View {
                     BottomImages()
                             .padding(.top, 35)
                             .padding(.horizontal, 16)
+
+                    Spacer()
+
+                    ViewButton(
+                            title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
+                            actionClick: {
+                                if !viewModel.isLoading {
+                                    onClick()
+                                }
+                            },
+                            isVisible: !showCardScanner && !viewModel.isLoading && !showDialogExit
+                    )
+                            .frame(maxWidth: .infinity)
+                            .padding(.bottom, 24)
+                            .padding(.horizontal, 16)
                 }
+                        .ignoresSafeArea(.keyboard)
+
             }
 
             if showCardScanner {
@@ -163,26 +180,16 @@ struct HomePage: View {
                     showDialogExit = false
                     UIApplication.shared.endEditing()
                 })
-                .sheet(isPresented: $sheetState) {
-                    CvvBottomSheet(actionClose: { sheetState.toggle() } )
-                }
-                .overlay(
-                        ViewButton(
-                                title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
-                                actionClick: {
-                                    if !viewModel.isLoading {
-                                        onClick()
-                                    }
-                                },
-                                isVisible: !showCardScanner && !viewModel.isLoading && !showDialogExit
-                        )
-                                .frame(maxWidth: .infinity)
-                                .padding(.bottom, 24)
-                                .padding(.horizontal, 16),
-                        alignment: .bottom
-                )
                 .simpleToast(isPresented: $errorCardParserToast, options: toastOptions) {
                     Label(cardParserCancel(), systemImage: "icAdd")
+                            .padding()
+                            .background(Color.gray.opacity(0.9))
+                            .foregroundColor(Color.white)
+                            .cornerRadius(10)
+                            .padding(.top)
+                }
+                .simpleToast(isPresented: $cvvToast, options: toastOptions) {
+                    Label(cvvInfo(), systemImage: "icAdd")
                             .padding()
                             .background(Color.gray.opacity(0.9))
                             .foregroundColor(Color.white)
