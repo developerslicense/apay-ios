@@ -52,7 +52,6 @@ struct EnterCvvBottomSheet: View {
                     .padding(.top, 16)
 
 
-
             ViewEditText(
                     viewModel: editTextViewModel,
                     errorTitle: cvvError,
@@ -96,6 +95,5 @@ struct EnterCvvBottomSheet: View {
                             .cornerRadius(10)
                             .padding(.top)
                 }
-//        }
     }
 }
