@@ -18,7 +18,10 @@ struct EnterCvvBottomSheet: View {
     @State var cvvToast: Bool = false
     @State var cvvError: String? = nil
 
-    private let toastOptions = SimpleToastOptions(hideAfter: 5)
+    private let toastOptions = SimpleToastOptions(
+            alignment: .bottom,
+            hideAfter: 5
+    )
 
     var body: some View {
 

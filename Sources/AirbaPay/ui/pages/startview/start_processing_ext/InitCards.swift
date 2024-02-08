@@ -12,13 +12,6 @@ struct InitViewStartProcessingCards: View {
 
     var body: some View {
         VStack {
-            if DataHolder.featureApplePay {
-
-                Text(orPayWithCard())
-                        .foregroundColor(ColorsSdk.textLight)
-                        .textStyleRegular()
-                        .padding(.top, 32)
-            }
 
             LazyVStack {
                 ForEach(0...viewModel.savedCards.count - 1, id: \.self) { index in
@@ -34,7 +27,7 @@ struct InitViewStartProcessingCards: View {
                     )
                 }
             }
-                    .padding(.horizontal, 16)
+                    .padding(.top, 32)
 
             InitViewStartProcessingPayWithNewCard(
                     actionClick: {

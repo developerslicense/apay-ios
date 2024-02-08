@@ -19,7 +19,10 @@ struct HomePage: View {
 
     @State private var sheetState = false
     @State var errorCardParserToast: Bool = false
-    private let toastOptions = SimpleToastOptions(hideAfter: 5)
+    private let toastOptions = SimpleToastOptions(
+            alignment: .bottom,
+            hideAfter: 5
+    )
 
     var maskedPan: String? = nil
     var dateExpired: String? = nil
@@ -42,7 +45,7 @@ struct HomePage: View {
             GeometryReader { metrics in
                 VStack {
                     ViewToolbar(
-                            title: paymentOfPurchase(),
+                            title: paymentByCard(),
                             actionClickBack: {
                                 if (
                                            viewModel.dateExpiredText.isEmpty
@@ -66,7 +69,7 @@ struct HomePage: View {
                             .padding(.top, 24)
                             .padding(.horizontal, 16)
 
-                    if DataHolder.featureApplePay {
+                    if DataHolder.featureApplePay && !DataHolder.hasSavedCards {
                         ApplePayPage(
                                 redirectUrl: DataHolder.applePayButtonUrl,
                                 navigateCoordinator: navigateCoordinator
@@ -103,6 +106,7 @@ struct HomePage: View {
                                 }
                         )
                     }
+                            .padding(.top, 8)
                             .padding(.horizontal, 16)
                             .frame(width: .infinity)
 

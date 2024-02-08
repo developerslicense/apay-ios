@@ -25,5 +25,6 @@ struct BottomImages: View {
                     .frame(width: 32, height: 32)
         }
                 .frame(maxWidth: .infinity)
+                .opacity(0.5)
     }
 }
