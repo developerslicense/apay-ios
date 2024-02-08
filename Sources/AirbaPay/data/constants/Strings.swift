@@ -82,18 +82,10 @@ func payAmount() -> String {
 
 func cvvInfo() -> String {
     getStrFromRes(
-            "CVV находится на задней стороне",
-            "CVV төлем картаңыздың артында"
+            "CVV находится на задней стороне вашей платежной карты",
+            "CVV төлем картаңыздың артында орналасқан"
     )
 }
-
-func cvvInfo2() -> String {
-    getStrFromRes(
-            "вашей платежной карты",
-            "орналасқан"
-    )
-}
-
 
 func cardDataSaved() -> String {
     getStrFromRes("Данные карты сохранены", "Карта деректері сақталды")
@@ -264,3 +256,4 @@ func cvvEnter() -> String  {
             "CVV енгізу"
     )
 }
+

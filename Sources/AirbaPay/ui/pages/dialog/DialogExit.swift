@@ -60,7 +60,7 @@ struct DialogExit: View {
                 }
                         .background(ColorsSdk.bgBlock)
                         .cornerRadius(8)
-                        .padding(.horizontal, 24)
+                        .padding(.horizontal, 16)
                         .frame(alignment: .center)
             }
         }

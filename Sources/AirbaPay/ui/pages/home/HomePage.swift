@@ -17,9 +17,12 @@ struct HomePage: View {
     @State var switchSaveCard: Bool = false
     @State var showCardScanner: Bool = false
 
-    @State private var sheetState = false
+    @State var cvvToast: Bool = false
     @State var errorCardParserToast: Bool = false
-    private let toastOptions = SimpleToastOptions(hideAfter: 5)
+    private let toastOptions = SimpleToastOptions(
+            alignment: .bottom,
+            hideAfter: 5
+    )
 
     var maskedPan: String? = nil
     var dateExpired: String? = nil
@@ -42,7 +45,7 @@ struct HomePage: View {
             GeometryReader { metrics in
                 VStack {
                     ViewToolbar(
-                            title: paymentOfPurchase(),
+                            title: paymentByCard(),
                             actionClickBack: {
                                 if (
                                            viewModel.dateExpiredText.isEmpty
@@ -66,7 +69,7 @@ struct HomePage: View {
                             .padding(.top, 24)
                             .padding(.horizontal, 16)
 
-                    if DataHolder.featureApplePay {
+                    if DataHolder.featureApplePay && !DataHolder.hasSavedCards {
                         ApplePayPage(
                                 redirectUrl: DataHolder.applePayButtonUrl,
                                 navigateCoordinator: navigateCoordinator
@@ -99,10 +102,11 @@ struct HomePage: View {
                                 viewModel: viewModel,
                                 editTextViewModel: cvvEditTextViewModel,
                                 actionClickInfo: {
-                                    sheetState.toggle()
+                                    withAnimation { cvvToast.toggle() }
                                 }
                         )
                     }
+                            .padding(.top, 8)
                             .padding(.horizontal, 16)
                             .frame(width: .infinity)
 
@@ -121,7 +125,24 @@ struct HomePage: View {
                     BottomImages()
                             .padding(.top, 35)
                             .padding(.horizontal, 16)
+
+                    Spacer()
+
+                    ViewButton(
+                            title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
+                            actionClick: {
+                                if !viewModel.isLoading {
+                                    onClick()
+                                }
+                            },
+                            isVisible: !showCardScanner && !viewModel.isLoading && !showDialogExit
+                    )
+                            .frame(maxWidth: .infinity)
+                            .padding(.bottom, 24)
+                            .padding(.horizontal, 16)
                 }
+                        .ignoresSafeArea(.keyboard)
+
             }
 
             if showCardScanner {
@@ -159,26 +180,16 @@ struct HomePage: View {
                     showDialogExit = false
                     UIApplication.shared.endEditing()
                 })
-                .sheet(isPresented: $sheetState) {
-                    CvvBottomSheet(actionClose: { sheetState.toggle() } )
-                }
-                .overlay(
-                        ViewButton(
-                                title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
-                                actionClick: {
-                                    if !viewModel.isLoading {
-                                        onClick()
-                                    }
-                                },
-                                isVisible: !showCardScanner && !viewModel.isLoading && !showDialogExit
-                        )
-                                .frame(maxWidth: .infinity)
-                                .padding(.bottom, 24)
-                                .padding(.horizontal, 16),
-                        alignment: .bottom
-                )
                 .simpleToast(isPresented: $errorCardParserToast, options: toastOptions) {
                     Label(cardParserCancel(), systemImage: "icAdd")
+                            .padding()
+                            .background(Color.gray.opacity(0.9))
+                            .foregroundColor(Color.white)
+                            .cornerRadius(10)
+                            .padding(.top)
+                }
+                .simpleToast(isPresented: $cvvToast, options: toastOptions) {
+                    Label(cvvInfo(), systemImage: "icAdd")
                             .padding()
                             .background(Color.gray.opacity(0.9))
                             .foregroundColor(Color.white)

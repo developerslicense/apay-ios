@@ -43,9 +43,7 @@ struct InitViewStartProcessingPayWithNewCard: View {
                                             .stroke(ColorsSdk.gray10, lineWidth: 1)
                             )
                             .frame(width: .infinity)
-                            .padding(.horizontal, 16)
 
                 }
-        )
-    }
+        )}
 }
