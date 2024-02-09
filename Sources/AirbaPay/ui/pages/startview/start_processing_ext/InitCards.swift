@@ -54,7 +54,7 @@ struct InitCard: View {
             HStack {
                 Image(card.typeIcon ?? "", bundle: DataHolder.moduleBundle)
 
-                Text(card.getMaskedPanCleared())
+                Text(card.getMaskedPanClearedWithPoint())
                         .textStyleSemiBold()
                         .padding(.leading, 16)
 
