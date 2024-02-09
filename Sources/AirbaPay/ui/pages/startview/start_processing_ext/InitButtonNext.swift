@@ -16,18 +16,11 @@ struct InitViewStartProcessingButtonNext: View {
         ViewButton(
                 title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
                 actionClick: {
-                    airbaPayBiometricAuthenticate(
-                            onSuccess: {
-                                DataHolder.isApplePayFlow = false
-
-                                checkNeedCvv(
-                                        cardId: viewModel.selectedCard?.id ?? "",
-                                        isLoading: isLoading,
-                                        toggleCvv: toggleCvv,
-                                        navigateCoordinator: navigateCoordinator
-                                )
-
-                            }
+                    checkNeedCvv(
+                            cardId: viewModel.selectedCard?.id ?? "",
+                            isLoading: isLoading,
+                            toggleCvv: toggleCvv,
+                            navigateCoordinator: navigateCoordinator
                     )
                 }
         )
