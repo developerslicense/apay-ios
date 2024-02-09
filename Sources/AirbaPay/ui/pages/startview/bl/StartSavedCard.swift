@@ -10,11 +10,12 @@ func checkNeedCvv(
         cardId: String,
         isLoading: @escaping (Bool) -> Void,
         toggleCvv: @escaping () -> Void,
-        navigateCoordinator: AirbaPayCoordinator
+        navigateCoordinator: AirbaPayCoordinator,
+        noAuth: Bool
 ) {
     Task {
         if let result = await paymentGetCvv(cardId: cardId) {
-            if (result.requestCvv! == true) {
+            if (result.requestCvv! == true || noAuth) {
                 toggleCvv()
             } else {
                 startSavedCard(

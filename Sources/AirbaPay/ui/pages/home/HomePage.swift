@@ -5,6 +5,7 @@
 import Foundation
 import SwiftUI
 import SimpleToast
+import LocalAuthentication
 
 struct HomePage: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
@@ -38,6 +39,8 @@ struct HomePage: View {
     }
 
     var body: some View {
+        let context = LAContext()
+
         ZStack {
             ColorsSdk.gray30
             ColorsSdk.bgBlock
@@ -69,7 +72,10 @@ struct HomePage: View {
                             .padding(.top, 24)
                             .padding(.horizontal, 16)
 
-                    if DataHolder.featureApplePay && !DataHolder.hasSavedCards {
+                    if DataHolder.featureApplePay
+                               && !DataHolder.hasSavedCards
+                               && context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
+                    {
                         ApplePayPage(
                                 redirectUrl: DataHolder.applePayButtonUrl,
                                 navigateCoordinator: navigateCoordinator

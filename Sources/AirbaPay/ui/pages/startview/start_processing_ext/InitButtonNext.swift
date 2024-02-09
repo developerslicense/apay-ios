@@ -24,9 +24,21 @@ struct InitViewStartProcessingButtonNext: View {
                                         cardId: viewModel.selectedCard?.id ?? "",
                                         isLoading: isLoading,
                                         toggleCvv: toggleCvv,
-                                        navigateCoordinator: navigateCoordinator
+                                        navigateCoordinator: navigateCoordinator,
+                                        noAuth: false
                                 )
 
+                            },
+                            onNotSecurity: {
+                                DataHolder.isApplePayFlow = false
+
+                                checkNeedCvv(
+                                        cardId: viewModel.selectedCard?.id ?? "",
+                                        isLoading: isLoading,
+                                        toggleCvv: toggleCvv,
+                                        navigateCoordinator: navigateCoordinator,
+                                        noAuth: true
+                                )
                             }
                     )
                 }
