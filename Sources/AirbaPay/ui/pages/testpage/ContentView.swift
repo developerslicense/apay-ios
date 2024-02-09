@@ -31,6 +31,8 @@ struct TestPage1: View {
 
                             Button(
                                     action: {
+                                        DataHolder.hasSavedCards = featureSavedCards
+
                                         TestAirbaPayStates.shutDownTestFeatureApplePay = !featureApplePay
                                         TestAirbaPayStates.shutDownTestFeatureSavedCards = !featureSavedCards
 
@@ -114,7 +116,7 @@ func testInitOnCreate(autoCharge: Int) {
             terminalId: "64216e7ccc4a48db060dd689",
             failureCallback: "https://site.kz/failure-clb",
             successCallback: "https://site.kz/success-clb",
-//            colorBrandMain: Color.orange
+//            colorBrandMain: Color.orange,
             autoCharge: autoCharge
     )
 }
