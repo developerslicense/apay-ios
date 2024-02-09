@@ -10,19 +10,28 @@ func checkNeedCvv(
         cardId: String,
         isLoading: @escaping (Bool) -> Void,
         toggleCvv: @escaping () -> Void,
-        navigateCoordinator: AirbaPayCoordinator,
-        noAuth: Bool
+        navigateCoordinator: AirbaPayCoordinator
 ) {
     Task {
         if let result = await paymentGetCvv(cardId: cardId) {
-            if (result.requestCvv! == true || noAuth) {
+            DataHolder.isApplePayFlow = false
+
+            if (result.requestCvv! == true) {
                 toggleCvv()
+
             } else {
-                startSavedCard(
-                        cardId: cardId,
-                        cvv: nil,
-                        isLoading: isLoading,
-                        navigateCoordinator: navigateCoordinator
+                airbaPayBiometricAuthenticate(
+                        onSuccess: {
+                            startSavedCard(
+                                    cardId: cardId,
+                                    cvv: nil,
+                                    isLoading: isLoading,
+                                    navigateCoordinator: navigateCoordinator
+                            )
+                        },
+                        onNotSecurity: {
+                            toggleCvv()
+                        }
                 )
             }
         } else {
