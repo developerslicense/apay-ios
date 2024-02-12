@@ -70,7 +70,8 @@ public class AirbaPaySdk {
             successCallback: String,
             colorBrandMain: Color? = nil,
             colorBrandInversion: Color? = nil,
-            autoCharge: Int = 0
+            autoCharge: Int = 0,
+            enabledLogsForProd: Bool = false
     ) {
 
         if (colorBrandInversion != nil) {
@@ -84,6 +85,7 @@ public class AirbaPaySdk {
         DataHolder.bankCode = nil
         DataHolder.accessToken = nil
         DataHolder.isProd = isProd
+        DataHolder.enabledLogsForProd = enabledLogsForProd
 
         if (DataHolder.isProd) {
             DataHolder.baseUrl = "https://ps.airbapay.kz/acquiring-api/sdk/"

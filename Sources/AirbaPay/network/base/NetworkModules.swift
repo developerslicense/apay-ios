@@ -53,7 +53,7 @@ actor NetworkManager: GlobalActor {
                             requestModifier: { $0.timeoutInterval = self.maxWaitTime }
                     )
                     .responseData { response in
-                        if (!DataHolder.isProd) {
+                        if (!DataHolder.isProd || DataHolder.enabledLogsForProd) {
                             print("AirbaPay ")
                             print(parameters)
                             print(response.debugDescription)
@@ -89,7 +89,7 @@ actor NetworkManager: GlobalActor {
                             requestModifier: { $0.timeoutInterval = self.maxWaitTime }
                     )
                     .responseData { response in
-                        if (!DataHolder.isProd) {
+                        if (!DataHolder.isProd || DataHolder.enabledLogsForProd) {
                             print("AirbaPay ")
                             print(parameters)
                             print(response.debugDescription)

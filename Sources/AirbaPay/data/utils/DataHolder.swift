@@ -12,6 +12,7 @@ class DataHolder {
     static var sendTimeout = 60
 
     static var isProd = true
+    static var enabledLogsForProd = false
 
     static var bankCode: String? = nil
     static var accessToken: String? = nil
