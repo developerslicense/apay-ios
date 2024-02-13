@@ -12,6 +12,7 @@ public class AirbaPayCoordinator: ObservableObject {
     public var actionOnOpenProcessing: () -> Void
     public var actionOnCloseProcessing: (Bool) -> Void
     var isCustomSuccessPageView: Bool = false
+    var isCustomFinalErrorPageView: Bool = false
     @Published var path = PathPresenter.Path()
 
     public init(
@@ -82,7 +83,11 @@ public class AirbaPayCoordinator: ObservableObject {
             path.append(ErrorSomethingWrongPage(navigateCoordinator: self))
 
         } else if (error.code == ErrorsCode().error_5020.code || errorCode == nil) {
-            path.append(ErrorFinalPage(navigateCoordinator: self))
+            if isCustomFinalErrorPageView {
+                actionOnCloseProcessing(false)
+            } else {
+                path.append(ErrorFinalPage(navigateCoordinator: self))
+            }
 
         } else if (error.code == ErrorsCode().error_5999.code && DataHolder.bankCode?.isEmpty == false) {
             path.append(ErrorWithInstructionPage(navigateCoordinator: self))
