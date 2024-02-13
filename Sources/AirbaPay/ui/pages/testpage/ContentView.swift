@@ -11,9 +11,9 @@ struct TestPage1: View {
     @State var isLoading: Bool = false
 
     @ObservedObject var navigateCoordinator = AirbaPayCoordinator(
+            isCustomSuccessPageView: false,
             //        actionOnOpenProcessing: { print("qqqqqq actionOnOpenProcessing")},
             actionOnCloseProcessing: { result in  print("qqqqqq  actionOnCloseProcessing" + String(result)) }
-            //            customSuccessPageView: AnyView(TestCustomSuccessPage())
 
     )
 

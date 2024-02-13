@@ -11,40 +11,35 @@ import WebKit
 
 struct SuccessPage: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
-    var customView: AnyView? = nil
 
     var body: some View {
         ZStack {
             ColorsSdk.gray30
             ColorsSdk.bgBlock
 
-            if customView != nil {
-                customView
+            GeometryReader { metrics in
+                let iconSize = metrics.size.width * 0.60
 
-            } else {
-                GeometryReader { metrics in
-                    let iconSize = metrics.size.width * 0.60
+                VStack {
+                    Spacer().frame(height: metrics.size.height * 0.20)
 
-                    VStack {
-                        Spacer().frame(height: metrics.size.height * 0.20)
+                    Image("icPaySuccess", bundle: DataHolder.moduleBundle)
+                            .resizable()
+                            .frame(width: iconSize, height: iconSize)
+                            .padding(.bottom, 37)
 
-                        Image("icPaySuccess", bundle: DataHolder.moduleBundle)
-                                .resizable()
-                                .frame(width: iconSize, height: iconSize)
-                                .padding(.bottom, 37)
+                    Text(paySuccess())
+                            .textStyleH3()
+                            .frame(alignment: .center)
 
-                        Text(paySuccess())
-                                .textStyleH3()
-                                .frame(alignment: .center)
-
-                        Spacer()
-                                .frame(height: metrics.size.height * 0.35)
-                                .frame(width: metrics.size.width * 1.0)
+                    Spacer()
+                            .frame(height: metrics.size.height * 0.35)
+                            .frame(width: metrics.size.width * 1.0)
 
 
-                    }
                 }
             }
+
         }
                 .overlay(ViewButton(
                         title: goToMarker(),
