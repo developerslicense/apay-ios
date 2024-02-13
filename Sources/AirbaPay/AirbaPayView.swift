@@ -11,16 +11,18 @@ import PathPresenter
 public class AirbaPayCoordinator: ObservableObject {
     public var actionOnOpenProcessing: () -> Void
     public var actionOnCloseProcessing: (Bool) -> Void
-    var isCustomSuccessPageView: Bool = false
-    var isCustomFinalErrorPageView: Bool = false
+    public var isCustomSuccessPageView: Bool = false
+    public var isCustomFinalErrorPageView: Bool = false
     @Published var path = PathPresenter.Path()
 
     public init(
             isCustomSuccessPageView: Bool = false,
+            isCustomFinalErrorPageView: Bool = false,
             actionOnOpenProcessing: @escaping () -> Void = {},
             actionOnCloseProcessing: @escaping (Bool) -> Void = { result in }
     ) {
         self.isCustomSuccessPageView = isCustomSuccessPageView
+        self.isCustomFinalErrorPageView = isCustomFinalErrorPageView
         self.actionOnOpenProcessing = actionOnOpenProcessing
         self.actionOnCloseProcessing = actionOnCloseProcessing
     }
