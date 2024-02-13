@@ -11,20 +11,20 @@ import PathPresenter
 public class AirbaPayCoordinator: ObservableObject {
     public var actionOnOpenProcessing: () -> Void
     public var actionOnCloseProcessing: (Bool) -> Void
-    public var actionOnDismiss: () -> Void
-    var customSuccessPageView: AnyView? = nil
+    public var isCustomSuccessPageView: Bool = false
+    public var isCustomFinalErrorPageView: Bool = false
     @Published var path = PathPresenter.Path()
 
     public init(
-            customSuccessPageView: AnyView? = nil,
+            isCustomSuccessPageView: Bool = false,
+            isCustomFinalErrorPageView: Bool = false,
             actionOnOpenProcessing: @escaping () -> Void = {},
-            actionOnCloseProcessing: @escaping (Bool) -> Void = { result in },
-            actionOnDismiss: @escaping () -> Void = {}
+            actionOnCloseProcessing: @escaping (Bool) -> Void = { result in }
     ) {
-        self.customSuccessPageView = customSuccessPageView
+        self.isCustomSuccessPageView = isCustomSuccessPageView
+        self.isCustomFinalErrorPageView = isCustomFinalErrorPageView
         self.actionOnOpenProcessing = actionOnOpenProcessing
         self.actionOnCloseProcessing = actionOnCloseProcessing
-        self.actionOnDismiss = actionOnDismiss
     }
 
     public func startProcessing() {
@@ -63,7 +63,14 @@ public class AirbaPayCoordinator: ObservableObject {
     }
 
     public func openSuccess() {
-        path.append(SuccessPage(navigateCoordinator: self, customView: customSuccessPageView))
+        if isCustomSuccessPageView {
+            actionOnCloseProcessing(true)
+            while !path.isEmpty {
+                path.removeLast()
+            }
+        } else {
+            path.append(SuccessPage(navigateCoordinator: self))
+        }
     }
 
     public func openRepeat() {
@@ -81,7 +88,14 @@ public class AirbaPayCoordinator: ObservableObject {
             path.append(ErrorSomethingWrongPage(navigateCoordinator: self))
 
         } else if (error.code == ErrorsCode().error_5020.code || errorCode == nil) {
-            path.append(ErrorFinalPage(navigateCoordinator: self))
+            if isCustomFinalErrorPageView {
+                actionOnCloseProcessing(false)
+                while !path.isEmpty {
+                    path.removeLast()
+                }
+            } else {
+                path.append(ErrorFinalPage(navigateCoordinator: self))
+            }
 
         } else if (error.code == ErrorsCode().error_5999.code && DataHolder.bankCode?.isEmpty == false) {
             path.append(ErrorWithInstructionPage(navigateCoordinator: self))
