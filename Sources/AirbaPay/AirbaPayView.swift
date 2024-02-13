@@ -65,6 +65,9 @@ public class AirbaPayCoordinator: ObservableObject {
     public func openSuccess() {
         if isCustomSuccessPageView {
             actionOnCloseProcessing(true)
+            while !path.isEmpty {
+                path.removeLast()
+            }
         } else {
             path.append(SuccessPage(navigateCoordinator: self))
         }
@@ -87,6 +90,9 @@ public class AirbaPayCoordinator: ObservableObject {
         } else if (error.code == ErrorsCode().error_5020.code || errorCode == nil) {
             if isCustomFinalErrorPageView {
                 actionOnCloseProcessing(false)
+                while !path.isEmpty {
+                    path.removeLast()
+                }
             } else {
                 path.append(ErrorFinalPage(navigateCoordinator: self))
             }
