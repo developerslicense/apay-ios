@@ -119,7 +119,7 @@ struct StartProcessingView: View {
                                 viewModel: viewModel,
                                 editTextViewModel: cvvEditTextViewModel
                         )
-                                .presentationDetents([.height(315)])
+                                .presentationDetents([.height(335)])
 
 
                     } else {
