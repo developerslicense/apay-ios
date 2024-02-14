@@ -13,7 +13,7 @@ struct TestPage1: View {
     @ObservedObject var navigateCoordinator = AirbaPayCoordinator(
             isCustomSuccessPageView: false,
             //        actionOnOpenProcessing: { print("qqqqqq actionOnOpenProcessing")},
-            actionOnCloseProcessing: { result in  print("qqqqqq  actionOnCloseProcessing" + String(result)) }
+            actionOnCloseProcessing: { result in  print("qqqqqq  actionOnCloseProcessing" + String(result ?? false)) }
 
     )
 
