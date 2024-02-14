@@ -44,12 +44,14 @@ public class AirbaPayCoordinator: ObservableObject {
     }
 
     public func backToApp(
-            result: Bool = false
+            result: Bool? = nil
     ) {
         while !path.isEmpty {
             path.removeLast()
         }
-        actionOnCloseProcessing(result)
+        if result != nil {
+            actionOnCloseProcessing(result!)
+        }
     }
 
     func onBack() {
