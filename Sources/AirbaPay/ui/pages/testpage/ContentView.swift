@@ -27,7 +27,7 @@ struct TestPage1: View {
                         Color.white
 
                         VStack(alignment: .center) {
-                            Text("Тестовые карты \n 4111 1111 1111 1616 cvv 333 \n 4111 1111 1111 1111 cvv 123")
+                            Text("Тестовые карты \n 4111 1111 1111 1616 cvv 333 \n 4111 1111 1111 1111 cvv 123 \n 3411 1111 1111 111 cvv 7777")
                                     .padding(16)
 
                             Button(

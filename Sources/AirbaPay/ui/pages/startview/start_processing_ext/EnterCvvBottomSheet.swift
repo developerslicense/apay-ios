@@ -68,7 +68,7 @@ struct EnterCvvBottomSheet: View {
             ViewButton(
                     title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
                     actionClick: {
-                        if editTextViewModel.text.count == 3 {
+                        if editTextViewModel.text.count >= 3 && editTextViewModel.text.count < 5 {
                             actionClose()
                             startSavedCard(
                                     cardId: viewModel.selectedCard?.id ?? "",
