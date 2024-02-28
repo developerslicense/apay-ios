@@ -82,7 +82,7 @@ actor NetworkManager: GlobalActor {
 
                             headers: [
                                 "Content-Type": "application/json; charset=utf-8",
-                                "Platform": "iOS, 1.0.52",
+                                "Platform": "iOS, 1.0.53",
                                 "Authorization":
                                 DataHolder.accessToken == nil
                                         || DataHolder.accessToken == "" ? "" : "Bearer " + DataHolder.accessToken!
