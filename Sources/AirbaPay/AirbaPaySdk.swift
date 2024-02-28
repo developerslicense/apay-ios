@@ -12,18 +12,18 @@ public class AirbaPaySdk {
     public init() {}
 
     public enum Lang: Equatable {
-        
+
         case RU(lang: String = "ru")
         case KZ(lang: String = "kz")
     }
 
     public struct Goods: Encodable {
         public init(
-            brand: String,
-            category: String,
-            model: String,
-            quantity: Int,
-            price: Int
+                brand: String,
+                category: String,
+                model: String,
+                quantity: Int,
+                price: Int
         ) {
             self.brand = brand
             self.category = category
@@ -44,8 +44,8 @@ public class AirbaPaySdk {
         let companyId: String?
 
         public init(
-            amount: Int,
-            companyId: String?
+                amount: Int,
+                companyId: String?
         ) {
             self.amount = amount
             self.companyId = companyId
@@ -57,7 +57,7 @@ public class AirbaPaySdk {
         }
     }
 
-    public static func initOnCreate(
+    public static func initSdk(
             isProd: Bool,
             lang: Lang,
             accountId: String,
@@ -71,7 +71,12 @@ public class AirbaPaySdk {
             colorBrandMain: Color? = nil,
             colorBrandInversion: Color? = nil,
             autoCharge: Int = 0,
-            enabledLogsForProd: Bool = false
+            enabledLogsForProd: Bool = false,
+            purchaseAmount: Int,
+            invoiceId: String,
+            orderNumber: String,
+            goods: Array<Goods>,
+            settlementPayments: Array<SettlementPayment>? = nil
     ) {
 
         if (colorBrandInversion != nil) {
@@ -112,15 +117,6 @@ public class AirbaPaySdk {
 
         DataHolder.currentLang = lang
 
-    }
-
-    public static func initProcessing(
-            purchaseAmount: Int,
-            invoiceId: String,
-            orderNumber: String,
-            goods: Array<Goods>,
-            settlementPayments: Array<SettlementPayment>? = nil
-    ) {
         DataHolder.purchaseAmount = String(purchaseAmount)
         DataHolder.orderNumber = orderNumber
         DataHolder.invoiceId = invoiceId
@@ -128,5 +124,7 @@ public class AirbaPaySdk {
         DataHolder.settlementPayments = settlementPayments
 
         DataHolder.purchaseAmountFormatted = Money.initInt(amount: purchaseAmount).getFormatted()
+
     }
+
 }

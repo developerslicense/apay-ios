@@ -6,6 +6,10 @@
 
 ## 1.3 Пример использования
 
+## 1.4 Подключение АПИ внешнего взаимодействия с ApplePay
+
+
+
 ## 1.1  Подключение sdk
 
 Последняя версия 1.0.50
@@ -213,3 +217,18 @@ struct TestPage: View {
     }
 }
 ```
+
+## 1.4 Подключение АПИ внешнего взаимодействия с ApplePay
+
+1) Нужно выполнить инструкцию по настройке XCode
+   https://developer.apple.com/documentation/passkit_apple_pay_and_wallet/apple_pay/setting_up_apple_pay#3735190
+
+2) Добавьте в XCode в Apple Pay Merchant IDs:
+   merchant.kz.airbapay.pf
+   merchant.kz.airbapay.spf
+
+3) Передать айдишник приложения ПМ AirbaPay, чтоб добавить его в админку.
+   (ПМ нужно перейти developer.apple.com -> in-App Purcharse)
+
+????????????
+4) Нужно выполнить инструкцию https://developer.apple.com/help/account/create-certificates/create-a-certificate-signing-request
