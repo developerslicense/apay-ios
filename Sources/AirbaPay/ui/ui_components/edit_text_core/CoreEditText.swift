@@ -43,7 +43,7 @@ struct CoreEditText: View {
         let mu = MaskUtils()
         mu.pattern = isDateExpiredMask ? "AA/AA"
                 : isCardNumberMask ? "AAAA AAAA AAAA AAAA"
-                : "AAA"
+                : "AAAA" // american express 4 цифры
 
         return mu
     }

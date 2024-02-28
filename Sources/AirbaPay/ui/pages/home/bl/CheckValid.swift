@@ -31,7 +31,8 @@ func checkValid(
     if (cvv == nil || cvv?.isEmpty == true) {
         errorCvv = needFillTheField()
 
-    } else if ((cvv?.count ?? 0) < 3) {
+    } else if (cardNumber?.starts(with: "34") == true && (cvv?.count ?? 0) < 4
+            || cardNumber?.starts(with: "34") == false && (cvv?.count ?? 0) != 3) {
         errorCvv = wrongCvv()
     }
 
