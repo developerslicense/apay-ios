@@ -47,6 +47,29 @@ func paymentSavedCardService(
     }
 }
 
+func putPaymentWallet(
+        applePayToken: String
+) async -> PaymentEntryResponse? {
+
+    let wallet = ApplePaymentWallet(token: applePayToken)
+    let param = ApplePaymentWalletRequest(wallet: wallet)
+
+    do {
+        let data = try await NetworkManager.shared.put(
+                path: "api/v1/payments/wallet",
+                parameters: param
+        )
+
+        let result: PaymentEntryResponse = try Api.parseData(data: data)
+        return result
+
+    } catch let error {
+        print(error.localizedDescription)
+
+        return nil
+    }
+}
+
 func paymentGetCvv(
         cardId: String
 ) async -> GetCvvResponse? {

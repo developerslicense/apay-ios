@@ -11,9 +11,10 @@ struct TestPage1: View {
     @State var isLoading: Bool = false
 
     @ObservedObject var navigateCoordinator = AirbaPayCoordinator(
-            isCustomSuccessPageView: false,
+            isCustomSuccessPageView: true,
+            isCustomFinalErrorPageView: true,
             //        actionOnOpenProcessing: { print("qqqqqq actionOnOpenProcessing")},
-            actionOnCloseProcessing: { result in  print("qqqqqq  actionOnCloseProcessing" + String(result ?? false)) }
+            actionOnCloseProcessing: { result in  print("qqqqqq  actionOnCloseProcessing" + String(result!)) }
 
     )
 
@@ -36,8 +37,7 @@ struct TestPage1: View {
                                         TestAirbaPayStates.shutDownTestFeatureApplePay = !featureApplePay
                                         TestAirbaPayStates.shutDownTestFeatureSavedCards = !featureSavedCards
 
-                                        testInitOnCreate(autoCharge: autoCharge ? 1 : 0)
-                                        testInitProcessing()
+                                        testInitSdk(autoCharge: autoCharge ? 1 : 0)
                                         navigateCoordinator.startProcessing()
                                     },
                                     label: {
@@ -50,7 +50,7 @@ struct TestPage1: View {
 
                             Button(
                                     action: {
-                                        testInitOnCreate(autoCharge: autoCharge  ? 1 : 0)
+                                        testInitSdk(autoCharge: autoCharge  ? 1 : 0)
                                         testDelCards(
                                                 accountId: ACCOUNT_ID_TEST,
                                                 isLoading: { b in
@@ -60,6 +60,19 @@ struct TestPage1: View {
                                     },
                                     label: {
                                         Text("Удалить привязанные карты")
+                                                .font(.system(size: 16))
+                                                .padding(16)
+
+                                    }
+                            )
+
+                            Button(
+                                    action: {
+                                        testInitSdk(autoCharge: autoCharge  ? 1 : 0)
+
+                                    },
+                                    label: {
+                                        Text("Тест внешнего applePay механизма")
                                                 .font(.system(size: 16))
                                                 .padding(16)
 
@@ -103,25 +116,7 @@ struct TestPage1: View {
 }
 
 
-func testInitOnCreate(autoCharge: Int) {
-
-    AirbaPaySdk.initOnCreate(
-            isProd: false,
-            lang: AirbaPaySdk.Lang.RU(),
-            accountId: ACCOUNT_ID_TEST,
-            phone: ACCOUNT_ID_TEST,
-            userEmail: "test@test.com",
-            shopId: "test-merchant",
-            password: "123456",
-            terminalId: "64216e7ccc4a48db060dd689",
-            failureCallback: "https://site.kz/failure-clb",
-            successCallback: "https://site.kz/success-clb",
-//            colorBrandMain: Color.orange,
-            autoCharge: autoCharge
-    )
-}
-
-func testInitProcessing() {
+func testInitSdk(autoCharge: Int) {
     let someInvoiceId = Int(Date().timeIntervalSince1970)
     let someOrderNumber = Int(Date().timeIntervalSince1970)
     print("someOrderNumber" + String(someOrderNumber))
@@ -156,7 +151,19 @@ func testInitProcessing() {
         )
     ]
 
-    AirbaPaySdk.initProcessing(
+    AirbaPaySdk.initSdk(
+            isProd: false,
+            lang: AirbaPaySdk.Lang.RU(),
+            accountId: ACCOUNT_ID_TEST,
+            phone: ACCOUNT_ID_TEST,
+            userEmail: "test@test.com",
+            shopId: "test-merchant",
+            password: "123456",
+            terminalId: "64216e7ccc4a48db060dd689",
+            failureCallback: "https://site.kz/failure-clb",
+            successCallback: "https://site.kz/success-clb",
+            //            colorBrandMain: Color.orange,
+            autoCharge: autoCharge,
             purchaseAmount: 1500,
             invoiceId: String(someInvoiceId),
             orderNumber: String(someOrderNumber),

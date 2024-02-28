@@ -99,6 +99,10 @@ private struct SwiftUIWebView: UIViewRepresentable {
 
             } else {
                 if let redirectedUrl = navigationAction.request.url {
+                    if (!DataHolder.isProd || DataHolder.enabledLogsForProd) {
+                        print("AirbaPay ")
+                        print(redirectedUrl)
+                    }
 
                     if redirectedUrl.absoluteString.contains("status=auth") == true ||
                                redirectedUrl.absoluteString.contains("status=success") == true {

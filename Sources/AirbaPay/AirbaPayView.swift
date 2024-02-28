@@ -32,6 +32,7 @@ public class AirbaPayCoordinator: ObservableObject {
     }
 
     public func openHome() {
+        onBack()
         actionOnOpenProcessing()
         path.append(HomePage(navigateCoordinator: self))
     }
@@ -59,6 +60,7 @@ public class AirbaPayCoordinator: ObservableObject {
     }
 
     public func openAcquiring(redirectUrl: String?) {
+        onBack()
         path.append(AcquiringPage(navigateCoordinator: self, redirectUrl: redirectUrl))
     }
 
