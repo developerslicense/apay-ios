@@ -14,8 +14,6 @@
 
 ## 1.1  Подключение sdk
 
-Последняя версия 1.0.50
-
 1) SPM -> GitHub - ```developerslicense/apay-ios```
 
 2) Нужно добавить конфиги в ```info.plist```
@@ -279,7 +277,7 @@ func handleAirbaPayChannel(
       terminalId:  "64216e7ccc4a48db060dd689", 
       failureCallback: "https://site.kz/failure-clb",
       successCallback: "https://site.kz/success-clb",
-      autoCharge: 1,
+      autoCharge: 0,
       enabledLogsForProd: true,
       purchaseAmount: 5500,
       invoiceId: String(someInvoiceId),

@@ -107,6 +107,9 @@ public class AirbaPayCoordinator: ObservableObject {
         }
     }
 
+    public func openTestApplePaySwiftUi() {
+        path.append(TestSwiftUiApplePayPage(navigateCoordinator: self))
+    }
 }
 
 public struct AirbaPayView: View {
