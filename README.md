@@ -8,6 +8,8 @@
 
 ## 1.4 Подключение АПИ внешнего взаимодействия с ApplePay
 
+## 1.5 Рекомендация в случае интеграции в flutter
+
 
 
 ## 1.1  Подключение sdk
@@ -216,3 +218,157 @@ struct TestPage: View {
 
 4) Нужно выполнить
    инструкцию https://developer.apple.com/help/account/create-certificates/create-a-certificate-signing-request
+
+
+## 1.5 Рекомендация в случае интеграции в flutter
+
+1) В dart добавьте:
+
+```
+  final MethodChannel channel = MethodChannel("com.example.testFlutter/AirbaPayChannel");
+
+  Future<void> callNativeMethod() async {
+    try {
+      await channel.invokeMethod('pay');
+    } catch (e) {
+      print('Error calling native method: $e');
+    }
+  }
+```
+
+И нужно вызвать ```callNativeMethod``` для перехода на страницы сдк.
+
+2) Создайте файл ```AirbaPayHandler```
+
+```
+
+import Foundation
+import Flutter
+import AirbaPay
+import SwiftUI
+
+func handleAirbaPayChannel(
+  _ app: AppDelegate,
+  _ call: FlutterMethodCall,
+  _ result: OneShotFlutterResult
+) {
+  let controller : FlutterViewController = app.window?.rootViewController as! FlutterViewController
+
+  if call.method == "pay" {
+    let lang: AirbaPaySdk.Lang = AirbaPaySdk.Lang.RU()
+
+    let someInvoiceId = Int(Date().timeIntervalSince1970)
+    let someOrderNumber = Int(Date().timeIntervalSince1970)
+      
+      let goods = AirbaPaySdk.Goods(
+        brand: "TechnoFit",
+        category: "Services",
+        model: "asdafasfd",
+        quantity: 1,
+        price: 5500
+      )
+      
+    AirbaPaySdk.initSdk(
+      isProd: false,
+      lang: lang,
+      accountId: "10000001",
+      phone: "+77050000010",
+      userEmail: "asdasd@sad.com",
+      shopId: "test-merchant",
+      password:  "123456",
+      terminalId:  "64216e7ccc4a48db060dd689", 
+      failureCallback: "https://site.kz/failure-clb",
+      successCallback: "https://site.kz/success-clb",
+      autoCharge: 1,
+      enabledLogsForProd: true,
+      purchaseAmount: 5500,
+      invoiceId: String(someInvoiceId),
+      orderNumber: String(someOrderNumber),
+      goods: [goods]
+    )
+
+    controller.show(AirbaPayViewController(result: result), sender: controller)
+  } else {
+    result.submit(FlutterMethodNotImplemented)
+  }
+}
+
+
+
+class OneShotFlutterResult {
+  private var result: FlutterResult?
+  
+  init(_ result: @escaping FlutterResult) {
+    self.result = result
+  }
+  
+  func submit(_ data: Any) {
+    if (result != nil) {
+      result!(data)
+      result = nil
+    }
+  }
+}
+
+```
+
+3) Создайте файл ```AirbaPayViewController```
+
+```
+
+import Foundation
+import SwiftUI
+import AirbaPay
+
+class AirbaPayViewController : UIHostingController<AirbaPayView> {
+  private var result: OneShotFlutterResult? = nil
+  
+  init(
+    result: OneShotFlutterResult
+  ) {
+    var lateSelf: AirbaPayViewController? = nil
+    self.result = result
+    let navigateCoordinator = AirbaPayCoordinator(
+      actionOnCloseProcessing: { r in
+        lateSelf?.dismiss(animated: false)
+        result.submit(["result": r])
+      }
+    )
+    
+    let airbaPayView = AirbaPayView(navigateCoordinator: navigateCoordinator) {}
+    
+    navigateCoordinator.startProcessing()
+    super.init(rootView: airbaPayView)
+    lateSelf = self
+    view.backgroundColor = UIColor.black.withAlphaComponent(0)
+  }
+  
+  required dynamic init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
+  
+  override func viewDidDisappear(_ animated: Bool) {
+    result?.submit(["result": false])
+  }
+  
+  override func viewSafeAreaInsetsDidChange() {
+    print("safe")
+  }
+}
+
+```
+
+4) Добавьте в ```AppDelegate```
+
+```
+let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
+
+let airbaPayChannel = FlutterMethodChannel(
+     name: "com.example.testFlutter/AirbaPayChannel",
+     binaryMessenger: controller.binaryMessenger
+)
+      
+airbaPayChannel.setMethodCallHandler({ call, result -> Void in
+     handleAirbaPayChannel(self, call, OneShotFlutterResult(result))
+})
+```
