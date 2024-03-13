@@ -91,9 +91,9 @@ struct StartProcessingView: View {
                 .onAppear {
                     DataHolder.isApplePayFlow = true
                     Task {
-                        await viewModel.authAndLoadData(
+                        await viewModel.startAuth(
                                 onSuccess: {
-                                    fetchMerchantsWithNextStep(
+                                    AirbaPay.fetchMerchantsWithNextStep(
                                             viewModel: viewModel,
                                             navigateCoordinator: navigateCoordinator
                                     )

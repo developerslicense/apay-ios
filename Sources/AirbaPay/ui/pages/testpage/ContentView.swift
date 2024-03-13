@@ -69,7 +69,7 @@ struct TestPage1: View {
                             Button(
                                     action: {
                                         testInitSdk(autoCharge: autoCharge  ? 1 : 0)
-
+                                        navigateCoordinator.openTestApplePaySwiftUi()
                                     },
                                     label: {
                                         Text("Тест внешнего applePay механизма")
