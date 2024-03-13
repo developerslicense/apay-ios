@@ -38,7 +38,7 @@ struct TestSwiftUiApplePayPage: View {
             Task {
                 await startProcessingViewModel.startAuth(
                         onSuccess: {
-                            fetchMerchantsWithNextStep(
+                            AirbaPay.fetchMerchantsWithNextStep(
                                     viewModel: startProcessingViewModel,
                                     navigateCoordinator: navigateCoordinator
                             )
