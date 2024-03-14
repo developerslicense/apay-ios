@@ -6,14 +6,20 @@ import Foundation
 
 public class StartProcessingViewModel: ObservableObject {
     @MainActor @Published public var isLoading: Bool = true
+    @MainActor @Published var savedCards: [BankCard] = []
+    @MainActor @Published var selectedCard: BankCard? = nil
     @MainActor @Published public var applePayUrl: String? = nil
 
     public init(
             isLoading: Bool = true,
             applePayUrl: String? = nil
     ) {
-        self.isLoading = isLoading
-        self.applePayUrl = applePayUrl
+        Task {
+            await MainActor.run {
+                self.isLoading = isLoading
+                self.applePayUrl = applePayUrl
+            }
+        }
     }
 
     public func startAuth(
@@ -52,10 +58,10 @@ public class StartProcessingViewModel: ObservableObject {
     ) {
         DataHolder.isApplePayFlow = true
         Task {
-            await startProcessingViewModel.startAuth(
+            await startAuth(
                     onSuccess: {
                         AirbaPay.fetchMerchantsWithNextStep(
-                                viewModel: startProcessingViewModel,
+                                viewModel: self,
                                 navigateCoordinator: navigateCoordinator
                         )
                     },
