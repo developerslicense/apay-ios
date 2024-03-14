@@ -9,8 +9,8 @@ public class StartProcessingViewModel: ObservableObject {
     @MainActor @Published public var applePayUrl: String? = nil
 
     public init(
-            isLoading: Bool,
-            applePayUrl: String?
+            isLoading: Bool = true,
+            applePayUrl: String? = nil
     ) {
         self.isLoading = isLoading
         self.applePayUrl = applePayUrl
@@ -44,5 +44,25 @@ public class StartProcessingViewModel: ObservableObject {
             }
         }
 
+    }
+
+    public func onAppear(
+            viewModel: startProcessingViewModel,
+            navigateCoordinator: navigateCoordinator
+    ) {
+        DataHolder.isApplePayFlow = true
+        Task {
+            await startProcessingViewModel.startAuth(
+                    onSuccess: {
+                        AirbaPay.fetchMerchantsWithNextStep(
+                                viewModel: startProcessingViewModel,
+                                navigateCoordinator: navigateCoordinator
+                        )
+                    },
+                    onError: {
+                        navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+                    }
+            )
+        }
     }
 }

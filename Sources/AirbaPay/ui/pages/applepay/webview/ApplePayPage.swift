@@ -7,12 +7,12 @@ import SwiftUI
 import WebKit
 import Combine
 
-struct ApplePayPage: View {
+public struct ApplePayPage: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     @State var showDialogExit: Bool = false
     private var redirectUrl: String?
 
-    init(
+    public init(
             redirectUrl: String?,
             @ObservedObject navigateCoordinator: AirbaPayCoordinator
     ) {
