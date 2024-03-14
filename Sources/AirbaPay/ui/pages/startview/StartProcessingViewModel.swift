@@ -53,9 +53,10 @@ public class StartProcessingViewModel: ObservableObject {
     }
 
     public func onAppear(
-            viewModel: StartProcessingViewModel,
             navigateCoordinator: AirbaPayCoordinator
     ) {
+
+        DataHolder.isExternalApplePayFlow = true
         DataHolder.isApplePayFlow = true
         Task {
             await startAuth(

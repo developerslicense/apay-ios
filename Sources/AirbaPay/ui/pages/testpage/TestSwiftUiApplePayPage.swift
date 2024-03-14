@@ -34,21 +34,7 @@ struct TestSwiftUiApplePayPage: View {
             }
         }
         .onAppear {
-            DataHolder.isApplePayFlow = true
-            Task {
-                await startProcessingViewModel.startAuth(
-                        onSuccess: {
-                            AirbaPay.fetchMerchantsWithNextStep(
-                                    viewModel: startProcessingViewModel,
-                                    navigateCoordinator: navigateCoordinator
-                            )
-                        },
-                        onError: {
-                            navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
-
-                        }
-                )
-            }
+            startProcessingViewModel.onAppear(navigateCoordinator: navigateCoordinator)
         }
     }
 }
