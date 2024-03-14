@@ -47,8 +47,8 @@ public class StartProcessingViewModel: ObservableObject {
     }
 
     public func onAppear(
-            viewModel: startProcessingViewModel,
-            navigateCoordinator: navigateCoordinator
+            viewModel: StartProcessingViewModel,
+            navigateCoordinator: AirbaPayCoordinator
     ) {
         DataHolder.isApplePayFlow = true
         Task {
