@@ -8,7 +8,7 @@ public class StartProcessingViewModel: ObservableObject {
     @MainActor @Published public var isLoading: Bool = true
     @MainActor @Published public var applePayUrl: String? = nil
 
-    init(
+    public init(
             isLoading: Bool,
             applePayUrl: String?
     ) {
