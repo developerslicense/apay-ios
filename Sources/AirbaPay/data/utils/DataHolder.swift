@@ -5,7 +5,7 @@
 import Foundation
 
 class DataHolder {
-    static var sdkVersion = "1.0.62"
+    static var sdkVersion = "1.0.63"
     static var baseUrl = ""
 
     static var connectTimeout = 60
@@ -47,6 +47,7 @@ class DataHolder {
 
     static var applePayButtonUrl: String? = nil
     static var isApplePayFlow: Bool = true
+    static var isExternalApplePayFlow: Bool = false
     static var hasSavedCards: Bool = false
     static var autoCharge: Int = 0
 }

@@ -48,19 +48,27 @@ public class AirbaPay {
                                 viewModel.applePayUrl = url
                             }
                         }
-                    }
 
-                    if (DataHolder.featureSavedCards) {
-                        fetchCards(
-                                viewModel: viewModel,
-                                navigateCoordinator: navigateCoordinator
-                        )
 
-                    } else {
-                        Task {
+                        if (DataHolder.isExternalApplePayFlow) {
                             await MainActor.run {
                                 viewModel.isLoading = false
-                                navigateCoordinator.openHome()
+                                DataHolder.isExternalApplePayFlow = false
+                            }
+                        } else {
+                            if (DataHolder.featureSavedCards) {
+                                fetchCards(
+                                        viewModel: viewModel,
+                                        navigateCoordinator: navigateCoordinator
+                                )
+
+                            } else {
+                                Task {
+                                    await MainActor.run {
+                                        viewModel.isLoading = false
+                                        navigateCoordinator.openHome()
+                                    }
+                                }
                             }
                         }
                     }
@@ -95,5 +103,6 @@ public class AirbaPay {
             }
         }
     }
+
 }
  
