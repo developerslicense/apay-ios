@@ -20,16 +20,8 @@ public struct ApplePayPage: View {
         self.redirectUrl = redirectUrl ?? "https://"
     }
 
-    var body: some View {
+    public var body: some View {
         VStack {
-//            VStack {
-//                ViewToolbar(
-//                    title: "",
-//                    actionClickBack: { showDialogExit = true }
-//                )
-//                .frame(maxWidth: .infinity, alignment: .leading)
-//            }
-
             ZStack {
                 ColorsSdk.gray30
                 ColorsSdk.bgMain
@@ -38,24 +30,8 @@ public struct ApplePayPage: View {
                         url: redirectUrl,
                         navigateCoordinator: navigateCoordinator
                 )
-
-
-//                ColorsSdk.gray30
-//                ColorsSdk.bgMain
-//                ProgressBarView()
             }
         }
-//                 .modifier(
-//                         Popup(
-//                                 isPresented: showDialogExit,
-//                                 content: {
-//                                     DialogExit(
-//                                             onDismissRequest: { showDialogExit = false },
-//                                             backToApp: { navigateCoordinator.backToApp() }
-//                                     )
-//                                 })
-//                 )
-//                 .onTapGesture(perform: { showDialogExit = false })
     }
 }
 
