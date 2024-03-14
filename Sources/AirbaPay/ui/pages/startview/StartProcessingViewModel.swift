@@ -6,8 +6,6 @@ import Foundation
 
 public class StartProcessingViewModel: ObservableObject {
     @MainActor @Published public var isLoading: Bool = true
-    @MainActor @Published public var savedCards: [BankCard] = []
-    @MainActor @Published public var selectedCard: BankCard? = nil
     @MainActor @Published public var applePayUrl: String? = nil
 
     public func startAuth(
