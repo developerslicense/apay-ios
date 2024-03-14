@@ -8,6 +8,14 @@ public class StartProcessingViewModel: ObservableObject {
     @MainActor @Published public var isLoading: Bool = true
     @MainActor @Published public var applePayUrl: String? = nil
 
+    init(
+            isLoading: Bool,
+            applePayUrl: String?
+    ) {
+        self.isLoading = isLoading
+        self.applePayUrl = applePayUrl
+    }
+
     public func startAuth(
             onSuccess: @escaping ()-> Void,
             onError: @escaping ()-> Void
