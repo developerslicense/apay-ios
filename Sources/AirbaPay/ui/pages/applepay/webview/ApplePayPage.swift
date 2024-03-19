@@ -6,6 +6,7 @@ import Foundation
 import SwiftUI
 import WebKit
 import Combine
+import UIKit
 
 public struct ApplePayPage: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
@@ -14,10 +15,12 @@ public struct ApplePayPage: View {
 
     public init(
             redirectUrl: String?,
-            @ObservedObject navigateCoordinator: AirbaPayCoordinator
+            @ObservedObject navigateCoordinator: AirbaPayCoordinator,
+            externalApplePayRedirectToAcquaring: (() -> Void)? = nil
     ) {
         self.navigateCoordinator = navigateCoordinator
         self.redirectUrl = redirectUrl ?? "https://"
+        DataHolder.externalApplePayRedirectToAcquaring = externalApplePayRedirectToAcquaring
     }
 
     public var body: some View {
@@ -92,7 +95,14 @@ private struct SwiftUIWebView: UIViewRepresentable {
                 decisionHandler(.allow)
 
                 if (navigationAction.request.url?.absoluteString ?? "").contains("acquiring-api") == true {
-                    navigateCoordinator.openAcquiring(redirectUrl: navigationAction.request.url?.absoluteString)
+
+                    if DataHolder.isExternalApplePayFlow {
+                        DataHolder.tempApplePayUrlForExternalApi = navigationAction.request.url?.absoluteString
+                        DataHolder.externalApplePayRedirectToAcquaring!()
+
+                    } else {
+                        navigateCoordinator.openAcquiring(redirectUrl: navigationAction.request.url?.absoluteString)
+                    }
                 }
 
                 return

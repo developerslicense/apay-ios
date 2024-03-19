@@ -50,6 +50,9 @@ class DataHolder {
     static var isExternalApplePayFlow: Bool = false
     static var hasSavedCards: Bool = false
     static var autoCharge: Int = 0
+
+    static var externalApplePayRedirectToAcquaring: (() -> Void)? = nil
+    static var tempApplePayUrlForExternalApi: String? = nil
 }
 
 public class TestAirbaPayStates {
