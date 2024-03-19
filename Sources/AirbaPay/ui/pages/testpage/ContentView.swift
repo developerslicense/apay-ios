@@ -32,7 +32,7 @@ struct TestPage1: View {
 
                             Button(
                                     action: {
-                                        DataHolder.hasSavedCards = featureSavedCards
+                                        DataHolder.hasSavedCards = false
 
                                         TestAirbaPayStates.shutDownTestFeatureApplePay = !featureApplePay
                                         TestAirbaPayStates.shutDownTestFeatureSavedCards = !featureSavedCards
