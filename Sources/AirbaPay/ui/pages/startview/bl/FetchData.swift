@@ -53,7 +53,7 @@ public class AirbaPay {
                         if (DataHolder.isExternalApplePayFlow) {
                             await MainActor.run {
                                 viewModel.isLoading = false
-                                DataHolder.isExternalApplePayFlow = false
+//                                DataHolder.isExternalApplePayFlow = false //todo временно
                             }
                         } else {
                             if (DataHolder.featureSavedCards) {
