@@ -48,25 +48,17 @@ private func initPaymentsWithNextStep(
                         }
                     }
 
-                    if (DataHolder.isExternalApplePayFlow) {
-                        await MainActor.run {
-                            viewModel.isLoading = false
-                            DataHolder.isExternalApplePayFlow = false
-                        }
+                    if (DataHolder.featureSavedCards) {
+                        fetchCards(
+                                viewModel: viewModel,
+                                navigateCoordinator: navigateCoordinator
+                        )
+
                     } else {
-
-                        if (DataHolder.featureSavedCards) {
-                            fetchCards(
-                                    viewModel: viewModel,
-                                    navigateCoordinator: navigateCoordinator
-                            )
-
-                        } else {
-                            Task {
-                                await MainActor.run {
-                                    viewModel.isLoading = false
-                                    navigateCoordinator.openHome()
-                                }
+                        Task {
+                            await MainActor.run {
+                                viewModel.isLoading = false
+                                navigateCoordinator.openHome()
                             }
                         }
                     }
