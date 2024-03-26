@@ -14,7 +14,7 @@ import UIKit
 public struct ApplePayView: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     @State var showDialogExit: Bool = false
-    @ObservedObject var viewModel: ExternalApplePayViewModel = ExternalApplePayViewModel()
+    @StateObject var viewModel: ExternalApplePayViewModel = ExternalApplePayViewModel()
     private var isLoading: (Bool) -> Void
 
 
@@ -109,7 +109,7 @@ private struct SwiftUIWebView: UIViewRepresentable {
                     DataHolder.externalApplePayRedirectToContainer?()
                     navigateCoordinator.openSuccess()
                 }
-                else if (url).contains("failure") == true ||  (url).contains("error") == true {
+                else if (url).contains("failure") == true || (url).contains("error") == true {
 
                     DataHolder.externalApplePayRedirectToContainer?()
                     navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
