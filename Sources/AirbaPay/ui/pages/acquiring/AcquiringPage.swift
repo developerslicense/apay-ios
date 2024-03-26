@@ -105,10 +105,12 @@ private struct SwiftUIWebView: UIViewRepresentable {
                     }
 
                     if redirectedUrl.absoluteString.contains("status=auth") == true ||
-                               redirectedUrl.absoluteString.contains("status=success") == true {
+                               redirectedUrl.absoluteString.contains("success") == true {
                         navigateCoordinator.openSuccess()
 
-                    } else if redirectedUrl.absoluteString.contains("status=error") == true {
+                    } else if redirectedUrl.absoluteString.contains("error") == true ||
+                               redirectedUrl.absoluteString.contains("failure") == true {
+
                         let temp = redirectedUrl.absoluteString.components(separatedBy: "&") ?? []
                         print(temp)
                         let result = temp.first { text in

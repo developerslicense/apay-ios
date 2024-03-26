@@ -56,7 +56,6 @@ public class StartProcessingViewModel: ObservableObject {
             navigateCoordinator: AirbaPayCoordinator
     ) {
 
-        DataHolder.isExternalApplePayFlow = true
         DataHolder.isApplePayFlow = true
         Task {
             await startAuth(

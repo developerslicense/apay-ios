@@ -107,11 +107,6 @@ public class AirbaPayCoordinator: ObservableObject {
         }
     }
 
-    public func nextStepExternalApplePay() {
-        onBack()
-        path.append(AcquiringPage(navigateCoordinator: self, redirectUrl: DataHolder.tempApplePayUrlForExternalApi ?? ""))
-    }
-
     public func openTestApplePaySwiftUi() {
         path.append(TestSwiftUiApplePayPage(navigateCoordinator: self))
     }

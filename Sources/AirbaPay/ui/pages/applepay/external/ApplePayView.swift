@@ -1,6 +1,9 @@
 //
-// Created by Mikhail Belikov on 21.08.2023.
+//  ApplePayView.swift
 //
+//  Created by Mikhail Belikov on 26.03.2024.
+//
+
 
 import Foundation
 import SwiftUI
@@ -8,31 +11,45 @@ import WebKit
 import Combine
 import UIKit
 
-public struct ApplePayPage: View {
+public struct ApplePayView: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     @State var showDialogExit: Bool = false
-    private var redirectUrl: String?
+    @ObservedObject var viewModel: ExternalApplePayViewModel = ExternalApplePayViewModel()
+    private var isLoading: (Bool) -> Void
+
 
     public init(
-            redirectUrl: String?,
-            @ObservedObject navigateCoordinator: AirbaPayCoordinator
+            @ObservedObject navigateCoordinator: AirbaPayCoordinator,
+            externalApplePayRedirectToContainer: (() -> Void)? = nil,
+            isLoading: @escaping (Bool) -> Void
     ) {
         self.navigateCoordinator = navigateCoordinator
-        self.redirectUrl = redirectUrl ?? "https://"
+        DataHolder.externalApplePayRedirectToContainer = externalApplePayRedirectToContainer
+        self.isLoading = isLoading
     }
 
     public var body: some View {
-        VStack {
-            ZStack {
-                ColorsSdk.gray30
-                ColorsSdk.bgMain
 
-                SwiftUIWebView(
-                        url: redirectUrl,
-                        navigateCoordinator: navigateCoordinator
-                )
+        VStack {
+            if viewModel.applePayUrl != nil {
+
+                ZStack {
+                    ColorsSdk.gray30
+                    ColorsSdk.bgMain
+
+                    SwiftUIWebView(
+                            url: viewModel.applePayUrl,
+                            navigateCoordinator: navigateCoordinator
+                    )
+                }
             }
         }
+                .onAppear {
+                    viewModel.fetchData(
+                            navigateCoordinator: navigateCoordinator,
+                            isLoading: isLoading
+                    )
+                }
     }
 }
 
@@ -74,53 +91,32 @@ private struct SwiftUIWebView: UIViewRepresentable {
             self.viewModel = viewModel
         }
 
-        /*func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) { // это автоклик
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-
-                let js = """
-                    var parentDOM = document.getElementById('root');
-                    parentDOM.getElementsByClassName('apple-pay-btn')[0].click();
-                """
-
-                webView.evaluateJavaScript(js, completionHandler: nil)
-            })
-        }*/
 
         func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> ()) {
 
             if(navigationAction.navigationType == .other) {
                 decisionHandler(.allow)
 
-                if (navigationAction.request.url?.absoluteString ?? "").contains("acquiring-api") == true {
-                    navigateCoordinator.openAcquiring(redirectUrl: navigationAction.request.url?.absoluteString)
+                let url = navigationAction.request.url?.absoluteString ?? ""
+
+                if (url).contains("acquiring-api") == true {
+
+                    DataHolder.externalApplePayRedirectToContainer?()
+                    navigateCoordinator.openAcquiring(redirectUrl: url)
+                }
+                else if (url).contains("success") == true {
+
+                    DataHolder.externalApplePayRedirectToContainer?()
+                    navigateCoordinator.openSuccess()
+                }
+                else if (url).contains("failure") == true ||  (url).contains("error") == true {
+
+                    DataHolder.externalApplePayRedirectToContainer?()
+                    navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
                 }
 
                 return
 
-            } else {
-                if let redirectedUrl = navigationAction.request.url {
-
-                    if redirectedUrl.absoluteString.contains("status=auth") == true ||
-                               redirectedUrl.absoluteString.contains("status=success") == true {
-                        navigateCoordinator.openSuccess()
-
-                    } else if redirectedUrl.absoluteString.contains("status=error") == true {
-                        let temp = redirectedUrl.absoluteString.components(separatedBy: "&") ?? []
-                        let result = temp.first { text in
-                            text.contains("errorCode")
-                        }
-
-                        let errorCode: String = result?.components(separatedBy: "=")[1] ?? "1"
-                        let errorCodeInt: Int? = Int(errorCode)
-
-                        navigateCoordinator.openErrorPageWithCondition(errorCode: errorCodeInt)
-
-                    } else {
-                        decisionHandler(.allow)
-                        return
-                    }
-                }
             }
 
             decisionHandler(.allow)
@@ -144,3 +140,4 @@ private class WebViewModel: ObservableObject {
         self.link = link
     }
 }
+

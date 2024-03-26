@@ -5,7 +5,7 @@
 import Foundation
 
 class DataHolder {
-    static var sdkVersion = "1.0.63"
+    static var sdkVersion = "1.0.66"
     static var baseUrl = ""
 
     static var connectTimeout = 60
@@ -27,9 +27,9 @@ class DataHolder {
     static var userPhone = ""
     static var password = ""
     static var terminalId  = ""
-    static var failureBackUrl = ""
+    static let failureBackUrl = "https://site.kz/failure"
     static var failureCallback = ""
-    static var successBackUrl = ""
+    static let successBackUrl = "https://site.kz/success"
     static var successCallback = ""
     static var currentLang: AirbaPaySdk.Lang = AirbaPaySdk.Lang.RU()
 
@@ -47,12 +47,10 @@ class DataHolder {
 
     static var applePayButtonUrl: String? = nil
     static var isApplePayFlow: Bool = true
-    static var isExternalApplePayFlow: Bool = false
     static var hasSavedCards: Bool = false
     static var autoCharge: Int = 0
 
-    static var externalApplePayRedirectToAcquaring: (() -> Void)? = nil
-    static var tempApplePayUrlForExternalApi: String? = nil
+    static var externalApplePayRedirectToContainer: (() -> Void)? = nil
 }
 
 public class TestAirbaPayStates {

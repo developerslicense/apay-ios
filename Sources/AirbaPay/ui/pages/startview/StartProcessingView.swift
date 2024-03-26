@@ -93,7 +93,7 @@ struct StartProcessingView: View {
                     Task {
                         await viewModel.startAuth(
                                 onSuccess: {
-                                    AirbaPay.fetchMerchantsWithNextStep(
+                                    fetchMerchantsWithNextStep(
                                             viewModel: viewModel,
                                             navigateCoordinator: navigateCoordinator
                                     )
