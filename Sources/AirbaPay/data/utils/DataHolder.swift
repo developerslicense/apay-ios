@@ -5,7 +5,7 @@
 import Foundation
 
 class DataHolder {
-    static var sdkVersion = "1.0.74"
+    static var sdkVersion = "1.0.75"
     static var baseUrl = ""
 
     static var connectTimeout = 60
@@ -52,6 +52,7 @@ class DataHolder {
 
     static var externalApplePayRedirect: (String?, Bool)? = nil
     static var redirectFromStoryboardToSwiftUi: (() -> Void)? = nil
+    static var backToStoryboard: (() -> Void)? = nil
 }
 
 public class TestAirbaPayStates {

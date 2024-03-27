@@ -51,6 +51,7 @@ public class AirbaPayCoordinator: ObservableObject {
             path.removeLast()
         }
         actionOnCloseProcessing(result)
+        DataHolder.backToStoryboard?()
     }
 
     func onBack() {
@@ -138,9 +139,10 @@ public struct AirbaPayNextStepApplePayView: View {
 
     public init(
             @ObservedObject navigateCoordinator: AirbaPayCoordinator,
-            needRedirect: Bool = true
+            backToStoryboard: @escaping (() -> Void)
     ) {
         self.navigateCoordinator = navigateCoordinator
+        DataHolder.backToStoryboard = backToStoryboard
     }
 
     public var body: some View {

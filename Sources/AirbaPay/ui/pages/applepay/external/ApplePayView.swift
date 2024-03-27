@@ -20,12 +20,14 @@ public struct ApplePayView: View {
 
     public init(
             redirectFromStoryboardToSwiftUi: (() -> Void)? = nil,
+            backToStoryboard: (() -> Void)? = nil,
             @ObservedObject navigateCoordinator: AirbaPayCoordinator,
             isLoading: @escaping (Bool) -> Void
     ) {
         self.navigateCoordinator = navigateCoordinator
         self.isLoading = isLoading
         DataHolder.redirectFromStoryboardToSwiftUi = redirectFromStoryboardToSwiftUi
+        DataHolder.backToStoryboard = backToStoryboard
         DataHolder.isApplePayFlow = true
     }
 
