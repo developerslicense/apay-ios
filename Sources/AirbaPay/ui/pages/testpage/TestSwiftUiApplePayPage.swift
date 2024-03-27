@@ -19,6 +19,7 @@ struct TestSwiftUiApplePayPage: View {
                 Text("Text up").padding(.all, 16)
 
                 ApplePayView(
+                        redirectFromStoryboardToSwiftUi: nil,
                         navigateCoordinator: navigateCoordinator,
                         isLoading: { b in }
                 )

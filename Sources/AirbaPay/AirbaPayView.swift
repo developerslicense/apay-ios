@@ -132,3 +132,31 @@ public struct AirbaPayView: View {
         )
     }
 }
+
+public struct AirbaPayNextStepApplePayView: View {
+    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+
+    public init(
+            @ObservedObject navigateCoordinator: AirbaPayCoordinator
+    ) {
+        self.navigateCoordinator = navigateCoordinator
+
+        Task {
+            print("aaaaaaaa1")
+
+            try await Task.sleep(nanoseconds: UInt64(Double(2)))
+            print("aaaaaaaa2")
+            DataHolder.redirectFromStoryboardToSwiftUi!()
+        }
+    }
+
+    public var body: some View {
+
+        PathPresenter.RoutingView(
+                path: $navigateCoordinator.path,
+                rootView: {
+                    ProgressBarView()
+                }
+        )
+    }
+}

@@ -14,18 +14,18 @@ import UIKit
 public struct ApplePayView: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     @State var showDialogExit: Bool = false
-    @StateObject var viewModel: ExternalApplePayViewModel = ExternalApplePayViewModel()
+    @StateObject var viewModel = ExternalApplePayViewModel()
     private var isLoading: (Bool) -> Void
 
 
     public init(
+            redirectFromStoryboardToSwiftUi: (() -> Void)? = nil,
             @ObservedObject navigateCoordinator: AirbaPayCoordinator,
-            externalApplePayRedirectToContainer: (() -> Void)? = nil,
             isLoading: @escaping (Bool) -> Void
     ) {
         self.navigateCoordinator = navigateCoordinator
-        DataHolder.externalApplePayRedirectToContainer = externalApplePayRedirectToContainer
         self.isLoading = isLoading
+        DataHolder.redirectFromStoryboardToSwiftUi = redirectFromStoryboardToSwiftUi
     }
 
     public var body: some View {
@@ -94,25 +94,30 @@ private struct SwiftUIWebView: UIViewRepresentable {
 
         func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> ()) {
 
-            if(navigationAction.navigationType == .other) {
+            if (navigationAction.navigationType == .other) {
                 decisionHandler(.allow)
 
                 let url = navigationAction.request.url?.absoluteString ?? ""
 
                 if (url).contains("acquiring-api") == true {
 
-                    DataHolder.externalApplePayRedirectToContainer?()
-                    navigateCoordinator.openAcquiring(redirectUrl: url)
-                }
-                else if (url).contains("success") == true {
+                    DataHolder.externalApplePayRedirect = {
+                        self.navigateCoordinator.openAcquiring(redirectUrl: url)
+                    }
+                    redirectTo()
+                } else if (url).contains("success") == true {
 
-                    DataHolder.externalApplePayRedirectToContainer?()
-                    navigateCoordinator.openSuccess()
-                }
-                else if (url).contains("failure") == true || (url).contains("error") == true {
+                    DataHolder.externalApplePayRedirect = {
+                        self.navigateCoordinator.openSuccess()
+                    }
+                    redirectTo()
 
-                    DataHolder.externalApplePayRedirectToContainer?()
-                    navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+                } else if (url).contains("failure") == true || (url).contains("error") == true {
+
+                    DataHolder.externalApplePayRedirect = {
+                        self.navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+                    }
+                    redirectTo()
                 }
 
                 return
@@ -121,8 +126,15 @@ private struct SwiftUIWebView: UIViewRepresentable {
 
             decisionHandler(.allow)
         }
-    }
 
+        func redirectTo() {
+            if DataHolder.redirectFromStoryboardToSwiftUi != nil {
+                DataHolder.redirectFromStoryboardToSwiftUi!()
+            } else {
+                DataHolder.externalApplePayRedirect!()
+            }
+        }
+    }
 
     func makeCoordinator() -> SwiftUIWebView.Coordinator {
         Coordinator(
@@ -136,7 +148,7 @@ private class WebViewModel: ObservableObject {
     @Published var link: String
     @Published var didFinishLoading: Bool = false
 
-    init (link: String) {
+    init(link: String) {
         self.link = link
     }
 }
