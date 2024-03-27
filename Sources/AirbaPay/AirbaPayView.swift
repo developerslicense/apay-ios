@@ -141,16 +141,7 @@ public struct AirbaPayNextStepApplePayView: View {
             needRedirect: Bool = true
     ) {
         self.navigateCoordinator = navigateCoordinator
-
-        Task {
-            print("aaaaaaaa1")
-
-            if needRedirect {
-                try await Task.sleep(nanoseconds: UInt64(Double(2)))
-                print("aaaaaaaa2")
-                DataHolder.externalApplePayRedirect!()
-            }
-        }
+        print("aaaaaaaa1")
     }
 
     public var body: some View {
@@ -158,7 +149,18 @@ public struct AirbaPayNextStepApplePayView: View {
         PathPresenter.RoutingView(
                 path: $navigateCoordinator.path,
                 rootView: {
-                    ProgressBarView()
+                    if DataHolder.externalApplePayRedirect?.0 != nil {
+                        AcquiringPage(
+                                navigateCoordinator: navigateCoordinator,
+                                redirectUrl: DataHolder.externalApplePayRedirect?.0!
+                        )
+
+                    } else if DataHolder.externalApplePayRedirect?.1 == true {
+                        SuccessPage(navigateCoordinator: navigateCoordinator)
+
+                    } else {
+                        ErrorSomethingWrongPage(navigateCoordinator: navigateCoordinator)
+                    }
                 }
         )
     }

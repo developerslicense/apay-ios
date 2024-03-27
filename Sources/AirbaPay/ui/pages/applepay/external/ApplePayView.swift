@@ -101,25 +101,29 @@ private struct SwiftUIWebView: UIViewRepresentable {
 
                 if (url).contains("acquiring-api") == true {
                     print("aaaaaaaaa acquiring-api")
-                    DataHolder.externalApplePayRedirect = {
-                        self.navigateCoordinator.openAcquiring(redirectUrl: url)
-                    }
-                    redirectTo()
+                    DataHolder.externalApplePayRedirect = (url, false)
+                    redirectTo(
+                            defaultRedirectAction: {
+                                self.navigateCoordinator.openAcquiring(redirectUrl: url)
+                            }
+                    )
                 } else if (url).contains("success") == true {
                     print("aaaaaaaaa success")
-
-                    DataHolder.externalApplePayRedirect = {
-                        self.navigateCoordinator.openSuccess()
-                    }
-                    redirectTo()
+                    DataHolder.externalApplePayRedirect = (nil, true)
+                    redirectTo(
+                            defaultRedirectAction: {
+                                self.navigateCoordinator.openSuccess()
+                            }
+                    )
 
                 } else if (url).contains("failure") == true || (url).contains("error") == true {
                     print("aaaaaaaaa failure")
-
-                    DataHolder.externalApplePayRedirect = {
-                        self.navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
-                    }
-                    redirectTo()
+                    DataHolder.externalApplePayRedirect = (nil, false)
+                    redirectTo(
+                            defaultRedirectAction: {
+                                self.navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+                            }
+                    )
                 }
 
                 return
@@ -129,13 +133,15 @@ private struct SwiftUIWebView: UIViewRepresentable {
             decisionHandler(.allow)
         }
 
-        func redirectTo() {
+        func redirectTo(
+                defaultRedirectAction: () -> Void
+        ) {
             if DataHolder.redirectFromStoryboardToSwiftUi != nil {
                 print("aaaaaaaaa redirectFromStoryboardToSwiftUi")
                 DataHolder.redirectFromStoryboardToSwiftUi!()
             } else {
                 print("aaaaaaaaa externalApplePayRedirect")
-                DataHolder.externalApplePayRedirect!()
+                defaultRedirectAction()
             }
         }
     }
