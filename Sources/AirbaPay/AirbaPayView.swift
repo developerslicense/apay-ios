@@ -141,7 +141,6 @@ public struct AirbaPayNextStepApplePayView: View {
             needRedirect: Bool = true
     ) {
         self.navigateCoordinator = navigateCoordinator
-        print("aaaaaaaa1")
     }
 
     public var body: some View {

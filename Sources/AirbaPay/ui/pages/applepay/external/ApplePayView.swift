@@ -26,6 +26,7 @@ public struct ApplePayView: View {
         self.navigateCoordinator = navigateCoordinator
         self.isLoading = isLoading
         DataHolder.redirectFromStoryboardToSwiftUi = redirectFromStoryboardToSwiftUi
+        DataHolder.isApplePayFlow = true
     }
 
     public var body: some View {
@@ -101,7 +102,6 @@ private struct SwiftUIWebView: UIViewRepresentable {
                 let url = navigationAction.request.url?.absoluteString ?? ""
 
                 if (url).contains("acquiring-api") == true {
-                    print("aaaaaaaaa acquiring-api")
                     DataHolder.externalApplePayRedirect = (url, false)
                     redirectTo(
                             defaultRedirectAction: {
@@ -109,7 +109,6 @@ private struct SwiftUIWebView: UIViewRepresentable {
                             }
                     )
                 } else if (url).contains("success") == true {
-                    print("aaaaaaaaa success")
                     DataHolder.externalApplePayRedirect = (nil, true)
                     redirectTo(
                             defaultRedirectAction: {
@@ -118,7 +117,6 @@ private struct SwiftUIWebView: UIViewRepresentable {
                     )
 
                 } else if (url).contains("failure") == true || (url).contains("error") == true {
-                    print("aaaaaaaaa failure")
                     DataHolder.externalApplePayRedirect = (nil, false)
                     redirectTo(
                             defaultRedirectAction: {
@@ -140,10 +138,8 @@ private struct SwiftUIWebView: UIViewRepresentable {
             isRedirected = true
 
             if DataHolder.redirectFromStoryboardToSwiftUi != nil {
-                print("aaaaaaaaa redirectFromStoryboardToSwiftUi")
                 DataHolder.redirectFromStoryboardToSwiftUi!()
             } else {
-                print("aaaaaaaaa externalApplePayRedirect")
                 defaultRedirectAction()
             }
         }

@@ -26,11 +26,13 @@ struct AcquiringPage: View {
             ColorsSdk.bgMain
 
             VStack {
-                ViewToolbar(
-                        title: "",
-                        actionClickBack: { showDialogExit = true }
-                )
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                if !DataHolder.isApplePayFlow {
+                    ViewToolbar(
+                            title: "",
+                            actionClickBack: { showDialogExit = true }
+                    )
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                }
 
                 SwiftUIWebView(
                         url: redirectUrl,
