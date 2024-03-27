@@ -82,6 +82,7 @@ private struct SwiftUIWebView: UIViewRepresentable {
     class Coordinator: NSObject, WKNavigationDelegate {
         @ObservedObject var navigateCoordinator: AirbaPayCoordinator
         private var viewModel: WebViewModel
+        private var isRedirected: Bool = false
 
         init(
                 @ObservedObject navigateCoordinator: AirbaPayCoordinator,
@@ -94,7 +95,7 @@ private struct SwiftUIWebView: UIViewRepresentable {
 
         func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> ()) {
 
-            if (navigationAction.navigationType == .other) {
+            if (navigationAction.navigationType == .other && !isRedirected) {
                 decisionHandler(.allow)
 
                 let url = navigationAction.request.url?.absoluteString ?? ""
@@ -136,6 +137,8 @@ private struct SwiftUIWebView: UIViewRepresentable {
         func redirectTo(
                 defaultRedirectAction: () -> Void
         ) {
+            isRedirected = true
+
             if DataHolder.redirectFromStoryboardToSwiftUi != nil {
                 print("aaaaaaaaa redirectFromStoryboardToSwiftUi")
                 DataHolder.redirectFromStoryboardToSwiftUi!()

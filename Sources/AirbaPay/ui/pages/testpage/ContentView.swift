@@ -14,7 +14,7 @@ struct TestPage1: View {
             isCustomSuccessPageView: true,
             isCustomFinalErrorPageView: true,
             //        actionOnOpenProcessing: { print("qqqqqq actionOnOpenProcessing")},
-            actionOnCloseProcessing: { result in  print("qqqqqq  actionOnCloseProcessing" + String(result!)) }
+            actionOnCloseProcessing: { result in  print("qqqqqq  actionOnCloseProcessing" + String(result ?? false)) }
 
     )
 
