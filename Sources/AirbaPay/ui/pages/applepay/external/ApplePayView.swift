@@ -100,12 +100,13 @@ private struct SwiftUIWebView: UIViewRepresentable {
                 let url = navigationAction.request.url?.absoluteString ?? ""
 
                 if (url).contains("acquiring-api") == true {
-
+                    print("aaaaaaaaa acquiring-api")
                     DataHolder.externalApplePayRedirect = {
                         self.navigateCoordinator.openAcquiring(redirectUrl: url)
                     }
                     redirectTo()
                 } else if (url).contains("success") == true {
+                    print("aaaaaaaaa success")
 
                     DataHolder.externalApplePayRedirect = {
                         self.navigateCoordinator.openSuccess()
@@ -113,6 +114,7 @@ private struct SwiftUIWebView: UIViewRepresentable {
                     redirectTo()
 
                 } else if (url).contains("failure") == true || (url).contains("error") == true {
+                    print("aaaaaaaaa failure")
 
                     DataHolder.externalApplePayRedirect = {
                         self.navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
@@ -129,8 +131,10 @@ private struct SwiftUIWebView: UIViewRepresentable {
 
         func redirectTo() {
             if DataHolder.redirectFromStoryboardToSwiftUi != nil {
+                print("aaaaaaaaa redirectFromStoryboardToSwiftUi")
                 DataHolder.redirectFromStoryboardToSwiftUi!()
             } else {
+                print("aaaaaaaaa externalApplePayRedirect")
                 DataHolder.externalApplePayRedirect!()
             }
         }

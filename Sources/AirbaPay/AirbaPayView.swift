@@ -137,16 +137,19 @@ public struct AirbaPayNextStepApplePayView: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
 
     public init(
-            @ObservedObject navigateCoordinator: AirbaPayCoordinator
+            @ObservedObject navigateCoordinator: AirbaPayCoordinator,
+            needRedirect: Bool = true
     ) {
         self.navigateCoordinator = navigateCoordinator
 
         Task {
             print("aaaaaaaa1")
 
-            try await Task.sleep(nanoseconds: UInt64(Double(2)))
-            print("aaaaaaaa2")
-            DataHolder.redirectFromStoryboardToSwiftUi!()
+            if needRedirect {
+                try await Task.sleep(nanoseconds: UInt64(Double(2)))
+                print("aaaaaaaa2")
+                DataHolder.externalApplePayRedirect!()
+            }
         }
     }
 
