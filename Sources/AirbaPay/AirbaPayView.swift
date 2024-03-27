@@ -51,6 +51,7 @@ public class AirbaPayCoordinator: ObservableObject {
             path.removeLast()
         }
         actionOnCloseProcessing(result)
+        DataHolder.backToStoryboard?()
     }
 
     func onBack() {
@@ -129,6 +130,37 @@ public struct AirbaPayView: View {
         PathPresenter.RoutingView(
                 path: $navigateCoordinator.path,
                 rootView: { contentView }
+        )
+    }
+}
+
+public struct AirbaPayNextStepApplePayView: View {
+    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+
+    public init(
+            @ObservedObject navigateCoordinator: AirbaPayCoordinator
+    ) {
+        self.navigateCoordinator = navigateCoordinator
+    }
+
+    public var body: some View {
+
+        PathPresenter.RoutingView(
+                path: $navigateCoordinator.path,
+                rootView: {
+                    if DataHolder.externalApplePayRedirect?.0 != nil {
+                        AcquiringPage(
+                                navigateCoordinator: navigateCoordinator,
+                                redirectUrl: DataHolder.externalApplePayRedirect?.0!
+                        )
+
+                    } else if DataHolder.externalApplePayRedirect?.1 == true {
+                        SuccessPage(navigateCoordinator: navigateCoordinator)
+
+                    } else {
+                        ErrorSomethingWrongPage(navigateCoordinator: navigateCoordinator)
+                    }
+                }
         )
     }
 }

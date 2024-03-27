@@ -51,25 +51,4 @@ public class StartProcessingViewModel: ObservableObject {
         }
 
     }
-
-    public func onAppear(
-            navigateCoordinator: AirbaPayCoordinator
-    ) {
-
-        DataHolder.isExternalApplePayFlow = true
-        DataHolder.isApplePayFlow = true
-        Task {
-            await startAuth(
-                    onSuccess: {
-                        AirbaPay.fetchMerchantsWithNextStep(
-                                viewModel: self,
-                                navigateCoordinator: navigateCoordinator
-                        )
-                    },
-                    onError: {
-                        navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
-                    }
-            )
-        }
-    }
 }

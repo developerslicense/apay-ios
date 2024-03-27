@@ -6,6 +6,7 @@ import Foundation
 import SwiftUI
 import WebKit
 import Combine
+import UIKit
 
 public struct ApplePayPage: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator

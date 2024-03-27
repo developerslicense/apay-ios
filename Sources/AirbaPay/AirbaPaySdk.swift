@@ -102,9 +102,7 @@ public class AirbaPaySdk {
         DataHolder.userPhone = phone
         DataHolder.userEmail = userEmail
 
-        DataHolder.failureBackUrl = "https://site.kz/failure" // не нужно
         DataHolder.failureCallback = failureCallback
-        DataHolder.successBackUrl = "https://site.kz/success"// не нужно
         DataHolder.successCallback = successCallback
 
         DataHolder.sendTimeout = 60

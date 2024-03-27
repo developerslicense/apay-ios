@@ -14,7 +14,7 @@ struct TestPage1: View {
             isCustomSuccessPageView: true,
             isCustomFinalErrorPageView: true,
             //        actionOnOpenProcessing: { print("qqqqqq actionOnOpenProcessing")},
-            actionOnCloseProcessing: { result in  print("qqqqqq  actionOnCloseProcessing" + String(result!)) }
+            actionOnCloseProcessing: { result in  print("qqqqqq  actionOnCloseProcessing" + String(result ?? false)) }
 
     )
 
@@ -32,7 +32,7 @@ struct TestPage1: View {
 
                             Button(
                                     action: {
-                                        DataHolder.hasSavedCards = featureSavedCards
+                                        DataHolder.hasSavedCards = false
 
                                         TestAirbaPayStates.shutDownTestFeatureApplePay = !featureApplePay
                                         TestAirbaPayStates.shutDownTestFeatureSavedCards = !featureSavedCards
@@ -157,9 +157,9 @@ func testInitSdk(autoCharge: Int) {
             accountId: ACCOUNT_ID_TEST,
             phone: ACCOUNT_ID_TEST,
             userEmail: "test@test.com",
-            shopId: "test-merchant",
-            password: "123456",
-            terminalId: "64216e7ccc4a48db060dd689",
+            shopId: "test-baykanat",//"test-merchant",
+            password: "baykanat123!",//"123456",
+            terminalId: "65c5df69e8037f1b451a0594",//"64216e7ccc4a48db060dd689",
             failureCallback: "https://site.kz/failure-clb",
             successCallback: "https://site.kz/success-clb",
             //            colorBrandMain: Color.orange,
