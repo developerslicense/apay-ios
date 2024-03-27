@@ -138,11 +138,9 @@ public struct AirbaPayNextStepApplePayView: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
 
     public init(
-            @ObservedObject navigateCoordinator: AirbaPayCoordinator,
-            backToStoryboard: @escaping (() -> Void)
+            @ObservedObject navigateCoordinator: AirbaPayCoordinator
     ) {
         self.navigateCoordinator = navigateCoordinator
-        DataHolder.backToStoryboard = backToStoryboard
     }
 
     public var body: some View {
