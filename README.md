@@ -54,6 +54,7 @@ struct TestApp: App {
 | shopId              | String                               | да           | ID магазина в системе AirbaPay                                                  |
 | password            | String                               | да           | Пароль в системе AirbaPay                                                       |
 | terminalId          | String                               | да           | ID терминала под которым создали платеж                                         |
+| accountId           | String                               | да           | ID аккаунта пользователя                                                        |
 | lang                | AirbaPaySdk.Lang                     | да           | Код языка для UI                                                                |
 | isProd              | Bool                                 | да           | Продовская или тестовая среда airbapay                                          |
 | phone               | String                               | да           | Телефон пользователя                                                            |
@@ -69,8 +70,6 @@ struct TestApp: App {
 | orderNumber         | String                               | да           | Номер заказа в системе магазина                                                 |
 | goods               | Array<AirbaPaySdk.Goods>             | да           | Список продуктов для оплаты                                                     |
 | settlementPayments  | Array<AirbaPaySdk.SettlementPayment> | нет          | Распределение платежа по компаниям. В случае одной компании, может быть nil     |
-
-При смене значения isProd, требуется выгрузить приложение из памяти.
 
 Пример:
 
@@ -96,10 +95,10 @@ struct TestApp: App {
             isProd: false,
             lang: AirbaPaySdk.Lang.RU(),
             accountId: ACCOUNT_ID_TEST,
-            phone: ACCOUNT_ID_TEST,
+            phone: PHONE,
             userEmail: "test@test.com",
-            shopId: "test-merchant",
-            password: "123456",
+            shopId: "test-baykanat",
+            password: "baykanat123!",
             terminalId: "64216e7ccc4a48db060dd689",
             failureCallback: "https://site.kz/failure-clb",
             successCallback: "https://site.kz/success-clb",
@@ -148,8 +147,6 @@ var body: some View {
 | navigateCoordinator | @ObservedObject AirbaPayCoordinator | да           | Координатор навигации                         |
 | contentView         | AnyView?                            | да           | Контент страницы, на которой будет вызван sdk |
 
-
-
 ## 1.3 Пример использования
 
 В случае наличия на странице системных элементов управления (к примеру, кнопки назад),
@@ -182,8 +179,7 @@ struct TestPage: View {
                                 Button(
                                         action: {
 
-                                            AirbaPaySdk.initOnCreate(~~~)
-                                            initProcessing(~~~)
+                                            AirbaPaySdk.initSdk(~~~)
                                             navigateCoordinator.startProcessing()
 
                                         },
@@ -200,22 +196,124 @@ struct TestPage: View {
 }
 ```
 
-## 1.4 Подключение АПИ внешнего взаимодействия с ApplePay
+## 1.4 Подключение API внешнего взаимодействия с ApplePay
 
-1) Нужно выполнить инструкцию по настройке XCode
-   https://developer.apple.com/documentation/passkit_apple_pay_and_wallet/apple_pay/setting_up_apple_pay#3735190
+Для работы с ApplePay потребуется вьюшка ```ApplePayView``` из ```AirbaPay```
 
-2) Добавьте в XCode в Apple Pay Merchant IDs:
-   merchant.kz.airbapay.pf
-   merchant.kz.airbapay.spf
+| Параметр                        | Тип                                 | Обязательный | Описание                                       |
+|---------------------------------|-------------------------------------|--------------|------------------------------------------------|
+| redirectFromStoryboardToSwiftUi | (() -> Void)?                       | нет          | Замыкание перехода в сдк для storyboard        |
+| backToStoryboard                | (() -> Void)?                       | нет          | Замыкание возврата в приложение для storyboard |
+| navigateCoordinator             | @ObservedObject AirbaPayCoordinator | да           | Координатор навигации                          |
+| isLoading                       | @escaping (Bool) -> Void            | да           | Замыкание для показа лоадинга или плейсхолдера |
 
-3) Передать айдишник приложения ПМ AirbaPay, чтоб добавить его в админку.
-   (ПМ нужно перейти developer.apple.com -> in-App Purcharse)
+# SwiftUi:
 
-????????????
+1. Выполнить в ```onAppear``` ```AirbaPaySdk.initSdk(~)```
 
-4) Нужно выполнить
-   инструкцию https://developer.apple.com/help/account/create-certificates/create-a-certificate-signing-request
+2. Добавить ```@ObservedObject var navigateCoordinator = AirbaPayCoordinator(~)```
+
+3. Обернуть страницу приложения в
+
+```
+AirbaPayView(
+   navigateCoordinator: navigateCoordinator,
+   contentView: {
+      ~~~
+      //Страница приложения 
+      ~~~
+      
+      // Вьюшка ApplePay из AirbaPay
+     
+      ApplePayView(
+                    navigateCoordinator: navigateCoordinator,
+                    isLoading: { b in 
+                        // Коллбэк для прогрессбара или плейсхолдера  
+                    }
+                )
+                .frame(maxWidth: .infinity, alignment: .top)
+                .frame(height: 48)
+                .padding(.top, 8)
+                .padding(.horizontal, 16)
+      
+   }
+)
+   
+```
+
+
+# Storyboards:
+
+## Внимание! Для storyboard недоступны кастомные страницы завершения
+
+1. Добавить импорты во  ```ViewController```
+```
+import SwiftUI
+import AirbaPay
+```
+
+2. Добавить 
+```
+   @ObservedObject var navigateCoordinator = AirbaPayCoordinator()
+```
+
+3. Дальше надо выполнить ряд действий для подключения вьюшки в storyboard.
+Ниже описан кратко вариант интеграции. Более подробно описано в статье
+https://sarunw.com/posts/swiftui-view-as-uiview-in-storyboard/
+
+- Добавить ```Container View``` и удалить привязанный к нему дефолтный ```ViewController```
+- Добавить ```UIHostingController``` и привязать ```Container View``` к нему через ```"Embed```
+- Связать это с ```ViewController``` кодом, указанным ниже
+
+```
+@IBSegueAction func addApplePay(_ coder: NSCoder) -> UIViewController? {
+        
+        AirbaPaySdk.initSdk(~)
+
+        return UIHostingController(coder: coder, rootView: SwiftUIView(
+            actionOnClick: {
+                let hostingController = UIHostingController(
+                    rootView: AirbaPayNextStepApplePayView(navigateCoordinator: self.navigateCoordinator)
+                )
+                
+                self.navigationController?.pushViewController(hostingController, animated: true)
+            },
+            actionOnClose: {
+                self.navigationController?.popViewController(animated: true)
+            },
+            isLoading: { b in
+               // Коллбэк для прогрессбара или плейсхолдера 
+            }
+        ))
+}
+
+struct SwiftUIView: View {
+    var actionOnClick: () -> Void
+    var actionOnClose: () -> Void
+    var isLoading: (Bool) -> Void
+    @ObservedObject var navigateCoordinator = AirbaPayCoordinator()
+ 
+    var body: some View {
+        ZStack {
+            Color.gray
+            Color.white
+            VStack {                
+                ApplePayView(
+                    redirectFromStoryboardToSwiftUi: actionOnClick,
+                    backToStoryboard: actionOnClose,
+                    navigateCoordinator: navigateCoordinator,
+                    isLoading: isLoading
+                )
+                .frame(maxWidth: .infinity, alignment: .top)
+                .frame(height: 48)
+                .padding(.top, 8)
+                .padding(.horizontal, 16)
+                
+            }
+        }
+    }
+}
+```
 
 
 ## 1.5 Рекомендация в случае интеграции в flutter
@@ -255,8 +353,8 @@ func handleAirbaPayChannel(
   if call.method == "pay" {
     let lang: AirbaPaySdk.Lang = AirbaPaySdk.Lang.RU()
 
-    let someInvoiceId = Int(Date().timeIntervalSince1970)
-    let someOrderNumber = Int(Date().timeIntervalSince1970)
+    let someInvoiceId = ~
+    let someOrderNumber = ~
       
       let goods = AirbaPaySdk.Goods(
         brand: "TechnoFit",
@@ -272,8 +370,8 @@ func handleAirbaPayChannel(
       accountId: "10000001",
       phone: "+77050000010",
       userEmail: "asdasd@sad.com",
-      shopId: "test-merchant",
-      password:  "123456",
+      shopId: "test-baykanat",
+      password:  "baykanat123!",
       terminalId:  "64216e7ccc4a48db060dd689", 
       failureCallback: "https://site.kz/failure-clb",
       successCallback: "https://site.kz/success-clb",
