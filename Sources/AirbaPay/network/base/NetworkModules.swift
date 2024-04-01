@@ -33,6 +33,31 @@ actor NetworkManager: GlobalActor {
         try await executeRequestEncodable(method: .post, path: path, parameters: parameters)
     }
 
+    func postLoggly(path: String, parameters: Encodable) async throws -> Data {
+        try await executeRequestLoggly(path: path, parameters: parameters)
+    }
+
+    private func executeRequestLoggly(
+            path: String,
+            parameters: Encodable,
+            baseUrl: String = DataHolder.baseUrl
+    ) async throws -> Data {
+        try await withCheckedThrowingContinuation { continuation in
+
+            AF.request(
+                    LOGGLY_API_URL + path,
+                    method: .post,
+                    parameters: parameters,
+                    encoder: JSONParameterEncoder.default,
+                    headers: [
+                        "Content-Type": "application/json; charset=utf-8"
+                    ],
+                    requestModifier: { $0.timeoutInterval = self.maxWaitTime }
+            )
+
+        }
+    }
+
     private func executeRequestEncodable(
             method: HTTPMethod,
             path: String,
@@ -46,6 +71,7 @@ actor NetworkManager: GlobalActor {
                             encoder: JSONParameterEncoder.default,
                             headers: [
                                 "Content-Type": "application/json; charset=utf-8",
+                                "Platform": "iOS, " + DataHolder.sdkVersion,
                                 "Authorization":
                                 DataHolder.accessToken == nil
                                         || DataHolder.accessToken == "" ? "" : "Bearer " + DataHolder.accessToken!
