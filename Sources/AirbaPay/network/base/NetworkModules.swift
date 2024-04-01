@@ -54,6 +54,20 @@ actor NetworkManager: GlobalActor {
                     ],
                     requestModifier: { $0.timeoutInterval = self.maxWaitTime }
             )
+                    .responseData { response in
+                        if (!DataHolder.isProd || DataHolder.enabledLogsForProd) {
+                            print("AirbaPayLoggly ")
+                            print(parameters)
+                            print(response.debugDescription)
+                        }
+
+                        switch (response.result) {
+                        case let .success(data):
+                            continuation.resume(returning: data)
+                        case let .failure(error):
+                            continuation.resume(throwing: self.handleError(error: error))
+                        }
+                    }
 
         }
     }

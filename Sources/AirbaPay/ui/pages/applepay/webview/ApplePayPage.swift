@@ -93,6 +93,10 @@ private struct SwiftUIWebView: UIViewRepresentable {
                 decisionHandler(.allow)
 
                 if (navigationAction.request.url?.absoluteString ?? "").contains("acquiring-api") == true {
+                    Logger.log(
+                            message: "ApplePayPage redirect to acquiring",
+                            url: navigationAction.request.url?.absoluteString
+                    )
                     navigateCoordinator.openAcquiring(redirectUrl: navigationAction.request.url?.absoluteString)
                 }
 
@@ -100,12 +104,25 @@ private struct SwiftUIWebView: UIViewRepresentable {
 
             } else {
                 if let redirectedUrl = navigationAction.request.url {
+                    Logger.log(
+                            message: "ApplePayPage redirectUrl",
+                            url: redirectedUrl.absoluteString
+                    )
 
                     if redirectedUrl.absoluteString.contains("status=auth") == true ||
                                redirectedUrl.absoluteString.contains("status=success") == true {
+                        Logger.log(
+                                message: "ApplePayPage openSuccess",
+                                url: navigationAction.request.url?.absoluteString
+                        )
                         navigateCoordinator.openSuccess()
 
                     } else if redirectedUrl.absoluteString.contains("status=error") == true {
+                        Logger.log(
+                                message: "ApplePayPage openErrorWithCondition",
+                                url: navigationAction.request.url?.absoluteString
+                        )
+
                         let temp = redirectedUrl.absoluteString.components(separatedBy: "&") ?? []
                         let result = temp.first { text in
                             text.contains("errorCode")

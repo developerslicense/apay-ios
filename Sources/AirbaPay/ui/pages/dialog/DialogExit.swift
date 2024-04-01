@@ -49,6 +49,7 @@ struct DialogExit: View {
                             title: yes(),
                             isMainBrand: false,
                             actionClick: {
+                                Logger.log(message: "Был вызван диалог выхода")
                                 backToApp()
                             }
                     )

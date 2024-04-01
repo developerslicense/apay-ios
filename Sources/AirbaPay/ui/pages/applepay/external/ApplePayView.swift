@@ -102,8 +102,16 @@ private struct SwiftUIWebView: UIViewRepresentable {
                 decisionHandler(.allow)
 
                 let url = navigationAction.request.url?.absoluteString ?? ""
+                Logger.log(
+                        message: "ApplePayView redirectUrl",
+                        url: url
+                )
 
                 if (url).contains("acquiring-api") == true {
+                    Logger.log(
+                            message: "ApplePayPage redirect to acquiring",
+                            url: url
+                    )
                     DataHolder.externalApplePayRedirect = (url, false)
                     redirectTo(
                             defaultRedirectAction: {
@@ -111,6 +119,10 @@ private struct SwiftUIWebView: UIViewRepresentable {
                             }
                     )
                 } else if (url).contains("success") == true {
+                    Logger.log(
+                            message: "ApplePayPage openSuccess",
+                            url: url
+                    )
                     DataHolder.externalApplePayRedirect = (nil, true)
                     redirectTo(
                             defaultRedirectAction: {
@@ -119,6 +131,10 @@ private struct SwiftUIWebView: UIViewRepresentable {
                     )
 
                 } else if (url).contains("failure") == true || (url).contains("error") == true {
+                    Logger.log(
+                            message: "ApplePayPage openErrorPageWithCondition",
+                            url: url
+                    )
                     DataHolder.externalApplePayRedirect = (nil, false)
                     redirectTo(
                             defaultRedirectAction: {

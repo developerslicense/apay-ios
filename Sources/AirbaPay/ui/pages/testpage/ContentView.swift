@@ -164,6 +164,7 @@ func testInitSdk(autoCharge: Int) {
             successCallback: "https://site.kz/success-clb",
             //            colorBrandMain: Color.orange,
             autoCharge: autoCharge,
+            enabledLogsForProd: false,
             purchaseAmount: 1500,
             invoiceId: String(someInvoiceId),
             orderNumber: String(someOrderNumber),
