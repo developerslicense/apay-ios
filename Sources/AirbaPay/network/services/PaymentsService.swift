@@ -11,17 +11,23 @@ func paymentDefaultService(
 ) async -> PaymentEntryResponse? {
 
     do {
+        let path = "api/v1/payments"
         let data = try await NetworkManager.shared.put(
-                path: "api/v1/payments",
+                path: path,
                 parameters: params
         )
 
-        let result: PaymentEntryResponse = try Api.parseData(data: data)
+        let result: PaymentEntryResponse = try Api.parseData(
+                data: data,
+                path: path,
+                method: "PUT",
+                bodyParams: params
+        )
+
         return result
 
     } catch let error {
         print(error.localizedDescription)
-
         return nil
     }
 }
@@ -32,17 +38,22 @@ func paymentSavedCardService(
 ) async -> PaymentEntryResponse? {
 
     do {
+        let path = "api/v1/payments/" + cardId
         let data = try await NetworkManager.shared.put(
-                path: "api/v1/payments/" + cardId,
+                path: path,
                 parameters: params
         )
 
-        let result: PaymentEntryResponse = try Api.parseData(data: data)
+        let result: PaymentEntryResponse = try Api.parseData(
+                data: data,
+                path: path,
+                method: "PUT",
+                bodyParams: params
+        )
         return result
 
     } catch let error {
         print(error.localizedDescription)
-
         return nil
     }
 }
@@ -55,17 +66,21 @@ func putPaymentWallet(
     let param = ApplePaymentWalletRequest(wallet: wallet)
 
     do {
+        let path = "api/v1/payments/wallet"
         let data = try await NetworkManager.shared.put(
-                path: "api/v1/payments/wallet",
+                path: path,
                 parameters: param
         )
 
-        let result: PaymentEntryResponse = try Api.parseData(data: data)
+        let result: PaymentEntryResponse = try Api.parseData(
+                data: data,
+                path: path,
+                method: "PUT"
+        )
         return result
 
     } catch let error {
         print(error.localizedDescription)
-
         return nil
     }
 }
@@ -75,17 +90,21 @@ func paymentGetCvv(
 ) async -> GetCvvResponse? {
 
     do {
+        let path = "api/v1/payments/cvv/" + cardId
         let data = try await NetworkManager.shared.get(
-                path: "api/v1/payments/cvv/" + cardId,
+                path: path,
                 parameters: nil
         )
 
-        let result: GetCvvResponse = try Api.parseData(data: data)
+        let result: GetCvvResponse = try Api.parseData(
+                data: data,
+                path: path,
+                method: "GET"
+        )
         return result
 
     } catch let error {
         print(error.localizedDescription)
-
         return nil
     }
 }

@@ -9,17 +9,22 @@ import Alamofire
 func paymentAccountEntryRetryService() async -> PaymentEntryResponse? {
 
     do {
+        let path = "api/v1/payments/retry"
         let data = try await NetworkManager.shared.put(
-                path: "api/v1/payments/retry",
+                path: path,
                 parameters: nil
         )
 
-        let result: PaymentEntryResponse = try Api.parseData(data: data)
+        let result: PaymentEntryResponse = try Api.parseData(
+                data: data,
+                path: path,
+                method: "PUT"
+        )
+
         return result
 
     } catch let error {
         print(error.localizedDescription)
-
         return nil
     }
 }

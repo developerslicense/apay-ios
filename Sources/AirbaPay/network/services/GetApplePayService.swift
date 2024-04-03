@@ -8,12 +8,17 @@ import Alamofire
 
 func getApplePayService() async -> ApplePayButtonResponse? {
     do {
+        let path = "api/v1/wallets/apple-pay/button"
         let data = try await NetworkManager.shared.get(
-                path: "api/v1/wallets/apple-pay/button",
+                path: path,
                 parameters: nil
         )
 
-        let result: ApplePayButtonResponse = try Api.parseData(data: data)
+        let result: ApplePayButtonResponse = try Api.parseData(
+                data: data,
+                path: path,
+                method: "GET"
+        )
         return result
 
     } catch let error {

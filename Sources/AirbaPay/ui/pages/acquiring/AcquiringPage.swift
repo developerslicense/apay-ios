@@ -101,6 +101,11 @@ private struct SwiftUIWebView: UIViewRepresentable {
 
             } else {
                 if let redirectedUrl = navigationAction.request.url {
+                    Logger.log(
+                            message: "acquiring redirectUrl",
+                            url: redirectedUrl.absoluteString
+                    )
+
                     if (!DataHolder.isProd || DataHolder.enabledLogsForProd) {
                         print("AirbaPay ")
                         print(redirectedUrl)
@@ -108,10 +113,18 @@ private struct SwiftUIWebView: UIViewRepresentable {
 
                     if redirectedUrl.absoluteString.contains("status=auth") == true ||
                                redirectedUrl.absoluteString.contains("success") == true {
+                        Logger.log(
+                                message: "acquiring openSuccess",
+                                url: redirectedUrl.absoluteString
+                        )
                         navigateCoordinator.openSuccess()
 
                     } else if redirectedUrl.absoluteString.contains("error") == true ||
-                               redirectedUrl.absoluteString.contains("failure") == true {
+                                      redirectedUrl.absoluteString.contains("failure") == true {
+                        Logger.log(
+                                message: "acquiring openErrorPageWithCondition",
+                                url: redirectedUrl.absoluteString
+                        )
 
                         let temp = redirectedUrl.absoluteString.components(separatedBy: "&") ?? []
                         print(temp)

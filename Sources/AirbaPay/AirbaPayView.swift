@@ -28,16 +28,19 @@ public class AirbaPayCoordinator: ObservableObject {
     }
 
     public func startProcessing() {
+        LoggerHelper.nextPage(pageName: "StartProcessingView")
         path.append(StartProcessingView(navigateCoordinator: self))
     }
 
     public func openHome() {
+        LoggerHelper.nextPage(pageName: "HomePage")
         onBack()
         actionOnOpenProcessing()
         path.append(HomePage(navigateCoordinator: self))
     }
 
     public func backToStartPage() {
+        LoggerHelper.clear()
         while path.count > 0 {
             path.removeLast()
         }
@@ -47,6 +50,7 @@ public class AirbaPayCoordinator: ObservableObject {
     public func backToApp(
             result: Bool? = nil
     ) {
+        LoggerHelper.clear()
         while !path.isEmpty {
             path.removeLast()
         }
@@ -55,6 +59,7 @@ public class AirbaPayCoordinator: ObservableObject {
     }
 
     func onBack() {
+        LoggerHelper.onBackPressed()
         if !path.isEmpty {
             path.removeLast()
         }
@@ -62,10 +67,13 @@ public class AirbaPayCoordinator: ObservableObject {
 
     public func openAcquiring(redirectUrl: String?) {
         onBack()
+        LoggerHelper.nextPage(pageName: "AcquiringPage")
         path.append(AcquiringPage(navigateCoordinator: self, redirectUrl: redirectUrl))
     }
 
     public func openSuccess() {
+        LoggerHelper.nextPage(pageName: "SuccessPage")
+
         if isCustomSuccessPageView {
             actionOnCloseProcessing(true)
             while !path.isEmpty {
@@ -77,6 +85,7 @@ public class AirbaPayCoordinator: ObservableObject {
     }
 
     public func openRepeat() {
+        LoggerHelper.nextPage(pageName: "RepeatPage")
         path.append(RepeatPage(navigateCoordinator: self))
     }
 
@@ -88,9 +97,12 @@ public class AirbaPayCoordinator: ObservableObject {
         let error = ErrorsCode(code: errorCode ?? 1).getError()
 
         if (error == ErrorsCode().error_1) {
+            LoggerHelper.nextPage(pageName: "ErrorSomethingWrongPage")
             path.append(ErrorSomethingWrongPage(navigateCoordinator: self))
 
         } else if (error.code == ErrorsCode().error_5020.code || errorCode == nil) {
+            LoggerHelper.nextPage(pageName: "ErrorFinalPage")
+
             if isCustomFinalErrorPageView {
                 actionOnCloseProcessing(false)
                 while !path.isEmpty {
@@ -101,9 +113,11 @@ public class AirbaPayCoordinator: ObservableObject {
             }
 
         } else if (error.code == ErrorsCode().error_5999.code && DataHolder.bankCode?.isEmpty == false) {
+            LoggerHelper.nextPage(pageName: "ErrorWithInstructionPage")
             path.append(ErrorWithInstructionPage(navigateCoordinator: self))
 
         } else {
+            LoggerHelper.nextPage(pageName: "ErrorPage")
             path.append(ErrorPage(errorCode: ErrorsCode(code: errorCode ?? 1), navigateCoordinator: self))
         }
     }

@@ -11,18 +11,25 @@ func getCardsBankService(
         next: () -> Void,
         isLoading: @escaping (Bool) -> Void
 ) async {
+    let path = "api/v1/cards/info-by-pan/" + pan
 
     do {
         let data = try await NetworkManager.shared.get(
-                path: "api/v1/cards/info-by-pan/" + pan,
+                path: path,
                 parameters: nil
         )
 
-        let result: CardsPanResponse = try Api.parseData(data: data)
+        let result: CardsPanResponse = try Api.parseData(
+                data: data,
+                path: path,
+                method: "GET"
+        )
+
         DataHolder.bankCode = result.bankCode
         next()
 
     } catch let error {
+
         print(error.localizedDescription)
         isLoading(false)
     }
