@@ -18,9 +18,10 @@ func logService(
                 parameters: LogglyRequest(request: request)
         )
 
-        let result: LogglyResponse = try Api.parseData(data: data)
+        let result: LogglyResponse = try Api.parseDataLoggly(data: data)
 
     } catch let error {
+        print("AirbaPayLoggly postLoggly error")
         print(error.localizedDescription)
     }
 }

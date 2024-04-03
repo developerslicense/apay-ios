@@ -15,13 +15,20 @@ private func executeRequest(
         params: PaymentCreateRequest,
         cardId: String? = nil
 ) async -> PaymentCreateResponse? {
+    let path = cardId != nil ? "api/v1/payments/" + cardId! : "api/v1/payments"
+
     do {
         let data = try await NetworkManager.shared.post(
-                path: cardId != nil ? "api/v1/payments/" + cardId! : "api/v1/payments",
+                path: path,
                 parameters: params
         )
 
-        let result: PaymentCreateResponse = try Api.parseData(data: data)
+        let result: PaymentCreateResponse = try Api.parseData(
+                data: data,
+                path: path,
+                method: "POST"
+        )
+
         return result
 
     } catch let error {

@@ -8,13 +8,19 @@ import Alamofire
 
 func authService(params: AuthRequest) async -> AuthResponse? {
     do {
+        let path = "api/v1/auth/sign-in"
         let data = try await NetworkManager.shared.post(
-                path: "api/v1/auth/sign-in",
+                path: path,
                 parameters: params
         )
 
-        let result: AuthResponse = try Api.parseData(data: data)
+        let result: AuthResponse = try Api.parseData(
+                data: data,
+                path: path,
+                method: "POST"
+        )
         DataHolder.accessToken = result.accessToken
+
         return result
 
     } catch let error {

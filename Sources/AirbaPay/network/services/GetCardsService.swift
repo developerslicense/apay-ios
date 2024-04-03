@@ -8,12 +8,17 @@ import Alamofire
 
 func getCardsService(accountId: String) async -> [BankCard]? {
     do {
+        let path = "api/v1/cards/" + accountId
         let data = try await NetworkManager.shared.get(
-                path: "api/v1/cards/" + accountId,
+                path: path,
                 parameters: nil
         )
 
-        let result: [BankCard] = try Api.parseData(data: data)
+        let result: [BankCard] = try Api.parseData(
+                data: data,
+                path: path,
+                method: "GET"
+        )
 
         let newResult = result.map { card in
             var icon = ""
@@ -35,6 +40,7 @@ func getCardsService(accountId: String) async -> [BankCard]? {
 
     } catch let error {
         print(error.localizedDescription)
+
         return nil
     }
 }

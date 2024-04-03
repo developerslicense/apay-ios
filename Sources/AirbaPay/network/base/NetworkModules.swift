@@ -39,27 +39,26 @@ actor NetworkManager: GlobalActor {
 
     private func executeRequestLoggly(
             path: String,
-            parameters: Encodable,
-            baseUrl: String = DataHolder.baseUrl
+            parameters: Encodable
     ) async throws -> Data {
         try await withCheckedThrowingContinuation { continuation in
 
             AF.request(
-                    LOGGLY_API_URL + path,
-                    method: .post,
-                    parameters: parameters,
-                    encoder: JSONParameterEncoder.default,
-                    headers: [
-                        "Content-Type": "application/json; charset=utf-8"
-                    ],
-                    requestModifier: { $0.timeoutInterval = self.maxWaitTime }
-            )
+                            LOGGLY_API_URL + path,
+                            method: .post,
+                            parameters: parameters,
+                            encoder: JSONParameterEncoder.default,
+                            headers: [
+                                "Content-Type": "application/json; charset=utf-8"
+                            ],
+                            requestModifier: { $0.timeoutInterval = self.maxWaitTime }
+                    )
                     .responseData { response in
-                        if (!DataHolder.isProd || DataHolder.enabledLogsForProd) {
-                            print("AirbaPayLoggly ")
-                            print(parameters)
-                            print(response.debugDescription)
-                        }
+//                        if (!DataHolder.isProd || DataHolder.enabledLogsForProd) {
+//                            print("AirbaPayLoggly ")
+//                            print(parameters)
+//                            print(response.debugDescription)
+//                        }
 
                         switch (response.result) {
                         case let .success(data):

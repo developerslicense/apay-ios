@@ -10,12 +10,17 @@ import Alamofire
 
 func getMerchantInfoService() async -> MerchantsResponse? {
     do {
+        let path = "api/v1/merchants"
         let data = try await NetworkManager.shared.get(
-                path: "api/v1/merchants",
+                path: path,
                 parameters: nil
         )
 
-        let result: MerchantsResponse = try Api.parseData(data: data)
+        let result: MerchantsResponse = try Api.parseData(
+                data: data,
+                path: path,
+                method: "GET"
+        )
 
         return result
 
