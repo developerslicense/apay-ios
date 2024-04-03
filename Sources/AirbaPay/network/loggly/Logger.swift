@@ -16,7 +16,7 @@ class Logger {
             url: String? = nil,
             method: String? = nil,
             responseCode: String? = nil,
-            bodyParams: (any Codable)? = nil,
+            bodyParams: (any Encodable)? = nil,
             response: Data? = nil
     ) {
 
@@ -28,32 +28,21 @@ class Logger {
 
             if (DataHolder.isProd || DataHolder.enabledLogsForProd) {
 
-//                    var jsonResponse: String? = nil
-//                    var jsonBodyParams: String? = nil
+                var jsonBodyParams: String? = nil
 
-//                    if response != nil {
-//                        let decoder = JSONDecoder()
-//                        let result = try! decoder.decode(Result.self, from: response!)
-//
-//                        jsonResponse = String(data: result.encoded, encoding: String.Encoding.utf8)
-//                    }
-                /*
-                    if bodyParams != nil {
-                        let jsonEncoder = JSONEncoder()
-                        let jsonData = try jsonEncoder.encode(bodyParams!)
-                        jsonResponse = String(data: jsonData, encoding: String.Encoding.utf8)
-                    }*/
+                if bodyParams != nil {
+                    jsonBodyParams = try String(bodyParams!.toJSON())
+                }
 
                 let responseString = response != nil ? String(data: response!, encoding: String.Encoding.utf8) : nil
 
                 let request = ApiLogEntry(
-                        url: url,
+                        url: (url?.contains("api/v1/cards/info-by-pan") == true) ? "api/v1/cards/info-by-pan/_pan_number_hiden" : url,
                         method: method,
                         responseCode: responseCode,
-//                        bodyParams: (jsonBodyParams?.contains("Card Holder") == true) ?
-//                        "Содержимое скрыто для секьюрности, т.к. содержит данные карты" : jsonBodyParams,
+                        bodyParams: (jsonBodyParams?.contains("Card Holder") == true || jsonBodyParams?.contains("password") == true) ?
+                                "Содержимое скрыто для секьюрности" : jsonBodyParams,
                         response: responseString,
-//                        response: jsonResponse,
                         messages: message
                 )
 
@@ -61,5 +50,14 @@ class Logger {
             }
         }
 
+    }
+}
+
+extension Encodable {
+    /// Converting object to postable JSON
+    func toJSON(_ encoder: JSONEncoder = JSONEncoder()) throws -> NSString {
+        let data = try encoder.encode(self)
+        let result = String(decoding: data, as: UTF8.self)
+        return NSString(string: result)
     }
 }

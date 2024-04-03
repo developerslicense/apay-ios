@@ -26,7 +26,8 @@ private func executeRequest(
         let result: PaymentCreateResponse = try Api.parseData(
                 data: data,
                 path: path,
-                method: "POST"
+                method: "POST",
+                bodyParams: params
         )
 
         return result

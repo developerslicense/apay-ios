@@ -20,7 +20,8 @@ func paymentDefaultService(
         let result: PaymentEntryResponse = try Api.parseData(
                 data: data,
                 path: path,
-                method: "PUT"
+                method: "PUT",
+                bodyParams: params
         )
 
         return result
@@ -46,7 +47,8 @@ func paymentSavedCardService(
         let result: PaymentEntryResponse = try Api.parseData(
                 data: data,
                 path: path,
-                method: "PUT"
+                method: "PUT",
+                bodyParams: params
         )
         return result
 

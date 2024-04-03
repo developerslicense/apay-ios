@@ -22,7 +22,8 @@ class Api {
     static func parseData<T: Decodable>(
             data: Data,
             path: String,
-            method: String
+            method: String,
+            bodyParams: (any Encodable)? = nil
 
     ) throws -> T{
         guard let decodedData = try? JSONDecoder().decode(T.self, from: data)
@@ -31,6 +32,7 @@ class Api {
                     message: "JSON decode error",
                     url: path,
                     method: method,
+                    bodyParams: bodyParams,
                     response: data
             )
             throw NSError(
@@ -43,6 +45,7 @@ class Api {
         Logger.log(
                 url: path,
                 method: method,
+                bodyParams: bodyParams,
                 response: data
         )
 

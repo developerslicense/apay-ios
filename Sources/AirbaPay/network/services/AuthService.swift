@@ -17,7 +17,8 @@ func authService(params: AuthRequest) async -> AuthResponse? {
         let result: AuthResponse = try Api.parseData(
                 data: data,
                 path: path,
-                method: "POST"
+                method: "POST",
+                bodyParams: params
         )
         DataHolder.accessToken = result.accessToken
 
