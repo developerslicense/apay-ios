@@ -21,6 +21,9 @@ struct StartProcessingView: View {
 
     @State var detentHeight: CGFloat = 0
 
+    var applePay: ApplePayManager
+
+
     var body: some View {
         let context = LAContext()
 
@@ -46,13 +49,31 @@ struct StartProcessingView: View {
                                            && viewModel.applePayUrl != nil
                                            && context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
                                 {
-                                    ApplePayPage(
-                                            redirectUrl: viewModel.applePayUrl,
-                                            navigateCoordinator: navigateCoordinator
-                                    )
-                                            .frame(width: .infinity, height: 48)
-                                            .padding(.top, 8)
-                                            .padding(.horizontal, 16)
+
+                                    if DataHolder.isApplePayNative {
+                                        VStack {
+                                            Image("icAPayWhite")
+                                        }
+
+                                                .frame(maxWidth: .infinity)
+                                                .frame(height: 48)
+                                                .background(ColorsSdk.bgAPAY)
+                                                .cornerRadius(8)
+                                                .padding(.vertical, 16)
+                                                .padding(.horizontal, 16)
+                                                .onTapGesture {
+                                                    applePay.buyBtnTapped()
+                                                }
+
+                                    } else {
+                                        ApplePayPage(
+                                                redirectUrl: viewModel.applePayUrl,
+                                                navigateCoordinator: navigateCoordinator
+                                        )
+                                                .frame(width: .infinity, height: 48)
+                                                .padding(.top, 8)
+                                                .padding(.horizontal, 16)
+                                    }
                                 }
 
 
@@ -119,7 +140,7 @@ struct StartProcessingView: View {
                                 viewModel: viewModel,
                                 editTextViewModel: cvvEditTextViewModel
                         )
-                                .presentationDetents([.height(335)])
+                                .presentationDetents([.height(315)])
 
 
                     } else {

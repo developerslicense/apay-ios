@@ -20,6 +20,9 @@ struct HomePage: View {
 
     @State var cvvToast: Bool = false
     @State var errorCardParserToast: Bool = false
+
+    var applePay: ApplePayManager
+
     private let toastOptions = SimpleToastOptions(
             alignment: .bottom,
             hideAfter: 5
@@ -36,6 +39,7 @@ struct HomePage: View {
         self.navigateCoordinator = navigateCoordinator
         self.maskedPan = maskedPan
         self.dateExpired = dateExpired
+        applePay = ApplePayManager(navigateCoordinator: navigateCoordinator)
     }
 
     var body: some View {
@@ -76,13 +80,30 @@ struct HomePage: View {
                                && !DataHolder.hasSavedCards
                                && context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
                     {
-                        ApplePayPage(
-                                redirectUrl: DataHolder.applePayButtonUrl,
-                                navigateCoordinator: navigateCoordinator
-                        )
-                                .frame(width: .infinity, height: 48)
-                                .padding(.top, 16)
-                                .padding(.horizontal, 16)
+                        if DataHolder.isApplePayNative {
+                            VStack {
+                                Image("icAPayWhite")
+                            }
+
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 48)
+                                    .background(ColorsSdk.bgAPAY)
+                                    .cornerRadius(8)
+                                    .padding(.vertical, 16)
+                                    .padding(.horizontal, 16)
+                                    .onTapGesture {
+                                        applePay.buyBtnTapped()
+                                    }
+
+                        } else {
+                            ApplePayPage(
+                                    redirectUrl: DataHolder.applePayButtonUrl,
+                                    navigateCoordinator: navigateCoordinator
+                            )
+                                    .frame(width: .infinity, height: 48)
+                                    .padding(.top, 8)
+                                    .padding(.horizontal, 16)
+                        }
                     }
 
                     CardNumberView(

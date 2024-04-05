@@ -76,7 +76,10 @@ public class AirbaPaySdk {
             invoiceId: String,
             orderNumber: String,
             goods: Array<Goods>,
-            settlementPayments: Array<SettlementPayment>? = nil
+            settlementPayments: Array<SettlementPayment>? = nil,
+            isApplePayNative: Bool = false,
+            hideInternalApplePayButton: Bool = false,
+            shopName: String
     ) {
 
         if (colorBrandInversion != nil) {
@@ -123,6 +126,9 @@ public class AirbaPaySdk {
 
         DataHolder.purchaseAmountFormatted = Money.initInt(amount: purchaseAmount).getFormatted()
 
+        DataHolder.isApplePayNative = isApplePayNative
+        DataHolder.hideInternalApplePayButton = hideInternalApplePayButton
+        DataHolder.shopName = shopName
     }
 
 }

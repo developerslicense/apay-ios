@@ -22,6 +22,7 @@ class DataHolder {
     static var orderNumber = ""
     static var invoiceId = ""
     static var shopId = ""
+    static var shopName = ""
     static var userEmail: String? = nil
     static var accountId = ""
     static var userPhone = ""
@@ -49,6 +50,9 @@ class DataHolder {
     static var isApplePayFlow: Bool = true
     static var hasSavedCards: Bool = false
     static var autoCharge: Int = 0
+
+    static var isApplePayNative: Bool = false
+    static var hideInternalApplePayButton: Bool = false
 
     static var externalApplePayRedirect: (String?, Bool)? = nil
     static var redirectFromStoryboardToSwiftUi: (() -> Void)? = nil

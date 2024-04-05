@@ -169,7 +169,10 @@ func testInitSdk(autoCharge: Int) {
             invoiceId: String(someInvoiceId),
             orderNumber: String(someOrderNumber),
             goods: goods,
-            settlementPayments: settlementPayment
+            settlementPayments: settlementPayment,
+            isApplePayNative: true,
+            hideInternalApplePayButton: true,
+            shopName: "Technodom"
     )
 }
 
