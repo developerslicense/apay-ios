@@ -82,7 +82,7 @@ struct HomePage: View {
                     {
                         if DataHolder.isApplePayNative {
                             VStack {
-                                Image("icAPayWhite")
+                                Image("icAPayWhite", bundle: DataHolder.moduleBundle)
                             }
 
                                     .frame(maxWidth: .infinity)
