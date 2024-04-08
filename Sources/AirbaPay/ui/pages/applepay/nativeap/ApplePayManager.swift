@@ -40,14 +40,18 @@ public final class ApplePayManager: NSObject {
         return request
     }()
 
-    var btnApplePay: PKPaymentButton = {
-        let btn: PKPaymentButton = PKPaymentButton(paymentButtonType: .buy, paymentButtonStyle: .black)
-        btn.cornerRadius = 10
-        //btn.addTarget(self, action: #selector(buyBtnTapped), for: .touchUpInside)
-        return btn
-    }()
+    public func buyBtnTapped(
+            redirectFromStoryboardToSwiftUi: (() -> Void)? = nil,
+            backToStoryboard: (() -> Void)? = nil
+    ) {
+        if redirectFromStoryboardToSwiftUi != nil {
+            DataHolder.redirectFromStoryboardToSwiftUi = redirectFromStoryboardToSwiftUi
+        }
 
-    public func buyBtnTapped() {
+        if backToStoryboard != nil {
+            DataHolder.backToStoryboard = backToStoryboard
+        }
+
         guard let paymentVC = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest),
               let window = UIApplication.shared.connectedScenes
                       .filter({$0.activationState == .foregroundActive})
