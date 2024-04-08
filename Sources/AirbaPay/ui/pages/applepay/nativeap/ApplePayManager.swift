@@ -23,7 +23,7 @@ final class ApplePayManager: NSObject {// todo нужно вызвать то, �
 
     private lazy var paymentRequest: PKPaymentRequest = {
         let request: PKPaymentRequest = PKPaymentRequest()
-        let merchandId = DataHolder.isProd ? "merchant.kz.airbapay.pf" : "merchant.kz.airbapay.spf" // todo ???
+        let merchandId = DataHolder.applePayMerchantId!
         //label here can be passed in as a variable like we do itemCost and shippingCost.
         let summary = PKPaymentSummaryItem(label: DataHolder.shopName, amount: NSDecimalNumber(integerLiteral: Int(DataHolder.purchaseAmount)!))
 

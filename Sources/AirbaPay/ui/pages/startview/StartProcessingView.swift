@@ -51,20 +51,22 @@ struct StartProcessingView: View {
                                 {
 
                                     if DataHolder.isApplePayNative {
-                                        VStack {
-                                            Image("icAPayWhite")
+
+                                        if DataHolder.applePayMerchantId != nil {
+                                            VStack {
+                                                Image("icAPayWhite")
+                                            }
+
+                                                    .frame(maxWidth: .infinity)
+                                                    .frame(height: 48)
+                                                    .background(ColorsSdk.bgAPAY)
+                                                    .cornerRadius(8)
+                                                    .padding(.vertical, 16)
+                                                    .padding(.horizontal, 16)
+                                                    .onTapGesture {
+                                                        applePay.buyBtnTapped()
+                                                    }
                                         }
-
-                                                .frame(maxWidth: .infinity)
-                                                .frame(height: 48)
-                                                .background(ColorsSdk.bgAPAY)
-                                                .cornerRadius(8)
-                                                .padding(.vertical, 16)
-                                                .padding(.horizontal, 16)
-                                                .onTapGesture {
-                                                    applePay.buyBtnTapped()
-                                                }
-
                                     } else {
                                         ApplePayPage(
                                                 redirectUrl: viewModel.applePayUrl,

@@ -172,7 +172,8 @@ func testInitSdk(autoCharge: Int) {
             settlementPayments: settlementPayment,
             isApplePayNative: true,
             hideInternalApplePayButton: true,
-            shopName: "Technodom"
+            shopName: "Technodom",
+            applePayMerchantId: DataHolder.isProd ? "merchant.kz.airbapay.pf" : "merchant.kz.airbapay.spf"
     )
 }
 
