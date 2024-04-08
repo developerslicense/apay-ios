@@ -6,9 +6,9 @@
 
 import Foundation
 
-class ApplePayViewModel {
+public class ApplePayViewModel {
     
-    func auth(
+    public func auth(
         onError: @escaping () -> Void,
         onSuccess: @escaping () -> Void
     ) {
@@ -46,13 +46,13 @@ class ApplePayViewModel {
            }
        }
 
-       func processingWallet(
+       public func processingWallet(
             navigateCoordinator: AirbaPayCoordinator,
             applePayToken: String
        ) {
 
            Task {
-               if let result = await putPaymentWallet(applePayToken: applePayToken/*.base64Encoded()*/) {
+               if let result = await putPaymentWallet(applePayToken: applePayToken) {
                    if result.errorCode != 0 {
                        let error = ErrorsCode(code: result.errorCode ?? 1).getError()
                        navigateCoordinator.openErrorPageWithCondition(errorCode: error.code)

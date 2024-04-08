@@ -7,7 +7,7 @@
 import Foundation
 import PassKit
 
-final class ApplePayManager: NSObject {// todo нужно вызвать то, что у гугл было для нативки
+public final class ApplePayManager: NSObject {
 
     var applePayViewModel: ApplePayViewModel = ApplePayViewModel()
     var navigateCoordinator: AirbaPayCoordinator
@@ -15,7 +15,7 @@ final class ApplePayManager: NSObject {// todo нужно вызвать то, �
     var redirect3dsUrl: String? = nil
     var applePayToken: String? = nil
 
-    init(
+    public init(
             navigateCoordinator: AirbaPayCoordinator
     ) {
         self.navigateCoordinator = navigateCoordinator
@@ -68,7 +68,7 @@ final class ApplePayManager: NSObject {// todo нужно вызвать то, �
 // MARK: - PKPaymentAuthorizationViewControllerDelegate
 extension ApplePayManager: PKPaymentAuthorizationViewControllerDelegate {
 
-    func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
+    public func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
         controller.dismiss(animated: true, completion: nil)
 
         if isSuccess {
@@ -79,7 +79,7 @@ extension ApplePayManager: PKPaymentAuthorizationViewControllerDelegate {
         }
     }
 
-    func paymentAuthorizationViewController(
+    public func paymentAuthorizationViewController(
             _ controller: PKPaymentAuthorizationViewController,
             didAuthorizePayment payment: PKPayment,
             handler completion: @escaping (PKPaymentAuthorizationResult) -> Void
@@ -98,7 +98,7 @@ extension ApplePayManager: PKPaymentAuthorizationViewControllerDelegate {
         )
     }
 
-    func paymentAuthorizationViewController(
+    public func paymentAuthorizationViewController(
             _ controller: PKPaymentAuthorizationViewController,
             didSelectShippingContact contact: PKContact,
             handler completion: @escaping (PKPaymentRequestShippingContactUpdate) -> Void
