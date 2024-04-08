@@ -79,7 +79,7 @@ public class AirbaPaySdk {
             settlementPayments: Array<SettlementPayment>? = nil,
             isApplePayNative: Bool = false,
             hideInternalApplePayButton: Bool = false,
-            shopName: String,
+            shopName: String = "Shop",
             applePayMerchantId: String? = nil
     ) {
 

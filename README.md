@@ -70,8 +70,9 @@ struct TestApp: App {
 | orderNumber         | String                               | да           | Номер заказа в системе магазина                                                 |
 | goods               | Array<AirbaPaySdk.Goods>             | да           | Список продуктов для оплаты                                                     |
 | settlementPayments  | Array<AirbaPaySdk.SettlementPayment> | нет          | Распределение платежа по компаниям. В случае одной компании, может быть nil     |
-| shopName            | String                               | да           | Название магазина для нативного ApplePay                                        |
+| shopName            | String                               | нет          | Название магазина для нативного ApplePay                                        |
 | isApplePayNative    | Boolean                              | нет          | Флаг, определяющий показ нативной кнопки ApplePay вместо вебвьюшки              |
+| applePayMerchantId  | String                               | нет          | Айдишка мерчанта, прописанная в консоли ApplePay                                |
 
 Пример:
 
@@ -112,7 +113,8 @@ struct TestApp: App {
             goods: goods,
             settlementPayments: settlementPayment,
             isApplePayNative: true,
-            shopName: "Shop Name"
+            shopName: "Shop Name",
+            applePayMerchantId: "merchant.~"
    }
 
 
@@ -202,26 +204,30 @@ struct TestPage: View {
 
 ## 1.4 Подключение нативного ApplePay
 
-1) Изменить параметр ```isApplePayNative``` в initSdk на true и ```shopName```
+1) Добавить параметры в initSdk
+   ```isApplePayNative = true``` 
+   ```applePayMerchantId = "merchant.~"```
 
 2) Перейти в консоль ApplePay https://developer.apple.com/account/resources/identifiers/list 
 
 3) Добавьте в Certificates
-1й Type -> Apple Pay Payment Processing Certificate    Name ->  merchant.kz.airbapay.pf   
-2й Type -> Apple Pay Merchant Identity Certificate     Name ->  merchant.kz.airbapay.pf   
-3й Type -> Apple Pay Payment Processing Certificate    Name ->  merchant.kz.airbapay.spf   
-4й Type -> Apple Pay Merchant Identity Certificate     Name ->  merchant.kz.airbapay.spf   
+1й Type -> Apple Pay Payment Processing Certificate    Name ->  merchant.~.pf   
+2й Type -> Apple Pay Merchant Identity Certificate     Name ->  merchant.~.pf   
+3й Type -> Apple Pay Payment Processing Certificate    Name ->  merchant.~.spf   
+4й Type -> Apple Pay Merchant Identity Certificate     Name ->  merchant.~.spf   
 
-3) Перейти во внутрь идентификатора приложения. Поставбте галочку в ```Apple Pay Payment Processing``` и кликните edit
+4) Перейти во внутрь идентификатора приложения. Поставбте галочку в ```Apple Pay Payment Processing``` и кликните edit
 
-4) Выберите
-   Airbapay Apple Pay Prod Service       merchant.kz.airbapay.pf
-   Airbapay Apple Pay Test Service       merchant.kz.airbapay.spf
+5) Выберите
+   ~ Apple Pay Prod Service       merchant.~.pf
+   ~ Apple Pay Test Service       merchant.~.spf
 и нажмите continue
 
-5) Нажмите Save
+6) Нажмите Save
 
-6) Зайдите в xcode в Targets -> Signing & Capabilities добавьте Apple Pay айди мерчантов поставте галочки 
+7) Зайдите в XCode в Targets -> Signing & Capabilities добавьте Apple Pay айди мерчантов поставьте галочки 
+
+
 
 
 ## 1.5 Подключение API внешнего взаимодействия с ApplePay

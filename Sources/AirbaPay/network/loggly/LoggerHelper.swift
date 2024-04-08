@@ -22,7 +22,9 @@ class LoggerHelper {
 
     static func onBackPressed() {
         self.pageName = previousPages.last ?? ""
-        previousPages.removeLast()
+        if !previousPages.isEmpty {
+            previousPages.removeLast()
+        }
     }
 
     static func clear() {

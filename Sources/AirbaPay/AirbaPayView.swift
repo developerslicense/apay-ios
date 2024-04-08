@@ -98,7 +98,6 @@ public class AirbaPayCoordinator: ObservableObject {
         let error = ErrorsCode(code: errorCode ?? 1).getError()
 
         if (error == ErrorsCode().error_1) {
-            LoggerHelper.nextPage(pageName: "ErrorSomethingWrongPage")
             path.append(ErrorSomethingWrongPage(navigateCoordinator: self))
 
         } else if (error.code == ErrorsCode().error_5020.code || errorCode == nil) {
@@ -124,7 +123,12 @@ public class AirbaPayCoordinator: ObservableObject {
     }
 
     public func openTestApplePaySwiftUi() {
-        path.append(TestSwiftUiApplePayPage(navigateCoordinator: self))
+        let applePay = ApplePayManager(navigateCoordinator: self)
+
+        path.append(TestSwiftUiApplePayPage(
+                navigateCoordinator: self,
+                applePay: applePay
+        ))
     }
 }
 
