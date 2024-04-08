@@ -54,7 +54,7 @@ struct StartProcessingView: View {
 
                                         if DataHolder.applePayMerchantId != nil {
                                             VStack {
-                                                Image("icAPayWhite")
+                                                Image("icAPayWhite", bundle: DataHolder.moduleBundle)
                                             }
 
                                                     .frame(maxWidth: .infinity)
