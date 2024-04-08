@@ -76,11 +76,6 @@ extension ApplePayManager: PKPaymentAuthorizationViewControllerDelegate {
                     navigateCoordinator: self.navigateCoordinator,
                     applePayToken: self.applePayToken ?? ""
             )
-
-
-        } else {
-            navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_5007.code)
-
         }
     }
 
