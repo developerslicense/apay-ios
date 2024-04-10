@@ -8,9 +8,11 @@
 
 ## 1.4 Подключение нативного ApplePay
 
-## 1.5 Подключение АПИ внешнего взаимодействия с ApplePay
+## 1.5 Подключение АПИ внешнего взаимодействия с ApplePay (Нативный)
 
-## 1.6 Рекомендация в случае интеграции в flutter
+## 1.6 Подключение АПИ внешнего взаимодействия с ApplePay (Вебвью)
+
+## 1.7 Рекомендация в случае интеграции в flutter
 
 ## 1.1  Подключение sdk
 
@@ -229,8 +231,127 @@ struct TestPage: View {
 
 
 
+## 1.5 Подключение API внешнего взаимодействия с ApplePay (Нативный)
 
-## 1.5 Подключение API внешнего взаимодействия с ApplePay
+# SwiftUi:
+
+1) Добавить, как указано в примере:
+
+``` 
+struct TestPage: View {
+    
+    @ObservedObject var navigateCoordinator = AirbaPayCoordinator(~)
+    
+     var body: some View {
+        let applePay = ApplePayManager(navigateCoordinator: navigateCoordinator)
+
+        AirbaPayView(
+                navigateCoordinator: navigateCoordinator,
+                contentView: {
+                  // контент страницы приложения 
+                  ~~~
+                  
+                  // кнопка продолжения 
+                  Button(
+                     action: {
+                        ~~~
+                        
+                        AirbaPaySdk.initSdk(
+                           ~
+                           isApplePayNative: true,
+                           shopName: ~,
+                           applePayMerchantId:  "merchant.~"
+                       )
+                       
+                       applePay.buyBtnTapped()
+                       
+                     }
+                  )
+                }
+        )
+     }           
+```
+
+
+# Storyboards:
+
+## Внимание! Для storyboard недоступны кастомные страницы завершения
+
+Для работы с ApplePay потребуется вьюшка ```ApplePayView``` из ```AirbaPay```
+
+| Параметр                        | Тип                                 | Обязательный | Описание                                       |
+|---------------------------------|-------------------------------------|--------------|------------------------------------------------|
+| redirectFromStoryboardToSwiftUi | (() -> Void)?                       | нет          | Замыкание перехода в сдк для storyboard        |
+| backToStoryboard                | (() -> Void)?                       | нет          | Замыкание возврата в приложение для storyboard |
+| navigateCoordinator             | @ObservedObject AirbaPayCoordinator | да           | Координатор навигации                          |
+| isLoading                       | @escaping (Bool) -> Void            | да           | Замыкание для показа лоадинга или плейсхолдера |
+
+
+
+1. Добавить импорты во  ```ViewController```
+
+```
+import SwiftUI
+import AirbaPay
+```
+
+2. Добавить
+
+```
+   @ObservedObject var navigateCoordinator = AirbaPayCoordinator()
+```
+
+3. Дальше надо выполнить ряд действий для подключения вьюшки в storyboard.
+   Ниже описан кратко вариант интеграции. Более подробно описано в статье
+   https://sarunw.com/posts/swiftui-view-as-uiview-in-storyboard/
+
+- Добавить ```Container View``` и удалить привязанный к нему дефолтный ```ViewController```
+- Добавить ```UIHostingController``` и привязать ```Container View``` к нему через ```"Embed```
+- Связать это с ```ViewController``` кодом, указанным ниже
+
+```
+@IBSegueAction func addApplePay(_ coder: NSCoder) -> UIViewController? {
+        
+        AirbaPaySdk.initSdk(~)
+        let applePay = ApplePayManager(navigateCoordinator: navigateCoordinator)
+
+        return UIHostingController(coder: coder, rootView: SwiftUIView(
+            actionOnClick: {
+                let hostingController = UIHostingController(
+                    rootView: AirbaPayNextStepApplePayView(navigateCoordinator: self.navigateCoordinator)
+                )
+                
+                self.navigationController?.pushViewController(hostingController, animated: true)
+            },
+            actionOnClose: {
+                self.navigationController?.popViewController(animated: true)
+            },
+            navigateCoordinator: navigateCoordinator,
+            applePay: applePay
+        ))
+}
+
+struct SwiftUIView: View {
+    var actionOnClick: () -> Void
+    var actionOnClose: () -> Void
+    var isLoading: (Bool) -> Void
+    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+ 
+    var body: some View {
+        Button(
+            action: {
+               applePay.buyBtnTapped(
+                                redirectFromStoryboardToSwiftUi: { actionOnClick() },
+                                backToStoryboard: { actionOnClose() }
+                           )
+            }
+        )
+    }
+}
+```
+
+
+## 1.6 Подключение API внешнего взаимодействия с ApplePay (Вебвью)
 
 Для работы с ApplePay потребуется вьюшка ```ApplePayView``` из ```AirbaPay```
 
@@ -350,7 +471,7 @@ struct SwiftUIView: View {
 }
 ```
 
-## 1.6 Рекомендация в случае интеграции в flutter
+## 1.7 Рекомендация в случае интеграции в flutter
 
 1) В dart добавьте:
 

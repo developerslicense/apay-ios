@@ -78,7 +78,6 @@ public class AirbaPaySdk {
             goods: Array<Goods>,
             settlementPayments: Array<SettlementPayment>? = nil,
             isApplePayNative: Bool = false,
-            hideInternalApplePayButton: Bool = false,
             shopName: String = "Shop",
             applePayMerchantId: String? = nil
     ) {
@@ -128,7 +127,6 @@ public class AirbaPaySdk {
         DataHolder.purchaseAmountFormatted = Money.initInt(amount: purchaseAmount).getFormatted()
 
         DataHolder.isApplePayNative = isApplePayNative
-        DataHolder.hideInternalApplePayButton = hideInternalApplePayButton
         DataHolder.shopName = shopName
         DataHolder.applePayMerchantId = applePayMerchantId
     }
