@@ -218,7 +218,7 @@ struct TestPage: View {
 3й Type -> Apple Pay Payment Processing Certificate    Name ->  merchant.~.spf   
 4й Type -> Apple Pay Merchant Identity Certificate     Name ->  merchant.~.spf   
 
-4) Перейти во внутрь идентификатора приложения. Поставбте галочку в ```Apple Pay Payment Processing``` и кликните edit
+4) Перейти во внутрь идентификатора приложения. Поставьте галочку в ```Apple Pay Payment Processing``` и кликните edit
 
 5) Выберите
    ~ Apple Pay Prod Service       merchant.~.pf
@@ -334,16 +334,16 @@ import AirbaPay
 struct SwiftUIView: View {
     var actionOnClick: () -> Void
     var actionOnClose: () -> Void
-    var isLoading: (Bool) -> Void
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+    let applePay: ApplePayManager
  
     var body: some View {
         Button(
             action: {
                applePay.buyBtnTapped(
-                                redirectFromStoryboardToSwiftUi: { actionOnClick() },
-                                backToStoryboard: { actionOnClose() }
-                           )
+                        redirectFromStoryboardToSwiftUi: { actionOnClick() },
+                        backToStoryboard: { actionOnClose() }
+               )
             }
         )
     }
