@@ -8,10 +8,10 @@ import Foundation
 
 struct LogglyRequest: Codable {
 
-    var message: String?
+    var request: ApiLogEntry?
 
     enum CodingKeys: String, CodingKey {
-        case message = "message"
+        case request = "message"
     }
 }
 

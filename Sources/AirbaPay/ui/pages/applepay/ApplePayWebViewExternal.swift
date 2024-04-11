@@ -1,5 +1,5 @@
 //
-//  ApplePayView.swift
+//  ApplePayExternalWebView.swift
 //
 //  Created by Mikhail Belikov on 26.03.2024.
 //
@@ -11,48 +11,40 @@ import WebKit
 import Combine
 import UIKit
 
-public struct ApplePayView: View {
+public struct ApplePayWebViewExternal: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
-    @State var showDialogExit: Bool = false
-    @StateObject var viewModel = ExternalApplePayViewModel()
-    private var isLoading: (Bool) -> Void
+    @ObservedObject var applePayViewModel: ApplePayViewModel
 
 
     public init(
             redirectFromStoryboardToSwiftUi: (() -> Void)? = nil,
             backToStoryboard: (() -> Void)? = nil,
             @ObservedObject navigateCoordinator: AirbaPayCoordinator,
-            isLoading: @escaping (Bool) -> Void
+            @ObservedObject applePayViewModel: ApplePayViewModel
     ) {
         self.navigateCoordinator = navigateCoordinator
-        self.isLoading = isLoading
         DataHolder.redirectFromStoryboardToSwiftUi = redirectFromStoryboardToSwiftUi
         DataHolder.backToStoryboard = backToStoryboard
         DataHolder.isApplePayFlow = true
+        self.applePayViewModel = applePayViewModel
     }
 
     public var body: some View {
 
         VStack {
-            if viewModel.applePayUrl != nil {
+            if applePayViewModel.appleUrlResult != nil {
 
                 ZStack {
-                    ColorsSdk.gray30
-                    ColorsSdk.bgMain
 
                     SwiftUIWebView(
-                            url: viewModel.applePayUrl,
+                            url: applePayViewModel.appleUrlResult,
                             navigateCoordinator: navigateCoordinator
                     )
+                    ColorsSdk.gray30
+                    ColorsSdk.bgMain
                 }
             }
-        }
-                .onAppear {
-                    viewModel.fetchData(
-                            navigateCoordinator: navigateCoordinator,
-                            isLoading: isLoading
-                    )
-                }
+        }.frame(height: 0.1)
     }
 }
 
@@ -65,6 +57,7 @@ private struct SwiftUIWebView: UIViewRepresentable {
             url: String?,
             navigateCoordinator: AirbaPayCoordinator
     ) {
+
         self.navigateCoordinator = navigateCoordinator
         viewModel = WebViewModel(link: url ?? "https://")
         webView = WKWebView(frame: .zero)
@@ -96,6 +89,19 @@ private struct SwiftUIWebView: UIViewRepresentable {
         }
 
 
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) { // это автоклик
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+
+                let js = """
+                             var parentDOM = document.getElementById('root');
+                             parentDOM.getElementsByClassName('apple-pay-btn')[0].click();
+                         """
+
+                webView.evaluateJavaScript(js, completionHandler: nil)
+            })
+        }
+
         func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> ()) {
 
             if (navigationAction.navigationType == .other && !isRedirected) {
@@ -103,13 +109,13 @@ private struct SwiftUIWebView: UIViewRepresentable {
 
                 let url = navigationAction.request.url?.absoluteString ?? ""
                 Logger.log(
-                        message: "ApplePayView redirectUrl",
+                        message: "ApplePayWebViewExternal redirectUrl",
                         url: url
                 )
 
                 if (url).contains("acquiring-api") == true {
                     Logger.log(
-                            message: "ApplePayPage redirect to acquiring",
+                            message: "ApplePayWebViewExternal redirect to acquiring",
                             url: url
                     )
                     DataHolder.externalApplePayRedirect = (url, false)
@@ -120,7 +126,7 @@ private struct SwiftUIWebView: UIViewRepresentable {
                     )
                 } else if (url).contains("success") == true {
                     Logger.log(
-                            message: "ApplePayPage openSuccess",
+                            message: "ApplePayWebViewExternal openSuccess",
                             url: url
                     )
                     DataHolder.externalApplePayRedirect = (nil, true)
@@ -132,7 +138,7 @@ private struct SwiftUIWebView: UIViewRepresentable {
 
                 } else if (url).contains("failure") == true || (url).contains("error") == true {
                     Logger.log(
-                            message: "ApplePayPage openErrorPageWithCondition",
+                            message: "ApplePayWebViewExternal openErrorPageWithCondition",
                             url: url
                     )
                     DataHolder.externalApplePayRedirect = (nil, false)

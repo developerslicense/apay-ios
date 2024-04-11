@@ -19,6 +19,8 @@ struct TestPage1: View {
     )
 
     var body: some View {
+        let applePay = ApplePayManager(navigateCoordinator: navigateCoordinator)
+
         AirbaPayView(
                 navigateCoordinator: navigateCoordinator,
                 contentView: {
@@ -70,6 +72,8 @@ struct TestPage1: View {
                                     action: {
                                         testInitSdk(autoCharge: autoCharge  ? 1 : 0)
                                         navigateCoordinator.openTestApplePaySwiftUi()
+
+//                                      applePay.buyBtnTapped()
                                     },
                                     label: {
                                         Text("Тест внешнего applePay механизма")
@@ -169,7 +173,10 @@ func testInitSdk(autoCharge: Int) {
             invoiceId: String(someInvoiceId),
             orderNumber: String(someOrderNumber),
             goods: goods,
-            settlementPayments: settlementPayment
+            settlementPayments: settlementPayment,
+            isApplePayNative: true,
+            shopName: "Technodom",
+            applePayMerchantId: DataHolder.isProd ? "merchant.kz.airbapay.pf" : "merchant.kz.airbapay.spf"
     )
 }
 
