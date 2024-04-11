@@ -347,8 +347,8 @@ struct SwiftUIView: View {
         Button(
             action: {
                applePay.buyBtnTapped(
-                        redirectFromStoryboardToSwiftUi: { actionOnClick() },
-                        backToStoryboard: { actionOnClose() }
+                        redirectFromStoryboardToSwiftUi: actionOnClick,
+                        backToStoryboard: actionOnClose
                )
             }
         )
@@ -359,7 +359,8 @@ struct SwiftUIView: View {
 
 ## 1.6 Подключение API внешнего взаимодействия с ApplePay (Вебвью)
 
-Для работы с ApplePay потребуется вьюшка ```ApplePayView``` из ```AirbaPay```
+Для работы с ApplePay потребуется вьюшка ```ApplePayWebViewExternal``` из ```AirbaPay```. 
+Визуально она не будет отображаться на экране, т.к. занимает всего 0.1. Вьюшку можно поместить вниз экрана.
 
 | Параметр                        | Тип                                 | Обязательный | Описание                                       |
 |---------------------------------|-------------------------------------|--------------|------------------------------------------------|
@@ -367,12 +368,63 @@ struct SwiftUIView: View {
 | backToStoryboard                | (() -> Void)?                       | нет          | Замыкание возврата в приложение для storyboard |
 | navigateCoordinator             | @ObservedObject AirbaPayCoordinator | да           | Координатор навигации                          |
 | isLoading                       | @escaping (Bool) -> Void            | да           | Замыкание для показа лоадинга или плейсхолдера |
+| applePayViewModel               | @ObservedObject ApplePayViewModel   | да           | ViewModel для работы с эппл пэй из AirbaPay    |
+
 
 # SwiftUi:
 
-1. Выполнить в ```onAppear``` ```AirbaPaySdk.initSdk(~)```
+1) Выполнить в ```onAppear``` ```AirbaPaySdk.initSdk(~)```
 
-2. Добавить ```@ObservedObject var navigateCoordinator = AirbaPayCoordinator(~)```
+2) Добавить, как указано в примере:
+
+``` 
+struct TestPage: View {
+    
+    @ObservedObject var navigateCoordinator = AirbaPayCoordinator(~)
+    @ObservedObject var applePayViewModel = ApplePayViewModel()
+    
+     var body: some View {
+
+        AirbaPayView(
+                navigateCoordinator: navigateCoordinator,
+                contentView: {
+                  // контент страницы приложения 
+                  ~~~
+                  
+                  // кнопка продолжения 
+                  Button(
+                     action: {
+                        ~~~
+                        applePayViewModel.auth(
+                               onError: {
+                                 // Коллбэк для обработки ошибки
+                               },
+                               onSuccess: {
+                                  // Коллбэк для скрытия прогрессбара 
+                               }
+                           )
+                       
+                     }
+                  )
+                  
+                   ApplePayWebViewExternal(
+                       navigateCoordinator: navigateCoordinator,
+                       applePayViewModel: applePayViewModel
+                  )
+                }
+        )
+     }           
+```
+
+
+
+
+
+
+
+
+2. Добавить ```@ObservedObject var navigateCoordinator = AirbaPayCoordinator(~)``` и
+```@ObservedObject var applePayViewModel: ApplePayViewModel = ApplePayViewModel()```
 
 3. Обернуть страницу приложения в
 

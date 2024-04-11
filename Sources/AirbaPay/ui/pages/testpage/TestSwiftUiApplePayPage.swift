@@ -51,7 +51,6 @@ struct TestSwiftUiApplePayPage: View {
                 ApplePayWebViewExternal(
                         redirectFromStoryboardToSwiftUi: nil,
                         navigateCoordinator: navigateCoordinator,
-                        isLoading: { b in },
                         applePayViewModel: applePayViewModel
                 )
 

@@ -20,7 +20,6 @@ public struct ApplePayWebViewExternal: View {
             redirectFromStoryboardToSwiftUi: (() -> Void)? = nil,
             backToStoryboard: (() -> Void)? = nil,
             @ObservedObject navigateCoordinator: AirbaPayCoordinator,
-            isLoading: @escaping (Bool) -> Void,
             @ObservedObject applePayViewModel: ApplePayViewModel
     ) {
         self.navigateCoordinator = navigateCoordinator
