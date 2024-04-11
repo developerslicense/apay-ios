@@ -10,6 +10,8 @@ public class ApplePayViewModel: ObservableObject {
 
     @MainActor @Published public var appleUrlResult: String? = nil
 
+    public init() {}
+
     public func auth(
             onError: @escaping () -> Void,
             onSuccess: @escaping () -> Void
