@@ -141,7 +141,9 @@ struct TestApp: App {
 | actionOnOpenProcessing     | () -> Void     | нет          | Действие на открытие процессинга                                   |
 | actionOnCloseProcessing    | (Bool) -> Void | нет          | Действие на закрытие процессинга с возвратом результата            | 
 
- ```
+Контент страницы приложения обернуть в ```AirbaPayView```
+ 
+```
 var body: some View {
            AirbaPayView(
                 navigateCoordinator: navigateCoordinator,
