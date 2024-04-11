@@ -395,9 +395,11 @@ struct TestPage: View {
                   Button(
                      action: {
                         ~~~
+                        // Нужно показать прогрессбар, т.к. потребуется время для загрузки
+                       
                         applePayViewModel.auth(
                                onError: {
-                                 // Коллбэк для обработки ошибки
+                                 // Коллбэк для обработки ошибки и скрытия прогрессбара
                                },
                                onSuccess: {
                                   // Коллбэк для скрытия прогрессбара 
@@ -417,42 +419,6 @@ struct TestPage: View {
 ```
 
 
-
-
-
-
-
-
-2. Добавить ```@ObservedObject var navigateCoordinator = AirbaPayCoordinator(~)``` и
-```@ObservedObject var applePayViewModel: ApplePayViewModel = ApplePayViewModel()```
-
-3. Обернуть страницу приложения в
-
-```
-AirbaPayView(
-   navigateCoordinator: navigateCoordinator,
-   contentView: {
-      ~~~
-      //Страница приложения 
-      ~~~
-      
-      // Вьюшка ApplePay из AirbaPay
-     
-      ApplePayView(
-                    navigateCoordinator: navigateCoordinator,
-                    isLoading: { b in 
-                        // Коллбэк для прогрессбара или плейсхолдера  
-                    }
-                )
-                .frame(maxWidth: .infinity, alignment: .top)
-                .frame(height: 48)
-                .padding(.top, 8)
-                .padding(.horizontal, 16)
-      
-   }
-)
-   
-```
 
 # Storyboards:
 
@@ -495,34 +461,43 @@ import AirbaPay
             actionOnClose: {
                 self.navigationController?.popViewController(animated: true)
             },
-            isLoading: { b in
-               // Коллбэк для прогрессбара или плейсхолдера 
-            }
+            navigateCoordinator: navigateCoordinator
+
         ))
 }
 
 struct SwiftUIView: View {
     var actionOnClick: () -> Void
     var actionOnClose: () -> Void
-    var isLoading: (Bool) -> Void
     @ObservedObject var navigateCoordinator = AirbaPayCoordinator()
- 
+    @ObservedObject var applePayViewModel = ApplePayViewModel()
+    
     var body: some View {
         ZStack {
             Color.gray
             Color.white
-            VStack {                
-                ApplePayView(
+            VStack {   
+            
+                // кнопка продолжения 
+                Button(
+                    action: {
+                        applePayViewModel.auth(
+                            onError: {
+                                 // Коллбэк для обработки ошибки и скрытия прогрессбара
+                            },
+                            onSuccess: {
+                                  // Коллбэк для скрытия прогрессбара 
+                            }
+                        )
+                    }
+                )
+               
+               ApplePayWebViewExternal(
                     redirectFromStoryboardToSwiftUi: actionOnClick,
                     backToStoryboard: actionOnClose,
                     navigateCoordinator: navigateCoordinator,
-                    isLoading: isLoading
+                    applePayViewModel: applePayViewModel
                 )
-                .frame(maxWidth: .infinity, alignment: .top)
-                .frame(height: 48)
-                .padding(.top, 8)
-                .padding(.horizontal, 16)
-                
             }
         }
     }
