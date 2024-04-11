@@ -141,8 +141,16 @@ struct TestApp: App {
 | actionOnOpenProcessing     | () -> Void     | нет          | Действие на открытие процессинга                                   |
 | actionOnCloseProcessing    | (Bool) -> Void | нет          | Действие на закрытие процессинга с возвратом результата            | 
 
+```AirbaPayView```
+
+| Параметр            | Тип                                 | Обязательный | Описание                                      |
+|---------------------|-------------------------------------|--------------|-----------------------------------------------|
+| navigateCoordinator | @ObservedObject AirbaPayCoordinator | да           | Координатор навигации                         |
+| contentView         | AnyView?                            | да           | Контент страницы, на которой будет вызван sdk |
+
+# SwiftUi:
 Контент страницы приложения обернуть в ```AirbaPayView```
- 
+
 ```
 var body: some View {
            AirbaPayView(
@@ -152,10 +160,54 @@ var body: some View {
 }
  ```
 
-| Параметр            | Тип                                 | Обязательный | Описание                                      |
-|---------------------|-------------------------------------|--------------|-----------------------------------------------|
-| navigateCoordinator | @ObservedObject AirbaPayCoordinator | да           | Координатор навигации                         |
-| contentView         | AnyView?                            | да           | Контент страницы, на которой будет вызван sdk |
+# Storyboards:
+Открыть новую страницу с содержимым swiftUi.
+
+Ниже описан кратко вариант интеграции. Более подробно описано в статье
+https://sarunw.com/posts/swiftui-view-as-uiview-in-storyboard/
+
+- Добавить ```Container View``` и удалить привязанный к нему дефолтный ```ViewController```
+- Добавить ```UIHostingController``` и привязать ```Container View``` к нему через ```Embed```
+- Связать это с ```ViewController``` кодом, указанным ниже
+
+```
+@IBSegueAction func initPage(_ coder: NSCoder) -> UIViewController? {
+        
+        AirbaPaySdk.initSdk(~)
+
+        return UIHostingController(coder: coder, rootView: SwiftUIView(
+            actionOnClick: {
+                DispatchQueue.main.async {
+                    let hostingController = UIHostingController(
+                        rootView: AirbaPayView(
+                            navigateCoordinator: self.navigateCoordinator,
+                            contentView: {}
+                        ).onAppear {
+                            self.navigateCoordinator.startProcessing()
+                        }
+                    )
+                    
+                    self.navigationController?.pushViewController(hostingController, animated: true)
+                }
+            },
+            navigateCoordinator: navigateCoordinator
+        ))
+}
+
+struct SwiftUIView: View {
+    var actionOnClick: () -> Void
+    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+
+    var body: some View {
+        Button(
+            action: actionOnClick,
+            label: { Text("Продолжить") }
+        )  
+    }
+}
+```
+
+
 
 ## 1.3 Пример использования
 
@@ -215,10 +267,11 @@ struct TestPage: View {
 2) Перейти в консоль ApplePay https://developer.apple.com/account/resources/identifiers/list 
 
 3) Добавьте в Certificates
-1й Type -> Apple Pay Payment Processing Certificate    Name ->  merchant.~.pf   
-2й Type -> Apple Pay Merchant Identity Certificate     Name ->  merchant.~.pf   
-3й Type -> Apple Pay Payment Processing Certificate    Name ->  merchant.~.spf   
-4й Type -> Apple Pay Merchant Identity Certificate     Name ->  merchant.~.spf   
+
+1й Type -> Apple Pay Payment Processing Certificate    Name ->  merchant...pf   
+2й Type -> Apple Pay Merchant Identity Certificate     Name ->  merchant...pf   
+3й Type -> Apple Pay Payment Processing Certificate    Name ->  merchant...spf   
+4й Type -> Apple Pay Merchant Identity Certificate     Name ->  merchant...spf   
 
 4) Перейти во внутрь идентификатора приложения. Поставьте галочку в ```Apple Pay Payment Processing``` и кликните edit
 
@@ -314,7 +367,7 @@ import AirbaPay
    https://sarunw.com/posts/swiftui-view-as-uiview-in-storyboard/
 
 - Добавить ```Container View``` и удалить привязанный к нему дефолтный ```ViewController```
-- Добавить ```UIHostingController``` и привязать ```Container View``` к нему через ```"Embed```
+- Добавить ```UIHostingController``` и привязать ```Container View``` к нему через ```Embed```
 - Связать это с ```ViewController``` кодом, указанным ниже
 
 ```
@@ -444,7 +497,7 @@ import AirbaPay
    https://sarunw.com/posts/swiftui-view-as-uiview-in-storyboard/
 
 - Добавить ```Container View``` и удалить привязанный к нему дефолтный ```ViewController```
-- Добавить ```UIHostingController``` и привязать ```Container View``` к нему через ```"Embed```
+- Добавить ```UIHostingController``` и привязать ```Container View``` к нему через ```Embed```
 - Связать это с ```ViewController``` кодом, указанным ниже
 
 ```
