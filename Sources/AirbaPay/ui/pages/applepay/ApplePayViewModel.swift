@@ -6,7 +6,9 @@
 
 import Foundation
 
-public class ApplePayViewModel {
+public class ApplePayViewModel: ObservableObject {
+
+    @MainActor @Published public var appleUrlResult: String? = nil
 
     public func auth(
             onError: @escaping () -> Void,
@@ -33,6 +35,12 @@ public class ApplePayViewModel {
 
                     if let result = await authService(params: params) {
                         onSuccess()
+
+                        if let appleUrlResult = await getApplePayService() {
+                            DispatchQueue.main.async {
+                                self.appleUrlResult = appleUrlResult.buttonUrl
+                            }
+                        }
                     } else {
                         onError()
                     }

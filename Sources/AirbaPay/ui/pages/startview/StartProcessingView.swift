@@ -68,7 +68,7 @@ struct StartProcessingView: View {
                                                     }
                                         }
                                     } else {
-                                        ApplePayPage(
+                                        ApplePayWebViewInternal(
                                                 redirectUrl: viewModel.applePayUrl,
                                                 navigateCoordinator: navigateCoordinator
                                         )

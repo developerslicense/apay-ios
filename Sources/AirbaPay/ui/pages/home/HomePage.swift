@@ -98,7 +98,7 @@ struct HomePage: View {
                                         }
                             }
                         } else {
-                            ApplePayPage(
+                            ApplePayWebViewInternal(
                                     redirectUrl: DataHolder.applePayButtonUrl,
                                     navigateCoordinator: navigateCoordinator
                             )

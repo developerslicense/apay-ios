@@ -8,7 +8,7 @@ import WebKit
 import Combine
 import UIKit
 
-public struct ApplePayPage: View {
+struct ApplePayWebViewInternal: View {
     @ObservedObject var navigateCoordinator: AirbaPayCoordinator
     @State var showDialogExit: Bool = false
     private var redirectUrl: String?
@@ -94,7 +94,7 @@ private struct SwiftUIWebView: UIViewRepresentable {
 
                 if (navigationAction.request.url?.absoluteString ?? "").contains("acquiring-api") == true {
                     Logger.log(
-                            message: "ApplePayPage redirect to acquiring",
+                            message: "ApplePayWebViewInternal redirect to acquiring",
                             url: navigationAction.request.url?.absoluteString
                     )
                     navigateCoordinator.openAcquiring(redirectUrl: navigationAction.request.url?.absoluteString)
@@ -105,21 +105,21 @@ private struct SwiftUIWebView: UIViewRepresentable {
             } else {
                 if let redirectedUrl = navigationAction.request.url {
                     Logger.log(
-                            message: "ApplePayPage redirectUrl",
+                            message: "ApplePayWebViewInternal redirectUrl",
                             url: redirectedUrl.absoluteString
                     )
 
                     if redirectedUrl.absoluteString.contains("status=auth") == true ||
                                redirectedUrl.absoluteString.contains("status=success") == true {
                         Logger.log(
-                                message: "ApplePayPage openSuccess",
+                                message: "ApplePayWebViewInternal openSuccess",
                                 url: navigationAction.request.url?.absoluteString
                         )
                         navigateCoordinator.openSuccess()
 
                     } else if redirectedUrl.absoluteString.contains("status=error") == true {
                         Logger.log(
-                                message: "ApplePayPage openErrorWithCondition",
+                                message: "ApplePayWebViewInternal openErrorWithCondition",
                                 url: navigationAction.request.url?.absoluteString
                         )
 
