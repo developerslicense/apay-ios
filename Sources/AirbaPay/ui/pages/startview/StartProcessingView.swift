@@ -23,6 +23,15 @@ struct StartProcessingView: View {
 
     var applePay: ApplePayManager
 
+    init(
+            @ObservedObject navigateCoordinator: AirbaPayCoordinator
+    ) {
+        self.applePay = ApplePayManager(
+                navigateCoordinator: navigateCoordinator,
+                isExternalApi: false
+        )
+        self.navigateCoordinator = navigateCoordinator
+    }
 
     var body: some View {
         let context = LAContext()

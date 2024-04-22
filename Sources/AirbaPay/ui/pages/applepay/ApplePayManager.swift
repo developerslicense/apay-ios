@@ -14,11 +14,14 @@ public final class ApplePayManager: NSObject {
     var isSuccess: Bool = false
     var redirect3dsUrl: String? = nil
     var applePayToken: String? = nil
+    var isExternalApi: Bool
 
     public init(
-            navigateCoordinator: AirbaPayCoordinator
+            navigateCoordinator: AirbaPayCoordinator,
+            isExternalApi: Bool = true
     ) {
         self.navigateCoordinator = navigateCoordinator
+        self.isExternalApi = isExternalApi
     }
 
     private lazy var paymentRequest: PKPaymentRequest = {
@@ -89,17 +92,23 @@ extension ApplePayManager: PKPaymentAuthorizationViewControllerDelegate {
             handler completion: @escaping (PKPaymentAuthorizationResult) -> Void
     ) {
 
-        applePayViewModel.auth(
-                onError: {
-                    self.isSuccess = false
-                    completion(.init(status: .failure, errors: nil))
-                },
-                onSuccess: {
-                    self.isSuccess = true
-                    self.applePayToken = String(data: payment.token.paymentData, encoding: .utf8)!
-                    completion(.init(status: .success, errors: nil))
-                }
-        )
+        if isExternalApi {
+            applePayViewModel.auth(
+                    onError: {
+                        self.isSuccess = false
+                        completion(.init(status: .failure, errors: nil))
+                    },
+                    onSuccess: {
+                        self.isSuccess = true
+                        self.applePayToken = String(data: payment.token.paymentData, encoding: .utf8)!
+                        completion(.init(status: .success, errors: nil))
+                    }
+            )
+        } else {
+            self.isSuccess = true
+            self.applePayToken = String(data: payment.token.paymentData, encoding: .utf8)!
+            completion(.init(status: .success, errors: nil))
+        }
     }
 
     public func paymentAuthorizationViewController(

@@ -29,8 +29,7 @@ public class AirbaPayCoordinator: ObservableObject {
 
     public func startProcessing() {
         LoggerHelper.nextPage(pageName: "StartProcessingView")
-        let applePay = ApplePayManager(navigateCoordinator: self)
-        path.append(StartProcessingView(navigateCoordinator: self, applePay: applePay))
+        path.append(StartProcessingView(navigateCoordinator: self))
     }
 
     public func openHome() {
