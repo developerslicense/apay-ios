@@ -11,7 +11,7 @@ actor NetworkManager: GlobalActor {
     private init() {
     }
 
-    private let maxWaitTime = 15.0
+    private let maxWaitTime = 300.0
 
     func get(path: String, parameters: Parameters?) async throws -> Data {
         try await executeRequestParameters(method: .get, path: path, parameters: parameters)
