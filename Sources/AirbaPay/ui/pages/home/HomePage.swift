@@ -228,6 +228,8 @@ struct HomePage: View {
                             .cornerRadius(10)
                             .padding(.top)
                 }
+                .screenshotProtected(isProtected: DataHolder.needDisableScreenShot)
+
     }
 
     private func onClick() {

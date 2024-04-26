@@ -79,7 +79,8 @@ public class AirbaPaySdk {
             settlementPayments: Array<SettlementPayment>? = nil,
             isApplePayNative: Bool = false,
             shopName: String = "Shop",
-            applePayMerchantId: String? = nil
+            applePayMerchantId: String? = nil,
+            needDisableScreenShot: Bool = false
     ) {
 
         if (colorBrandInversion != nil) {
@@ -129,6 +130,8 @@ public class AirbaPaySdk {
         DataHolder.isApplePayNative = isApplePayNative
         DataHolder.shopName = shopName
         DataHolder.applePayMerchantId = applePayMerchantId
+        DataHolder.needDisableScreenShot = needDisableScreenShot
+
     }
 
 }
