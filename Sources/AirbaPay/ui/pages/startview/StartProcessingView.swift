@@ -167,6 +167,7 @@ struct StartProcessingView: View {
                     }
 
                 }
+                .screenshotProtected(isProtected: DataHolder.needDisableScreenShot)
 
     }
 }
