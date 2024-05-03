@@ -114,6 +114,7 @@ struct StartProcessingView: View {
 
                             if (viewModel.isLoading) {
                                 ColorsSdk.bgMain
+                                        .onTapGesture(perform: {})
                                 ProgressBarView()
                             }
                         }

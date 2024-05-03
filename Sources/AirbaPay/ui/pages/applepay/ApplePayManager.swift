@@ -28,7 +28,7 @@ public final class ApplePayManager: NSObject {
         let request: PKPaymentRequest = PKPaymentRequest()
         let merchandId = DataHolder.applePayMerchantId!
         //label here can be passed in as a variable like we do itemCost and shippingCost.
-        let summary = PKPaymentSummaryItem(label: DataHolder.shopName, amount: NSDecimalNumber(integerLiteral: Int(DataHolder.purchaseAmount)!))
+        let summary = PKPaymentSummaryItem(label: DataHolder.shopName, amount: NSDecimalNumber(string: DataHolder.purchaseAmount))
 
 //        shippingMethod.identifier = "ios App"
         request.merchantIdentifier = merchandId
