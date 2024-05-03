@@ -70,9 +70,8 @@ struct CoreEditText: View {
             ZStack(alignment: .leading) {
                 if viewModel.text.isEmpty {
                     Text(placeholder)
-                            .foregroundColor(ColorsSdk.textLight)
                             .frame(width: .infinity, alignment: .leading)
-                            .textStyleRegular()
+                            .textStyleRegular(textColor: isError ? ColorsSdk.stateError : ColorsSdk.textLight)
                 }
 
                 if (isCvvMask) {
