@@ -112,7 +112,7 @@ struct CoreEditText: View {
                     .frame(minHeight: 24)
 
 
-            if !viewModel.text.isEmpty && !isCardNumberMask {
+            if !viewModel.text.isEmpty {
                 Image("icClose", bundle: DataHolder.moduleBundle)
                         .resizable()
                         .frame(width: 14, height: 14)
@@ -121,14 +121,17 @@ struct CoreEditText: View {
                             actionOnTextChanged("")
                         })
 
-            } else if isCardNumberMask {
+            }
+
+            if isCardNumberMask {
                 Image("icCardScan", bundle: DataHolder.moduleBundle)
                         .onTapGesture(perform: {
                             actionClickScanner?()
                         })
             }
         }
-                .padding()
+                .padding(.horizontal, 10)
+                .padding(.vertical, 14)
                 .background(isError ? ColorsSdk.stateBgError : ColorsSdk.bgBlock)
                 .overlay(
                         RoundedRectangle(cornerRadius: 8)
