@@ -94,7 +94,7 @@ struct HomePage: View {
                                         .frame(height: 48)
                                         .background(ColorsSdk.bgAPAY)
                                         .cornerRadius(8)
-                                        .padding(.vertical, 16)
+                                        .padding(.top, 8)
                                         .padding(.horizontal, 16)
                                         .onTapGesture {
                                             applePay.buyBtnTapped()
