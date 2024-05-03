@@ -23,7 +23,7 @@ public class AirbaPaySdk {
                 category: String,
                 model: String,
                 quantity: Int,
-                price: Int
+                price: Double
         ) {
             self.brand = brand
             self.category = category
@@ -36,15 +36,15 @@ public class AirbaPaySdk {
         let category: String // Категория продукта
         let model: String // Модель продукта
         let quantity: Int // Количество в корзине
-        let price: Int // Цена продукта
+        let price: Double // Цена продукта
     }
 
     public struct SettlementPayment: Encodable {
-        let amount: Int
+        let amount: Double
         let companyId: String?
 
         public init(
-                amount: Int,
+                amount: Double,
                 companyId: String?
         ) {
             self.amount = amount
@@ -72,7 +72,7 @@ public class AirbaPaySdk {
             colorBrandInversion: Color? = nil,
             autoCharge: Int = 0,
             enabledLogsForProd: Bool = false,
-            purchaseAmount: Int,
+            purchaseAmount: Double,
             invoiceId: String,
             orderNumber: String,
             goods: Array<Goods>,
@@ -125,13 +125,12 @@ public class AirbaPaySdk {
         DataHolder.goods = goods
         DataHolder.settlementPayments = settlementPayments
 
-        DataHolder.purchaseAmountFormatted = Money.initInt(amount: purchaseAmount).getFormatted()
+        DataHolder.purchaseAmountFormatted = Money.initDouble(amount: purchaseAmount).getFormatted()
 
         DataHolder.isApplePayNative = isApplePayNative
         DataHolder.shopName = shopName
         DataHolder.applePayMerchantId = applePayMerchantId
         DataHolder.needDisableScreenShot = needDisableScreenShot
-
     }
 
 }
