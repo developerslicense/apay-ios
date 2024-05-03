@@ -100,6 +100,7 @@ struct HomePage: View {
                                             applePay.buyBtnTapped()
                                         }
                             }
+
                         } else {
                             ApplePayWebViewInternal(
                                     redirectUrl: DataHolder.applePayButtonUrl,
@@ -191,6 +192,7 @@ struct HomePage: View {
                 )
             }
 
+
             if viewModel.isLoading {
                 ColorsSdk.bgMain
                         .onTapGesture(perform: {})
@@ -214,18 +216,20 @@ struct HomePage: View {
                 .simpleToast(isPresented: $errorCardParserToast, options: toastOptions) {
                     Label(cardParserCancel(), systemImage: "icAdd")
                             .padding()
-                            .background(Color.gray.opacity(0.9))
+                            .background(Color.colorBgAccent.opacity(0.8))
                             .foregroundColor(Color.white)
                             .cornerRadius(10)
                             .padding(.top)
+                            .textStyleRegular()
                 }
                 .simpleToast(isPresented: $cvvToast, options: toastOptions) {
                     Label(cvvInfo(), systemImage: "icAdd")
                             .padding()
-                            .background(Color.gray.opacity(0.9))
+                            .background(Color.colorBgAccent.opacity(0.8))
                             .foregroundColor(Color.white)
                             .cornerRadius(10)
                             .padding(.top)
+                            .textStyleRegular()
                 }
                 .screenshotProtected(isProtected: DataHolder.needDisableScreenShot)
 
