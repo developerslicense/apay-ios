@@ -21,7 +21,7 @@ struct DialogExit: View {
                     Image("icWarningRedOval", bundle: DataHolder.moduleBundle)
                             .resizable()
                             .frame(width: iconSize, height: iconSize)
-                            .padding(.top, 16)
+                            .padding(.top, 24)
 
                     Text(dropPayment())
                             .textStyleSubtitleBold()
@@ -35,6 +35,7 @@ struct DialogExit: View {
                             .padding(.top, 8)
                             .padding(.bottom, 24)
                             .padding(.horizontal, 16)
+
 
                     ViewButton(
                             title: no(),
@@ -55,7 +56,7 @@ struct DialogExit: View {
                     )
                             .frame(maxWidth: .infinity)
                             .padding(.horizontal, 16)
-                            .padding(.bottom, 8)
+                            .padding(.bottom, 16)
                             .padding(.top, 8)
 
                 }
