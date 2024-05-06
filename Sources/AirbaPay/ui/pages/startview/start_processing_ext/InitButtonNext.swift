@@ -16,10 +16,10 @@ struct InitViewStartProcessingButtonNext: View {
         ViewButton(
                 title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
                 actionClick: {
-                    checkNeedCvv(
+                    blCheckSavedCardNeedCvv(
                             cardId: viewModel.selectedCard?.id ?? "",
-                            isLoading: isLoading,
                             toggleCvv: toggleCvv,
+                            isLoading: isLoading,
                             navigateCoordinator: navigateCoordinator
                     )
                 }

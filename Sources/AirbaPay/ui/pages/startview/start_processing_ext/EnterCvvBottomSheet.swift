@@ -70,7 +70,7 @@ struct EnterCvvBottomSheet: View {
                     actionClick: {
                         if editTextViewModel.text.count >= 3 && editTextViewModel.text.count < 5 {
                             actionClose()
-                            startSavedCard(
+                            blProcessSavedCard(
                                     cardId: viewModel.selectedCard?.id ?? "",
                                     cvv: editTextViewModel.text,
                                     isLoading: isLoading,
