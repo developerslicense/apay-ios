@@ -67,7 +67,7 @@ struct TestApp: App {
 | colorBrandInversion   | Color                                | нет          | Цвет текста у кнопок с брендовым цветом                                         |
 | autoCharge            | Int                                  | нет          | Автоматическое подтверждение при 2х-стадийном режиме 0 - нет, 1 - да            |
 | enabledLogsForProd    | Bool                                 | нет          | Флаг для включения логов                                                        |
-| purchaseAmount        | Int                                  | да           | Сумма платежа                                                                   |
+| purchaseAmount        | Double                               | да           | Сумма платежа                                                                   |
 | invoiceId             | String                               | да           | ID платежа в системе магазина                                                   | 
 | orderNumber           | String                               | да           | Номер заказа в системе магазина                                                 |
 | goods                 | Array<AirbaPaySdk.Goods>             | да           | Список продуктов для оплаты                                                     |
@@ -110,7 +110,7 @@ struct TestApp: App {
             successCallback: "https://site.kz/success-clb",
             colorBrandMain: Color.red,
             autoCharge: autoCharge,
-            purchaseAmount: 1500,
+            purchaseAmount: 1500.0,
             invoiceId: String(someInvoiceId),
             orderNumber: String(someOrderNumber),
             goods: goods,
@@ -610,7 +610,7 @@ func handleAirbaPayChannel(
       successCallback: "https://site.kz/success-clb",
       autoCharge: 0,
       enabledLogsForProd: true,
-      purchaseAmount: 5500,
+      purchaseAmount: 5500.0,
       invoiceId: String(someInvoiceId),
       orderNumber: String(someOrderNumber),
       goods: [goods]

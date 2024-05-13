@@ -94,12 +94,13 @@ struct HomePage: View {
                                         .frame(height: 48)
                                         .background(ColorsSdk.bgAPAY)
                                         .cornerRadius(8)
-                                        .padding(.vertical, 16)
+                                        .padding(.top, 8)
                                         .padding(.horizontal, 16)
                                         .onTapGesture {
                                             applePay.buyBtnTapped()
                                         }
                             }
+
                         } else {
                             ApplePayWebViewInternal(
                                     redirectUrl: DataHolder.applePayButtonUrl,
@@ -191,9 +192,9 @@ struct HomePage: View {
                 )
             }
 
+
             if viewModel.isLoading {
-                ColorsSdk.gray15
-                        .opacity(0.99)
+                ColorsSdk.bgMain
                         .onTapGesture(perform: {})
                 ProgressBarView()
             }
@@ -215,18 +216,20 @@ struct HomePage: View {
                 .simpleToast(isPresented: $errorCardParserToast, options: toastOptions) {
                     Label(cardParserCancel(), systemImage: "icAdd")
                             .padding()
-                            .background(Color.gray.opacity(0.9))
+                            .background(Color.colorBgAccent.opacity(0.8))
                             .foregroundColor(Color.white)
                             .cornerRadius(10)
                             .padding(.top)
+                            .textStyleRegular()
                 }
                 .simpleToast(isPresented: $cvvToast, options: toastOptions) {
                     Label(cvvInfo(), systemImage: "icAdd")
                             .padding()
-                            .background(Color.gray.opacity(0.9))
+                            .background(Color.colorBgAccent.opacity(0.8))
                             .foregroundColor(Color.white)
                             .cornerRadius(10)
                             .padding(.top)
+                            .textStyleRegular()
                 }
                 .screenshotProtected(isProtected: DataHolder.needDisableScreenShot)
 

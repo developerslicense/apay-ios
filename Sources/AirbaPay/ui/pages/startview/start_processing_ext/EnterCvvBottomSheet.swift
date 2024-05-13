@@ -44,7 +44,7 @@ struct EnterCvvBottomSheet: View {
 
                 }
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
+                        .padding(.vertical, 18)
                         .background(ColorsSdk.bgMain)
                         .cornerRadius(8)
             }
@@ -87,10 +87,11 @@ struct EnterCvvBottomSheet: View {
 
             Spacer()
         }
+                .background(ColorsSdk.bgBlock)
                 .simpleToast(isPresented: $cvvToast, options: toastOptions) {
                     Label(cvvInfo(), systemImage: "icAdd")
                             .padding()
-                            .background(Color.gray.opacity(0.9))
+                            .background(Color.colorBgAccent.opacity(0.8))
                             .foregroundColor(Color.white)
                             .cornerRadius(10)
                             .padding(.top)

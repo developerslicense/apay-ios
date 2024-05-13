@@ -9,7 +9,7 @@ import Foundation
 
 struct Money {
 
-    var amount: Int = 0
+    var amount: Double = 0.0
     var currency: String = kzt
 
     func getFormatted() -> String {
@@ -22,17 +22,7 @@ struct Money {
             currency: String = kzt
     ) -> Money {
         return Money(
-                amount: Int(getNumberClearedWithMaxSymbol(amount: amount)) ?? 0,
-                currency: currency
-        )
-    }
-
-    static func initInt(
-            amount: Int,
-            currency: String = kzt
-    ) -> Money {
-        return Money(
-                amount: Int(getNumberClearedWithMaxSymbol(amount: String(amount))) ?? 0,
+                amount: Double(getNumberClearedWithMaxSymbol(amount: amount)) ?? 0.0,
                 currency: currency
         )
     }
@@ -42,7 +32,7 @@ struct Money {
             currency: String = kzt
     ) -> Money {
         return Money(
-                amount: Int(getNumberClearedWithMaxSymbol(amount: String(Int(amount)))) ?? 0,
+                amount: amount,
                 currency: currency
         )
     }
@@ -50,7 +40,7 @@ struct Money {
 
     static func initMoney(amount: Money) -> Money {
         return Money(
-                amount: Int(getNumberClearedWithMaxSymbol(amount: String(amount.amount))) ?? 0,
+                amount: amount.amount,
                 currency: amount.currency
         )
     }
@@ -63,13 +53,13 @@ func getMoneyFormatted(
     let format = NumberFormatter()
     format.locale = Locale(identifier: "kk_Cyrl_KZ")
     format.numberStyle = .currency
-    format.maximumFractionDigits = 0 // отключил десятичные. было значение 2
+    format.maximumFractionDigits = 2 // отключил десятичные. было значение 2
 
     var tempAmount = getNumberClearedWithMaxSymbol(amount: amount)
     while (tempAmount.starts(with: "0")) {
         tempAmount = String(tempAmount.dropFirst())
     }
 
-    return format.string(from: NSNumber(value: Int(tempAmount) ?? 0)) ?? "0"
+    return format.string(from: NSNumber(value: Double(tempAmount) ?? 0.0)) ?? "0"
 }
 

@@ -11,15 +11,15 @@ struct TestPage1: View {
     @State var isLoading: Bool = false
 
     @ObservedObject var navigateCoordinator = AirbaPayCoordinator(
-            isCustomSuccessPageView: true,
-            isCustomFinalErrorPageView: true,
+            isCustomSuccessPageView: false,
+            isCustomFinalErrorPageView: false,
             //        actionOnOpenProcessing: { print("qqqqqq actionOnOpenProcessing")},
             actionOnCloseProcessing: { result in  print("qqqqqq  actionOnCloseProcessing" + String(result ?? false)) }
 
     )
 
     var body: some View {
-        let applePay = ApplePayManager(navigateCoordinator: navigateCoordinator)
+//        let applePay = ApplePayManager(navigateCoordinator: navigateCoordinator)
 
         AirbaPayView(
                 navigateCoordinator: navigateCoordinator,
@@ -73,7 +73,8 @@ struct TestPage1: View {
                                         testInitSdk(autoCharge: autoCharge  ? 1 : 0)
                                         navigateCoordinator.openTestApplePaySwiftUi()
 
-//                                      applePay.buyBtnTapped()
+//                                applePay.buyBtnTapped()
+
                                     },
                                     label: {
                                         Text("Тест внешнего applePay механизма")
@@ -140,7 +141,7 @@ func testInitSdk(autoCharge: Int) {
                 category: "Tess",
                 model: "Green чай",
                 quantity: 1,
-                price: 500
+                price: 500.04
         )
     ]
 
@@ -150,7 +151,7 @@ func testInitSdk(autoCharge: Int) {
                 companyId: "210840019439"
         ),
         AirbaPaySdk.SettlementPayment(
-                amount: 500,
+                amount: 500.04,
                 companyId: "254353"
         )
     ]
@@ -162,21 +163,22 @@ func testInitSdk(autoCharge: Int) {
             phone: ACCOUNT_ID_TEST,
             userEmail: "test@test.com",
             shopId: "test-baykanat",//"test-merchant",
-            password: "baykanat123!",//"123456",
+            password: "baykanat123!", //"123456",
             terminalId: "65c5df69e8037f1b451a0594",//"64216e7ccc4a48db060dd689",
             failureCallback: "https://site.kz/failure-clb",
             successCallback: "https://site.kz/success-clb",
             //            colorBrandMain: Color.orange,
             autoCharge: autoCharge,
             enabledLogsForProd: false,
-            purchaseAmount: 1500,
+            purchaseAmount: 1500.04,
             invoiceId: String(someInvoiceId),
             orderNumber: String(someOrderNumber),
             goods: goods,
             settlementPayments: settlementPayment,
-            isApplePayNative: true,
+//            isApplePayNative: true,
             shopName: "Technodom",
-            applePayMerchantId: DataHolder.isProd ? "merchant.kz.airbapay.pf" : "merchant.kz.airbapay.spf"
+            applePayMerchantId:  "merchant.kz.airbapay.spf" //"merchant.kz.airbapay.pf" : "merchant.kz.airbapay.spf"
+//            needDisableScreenShot: true
     )
 }
 
