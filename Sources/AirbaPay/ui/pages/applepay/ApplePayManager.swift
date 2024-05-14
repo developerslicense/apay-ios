@@ -44,15 +44,10 @@ public final class ApplePayManager: NSObject {
     }()
 
     public func buyBtnTapped(
-            redirectFromStoryboardToSwiftUi: (() -> Void)? = nil,
-            backToStoryboard: (() -> Void)? = nil
+            redirectFromStoryboardToSwiftUi: (() -> Void)? = nil
     ) {
         if redirectFromStoryboardToSwiftUi != nil {
             DataHolder.redirectFromStoryboardToSwiftUi = redirectFromStoryboardToSwiftUi
-        }
-
-        if backToStoryboard != nil {
-            DataHolder.backToStoryboard = backToStoryboard
         }
 
         guard let paymentVC = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest),

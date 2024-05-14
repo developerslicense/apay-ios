@@ -6,7 +6,7 @@ import Foundation
 import SwiftUI
 
 struct RepeatPage: View {
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+    var navigateCoordinator: AirbaPayCoordinator
     @State var showDialogExit: Bool = false
 
     var body: some View {

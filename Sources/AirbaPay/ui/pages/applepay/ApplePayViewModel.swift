@@ -68,7 +68,9 @@ public class ApplePayViewModel: ObservableObject {
                     DataHolder.externalApplePayRedirect = (nil, false)
                     redirectTo(
                             defaultRedirectAction: {
-                                navigateCoordinator.openErrorPageWithCondition(errorCode: error.code)
+                                DispatchQueue.main.async {
+                                    navigateCoordinator.openErrorPageWithCondition(errorCode: error.code)
+                                }
                             }
                     )
 
@@ -77,7 +79,9 @@ public class ApplePayViewModel: ObservableObject {
                     DataHolder.externalApplePayRedirect = (url, false)
                     redirectTo(
                             defaultRedirectAction: {
-                                navigateCoordinator.openAcquiring(redirectUrl: url)
+                                DispatchQueue.main.async {
+                                    navigateCoordinator.openAcquiring(redirectUrl: url)
+                                }
                             }
                     )
 
@@ -85,7 +89,9 @@ public class ApplePayViewModel: ObservableObject {
                     DataHolder.externalApplePayRedirect = (nil, true)
                     redirectTo(
                             defaultRedirectAction: {
-                                navigateCoordinator.openSuccess()
+                                DispatchQueue.main.async {
+                                    navigateCoordinator.openSuccess()
+                                }
                             }
                     )
                 }
@@ -94,7 +100,9 @@ public class ApplePayViewModel: ObservableObject {
                 DataHolder.externalApplePayRedirect = (nil, false)
                 redirectTo(
                         defaultRedirectAction: {
-                            navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+                            DispatchQueue.main.async {
+                                navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+                            }
                         }
                 )
             }

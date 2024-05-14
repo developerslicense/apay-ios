@@ -6,7 +6,7 @@ import Foundation
 import SwiftUI
 
 struct InitViewStartProcessingButtonNext: View {
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+    var navigateCoordinator: AirbaPayCoordinator
     @StateObject var viewModel = StartProcessingViewModel()
     var toggleCvv: () -> Void
     var isLoading: (Bool) -> Void

@@ -12,19 +12,17 @@ import Combine
 import UIKit
 
 public struct ApplePayWebViewExternal: View {
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+    var navigateCoordinator: AirbaPayCoordinator
     @ObservedObject var applePayViewModel: ApplePayViewModel
 
 
     public init(
             redirectFromStoryboardToSwiftUi: (() -> Void)? = nil,
-            backToStoryboard: (() -> Void)? = nil,
-            @ObservedObject navigateCoordinator: AirbaPayCoordinator,
+            navigateCoordinator: AirbaPayCoordinator,
             @ObservedObject applePayViewModel: ApplePayViewModel
     ) {
         self.navigateCoordinator = navigateCoordinator
         DataHolder.redirectFromStoryboardToSwiftUi = redirectFromStoryboardToSwiftUi
-        DataHolder.backToStoryboard = backToStoryboard
         DataHolder.isApplePayFlow = true
         self.applePayViewModel = applePayViewModel
     }
@@ -49,7 +47,7 @@ public struct ApplePayWebViewExternal: View {
 }
 
 private struct SwiftUIWebView: UIViewRepresentable {
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+    var navigateCoordinator: AirbaPayCoordinator
     @ObservedObject var viewModel: WebViewModel
     let webView: WKWebView
 
@@ -76,12 +74,12 @@ private struct SwiftUIWebView: UIViewRepresentable {
     }
 
     class Coordinator: NSObject, WKNavigationDelegate {
-        @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+        var navigateCoordinator: AirbaPayCoordinator
         private var viewModel: WebViewModel
         private var isRedirected: Bool = false
 
         init(
-                @ObservedObject navigateCoordinator: AirbaPayCoordinator,
+                navigateCoordinator: AirbaPayCoordinator,
                 viewModel: WebViewModel
         ) {
             self.navigateCoordinator = navigateCoordinator

@@ -3,140 +3,163 @@
 //
 
 import Foundation
+import UIKit
 import SwiftUI
 import PathPresenter
 
 // https://github.com/alexdremov/PathPresenter?ref=alexdremov.me
 
-public class AirbaPayCoordinator: ObservableObject {
-    public var actionOnOpenProcessing: () -> Void
-    public var actionOnCloseProcessing: (Bool?) -> Void
-    public var isCustomSuccessPageView: Bool = false
-    public var isCustomFinalErrorPageView: Bool = false
-    @Published var path = PathPresenter.Path()
+public class AirbaPayCoordinator: UIViewController { //todo удали ненужные view классы внизу и перенеси насчет кастомных страниц в initSdk
+//public class AirbaPayCoordinator: ObservableObject { //todo remove public и перенеси насчет кастомных страниц в initSdk
+//    public var actionOnOpenProcessing: () -> Void
+//    public var actionOnCloseProcessing: (Bool?) -> Void
+//    public var isCustomSuccessPageView: Bool = false
+//    public var isCustomFinalErrorPageView: Bool = false
 
-    public init(
-            isCustomSuccessPageView: Bool = false,
-            isCustomFinalErrorPageView: Bool = false,
-            actionOnOpenProcessing: @escaping () -> Void = {},
-            actionOnCloseProcessing: @escaping (Bool?) -> Void = { result in }
-    ) {
-        self.isCustomSuccessPageView = isCustomSuccessPageView
-        self.isCustomFinalErrorPageView = isCustomFinalErrorPageView
-        self.actionOnOpenProcessing = actionOnOpenProcessing
-        self.actionOnCloseProcessing = actionOnCloseProcessing
+//    private var uiViewController: UIViewController? = nil
+//    @Published var path = PathPresenter.Path()
+
+//    public init(
+//        viewController: AirbaPaySdkViewController
+////            isCustomSuccessPageView: Bool = false,
+////            isCustomFinalErrorPageView: Bool = false,
+////            actionOnOpenProcessing: @escaping () -> Void = {},
+////            actionOnCloseProcessing: @escaping (Bool?) -> Void = { result in },
+////            uiViewController: UIViewController?
+//    ) {
+//        uiViewController = viewController
+////        self.isCustomSuccessPageView = isCustomSuccessPageView
+////        self.isCustomFinalErrorPageView = isCustomFinalErrorPageView
+////        self.actionOnOpenProcessing = actionOnOpenProcessing
+////        self.actionOnCloseProcessing = actionOnCloseProcessing
+////        self.uiViewController = uiViewController
+////        self.uiViewController = UIViewController()
+////        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+////        uiViewController = storyboard.instantiateViewController(withIdentifier: "AirbaPayViewController")
+//    }
+
+    override public func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+
+        let label =  UIButton()
+        label.frame = CGRect.init(x: self.view.frame.width/3.5, y: self.view.frame.height/2, width: 180, height: 50)
+        label.setTitle("Aaaaa", for: .normal)
+        label.backgroundColor = .green
+        label.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        view.addSubview(label)
+
+    }
+
+    @objc func buttonTapped(sender : UIButton) {
+        openTestPage()
+    }
+
+    func openTestPage() {
+        openPage(content: TestPage1(navigateCoordinator: self))
     }
 
     public func startProcessing() {
         LoggerHelper.nextPage(pageName: "StartProcessingView")
-        path.append(StartProcessingView(navigateCoordinator: self))
+        openPage(content: StartProcessingPage(navigateCoordinator: self))
     }
 
     public func openHome() {
         LoggerHelper.nextPage(pageName: "HomePage")
-        onBack()
-        actionOnOpenProcessing()
-        path.append(HomePage(navigateCoordinator: self))
+//        actionOnOpenProcessing()
+        openPage(content: HomePage(navigateCoordinator: self))
     }
 
     public func backToStartPage() {
         LoggerHelper.clear()
-        while path.count > 0 {
-            path.removeLast()
-        }
+        navigationController?.popToRootViewController(animated: false)
         startProcessing()
     }
 
     public func backToApp(
-            result: Bool? = nil
+            result: Bool = false
     ) {
         LoggerHelper.clear()
-        while !path.isEmpty {
-            path.removeLast()
-        }
-        actionOnCloseProcessing(result)
-        DataHolder.backToStoryboard?()
+        navigationController?.popToRootViewController(animated: true)
     }
 
-    func onBack() {
-        LoggerHelper.onBackPressed()
-        if !path.isEmpty {
-            path.removeLast()
-        }
-    }
-
-    public func openAcquiring(redirectUrl: String?) {
-        onBack()
+    public func openAcquiring(
+            redirectUrl: String?
+    ) {
         LoggerHelper.nextPage(pageName: "AcquiringPage")
-        path.append(AcquiringPage(navigateCoordinator: self, redirectUrl: redirectUrl))
+        openPage(content: AcquiringPage(navigateCoordinator: self, redirectUrl: redirectUrl))
     }
 
     public func openSuccess() {
         LoggerHelper.nextPage(pageName: "SuccessPage")
 
-        if isCustomSuccessPageView {
-            actionOnCloseProcessing(true)
-            while !path.isEmpty {
-                path.removeLast()
-            }
+        if DataHolder.isCustomSuccessPageView {
+//            actionOnCloseProcessing(true)
+//            while !path.isEmpty {
+//                path.removeLast()
+//            }
         } else {
-            path.append(SuccessPage(navigateCoordinator: self))
+            openPage(content: SuccessPage(navigateCoordinator: self))
         }
     }
 
     public func openRepeat() {
         LoggerHelper.nextPage(pageName: "RepeatPage")
-        path.append(RepeatPage(navigateCoordinator: self))
+        openPage(content: RepeatPage(navigateCoordinator: self))
     }
 
-    public func openErrorPageWithCondition(errorCode: Int?) {
-        while path.count > 0 {
-            path.removeLast()
-        }
+    public func openErrorPageWithCondition(
+            errorCode: Int?
+    ) {
 
         let error = ErrorsCode(code: errorCode ?? 1).getError()
 
         if (error == ErrorsCode().error_1) {
-            path.append(ErrorSomethingWrongPage(navigateCoordinator: self))
+            LoggerHelper.nextPage(pageName: "ErrorSomethingWrongPage")
+            openPage(content: ErrorSomethingWrongPage(navigateCoordinator: self))
 
         } else if (error.code == ErrorsCode().error_5020.code || errorCode == nil) {
             LoggerHelper.nextPage(pageName: "ErrorFinalPage")
 
-            if isCustomFinalErrorPageView {
-                actionOnCloseProcessing(false)
-                while !path.isEmpty {
-                    path.removeLast()
-                }
+            if DataHolder.isCustomFinalErrorPageView {
+//                actionOnCloseProcessing(false)
+//                while !path.isEmpty {
+//                    path.removeLast()
+//                }
             } else {
-                path.append(ErrorFinalPage(navigateCoordinator: self))
+                openPage(content: ErrorFinalPage(navigateCoordinator: self))
             }
 
         } else if (error.code == ErrorsCode().error_5999.code && DataHolder.bankCode?.isEmpty == false) {
             LoggerHelper.nextPage(pageName: "ErrorWithInstructionPage")
-            path.append(ErrorWithInstructionPage(navigateCoordinator: self))
+            openPage(content: ErrorWithInstructionPage(navigateCoordinator: self))
 
         } else {
             LoggerHelper.nextPage(pageName: "ErrorPage")
-            path.append(ErrorPage(errorCode: ErrorsCode(code: errorCode ?? 1), navigateCoordinator: self))
+            openPage(content: ErrorPage(
+                    errorCode: ErrorsCode(code: errorCode ?? 1),
+                    navigateCoordinator: self)
+            )
         }
     }
 
-    public func openTestApplePaySwiftUi() {
-        let applePay = ApplePayManager(navigateCoordinator: self)
+    private func openPage(content: some View) {
+        let newVC = UIHostingController(rootView: content)
 
-        path.append(TestSwiftUiApplePayPage(
-                navigateCoordinator: self,
-                applePay: applePay
-        ))
+        navigationController?.setToolbarHidden(true, animated: false)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.toolbar?.isHidden = true
+        navigationController?.pushViewController(newVC, animated: true)
     }
+
 }
 
-public struct AirbaPayView: View {
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+public struct AirbaPayView: View { //todo
+    var navigateCoordinator: AirbaPayCoordinator
     var contentView: AnyView?
 
     public init<RootView: View>(
-            @ObservedObject navigateCoordinator: AirbaPayCoordinator,
+            navigateCoordinator: AirbaPayCoordinator,
             @ViewBuilder contentView: () -> RootView
     ) {
         self.navigateCoordinator = navigateCoordinator
@@ -144,41 +167,42 @@ public struct AirbaPayView: View {
     }
 
     public var body: some View {
-
-        PathPresenter.RoutingView(
-                path: $navigateCoordinator.path,
-                rootView: { contentView }
-        )
+        contentView
+//        PathPresenter.RoutingView(
+//                path: $navigateCoordinator.path,
+//                rootView: { contentView }
+//        )
     }
 }
 
-public struct AirbaPayNextStepApplePayView: View {
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+public struct AirbaPayNextStepApplePayView: View { // todo
+    var navigateCoordinator: AirbaPayCoordinator
 
     public init(
-            @ObservedObject navigateCoordinator: AirbaPayCoordinator
+            navigateCoordinator: AirbaPayCoordinator
     ) {
         self.navigateCoordinator = navigateCoordinator
     }
 
     public var body: some View {
 
-        PathPresenter.RoutingView(
-                path: $navigateCoordinator.path,
-                rootView: {
-                    if DataHolder.externalApplePayRedirect?.0 != nil {
-                        AcquiringPage(
-                                navigateCoordinator: navigateCoordinator,
-                                redirectUrl: DataHolder.externalApplePayRedirect?.0!
-                        )
-
-                    } else if DataHolder.externalApplePayRedirect?.1 == true {
-                        SuccessPage(navigateCoordinator: navigateCoordinator)
-
-                    } else {
-                        ErrorSomethingWrongPage(navigateCoordinator: navigateCoordinator)
-                    }
-                }
-        )
+        SuccessPage(navigateCoordinator: navigateCoordinator)
+//        PathPresenter.RoutingView(
+//                path: $navigateCoordinator.path,
+//                rootView: {
+//                    if DataHolder.externalApplePayRedirect?.0 != nil {
+//                        AcquiringPage(
+//                                navigateCoordinator: navigateCoordinator,
+//                                redirectUrl: DataHolder.externalApplePayRedirect?.0!
+//                        )
+//
+//                    } else if DataHolder.externalApplePayRedirect?.1 == true {
+//                        SuccessPage(navigateCoordinator: navigateCoordinator)
+//
+//                    } else {
+//                        ErrorSomethingWrongPage(navigateCoordinator: navigateCoordinator)
+//                    }
+//                }
+//        )
     }
 }

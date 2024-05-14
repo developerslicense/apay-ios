@@ -5,7 +5,7 @@
 import Foundation
 
 class DataHolder {
-    static var sdkVersion = "1.2.0"
+    static var sdkVersion = "2.0.0"
     static var baseUrl = ""
 
     static var connectTimeout = 60
@@ -54,10 +54,11 @@ class DataHolder {
 
     static var isApplePayNative: Bool = false
 
-    static var externalApplePayRedirect: (String?, Bool)? = nil
-    static var redirectFromStoryboardToSwiftUi: (() -> Void)? = nil
-    static var backToStoryboard: (() -> Void)? = nil
+    static var externalApplePayRedirect: (String?, Bool)? = nil // todo ????
+    static var redirectFromStoryboardToSwiftUi: (() -> Void)? = nil // todo ????
     static var needDisableScreenShot = false
+    static var isCustomSuccessPageView = false
+    static var isCustomFinalErrorPageView = false
 
 }
 

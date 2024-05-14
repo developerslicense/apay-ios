@@ -1,5 +1,8 @@
 ## Техническая документация для интеграции sdk AirbaPay в мобильные приложения
 
+
+## V1
+
 ## 1.1 Подключение sdk
 
 ## 1.2 Вызов стартовой формы
@@ -701,3 +704,8 @@ airbaPayChannel.setMethodCallHandler({ call, result -> Void in
      handleAirbaPayChannel(self, call, OneShotFlutterResult(result))
 })
 ```
+
+
+
+## V2
+В данный момент в разработке

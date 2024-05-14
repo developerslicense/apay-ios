@@ -19,7 +19,9 @@ func initPayments(
             )
 
         } else {
-            navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+            DispatchQueue.main.async {
+                navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+            }
         }
     }
 }
@@ -47,7 +49,9 @@ private func authWithPaymentIdAndForApplePay(
             }
 
         } else {
-            navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+            DispatchQueue.main.async {
+                navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+            }
         }
     }
 }

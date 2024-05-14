@@ -8,7 +8,7 @@ import SimpleToast
 import LocalAuthentication
 
 struct HomePage: View {
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+    var navigateCoordinator: AirbaPayCoordinator
     @StateObject var viewModel = HomePageViewModel()
     @StateObject var cardNumberEditTextViewModel = CoreEditTextViewModel()
     @StateObject var dateExpiredEditTextViewModel = CoreEditTextViewModel()
@@ -32,7 +32,7 @@ struct HomePage: View {
     var dateExpired: String? = nil
 
     init(
-            @ObservedObject navigateCoordinator: AirbaPayCoordinator,
+            navigateCoordinator: AirbaPayCoordinator,
             maskedPan: String? = nil,
             dateExpired: String? = nil
     ) {

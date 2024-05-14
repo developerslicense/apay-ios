@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TestSwiftUiApplePayPage: View {
 
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+    var navigateCoordinator: AirbaPayCoordinator
 
     var applePay: ApplePayManager
     var applePayViewModel: ApplePayViewModel = ApplePayViewModel()

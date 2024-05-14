@@ -8,12 +8,12 @@ import WebKit
 import Combine
 
 struct AcquiringPage: View {
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+    var navigateCoordinator: AirbaPayCoordinator
     @State var showDialogExit: Bool = false
     var redirectUrl: String?
 
     init(
-            @ObservedObject navigateCoordinator: AirbaPayCoordinator,
+            navigateCoordinator: AirbaPayCoordinator,
             redirectUrl: String?
     ) {
         self.navigateCoordinator = navigateCoordinator
@@ -55,7 +55,7 @@ struct AcquiringPage: View {
 }
 
 private struct SwiftUIWebView: UIViewRepresentable {
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+    var navigateCoordinator: AirbaPayCoordinator
     @ObservedObject var viewModel: WebViewModel
     let webView: WKWebView
 
@@ -82,11 +82,11 @@ private struct SwiftUIWebView: UIViewRepresentable {
     }
 
     class Coordinator: NSObject, WKNavigationDelegate {
-        @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+        var navigateCoordinator: AirbaPayCoordinator
         private var viewModel: WebViewModel
 
         init(
-                @ObservedObject navigateCoordinator: AirbaPayCoordinator,
+                navigateCoordinator: AirbaPayCoordinator,
                 viewModel: WebViewModel
         ) {
             self.navigateCoordinator = navigateCoordinator

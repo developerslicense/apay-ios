@@ -7,24 +7,26 @@
 import Foundation
 
 func blAuth(
-    navigateCoordinator: AirbaPayCoordinator,
-    onSuccess: @escaping () -> Void
+        navigateCoordinator: AirbaPayCoordinator,
+        onSuccess: @escaping () -> Void
 
 ) {
     Task {
         let authParams = AuthRequest(
-            password: DataHolder.password,
-            paymentId: nil,
-            terminalId: DataHolder.terminalId,
-            user: DataHolder.shopId
+                password: DataHolder.password,
+                paymentId: nil,
+                terminalId: DataHolder.terminalId,
+                user: DataHolder.shopId
         )
-        
+
         if let res = await authService(params: authParams) {
             DataHolder.accessToken = res.accessToken
             onSuccess()
-            
+
         } else {
-            navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+            DispatchQueue.main.async {
+                navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+            }
         }
     }
 }

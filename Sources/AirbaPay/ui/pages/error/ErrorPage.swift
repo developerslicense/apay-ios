@@ -6,12 +6,12 @@ import Foundation
 import SwiftUI
 
 struct ErrorPage: View {
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+    var navigateCoordinator: AirbaPayCoordinator
     var errorCode: ErrorsCode
 
     init(
             errorCode: ErrorsCode,
-            @ObservedObject navigateCoordinator: AirbaPayCoordinator
+            navigateCoordinator: AirbaPayCoordinator
     ) {
         self.errorCode = errorCode
         self.navigateCoordinator = navigateCoordinator

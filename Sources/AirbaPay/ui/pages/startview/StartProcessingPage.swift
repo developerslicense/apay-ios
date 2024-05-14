@@ -7,8 +7,8 @@ import SwiftUI
 import SimpleToast
 import LocalAuthentication
 
-struct StartProcessingView: View {
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+struct StartProcessingPage: View {
+    var navigateCoordinator: AirbaPayCoordinator
     @StateObject var viewModel = StartProcessingViewModel()
     @StateObject var cvvEditTextViewModel = CoreEditTextViewModel()
 
@@ -24,7 +24,7 @@ struct StartProcessingView: View {
     var applePay: ApplePayManager
 
     init(
-            @ObservedObject navigateCoordinator: AirbaPayCoordinator
+            navigateCoordinator: AirbaPayCoordinator
     ) {
         self.applePay = ApplePayManager(
                 navigateCoordinator: navigateCoordinator,

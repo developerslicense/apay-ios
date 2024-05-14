@@ -6,7 +6,7 @@ import Foundation
 import SwiftUI
 
 struct InitViewStartProcessingCards: View {
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+    var navigateCoordinator: AirbaPayCoordinator
     @StateObject var viewModel = StartProcessingViewModel()
     @State var selected: Int = 0
 
