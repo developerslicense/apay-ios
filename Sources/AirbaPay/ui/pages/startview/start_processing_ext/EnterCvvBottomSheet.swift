@@ -91,8 +91,8 @@ struct EnterCvvBottomSheet: View {
                 .simpleToast(isPresented: $cvvToast, options: toastOptions) {
                     Label(cvvInfo(), systemImage: "icAdd")
                             .padding()
-                            .background(Color.colorBgAccent.opacity(0.8))
-                            .foregroundColor(Color.white)
+                            .background(ColorsSdk.bgAccent.opacity(0.8))
+                            .foregroundColor(ColorsSdk.bgBlock)
                             .cornerRadius(10)
                             .padding(.top)
                 }

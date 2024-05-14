@@ -4,7 +4,7 @@ import PathPresenter
 
 private let ACCOUNT_ID_TEST = "77061111112"
 
-struct TestPage1: View { // todo del
+struct TestPage1: View {
     @State var autoCharge: Bool = false
     @State var featureApplePay: Bool = true
     @State var featureSavedCards: Bool = true
@@ -24,7 +24,7 @@ struct TestPage1: View { // todo del
 
 
         ZStack {
-            Color.white
+            ColorsSdk.bgBlock
 
             VStack(alignment: .center) {
                 Text("Тестовые карты \n 4111 1111 1111 1616 cvv 333 \n 4111 1111 1111 1111 cvv 123 \n 3411 1111 1111 111 cvv 7777")
