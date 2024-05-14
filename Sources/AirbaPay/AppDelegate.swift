@@ -4,6 +4,10 @@
 //
 //  Created by Mikhail Belikov on 14.05.2024.
 //
+/*
+
+  // Для тестирования раскоментировать и скопировать в тестовый проект.
+
 
 import UIKit
 
@@ -33,4 +37,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
-
+*/
