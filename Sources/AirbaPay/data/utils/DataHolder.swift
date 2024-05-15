@@ -65,4 +65,10 @@ class DataHolder {
 public class TestAirbaPayStates {
     public static var shutDownTestFeatureApplePay: Bool = false
     public static var shutDownTestFeatureSavedCards: Bool = false
+    /**
+        Этот параметр нужен для исключения инициализации навигации в тестовом приложении.
+        Проблема в тестировании либы. Приходится держать дополнительно приложение, где весь код скопирован из либы.
+        Там произвожу все изменения, потом копирую их в либу. В приложении AppDelegate раскоментирован
+    */
+    public static var isTestApp: Bool = false
 }

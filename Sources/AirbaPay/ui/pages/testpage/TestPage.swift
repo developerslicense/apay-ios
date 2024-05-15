@@ -1,6 +1,5 @@
 import Foundation
 import SwiftUI
-import PathPresenter
 
 private let ACCOUNT_ID_TEST = "77061111112"
 

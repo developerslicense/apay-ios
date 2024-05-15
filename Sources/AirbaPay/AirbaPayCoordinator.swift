@@ -5,7 +5,6 @@
 import Foundation
 import UIKit
 import SwiftUI
-import PathPresenter
 
 // https://github.com/alexdremov/PathPresenter?ref=alexdremov.me
 
@@ -38,28 +37,30 @@ public class AirbaPayCoordinator: UIViewController { //todo удали нену�
 ////        uiViewController = storyboard.instantiateViewController(withIdentifier: "AirbaPayViewController")
 //    }
 
-    override public func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
+    /* override public func viewDidLoad() {
+      super.viewDidLoad()
+      view.backgroundColor = .white
 
         let label =  UIButton()
-        label.frame = CGRect.init(x: self.view.frame.width/3.5, y: self.view.frame.height/2, width: 180, height: 50)
-        label.setTitle("Aaaaa", for: .normal)
-        label.backgroundColor = .green
-        label.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        view.addSubview(label)
+          label.frame = CGRect.init(x: self.view.frame.width/3.5, y: self.view.frame.height/2, width: 180, height: 50)
+          label.setTitle("Aaaaa", for: .normal)
+          label.backgroundColor = .green
+          label.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+      view.addSubview(label)
 
-    }
+    }*/
 
-    @objc func buttonTapped(sender : UIButton) {
-        openTestPage()
-    }
+//    @objc func buttonTapped(sender : UIButton) {
+//        openTestPage()
+//    }
+    private var uiNavigationController: UINavigationController? = nil
 
-    func openTestPage() {
+    public func openTestPage() {
         openPage(content: TestPage1(navigateCoordinator: self))
     }
 
     public func startProcessing() {
+        print("click aaaa")
         LoggerHelper.nextPage(pageName: "StartProcessingView")
         openPage(content: StartProcessingPage(navigateCoordinator: self))
     }
@@ -144,6 +145,21 @@ public class AirbaPayCoordinator: UIViewController { //todo удали нену�
     }
 
     private func openPage(content: some View) {
+        if !TestAirbaPayStates.isTestApp && uiNavigationController == nil {
+            uiNavigationController = UINavigationController(rootViewController: self)
+
+            let window = UIApplication.shared.connectedScenes
+                    .filter({$0.activationState == .foregroundActive})
+                    .map({$0 as? UIWindowScene})
+                    .compactMap({$0})
+                    .first?.windows
+                    .filter({$0.isKeyWindow}).first
+
+            window?.makeKeyAndVisible()
+            window?.rootViewController = uiNavigationController
+        }
+
+
         let newVC = UIHostingController(rootView: content)
 
         navigationController?.setToolbarHidden(true, animated: false)
