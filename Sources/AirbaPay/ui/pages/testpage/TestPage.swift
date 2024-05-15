@@ -3,110 +3,152 @@ import SwiftUI
 
 private let ACCOUNT_ID_TEST = "77061111112"
 
-struct TestPage1: View {
+struct TestPageAPSDK: View {
     @State var autoCharge: Bool = false
     @State var featureApplePay: Bool = true
     @State var featureSavedCards: Bool = true
+    @State var featureCustomPages: Bool = false
     @State var isLoading: Bool = false
 
     var navigateCoordinator: AirbaPayCoordinator
-//            isCustomSuccessPageView: false,
-//            isCustomFinalErrorPageView: false,
-//            //        actionOnOpenProcessing: { print("qqqqqq actionOnOpenProcessing")},
-//            actionOnCloseProcessing: { result in  print("qqqqqq  actionOnCloseProcessing" + String(result ?? false)) },
-//            uiViewController: nil
-//
-//    )
 
     var body: some View {
 //        let applePay = ApplePayManager(navigateCoordinator: navigateCoordinator)
 
-
         ZStack {
             ColorsSdk.bgBlock
 
-            VStack(alignment: .center) {
-                Text("Тестовые карты \n 4111 1111 1111 1616 cvv 333 \n 4111 1111 1111 1111 cvv 123 \n 3411 1111 1111 111 cvv 7777")
-                        .padding(16)
+            ScrollView {
+                VStack(alignment: .center) {
+                    Text("Тестовые карты \n 4111 1111 1111 1616 cvv 333 \n 4111 1111 1111 1111 cvv 123 \n 3411 1111 1111 111 cvv 7777")
+                            .padding(16)
+                            .foregroundColor(.black)
 
-                Button(
-                        action: {
-                            DataHolder.hasSavedCards = false
+                    Button(
+                            action: {
+                                DataHolder.hasSavedCards = false
 
-                            TestAirbaPayStates.shutDownTestFeatureApplePay = !featureApplePay
-                            TestAirbaPayStates.shutDownTestFeatureSavedCards = !featureSavedCards
+                                TestAirbaPayStates.shutDownTestFeatureApplePay = !featureApplePay
+                                TestAirbaPayStates.shutDownTestFeatureSavedCards = !featureSavedCards
 
-                            testInitSdk(autoCharge: autoCharge ? 1 : 0)
+                                testInitSdk(
+                                        autoCharge: autoCharge ? 1 : 0,
+                                        navigateCoordinator: navigateCoordinator,
+                                        openCustomPageSuccess: featureCustomPages ? {
+                                            let newVC = UIHostingController(rootView: CustomSuccessPage(navigateCoordinator: navigateCoordinator))
 
-                            navigateCoordinator.startProcessing()
-                        },
-                        label: {
-                            Text("Переход на эквайринг")
-                                    .font(.system(size: 16))
-                                    .padding(16)
+                                            navigateCoordinator.navigationController?.setToolbarHidden(true, animated: false)
+                                            navigateCoordinator.navigationController?.setNavigationBarHidden(true, animated: false)
+                                            navigateCoordinator.navigationController?.toolbar?.isHidden = true
+                                            navigateCoordinator.navigationController?.pushViewController(newVC, animated: false)
 
-                        }
-                )
+                                        } : nil,
+                                        openCustomPageFinalError: featureCustomPages ? {
+                                            let newVC = UIHostingController(rootView: CustomErrorPage(navigateCoordinator: navigateCoordinator))
 
-                Button(
-                        action: {
-                            testInitSdk(autoCharge: autoCharge  ? 1 : 0)
-                            testDelCards(
-                                    accountId: ACCOUNT_ID_TEST,
-                                    isLoading: { b in
-                                        isLoading = b
-                                    }
-                            )
-                        },
-                        label: {
-                            Text("Удалить привязанные карты")
-                                    .font(.system(size: 16))
-                                    .padding(16)
+                                            navigateCoordinator.navigationController?.setToolbarHidden(true, animated: false)
+                                            navigateCoordinator.navigationController?.setNavigationBarHidden(true, animated: false)
+                                            navigateCoordinator.navigationController?.toolbar?.isHidden = true
+                                            navigateCoordinator.navigationController?.pushViewController(newVC, animated: false)
 
-                        }
-                )
+                                        } : nil
+                                )
 
-                Button(
-                        action: {
-                            testInitSdk(autoCharge: autoCharge  ? 1 : 0)
-//                                        navigateCoordinator.openTestApplePaySwiftUi()
+                                navigateCoordinator.startProcessing()
+                            },
+                            label: {
+                                Text("Стандартный флоу")
+                                        .font(.system(size: 16))
+                                        .padding(16)
 
-//                                applePay.buyBtnTapped()
+                            }
+                    )
 
-                        },
-                        label: {
-                            Text("Тест внешнего applePay механизма")
-                                    .font(.system(size: 16))
-                                    .padding(16)
+                    Button(
+                            action: {
+                                testInitSdk(autoCharge: autoCharge  ? 1 : 0, navigateCoordinator: navigateCoordinator)
+                                //                                        navigateCoordinator.openTestApplePaySwiftUi()
 
-                        }
-                )
+                                //                                applePay.buyBtnTapped()
 
-                SwitchedView(
-                        text: "AutoCharge 0 (off) / 1 (on)",
-                        switchCheckedState: autoCharge,
-                        actionOnChanged: { b in
-                            autoCharge = b
-                        }
-                ).padding(16)
+                            },
+                            label: {
+                                Text("Тест внешнего API applePay ")
+                                        .font(.system(size: 16))
+                                        .padding(16)
 
-                SwitchedView(
-                        text: "Feature ApplePay",
-                        switchCheckedState: featureApplePay,
-                        actionOnChanged: { b in
-                            featureApplePay = b
-                        }
-                ).padding(16)
+                            }
+                    )
 
-                SwitchedView(
-                        text: "Feature Saved cards",
-                        switchCheckedState: featureSavedCards,
-                        actionOnChanged: { b in
-                            featureSavedCards = b
-                        }
-                ).padding(16)
+                    Button(
+                            action: {
+                                testInitSdk(autoCharge: autoCharge  ? 1 : 0, navigateCoordinator: navigateCoordinator)
+                                //                                        navigateCoordinator.openTestApplePaySwiftUi()
+
+                                //                                applePay.buyBtnTapped()
+
+                            },
+                            label: {
+                                Text("Тест внешнего API сохраненных карт")
+                                        .font(.system(size: 16))
+                                        .padding(16)
+
+                            }
+                    )
+
+                    Button(
+                            action: {
+                                testInitSdk(autoCharge: autoCharge  ? 1 : 0, navigateCoordinator: navigateCoordinator)
+                                testDelCards(
+                                        accountId: ACCOUNT_ID_TEST,
+                                        isLoading: { b in
+                                            isLoading = b
+                                        }
+                                )
+                            },
+                            label: {
+                                Text("Удалить привязанные карты")
+                                        .font(.system(size: 16))
+                                        .padding(16)
+
+                            }
+                    )
+
+
+
+                    SwitchedView(
+                            text: "AutoCharge 0 (off) / 1 (on)",
+                            switchCheckedState: autoCharge,
+                            actionOnChanged: { b in
+                                autoCharge = b
+                            }
+                    ).padding(8)
+
+                    SwitchedView(
+                            text: "Feature ApplePay",
+                            switchCheckedState: featureApplePay,
+                            actionOnChanged: { b in
+                                featureApplePay = b
+                            }
+                    ).padding(8)
+
+                    SwitchedView(
+                            text: "Feature Saved cards",
+                            switchCheckedState: featureSavedCards,
+                            actionOnChanged: { b in
+                                featureSavedCards = b
+                            }
+                    ).padding(8)
+
+                    SwitchedView(
+                            text: "Feature Custom pages",
+                            switchCheckedState: featureCustomPages,
+                            actionOnChanged: { b in
+                                featureCustomPages = b
+                            }
+                    ).padding(8)
+                }
             }
-
             if isLoading {
                 ProgressBarView()
             }
@@ -115,7 +157,12 @@ struct TestPage1: View {
 }
 
 
-func testInitSdk(autoCharge: Int = 0) {
+func testInitSdk(
+        autoCharge: Int = 0,
+        navigateCoordinator: AirbaPayCoordinator,
+        openCustomPageSuccess: (() -> Void)? = nil,
+        openCustomPageFinalError: (() -> Void)? = nil
+) {
     let someInvoiceId = Int(Date().timeIntervalSince1970)
     let someOrderNumber = Int(Date().timeIntervalSince1970)
     print("someOrderNumber" + String(someOrderNumber))
@@ -171,9 +218,59 @@ func testInitSdk(autoCharge: Int = 0) {
             settlementPayments: settlementPayment,
 //            isApplePayNative: true,
             shopName: "Technodom",
-            applePayMerchantId:  "merchant.kz.airbapay.spf" //"merchant.kz.airbapay.pf" : "merchant.kz.airbapay.spf"
+            applePayMerchantId:  "merchant.kz.airbapay.spf", //"merchant.kz.airbapay.pf" : "merchant.kz.airbapay.spf"
 //            needDisableScreenShot: true
+            actionOnCloseProcessing: { b in // возврат в приложение из дефолтных страниц сдк (т.е., исключая кастомные)
+                navigateCoordinator.openTestPage()
+            },
+            openCustomPageSuccess: openCustomPageSuccess,
+            openCustomPageFinalError: openCustomPageFinalError
 
     )
 }
 
+struct CustomSuccessPage: View {
+    var navigateCoordinator: AirbaPayCoordinator
+
+    var body: some View {
+        ZStack {
+            ColorsSdk.gray30
+            ColorsSdk.bgBlock
+
+            Button(
+                    action: {
+                        navigateCoordinator.openTestPage()
+                    },
+                    label: {
+                        Text("Succes. BackToApp")
+                                .font(.system(size: 16))
+                                .padding(16)
+
+                    }
+            )
+        }
+    }
+}
+
+struct CustomErrorPage: View {
+    var navigateCoordinator: AirbaPayCoordinator
+
+    var body: some View {
+        ZStack {
+            ColorsSdk.gray30
+            ColorsSdk.bgBlock
+
+            Button(
+                    action: {
+                        navigateCoordinator.openTestPage()
+                    },
+                    label: {
+                        Text("Error. BackToApp")
+                                .font(.system(size: 16))
+                                .padding(16)
+
+                    }
+            )
+        }
+    }
+}

@@ -5,7 +5,7 @@
 import Foundation
 
 class DataHolder {
-    static var sdkVersion = "2.0.01"
+    static var sdkVersion = "2.0.5"
     static var baseUrl = ""
 
     static var connectTimeout = 60
@@ -42,7 +42,6 @@ class DataHolder {
     static var moduleBundle: Bundle?
             = Bundle.module /** в случае, если переносишь код в приложение, указывай Bundle.main*/
 
-    static var redirectToCustomSuccessPage: (() -> Void)? = nil
     static var featureApplePay: Bool = false
     static var featureSavedCards: Bool = false
 
@@ -57,18 +56,10 @@ class DataHolder {
     static var externalApplePayRedirect: (String?, Bool)? = nil // todo ????
     static var redirectFromStoryboardToSwiftUi: (() -> Void)? = nil // todo ????
     static var needDisableScreenShot = false
-    static var isCustomSuccessPageView = false
-    static var isCustomFinalErrorPageView = false
 
+    static var actionOnCloseProcessing: ((Bool?) -> Void)? = nil
+    static var openCustomPageSuccess: (() -> Void)? = nil
+    static var openCustomPageFinalError: (() -> Void)? = nil
 }
 
-public class TestAirbaPayStates {
-    public static var shutDownTestFeatureApplePay: Bool = false
-    public static var shutDownTestFeatureSavedCards: Bool = false
-    /**
-        Этот параметр нужен для исключения инициализации навигации в тестовом приложении.
-        Проблема в тестировании либы. Приходится держать дополнительно приложение, где весь код скопирован из либы.
-        Там произвожу все изменения, потом копирую их в либу. В приложении AppDelegate раскоментирован
-    */
-    public static var isTestApp: Bool = false
-}
+

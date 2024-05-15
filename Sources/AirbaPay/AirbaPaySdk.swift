@@ -81,8 +81,9 @@ public class AirbaPaySdk {
             shopName: String = "Shop",
             applePayMerchantId: String? = nil,
             needDisableScreenShot: Bool = false,
-            isCustomSuccessPageView: Bool = false,
-            isCustomFinalErrorPageView: Bool = false
+            actionOnCloseProcessing: @escaping (Bool?) -> Void,
+            openCustomPageSuccess: (() -> Void)? = nil,
+            openCustomPageFinalError: (() -> Void)? = nil
     ) {
 
         if (colorBrandInversion != nil) {
@@ -134,8 +135,9 @@ public class AirbaPaySdk {
         DataHolder.applePayMerchantId = applePayMerchantId
         DataHolder.needDisableScreenShot = needDisableScreenShot
 
-        DataHolder.isCustomFinalErrorPageView = isCustomFinalErrorPageView
-        DataHolder.isCustomSuccessPageView = isCustomSuccessPageView
+        DataHolder.actionOnCloseProcessing = actionOnCloseProcessing
+        DataHolder.openCustomPageSuccess = openCustomPageSuccess
+        DataHolder.openCustomPageFinalError = openCustomPageFinalError
     }
 
 }
