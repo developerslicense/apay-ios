@@ -52,9 +52,6 @@ class DataHolder {
     static var autoCharge: Int = 0
 
     static var isApplePayNative: Bool = false
-
-    static var externalApplePayRedirect: (String?, Bool)? = nil // todo ????
-    static var redirectFromStoryboardToSwiftUi: (() -> Void)? = nil // todo ????
     static var needDisableScreenShot = false
 
     static var actionOnCloseProcessing: ((Bool?) -> Void)? = nil

@@ -38,7 +38,7 @@ final class ApplePayManager: NSObject {
         return request
     }()
 
-    public func buyBtnTapped() {
+    func buyBtnTapped() {
         guard let paymentVC = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest),
               let window = UIApplication.shared.connectedScenes
                       .filter({$0.activationState == .foregroundActive})
