@@ -23,13 +23,8 @@ struct StartProcessingPage: View {
 
     var applePay: ApplePayManager
 
-    init(
-            navigateCoordinator: AirbaPayCoordinator
-    ) {
-        self.applePay = ApplePayManager(
-                navigateCoordinator: navigateCoordinator,
-                isExternalApi: false
-        )
+    init(navigateCoordinator: AirbaPayCoordinator) {
+        self.applePay = ApplePayManager(navigateCoordinator: navigateCoordinator)
         self.navigateCoordinator = navigateCoordinator
     }
 

@@ -39,10 +39,7 @@ struct HomePage: View {
         self.navigateCoordinator = navigateCoordinator
         self.maskedPan = maskedPan
         self.dateExpired = dateExpired
-        applePay = ApplePayManager(
-                navigateCoordinator: navigateCoordinator,
-                isExternalApi: false
-        )
+        applePay = ApplePayManager(navigateCoordinator: navigateCoordinator)
     }
 
     var body: some View {

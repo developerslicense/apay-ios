@@ -14,14 +14,9 @@ final class ApplePayManager: NSObject {
     var isSuccess: Bool = false
     var redirect3dsUrl: String? = nil
     var applePayToken: String? = nil
-    var isExternalApi: Bool
 
-    public init(
-            navigateCoordinator: AirbaPayCoordinator,
-            isExternalApi: Bool = true
-    ) {
+    init(navigateCoordinator: AirbaPayCoordinator) {
         self.navigateCoordinator = navigateCoordinator
-        self.isExternalApi = isExternalApi
     }
 
     private lazy var paymentRequest: PKPaymentRequest = {
@@ -43,13 +38,7 @@ final class ApplePayManager: NSObject {
         return request
     }()
 
-    public func buyBtnTapped(
-//            redirectFromStoryboardToSwiftUi: (() -> Void)? = nil // todo
-    ) {
-//        if redirectFromStoryboardToSwiftUi != nil {
-//            DataHolder.redirectFromStoryboardToSwiftUi = redirectFromStoryboardToSwiftUi
-//        }
-
+    public func buyBtnTapped() {
         guard let paymentVC = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest),
               let window = UIApplication.shared.connectedScenes
                       .filter({$0.activationState == .foregroundActive})
@@ -86,24 +75,10 @@ extension ApplePayManager: PKPaymentAuthorizationViewControllerDelegate {
             didAuthorizePayment payment: PKPayment,
             handler completion: @escaping (PKPaymentAuthorizationResult) -> Void
     ) {
+        self.isSuccess = true
+        self.applePayToken = String(data: payment.token.paymentData, encoding: .utf8)!
+        completion(.init(status: .success, errors: nil))
 
-        if isExternalApi {
-            applePayViewModel.auth(
-                    onError: {
-                        self.isSuccess = false
-                        completion(.init(status: .failure, errors: nil))
-                    },
-                    onSuccess: {
-                        self.isSuccess = true
-                        self.applePayToken = String(data: payment.token.paymentData, encoding: .utf8)!
-                        completion(.init(status: .success, errors: nil))
-                    }
-            )
-        } else {
-            self.isSuccess = true
-            self.applePayToken = String(data: payment.token.paymentData, encoding: .utf8)!
-            completion(.init(status: .success, errors: nil))
-        }
     }
 
     public func paymentAuthorizationViewController(
