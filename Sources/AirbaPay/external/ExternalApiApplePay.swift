@@ -23,7 +23,8 @@ extension AirbaPaySdk {
                 navigateCoordinator: navigateCoordinator,
                 onSuccess: {
         //todo
-                }
+                },
+                paymentId: nil
             )
         }
     }

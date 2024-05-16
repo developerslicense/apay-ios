@@ -14,20 +14,17 @@ extension AirbaPaySdk {
     ) {
         DataHolder.isApplePayFlow = false
 
-        Task {
-            blAuth(
-                    navigateCoordinator: navigateCoordinator,
-                    onSuccess: {
-                        blCheckSavedCardNeedCvv(
-                                cardId: cardId,
-                                toggleCvv: { },
-                                isLoading: isLoading,
-                                navigateCoordinator: self.navigateCoordinator
-                        )
-
-                    }
-            )
-        }
-
+        blAuth(
+                navigateCoordinator: navigateCoordinator,
+                onSuccess: {
+                    blCheckSavedCardNeedCvv(
+                            cardId: cardId,
+                            toggleCvv: {},
+                            isLoading: isLoading,
+                            navigateCoordinator: self.navigateCoordinator
+                    ),
+                    paymentId: nil
+                }
+        )
     }
 }

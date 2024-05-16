@@ -8,13 +8,13 @@ import Foundation
 
 func blAuth(
         navigateCoordinator: AirbaPayCoordinator,
-        onSuccess: @escaping () -> Void
-
+        onSuccess: @escaping () -> Void,
+        paymentId: String?
 ) {
     Task {
         let authParams = AuthRequest(
                 password: DataHolder.password,
-                paymentId: nil,
+                paymentId: paymentId,
                 terminalId: DataHolder.terminalId,
                 user: DataHolder.shopId
         )

@@ -123,22 +123,18 @@ struct StartProcessingPage: View {
                 )
                 .onAppear {
                     DataHolder.isApplePayFlow = true
-                    Task {
-                        await viewModel.startAuth(
-                                onSuccess: {
-                                    fetchMerchantsWithNextStep(
-                                            viewModel: viewModel,
-                                            navigateCoordinator: navigateCoordinator
-                                    )
-                                },
-                                onError: {
-                                    navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+                    viewModel.isLoading = true
 
-                                }
-                        )
-
-                    }
-
+                    blAuth(
+                            navigateCoordinator: navigateCoordinator,
+                            onSuccess: {
+                                fetchMerchantsWithNextStep(
+                                        viewModel: viewModel,
+                                        navigateCoordinator: navigateCoordinator
+                                )
+                            },
+                            paymentId: nil
+                    )
 
                 }
                 .sheet(isPresented: $sheetState) {
