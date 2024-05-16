@@ -8,15 +8,9 @@ import SwiftUI
 
 // https://github.com/alexdremov/PathPresenter?ref=alexdremov.me
 
-public class AirbaPayCoordinator: UIViewController { //todo удали ненужные view классы внизу и перенеси насчет кастомных страниц в initSdk
+class AirbaPayCoordinator: UIViewController {
 
-    private var uiNavigationController: UINavigationController? = nil
-
-    public func openTestPage() {
-        openPage(content: TestPageAPSDK(navigateCoordinator: self))
-    }
-
-    public func startProcessing() {
+    func startProcessing() {
         LoggerHelper.nextPage(pageName: "StartProcessingView")
         openPage(content: StartProcessingPage(navigateCoordinator: self))
     }
@@ -95,21 +89,17 @@ public class AirbaPayCoordinator: UIViewController { //todo удали нену�
         }
     }
 
-    private func openPage(content: some View) {
-        if !TestAirbaPayStates.isTestApp && uiNavigationController == nil {
-            uiNavigationController = UINavigationController(rootViewController: self)
+    func openPage(content: some View) {
+        let window = UIApplication.shared.connectedScenes
+                .filter({$0.activationState == .foregroundActive})
+                .map({$0 as? UIWindowScene})
+                .compactMap({$0})
+                .first?.windows
+                .filter({$0.isKeyWindow}).first
 
-            let window = UIApplication.shared.connectedScenes
-                    .filter({$0.activationState == .foregroundActive})
-                    .map({$0 as? UIWindowScene})
-                    .compactMap({$0})
-                    .first?.windows
-                    .filter({$0.isKeyWindow}).first
+        let navigation = UINavigationController(rootViewController: self)
 
-            window?.makeKeyAndVisible()
-            window?.rootViewController = uiNavigationController
-        }
-
+        window?.rootViewController = navigation
 
         let newVC = UIHostingController(rootView: content)
 
@@ -121,4 +111,3 @@ public class AirbaPayCoordinator: UIViewController { //todo удали нену�
     }
 
 }
-

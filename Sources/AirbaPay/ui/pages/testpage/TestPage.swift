@@ -10,10 +10,7 @@ struct TestPageAPSDK: View {
     @State var featureCustomPages: Bool = false
     @State var isLoading: Bool = false
 
-    var navigateCoordinator: AirbaPayCoordinator
-
     var body: some View {
-//        let applePay = ApplePayManager(navigateCoordinator: navigateCoordinator)
 
         ZStack {
             ColorsSdk.bgBlock
@@ -31,30 +28,12 @@ struct TestPageAPSDK: View {
                                 TestAirbaPayStates.shutDownTestFeatureApplePay = !featureApplePay
                                 TestAirbaPayStates.shutDownTestFeatureSavedCards = !featureSavedCards
 
-                                testInitSdk(
+                                let airbaPaySdk = testInitSdk(
                                         autoCharge: autoCharge ? 1 : 0,
-                                        navigateCoordinator: navigateCoordinator,
-                                        openCustomPageSuccess: featureCustomPages ? {
-                                            let newVC = UIHostingController(rootView: CustomSuccessPage(navigateCoordinator: navigateCoordinator))
-
-                                            navigateCoordinator.navigationController?.setToolbarHidden(true, animated: false)
-                                            navigateCoordinator.navigationController?.setNavigationBarHidden(true, animated: false)
-                                            navigateCoordinator.navigationController?.toolbar?.isHidden = true
-                                            navigateCoordinator.navigationController?.pushViewController(newVC, animated: false)
-
-                                        } : nil,
-                                        openCustomPageFinalError: featureCustomPages ? {
-                                            let newVC = UIHostingController(rootView: CustomErrorPage(navigateCoordinator: navigateCoordinator))
-
-                                            navigateCoordinator.navigationController?.setToolbarHidden(true, animated: false)
-                                            navigateCoordinator.navigationController?.setNavigationBarHidden(true, animated: false)
-                                            navigateCoordinator.navigationController?.toolbar?.isHidden = true
-                                            navigateCoordinator.navigationController?.pushViewController(newVC, animated: false)
-
-                                        } : nil
+                                        featureCustomPages: featureCustomPages
                                 )
 
-                                navigateCoordinator.startProcessing()
+                                airbaPaySdk.startProcessing()
                             },
                             label: {
                                 Text("Стандартный флоу")
@@ -66,11 +45,11 @@ struct TestPageAPSDK: View {
 
                     Button(
                             action: {
-                                testInitSdk(autoCharge: autoCharge  ? 1 : 0, navigateCoordinator: navigateCoordinator)
-                                //                                        navigateCoordinator.openTestApplePaySwiftUi()
-
-                                //                                applePay.buyBtnTapped()
-
+                                let airbaPaySdk = testInitSdk(
+                                        autoCharge: autoCharge ? 1 : 0,
+                                        featureCustomPages: featureCustomPages
+                                )
+                                airbaPaySdk.navigateCoordinator.openPage(content: TestSwiftUiApplePayPage(airbaPaySdk: airbaPaySdk))
                             },
                             label: {
                                 Text("Тест внешнего API applePay ")
@@ -82,9 +61,11 @@ struct TestPageAPSDK: View {
 
                     Button(
                             action: {
-                                testInitSdk(autoCharge: autoCharge  ? 1 : 0, navigateCoordinator: navigateCoordinator)
+                                let airbaPaySdk = testInitSdk(
+                                        autoCharge: autoCharge ? 1 : 0,
+                                        featureCustomPages: featureCustomPages
+                                )
                                 //                                        navigateCoordinator.openTestApplePaySwiftUi()
-
                                 //                                applePay.buyBtnTapped()
 
                             },
@@ -98,7 +79,10 @@ struct TestPageAPSDK: View {
 
                     Button(
                             action: {
-                                testInitSdk(autoCharge: autoCharge  ? 1 : 0, navigateCoordinator: navigateCoordinator)
+                                let airbaPaySdk = testInitSdk(
+                                        autoCharge: autoCharge ? 1 : 0,
+                                        featureCustomPages: featureCustomPages
+                                )
                                 testDelCards(
                                         accountId: ACCOUNT_ID_TEST,
                                         isLoading: { b in
@@ -159,10 +143,8 @@ struct TestPageAPSDK: View {
 
 func testInitSdk(
         autoCharge: Int = 0,
-        navigateCoordinator: AirbaPayCoordinator,
-        openCustomPageSuccess: (() -> Void)? = nil,
-        openCustomPageFinalError: (() -> Void)? = nil
-) {
+        featureCustomPages: Bool
+) -> AirbaPaySdk {
     let someInvoiceId = Int(Date().timeIntervalSince1970)
     let someOrderNumber = Int(Date().timeIntervalSince1970)
     print("someOrderNumber" + String(someOrderNumber))
@@ -197,7 +179,7 @@ func testInitSdk(
         )
     ]
 
-    AirbaPaySdk.initSdk(
+    let airbaPaySdk = AirbaPaySdk.initSdk(
             isProd: false,
             lang: AirbaPaySdk.Lang.RU(),
             accountId: ACCOUNT_ID_TEST,
@@ -221,12 +203,34 @@ func testInitSdk(
             applePayMerchantId:  "merchant.kz.airbapay.spf", //"merchant.kz.airbapay.pf" : "merchant.kz.airbapay.spf"
 //            needDisableScreenShot: true
             actionOnCloseProcessing: { b in // возврат в приложение из дефолтных страниц сдк (т.е., исключая кастомные)
-                navigateCoordinator.openTestPage()
+                var navigateCoordinator = AirbaPayCoordinator()
+                navigateCoordinator.openPage(content: TestPageAPSDK())
             },
-            openCustomPageSuccess: openCustomPageSuccess,
-            openCustomPageFinalError: openCustomPageFinalError
+            openCustomPageSuccess: featureCustomPages ? {
+                var navigateCoordinator = AirbaPayCoordinator()
+                let newVC = UIHostingController(rootView: CustomSuccessPage(navigateCoordinator: navigateCoordinator))
+
+                navigateCoordinator.navigationController?.setToolbarHidden(true, animated: false)
+                navigateCoordinator.navigationController?.setNavigationBarHidden(true, animated: false)
+                navigateCoordinator.navigationController?.toolbar?.isHidden = true
+                navigateCoordinator.navigationController?.pushViewController(newVC, animated: false)
+
+            } : nil,
+            openCustomPageFinalError: featureCustomPages ? {
+                var navigateCoordinator = AirbaPayCoordinator()
+                let newVC = UIHostingController(rootView: CustomErrorPage(navigateCoordinator: navigateCoordinator))
+
+                navigateCoordinator.navigationController?.setToolbarHidden(true, animated: false)
+                navigateCoordinator.navigationController?.setNavigationBarHidden(true, animated: false)
+                navigateCoordinator.navigationController?.toolbar?.isHidden = true
+                navigateCoordinator.navigationController?.pushViewController(newVC, animated: false)
+
+            } : nil
 
     )
+
+
+    return airbaPaySdk
 }
 
 struct CustomSuccessPage: View {
@@ -239,7 +243,7 @@ struct CustomSuccessPage: View {
 
             Button(
                     action: {
-                        navigateCoordinator.openTestPage()
+                        navigateCoordinator.openPage(content: TestPageAPSDK())
                     },
                     label: {
                         Text("Succes. BackToApp")
@@ -262,7 +266,7 @@ struct CustomErrorPage: View {
 
             Button(
                     action: {
-                        navigateCoordinator.openTestPage()
+                        navigateCoordinator.openPage(content: TestPageAPSDK())
                     },
                     label: {
                         Text("Error. BackToApp")

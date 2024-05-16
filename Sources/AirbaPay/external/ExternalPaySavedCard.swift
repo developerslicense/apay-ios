@@ -6,29 +6,28 @@
 
 import Foundation
 
-public extension AirbaPaySdk {
-    
-    static func externalPaySavedCard(
-        cardId: String,
-        isLoading: @escaping (Bool) -> Void,
-        navigateCoordinator: AirbaPayCoordinator
+extension AirbaPaySdk {
+
+    func externalPaySavedCardImpl(
+            cardId: String,
+            isLoading: @escaping (Bool) -> Void
     ) {
         DataHolder.isApplePayFlow = false
-        
+
         Task {
             blAuth(
-                navigateCoordinator: navigateCoordinator,
-                onSuccess: { 
-                    blCheckSavedCardNeedCvv(
-                            cardId: cardId,
-                            toggleCvv: { },
-                            isLoading: isLoading,
-                            navigateCoordinator: navigateCoordinator
-                    )
-                    
-                }
+                    navigateCoordinator: navigateCoordinator,
+                    onSuccess: {
+                        blCheckSavedCardNeedCvv(
+                                cardId: cardId,
+                                toggleCvv: { },
+                                isLoading: isLoading,
+                                navigateCoordinator: self.navigateCoordinator
+                        )
+
+                    }
             )
         }
-        
+
     }
 }

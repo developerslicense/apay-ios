@@ -7,7 +7,7 @@
 import Foundation
 import PassKit
 
-public final class ApplePayManager: NSObject {
+final class ApplePayManager: NSObject {
 
     var applePayViewModel: ApplePayViewModel = ApplePayViewModel()
     var navigateCoordinator: AirbaPayCoordinator
@@ -44,11 +44,11 @@ public final class ApplePayManager: NSObject {
     }()
 
     public func buyBtnTapped(
-            redirectFromStoryboardToSwiftUi: (() -> Void)? = nil
+//            redirectFromStoryboardToSwiftUi: (() -> Void)? = nil // todo
     ) {
-        if redirectFromStoryboardToSwiftUi != nil {
-            DataHolder.redirectFromStoryboardToSwiftUi = redirectFromStoryboardToSwiftUi
-        }
+//        if redirectFromStoryboardToSwiftUi != nil {
+//            DataHolder.redirectFromStoryboardToSwiftUi = redirectFromStoryboardToSwiftUi
+//        }
 
         guard let paymentVC = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest),
               let window = UIApplication.shared.connectedScenes

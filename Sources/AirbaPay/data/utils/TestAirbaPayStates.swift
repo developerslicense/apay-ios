@@ -10,5 +10,4 @@ import Foundation
 public class TestAirbaPayStates {
     public static var shutDownTestFeatureApplePay: Bool = false
     public static var shutDownTestFeatureSavedCards: Bool = false
-    static var isTestApp: Bool = true
 }

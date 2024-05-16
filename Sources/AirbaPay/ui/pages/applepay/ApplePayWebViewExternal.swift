@@ -11,21 +11,18 @@ import WebKit
 import Combine
 import UIKit
 
-public struct ApplePayWebViewExternal: View {
+struct ApplePayWebViewExternal: View {
     var navigateCoordinator: AirbaPayCoordinator
-    @ObservedObject var applePayViewModel: ApplePayViewModel
+    @ObservedObject var applePayViewModel: ApplePayViewModel = ApplePayViewModel()
 
 
     public init(
-            redirectFromStoryboardToSwiftUi: (() -> Void)? = nil,
-            navigateCoordinator: AirbaPayCoordinator,
-            @ObservedObject applePayViewModel: ApplePayViewModel
+            navigateCoordinator: AirbaPayCoordinator
     ) {
         self.navigateCoordinator = navigateCoordinator
-        DataHolder.redirectFromStoryboardToSwiftUi = redirectFromStoryboardToSwiftUi
         DataHolder.isApplePayFlow = true
-        self.applePayViewModel = applePayViewModel
     }
+
 
     public var body: some View {
 

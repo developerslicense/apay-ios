@@ -22,11 +22,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowsScene.coordinateSpace.bounds)
         window?.windowScene = windowsScene
         window?.makeKeyAndVisible()
-        let vc = AirbaPayCoordinator()
-        let navigation = UINavigationController(rootViewController: vc)
 
+        let vc = UIViewController()
+
+        let navigation = UINavigationController(rootViewController: vc)
         window?.rootViewController = navigation
-        vc.openTestPage()
+
+        let newVC = UIHostingController(rootView: TestPageAPSDK())
+        vc.navigationController?.setToolbarHidden(true, animated: false)
+        vc.navigationController?.setNavigationBarHidden(true, animated: false)
+        vc.navigationController?.toolbar?.isHidden = true
+        vc.navigationController?.pushViewController(newVC, animated: false)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -56,9 +62,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
-
-
-

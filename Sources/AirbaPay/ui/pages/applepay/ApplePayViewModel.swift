@@ -56,7 +56,7 @@ public class ApplePayViewModel: ObservableObject {
         }
     }
 
-    public func processingWallet(
+    func processingWallet(
             navigateCoordinator: AirbaPayCoordinator,
             applePayToken: String
     ) {

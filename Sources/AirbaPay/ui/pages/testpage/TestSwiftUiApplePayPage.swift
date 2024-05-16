@@ -9,10 +9,7 @@ import SwiftUI
 
 struct TestSwiftUiApplePayPage: View {
 
-    var navigateCoordinator: AirbaPayCoordinator
-
-    var applePay: ApplePayManager
-    var applePayViewModel: ApplePayViewModel = ApplePayViewModel()
+    var airbaPaySdk: AirbaPaySdk
 
     var body: some View {
         ZStack {
@@ -35,24 +32,13 @@ struct TestSwiftUiApplePayPage: View {
                         .padding(.vertical, 16)
                         .padding(.horizontal, 16)
                         .onTapGesture {
-                            applePayViewModel.auth(
-                                    onError: {
-
-                                    },
-                                    onSuccess: {
-
-                                    }
-                            )
+                            airbaPaySdk.initExternalApplePayWebView()
                         }
 
                 Text("Text middle").padding(.all, 16)
 
 
-                ApplePayWebViewExternal(
-                        redirectFromStoryboardToSwiftUi: nil,
-                        navigateCoordinator: navigateCoordinator,
-                        applePayViewModel: applePayViewModel
-                )
+                airbaPaySdk.getApplePayWebView()
 
                 VStack {
 //                   Image("icAPayWhite", bundle: DataHolder.moduleBundle)
@@ -67,7 +53,7 @@ struct TestSwiftUiApplePayPage: View {
                         .padding(.vertical, 16)
                         .padding(.horizontal, 16)
                         .onTapGesture {
-                            applePay.buyBtnTapped()
+                            airbaPaySdk.processExternalApplePayNative()
                         }
 
 

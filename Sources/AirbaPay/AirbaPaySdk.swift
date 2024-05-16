@@ -9,6 +9,9 @@ public class AirbaPaySdk {
     // todo возможно, когда-нибудь можно будет переделать на это
     //   https://anuragajwani.medium.com/how-to-build-universal-ios-frameworks-using-xcframeworks-4c2790cfa623
     //   и можно будет избавиться от боли с тестированием правок
+
+    var navigateCoordinator: AirbaPayCoordinator = AirbaPayCoordinator()
+
     public init() {}
 
     public enum Lang: Equatable {
@@ -84,7 +87,7 @@ public class AirbaPaySdk {
             actionOnCloseProcessing: @escaping (Bool?) -> Void,
             openCustomPageSuccess: (() -> Void)? = nil,
             openCustomPageFinalError: (() -> Void)? = nil
-    ) {
+    ) -> AirbaPaySdk {
 
         if (colorBrandInversion != nil) {
             ColorsSdk.colorBrandInversion = colorBrandInversion!
@@ -138,6 +141,62 @@ public class AirbaPaySdk {
         DataHolder.actionOnCloseProcessing = actionOnCloseProcessing
         DataHolder.openCustomPageSuccess = openCustomPageSuccess
         DataHolder.openCustomPageFinalError = openCustomPageFinalError
+
+        return AirbaPaySdk()
     }
 
+    // navigations
+
+    public func startProcessing() {
+        navigateCoordinator.startProcessing()
+    }
+
+    public func openHome() {
+        navigateCoordinator.openHome()
+    }
+
+    public func backToStartPage() {
+        navigateCoordinator.backToStartPage()
+    }
+
+    public func backToApp(result: Bool = false) {
+        navigateCoordinator.backToApp(result: result)
+    }
+
+    public func openAcquiring(redirectUrl: String?) {
+        navigateCoordinator.openAcquiring(redirectUrl: redirectUrl)
+    }
+
+    public func openSuccess() {
+        navigateCoordinator.openSuccess()
+    }
+
+    public func openRepeat() {
+        navigateCoordinator.openRepeat()
+    }
+
+    public func openErrorPageWithCondition(errorCode: Int?) {
+        navigateCoordinator.openErrorPageWithCondition(errorCode: errorCode)
+    }
+
+    // external Api
+
+    public func externalPaySavedCard(
+            cardId: String,
+            isLoading: @escaping (Bool) -> Void
+    ) {
+        externalPaySavedCardImpl(cardId: cardId, isLoading: isLoading)
+    }
+
+    public func processExternalApplePayNative() {
+        processExternalApplePayNativeImpl()
+    }
+
+    public func initExternalApplePayWebView() {
+        initExternalApplePayWebViewImpl()
+    }
+
+    public func getApplePayWebView() -> some View {
+        return ApplePayWebViewExternal(navigateCoordinator: navigateCoordinator)
+    }
 }
