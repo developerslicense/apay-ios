@@ -12,50 +12,6 @@ public class ApplePayViewModel: ObservableObject {
 
     public init() {}
 
-    public func auth(
-            onError: @escaping () -> Void,
-            onSuccess: @escaping () -> Void
-    ) {
-        let params = AuthRequest(
-                password: DataHolder.password,
-                paymentId: nil,
-                terminalId: DataHolder.terminalId,
-                user: DataHolder.shopId
-        )
-
-        Task {
-            if let resultAuth = await authService(params: params) {
-                DataHolder.accessToken = resultAuth.accessToken
-
-                if let resultCreatePayment = await createPaymentService() {
-                    let params = AuthRequest(
-                            password: DataHolder.password,
-                            paymentId: resultCreatePayment.id,
-                            terminalId: DataHolder.terminalId,
-                            user: DataHolder.shopId
-                    )
-
-                    if let result = await authService(params: params) {
-                        onSuccess()
-
-                        if let appleUrlResult = await getApplePayService() {
-                            DispatchQueue.main.async {
-                                self.appleUrlResult = appleUrlResult.buttonUrl
-                            }
-                        }
-                    } else {
-                        onError()
-                    }
-
-                } else {
-                    onError()
-                }
-            } else {
-                onError()
-            }
-        }
-    }
-
     func processingWallet(
             navigateCoordinator: AirbaPayCoordinator,
             applePayToken: String

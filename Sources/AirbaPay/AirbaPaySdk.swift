@@ -196,22 +196,13 @@ public class AirbaPaySdk {
         blGetCards(onSuccess: onSuccess, onNoCards: onNoCards)
     }
 
-    public func geleteCard(
+    public func deleteCard(
             cardId: String,
             onSuccess: @escaping () -> Void,
             onError: @escaping () -> Void
 
     ) {
-        blAuth(
-                navigateCoordinator: navigateCoordinator,
-                onSuccess: {
-                    Task {
-                        let result = await deleteCardsService(cardId: cardId)
-                        result ? onSuccess() : onError()
-                    }
-                },
-                paymentId: nil
-        )
+        blDeleteCard(cardId: cardId, onSuccess: onSuccess, onError: onError)
     }
 
     // External Api ApplePay

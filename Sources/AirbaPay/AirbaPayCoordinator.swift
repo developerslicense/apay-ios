@@ -17,32 +17,32 @@ class AirbaPayCoordinator: UIViewController {
         openPage(content: StartProcessingPage(navigateCoordinator: self))
     }
 
-    public func openHome() {
+    func openHome() {
         LoggerHelper.nextPage(pageName: "HomePage")
         openPage(content: HomePage(navigateCoordinator: self))
     }
 
-    public func backToStartPage() {
+    func backToStartPage() {
         LoggerHelper.clear()
         navigationController?.popToRootViewController(animated: false)
         startProcessing()
     }
 
-    public func backToApp(
+    func backToApp(
             result: Bool = false
     ) {
         LoggerHelper.clear()
         DataHolder.actionOnCloseProcessing?(result)
     }
 
-    public func openAcquiring(
+    func openAcquiring(
             redirectUrl: String?
     ) {
         LoggerHelper.nextPage(pageName: "AcquiringPage")
         openPage(content: AcquiringPage(navigateCoordinator: self, redirectUrl: redirectUrl))
     }
 
-    public func openSuccess() {
+    func openSuccess() {
         LoggerHelper.nextPage(pageName: "SuccessPage")
 
         if DataHolder.openCustomPageSuccess != nil {
@@ -53,12 +53,12 @@ class AirbaPayCoordinator: UIViewController {
         }
     }
 
-    public func openRepeat() {
+    func openRepeat() {
         LoggerHelper.nextPage(pageName: "RepeatPage")
         openPage(content: RepeatPage(navigateCoordinator: self))
     }
 
-    public func openErrorPageWithCondition(
+    func openErrorPageWithCondition(
             errorCode: Int?
     ) {
 
