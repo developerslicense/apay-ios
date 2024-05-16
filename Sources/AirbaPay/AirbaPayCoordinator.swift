@@ -10,6 +10,8 @@ import SwiftUI
 
 class AirbaPayCoordinator: UIViewController {
 
+    private var navigation: UINavigationController? = nil
+
     func startProcessing() {
         LoggerHelper.nextPage(pageName: "StartProcessingView")
         openPage(content: StartProcessingPage(navigateCoordinator: self))
@@ -90,16 +92,18 @@ class AirbaPayCoordinator: UIViewController {
     }
 
     func openPage(content: some View) {
-        let window = UIApplication.shared.connectedScenes
-                .filter({$0.activationState == .foregroundActive})
-                .map({$0 as? UIWindowScene})
-                .compactMap({$0})
-                .first?.windows
-                .filter({$0.isKeyWindow}).first
+        if navigation == nil {
+            let window = UIApplication.shared.connectedScenes
+                    .filter({$0.activationState == .foregroundActive})
+                    .map({$0 as? UIWindowScene})
+                    .compactMap({$0})
+                    .first?.windows
+                    .filter({$0.isKeyWindow}).first
 
-        let navigation = UINavigationController(rootViewController: self)
+            navigation = UINavigationController(rootViewController: self)
 
-        window?.rootViewController = navigation
+            window?.rootViewController = navigation
+        }
 
         let newVC = UIHostingController(rootView: content)
 

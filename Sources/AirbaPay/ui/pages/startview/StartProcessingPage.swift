@@ -55,7 +55,6 @@ struct StartProcessingPage: View {
 
 
                                 if DataHolder.featureApplePay
-                                           && viewModel.applePayUrl != nil
                                            && context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
                                 {
 
@@ -76,7 +75,7 @@ struct StartProcessingPage: View {
                                                         applePay.buyBtnTapped()
                                                     }
                                         }
-                                    } else {
+                                    } else if viewModel.applePayUrl != nil {
                                         ApplePayWebViewInternal(
                                                 redirectUrl: viewModel.applePayUrl,
                                                 navigateCoordinator: navigateCoordinator
