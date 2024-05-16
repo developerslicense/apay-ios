@@ -1,5 +1,5 @@
 //
-//  ExternalApiApplePay.swift
+//  BLExternalApiApplePay.swift
 //  AirbaPaySdk
 //
 //  Created by Mikhail Belikov on 15.05.2024.
@@ -9,13 +9,13 @@ import Foundation
 
 extension AirbaPaySdk {
 
-    func processExternalApplePayNativeImpl() {
+    func blProcessExternalApplePayNative() {
         let applePay = ApplePayManager(navigateCoordinator: navigateCoordinator)
         DataHolder.isApplePayFlow = true
         applePay.buyBtnTapped()
     }
     
-    func initExternalApplePayWebViewImpl() {
+    func blInitExternalApplePayWebView() {
         DataHolder.isApplePayFlow = true
         
         Task {

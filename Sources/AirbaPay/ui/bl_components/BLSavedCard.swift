@@ -8,7 +8,7 @@ import Foundation
 
 extension AirbaPaySdk {
 
-    func externalPaySavedCardImpl(
+    func blPaySavedCard(
             cardId: String,
             isLoading: @escaping (Bool) -> Void
     ) {
@@ -19,12 +19,31 @@ extension AirbaPaySdk {
                 onSuccess: {
                     blCheckSavedCardNeedCvv(
                             cardId: cardId,
-                            toggleCvv: {},
+                            toggleCvv: { },
                             isLoading: isLoading,
                             navigateCoordinator: self.navigateCoordinator
-                    ),
-                    paymentId: nil
-                }
+                    )
+
+                },
+                paymentId: nil
         )
+    }
+}
+
+func blGetCards(
+        onSuccess: @escaping ([BankCard]) -> Void,
+        onNoCards: @escaping () -> Void
+
+) {
+    Task {
+        if let result = await getCardsService(accountId: DataHolder.accountId) {
+            await MainActor.run {
+                DataHolder.hasSavedCards = !result.isEmpty
+                result.isEmpty ? onNoCards() : onSuccess(result)
+            }
+
+        } else {
+            onNoCards()
+        }
     }
 }

@@ -179,21 +179,31 @@ public class AirbaPaySdk {
         navigateCoordinator.openErrorPageWithCondition(errorCode: errorCode)
     }
 
-    // external Api
+    // external Api Cards
 
-    public func externalPaySavedCard(
+    public func paySavedCard(
             cardId: String,
             isLoading: @escaping (Bool) -> Void
     ) {
-        externalPaySavedCardImpl(cardId: cardId, isLoading: isLoading)
+        blPaySavedCard(cardId: cardId, isLoading: isLoading)
     }
 
+    func getCards(
+            onSuccess: @escaping ([BankCard]?) -> Void,
+            onNoCards: @escaping () -> Void
+
+    ) {
+        blGetCards(onSuccess: onSuccess, onNoCards: onNoCards)
+    }
+
+    // external Api ApplePay
+
     public func processExternalApplePayNative() {
-        processExternalApplePayNativeImpl()
+        blProcessExternalApplePayNative()
     }
 
     public func initExternalApplePayWebView() {
-        initExternalApplePayWebViewImpl()
+        blInitExternalApplePayWebView()
     }
 
     public func getApplePayWebView() -> some View {
