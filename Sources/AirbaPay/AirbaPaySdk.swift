@@ -145,7 +145,7 @@ public class AirbaPaySdk {
         return AirbaPaySdk()
     }
 
-    // navigations
+    // Navigations
 
     public func startProcessing() {
         navigateCoordinator.startProcessing()
@@ -179,7 +179,7 @@ public class AirbaPaySdk {
         navigateCoordinator.openErrorPageWithCondition(errorCode: errorCode)
     }
 
-    // external Api Cards
+    // External Api Cards
 
     public func paySavedCard(
             cardId: String,
@@ -188,7 +188,7 @@ public class AirbaPaySdk {
         blPaySavedCard(cardId: cardId, isLoading: isLoading)
     }
 
-    func getCards(
+    public func getCards(
             onSuccess: @escaping ([BankCard]?) -> Void,
             onNoCards: @escaping () -> Void
 
@@ -196,7 +196,25 @@ public class AirbaPaySdk {
         blGetCards(onSuccess: onSuccess, onNoCards: onNoCards)
     }
 
-    // external Api ApplePay
+    public func geleteCard(
+            cardId: String,
+            onSuccess: @escaping () -> Void,
+            onError: @escaping () -> Void
+
+    ) {
+        blAuth(
+                navigateCoordinator: navigateCoordinator,
+                onSuccess: {
+                    Task {
+                        let result = await deleteCardsService(cardId: cardId)
+                        result ? onSuccess() : onError()
+                    }
+                },
+                paymentId: nil
+        )
+    }
+
+    // External Api ApplePay
 
     public func processExternalApplePayNative() {
         blProcessExternalApplePayNative()
