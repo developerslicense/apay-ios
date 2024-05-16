@@ -179,6 +179,20 @@ public class AirbaPaySdk {
         navigateCoordinator.openErrorPageWithCondition(errorCode: errorCode)
     }
 
+    // External Api Auth
+
+    public func auth(
+            onSuccess: @escaping () -> Void,
+            onError: @escaping () -> Void
+    ) {
+        blAuth(
+                navigateCoordinator: nil,
+                onSuccess: onSuccess,
+                onError: onError,
+                paymentId: nil
+        )
+    }
+
     // External Api Cards
 
     public func paySavedCard(

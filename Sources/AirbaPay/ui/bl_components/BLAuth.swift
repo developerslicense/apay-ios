@@ -9,6 +9,7 @@ import Foundation
 func blAuth(
         navigateCoordinator: AirbaPayCoordinator?,
         onSuccess: @escaping () -> Void,
+        onError: (() -> Void)? = nil,
         paymentId: String?
 ) {
     Task {
@@ -25,7 +26,7 @@ func blAuth(
 
         } else {
             DispatchQueue.main.async {
-                navigateCoordinator?.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+                onError != nil ? onError!() : navigateCoordinator?.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
             }
         }
     }

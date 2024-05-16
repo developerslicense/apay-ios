@@ -17,13 +17,18 @@ extension AirbaPaySdk {
         blAuth(
                 navigateCoordinator: navigateCoordinator,
                 onSuccess: {
-                    blCheckSavedCardNeedCvv(
-                            cardId: cardId,
-                            toggleCvv: { },
-                            isLoading: isLoading,
+                    blInitPayments(
+                            onApplePayResult: { _ in
+                                blCheckSavedCardNeedCvv(
+                                        cardId: cardId,
+                                        toggleCvv: { },
+                                        isLoading: isLoading,
+                                        navigateCoordinator: self.navigateCoordinator
+                                )
+                            },
+                            onError: { },
                             navigateCoordinator: self.navigateCoordinator
                     )
-
                 },
                 paymentId: nil
         )

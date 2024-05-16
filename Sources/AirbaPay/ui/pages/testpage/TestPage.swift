@@ -75,8 +75,8 @@ struct TestPageAPSDK: View {
                                         featureApplePay: featureApplePay,
                                         featureSavedCards: featureSavedCards
                                 )
-                                //                                        navigateCoordinator.openTestApplePaySwiftUi()
-                                //                                applePay.buyBtnTapped()
+
+                                airbaPaySdk.navigateCoordinator.openPage(content: TestCardsPagee(airbaPaySdk: airbaPaySdk))
 
                             },
                             label: {
@@ -97,7 +97,9 @@ struct TestPageAPSDK: View {
                                         featureApplePay: featureApplePay,
                                         featureSavedCards: featureSavedCards
                                 )
-                                testDelCards(accountId: ACCOUNT_ID_TEST)
+                                testDelCards(
+                                        accountId: ACCOUNT_ID_TEST
+                                )
                             },
                             label: {
                                 Text("Удалить привязанные карты")
