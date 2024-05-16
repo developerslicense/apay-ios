@@ -97,12 +97,7 @@ struct TestPageAPSDK: View {
                                         featureApplePay: featureApplePay,
                                         featureSavedCards: featureSavedCards
                                 )
-                                testDelCards(
-                                        accountId: ACCOUNT_ID_TEST,
-                                        isLoading: { b in
-                                            isLoading = b
-                                        }
-                                )
+                                testDelCards(accountId: ACCOUNT_ID_TEST)
                             },
                             label: {
                                 Text("Удалить привязанные карты")
