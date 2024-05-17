@@ -196,10 +196,12 @@ public class AirbaPaySdk {
     // External Api Cards
 
     public func paySavedCard(
-            cardId: String,
-            isLoading: @escaping (Bool) -> Void
+            needFaceId: Bool,
+            bankCard: BankCard,
+            isLoading: @escaping (Bool) -> Void,
+            onError: @escaping () -> Void
     ) {
-        blPaySavedCard(cardId: cardId, isLoading: isLoading)
+        blPaySavedCard(card: bankCard, isLoading: isLoading, onError: onError, needFaceId: needFaceId, airbaPaySdk: self)
     }
 
     public func getCards(
@@ -214,7 +216,6 @@ public class AirbaPaySdk {
             cardId: String,
             onSuccess: @escaping () -> Void,
             onError: @escaping () -> Void
-
     ) {
         blDeleteCard(cardId: cardId, onSuccess: onSuccess, onError: onError)
     }

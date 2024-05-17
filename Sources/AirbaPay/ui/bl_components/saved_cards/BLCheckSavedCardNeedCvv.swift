@@ -8,6 +8,7 @@ import Foundation
 
 func blCheckSavedCardNeedCvv(
         cardId: String,
+        needFaceId: Bool = true,
         toggleCvv: @escaping () -> Void,
         isLoading: @escaping (Bool) -> Void,
         navigateCoordinator: AirbaPayCoordinator
@@ -16,9 +17,17 @@ func blCheckSavedCardNeedCvv(
         if let result = await paymentGetCvv(cardId: cardId) {
             DataHolder.isApplePayFlow = false
 
-            if (result.requestCvv! == true) {
+            if (result.requestCvv == true) {
                 toggleCvv()
 
+            } else if !needFaceId {
+                blProcessSavedCard(
+                        cardId: cardId,
+                        cvv: nil,
+                        isLoading: isLoading,
+                        navigateCoordinator: navigateCoordinator
+                )
+                
             } else {
                 blBiometricAuthenticate(
                         onSuccess: {

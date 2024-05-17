@@ -39,48 +39,33 @@ struct TestCardsPagee: View {
                 } else {
                     LazyVStack {
                         ForEach(0...savedCards.count - 1, id: \.self) { index in
+
                             let card = savedCards[index]
-                            InitCard(
-                                    card: card,
-                                    isSelected: false,
-                                    isFirst: index == 0,
-                                    clickOnCard: {}
-                            )
+
+                            VStack {
+                                Text(card.name ?? "no name")
+                            }
+
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 48)
+                                    .background(ColorsSdk.textBlue)
+                                    //                       .background(ColorsSdk.bgAPAY)
+                                    .cornerRadius(8)
+                                    .padding(.vertical, 16)
+                                    .padding(.horizontal, 16)
+                                    .onTapGesture {
+                                        if card.name?.contains("без FaceId") == true {
+
+                                            airbaPaySdk.paySavedCard(needFaceId: false, bankCard: card, isLoading: {b in }, onError: {} )
+
+                                        } else {
+                                            airbaPaySdk.paySavedCard(needFaceId: true, bankCard: card, isLoading: {b in }, onError: {} )
+                                        }
+                                    }
+
                         }
                     }
                             .padding(.all, 16)
-
-
-                    VStack {
-                        Text("Оплата сохраненной картой (1-я в списке)")
-                    }
-
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 48)
-                            .background(ColorsSdk.textBlue)
-                            //                       .background(ColorsSdk.bgAPAY)
-                            .cornerRadius(8)
-                            .padding(.vertical, 16)
-                            .padding(.horizontal, 16)
-                            .onTapGesture {
-                                airbaPaySdk.paySavedCard(cardId: savedCards.first?.id ?? "", isLoading: {b in })
-                            }
-
-                    VStack {
-                        Text("Оплата сохраненной картой (последняя в списке)")
-                    }
-
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 48)
-                            .background(ColorsSdk.textBlue)
-                            //                       .background(ColorsSdk.bgAPAY)
-                            .cornerRadius(8)
-                            .padding(.vertical, 16)
-                            .padding(.horizontal, 16)
-                            .onTapGesture {
-                                airbaPaySdk.paySavedCard(cardId: savedCards.last?.id ?? "", isLoading: {b in })
-
-                            }
 
 
                     VStack {
@@ -110,6 +95,21 @@ struct TestCardsPagee: View {
                                         onError: { }
                                 )
                             }
+
+                    VStack {
+                        Text("Вернуться назад")
+                    }
+
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 48)
+                            .background(ColorsSdk.textBlue)
+                            //                       .background(ColorsSdk.bgAPAY)
+                            .cornerRadius(8)
+                            .padding(.vertical, 16)
+                            .padding(.horizontal, 16)
+                            .onTapGesture {
+                                airbaPaySdk.backToApp()
+                            }
                 }
             }
         }
@@ -119,7 +119,24 @@ struct TestCardsPagee: View {
                                 airbaPaySdk.getCards(
                                         onSuccess: { cards in
                                             if cards != nil {
-                                                savedCards = cards!
+                                                savedCards = []
+                                                cards!.forEach { card in
+                                                    if card.getMaskedPanClearedWithPoint().contains("1111") {
+
+                                                        var card1 = card
+                                                        card1.name = card.getMaskedPanClearedWithPoint() + " Оплата сохраненной картой c FaceId"
+                                                        savedCards.append(card1)
+
+                                                        var card2 = card
+                                                        card2.name = card.getMaskedPanClearedWithPoint() + " Оплата сохраненной картой без FaceId"
+                                                        savedCards.append(card2)
+
+                                                    } else {
+                                                        var card1 = card
+                                                        card1.name = card.getMaskedPanClearedWithPoint() + " Оплата сохраненной картой CVV"
+                                                        savedCards.append(card1)
+                                                    }
+                                                }
                                             }
                                         },
                                         onNoCards: { }
@@ -133,4 +150,3 @@ struct TestCardsPagee: View {
                 }
     }
 }
-

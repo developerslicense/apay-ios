@@ -1,5 +1,5 @@
 //
-//  BLInitPayments.swift
+//  InitPayments.swift
 //
 //  Created by Mikhail Belikov on 05.02.2024.
 //
@@ -8,6 +8,7 @@ import Foundation
 
 func blInitPayments(
         onApplePayResult: @escaping (String?) -> Void,
+        onError: (() -> Void)? = nil,
         navigateCoordinator: AirbaPayCoordinator
 ) {
     Task {
@@ -32,7 +33,7 @@ func blInitPayments(
 
         } else {
             DispatchQueue.main.async {
-                navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+                onError != nil ? onError!() : navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
             }
         }
     }

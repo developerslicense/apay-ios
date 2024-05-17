@@ -139,7 +139,7 @@ struct StartProcessingPage: View {
                                 },
                                 isLoading: { b in viewModel.isLoading = b },
                                 navigateCoordinator: navigateCoordinator,
-                                viewModel: viewModel,
+                                selectedCard: viewModel.selectedCard,
                                 editTextViewModel: cvvEditTextViewModel
                         )
                                 .presentationDetents([.height(315)])
@@ -152,7 +152,7 @@ struct StartProcessingPage: View {
                                 },
                                 isLoading: { b in viewModel.isLoading = b },
                                 navigateCoordinator: navigateCoordinator,
-                                viewModel: viewModel,
+                                selectedCard: viewModel.selectedCard,
                                 editTextViewModel: cvvEditTextViewModel
                         )
                     }
