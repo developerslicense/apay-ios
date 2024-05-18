@@ -33,13 +33,14 @@ struct HomePage: View {
 
     init(
             navigateCoordinator: AirbaPayCoordinator,
+            applePay: ApplePayManager,
             maskedPan: String? = nil,
             dateExpired: String? = nil
     ) {
         self.navigateCoordinator = navigateCoordinator
         self.maskedPan = maskedPan
         self.dateExpired = dateExpired
-        applePay = ApplePayManager(navigateCoordinator: navigateCoordinator)
+        self.applePay = applePay
     }
 
     var body: some View {

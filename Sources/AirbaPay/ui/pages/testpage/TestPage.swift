@@ -89,7 +89,7 @@ struct TestPageAPSDK: View {
 
                     Button(
                             action: {
-                                let airbaPaySdk = testInitSdk(
+                                let _ = testInitSdk(
                                         autoCharge: autoCharge ? 1 : 0,
                                         featureCustomPages: featureCustomPages,
                                         nativeApplePay: nativeApplePay,
@@ -241,11 +241,11 @@ func testInitSdk(
             applePayMerchantId:  "merchant.kz.airbapay.spf", //"merchant.kz.airbapay.pf" : "merchant.kz.airbapay.spf"
             needDisableScreenShot: needDisableScreenShot,
             actionOnCloseProcessing: { b in // возврат в приложение из дефолтных страниц сдк (т.е., исключая кастомные)
-                var navigateCoordinator = AirbaPayCoordinator()
+                let navigateCoordinator = AirbaPayCoordinator()
                 navigateCoordinator.openPage(content: TestPageAPSDK())
             },
             openCustomPageSuccess: featureCustomPages ? {
-                var navigateCoordinator = AirbaPayCoordinator()
+                let navigateCoordinator = AirbaPayCoordinator()
                 let newVC = UIHostingController(rootView: CustomSuccessPage(navigateCoordinator: navigateCoordinator))
 
                 navigateCoordinator.navigationController?.setToolbarHidden(true, animated: false)
@@ -255,7 +255,7 @@ func testInitSdk(
 
             } : nil,
             openCustomPageFinalError: featureCustomPages ? {
-                var navigateCoordinator = AirbaPayCoordinator()
+                let navigateCoordinator = AirbaPayCoordinator()
                 let newVC = UIHostingController(rootView: CustomErrorPage(navigateCoordinator: navigateCoordinator))
 
                 navigateCoordinator.navigationController?.setToolbarHidden(true, animated: false)

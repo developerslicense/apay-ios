@@ -16,12 +16,11 @@ struct TestSwiftUiApplePayPage: View {
             ColorsSdk.gray30
             ColorsSdk.bgBlock
             VStack {
-                Text("Text up").padding(.all, 16)
 
 
                 VStack {
 //                   Image("icAPayWhite", bundle: DataHolder.moduleBundle)
-                    Text("вебвью")
+                    Text("ApplePay внешний АПИ")
                 }
 
                         .frame(maxWidth: .infinity)
@@ -32,17 +31,12 @@ struct TestSwiftUiApplePayPage: View {
                         .padding(.vertical, 16)
                         .padding(.horizontal, 16)
                         .onTapGesture {
-                            airbaPaySdk.initExternalApplePayWebView()
+                            airbaPaySdk.processExternalApplePay()
                         }
 
-                Text("Text middle").padding(.all, 16)
-
-
-                airbaPaySdk.getApplePayWebView()
 
                 VStack {
-//                   Image("icAPayWhite", bundle: DataHolder.moduleBundle)
-                    Text("натив")
+                    Text("Вернуться назад")
                 }
 
                         .frame(maxWidth: .infinity)
@@ -53,12 +47,10 @@ struct TestSwiftUiApplePayPage: View {
                         .padding(.vertical, 16)
                         .padding(.horizontal, 16)
                         .onTapGesture {
-                            airbaPaySdk.processExternalApplePayNative()
+                            airbaPaySdk.backToApp()
                         }
-
-
-                Text("Text down").padding(.all, 16)
             }
         }
     }
 }
+

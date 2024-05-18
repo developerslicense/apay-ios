@@ -11,15 +11,25 @@ import SwiftUI
 class AirbaPayCoordinator: UIViewController {
 
     private var navigation: UINavigationController? = nil
+    var applePay: ApplePayManager? = nil
+
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        applePay = ApplePayManager(navigateCoordinator: self)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     func startProcessing() {
         LoggerHelper.nextPage(pageName: "StartProcessingView")
-        openPage(content: StartProcessingPage(navigateCoordinator: self))
+        openPage(content: StartProcessingPage(navigateCoordinator: self, applePay: applePay!))
     }
 
     func openHome() {
         LoggerHelper.nextPage(pageName: "HomePage")
-        openPage(content: HomePage(navigateCoordinator: self))
+        openPage(content: HomePage(navigateCoordinator: self, applePay: applePay!))
     }
 
     func backToStartPage() {

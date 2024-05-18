@@ -9,39 +9,21 @@ import Foundation
 
 extension AirbaPaySdk {
 
-    func blProcessExternalApplePayNative() {
+    func blProcessExternalApplePay() {
         blAuth(
                 navigateCoordinator: navigateCoordinator,
                 onSuccess: {
                     blInitPayments(
                             onApplePayResult: { _ in
-                                let applePay = ApplePayManager(navigateCoordinator: self.navigateCoordinator)
-                                DataHolder.isApplePayFlow = true
-                                applePay.buyBtnTapped()
+                                DispatchQueue.main.async {
+                                    DataHolder.isApplePayFlow = true
+                                    self.navigateCoordinator.applePay!.buyBtnTapped()
+                                }
                             },
                             navigateCoordinator: self.navigateCoordinator
                     )
                 },
                 paymentId: nil
         )
-    }
-
-    func blInitExternalApplePayWebView() {
-        DataHolder.isApplePayFlow = true
-
-        Task {
-            blAuth(
-                    navigateCoordinator: navigateCoordinator,
-                    onSuccess: {
-                        blInitPayments(
-                                onApplePayResult: { url in
-
-                                },
-                                navigateCoordinator: self.navigateCoordinator
-                        )
-                    },
-                    paymentId: nil
-            )
-        }
     }
 }

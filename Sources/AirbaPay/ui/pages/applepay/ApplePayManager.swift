@@ -19,40 +19,33 @@ final class ApplePayManager: NSObject {
         self.navigateCoordinator = navigateCoordinator
     }
 
-    private lazy var paymentRequest: PKPaymentRequest = {
-        let request: PKPaymentRequest = PKPaymentRequest()
-        let merchandId = DataHolder.applePayMerchantId!
-        //label here can be passed in as a variable like we do itemCost and shippingCost.
-        let summary = PKPaymentSummaryItem(label: DataHolder.shopName, amount: NSDecimalNumber(string: DataHolder.purchaseAmount))
-
-//        shippingMethod.identifier = "ios App"
-        request.merchantIdentifier = merchandId
-        request.countryCode = "KZ"
-        request.currencyCode = "KZT"
-        request.merchantCapabilities = .capability3DS//PKMerchantCapability([.capability3DS, .capabilityCredit, .capabilityDebit, .capabilityEMV])
-        request.paymentSummaryItems = [summary]
-        request.shippingType = .servicePickup
-        request.supportedCountries = ["KZ"]
-        request.supportedNetworks = [.maestro, .masterCard, .quicPay, .visa, .vPay]
-
-        return request
-    }()
-
     func buyBtnTapped() {
-        guard let paymentVC = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest),
-              let window = UIApplication.shared.connectedScenes
-                      .filter({$0.activationState == .foregroundActive})
-                      .map({$0 as? UIWindowScene})
-                      .compactMap({$0})
-                      .first?.windows
-                      .filter({$0.isKeyWindow}).first
-        else {
+        let paymentRequest: PKPaymentRequest = {
+            let request: PKPaymentRequest = PKPaymentRequest()
+            let merchandId = DataHolder.applePayMerchantId!
+            //label here can be passed in as a variable like we do itemCost and shippingCost.
+            let summary = PKPaymentSummaryItem(label: DataHolder.shopName, amount: NSDecimalNumber(string: DataHolder.purchaseAmount))
+
+            //        shippingMethod.identifier = "ios App"
+            request.merchantIdentifier = merchandId
+            request.countryCode = "KZ"
+            request.currencyCode = "KZT"
+            request.merchantCapabilities = .capability3DS//PKMerchantCapability([.capability3DS, .capabilityCredit, .capabilityDebit, .capabilityEMV])
+            request.paymentSummaryItems = [summary]
+            request.shippingType = .servicePickup
+            request.supportedCountries = ["KZ"]
+            request.supportedNetworks = [.maestro, .masterCard, .quicPay, .visa, .vPay]
+
+            return request
+        }()
+
+        if let paymentVC = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest) {
+            paymentVC.delegate = self
+            navigateCoordinator.present(paymentVC, animated: true)
+
+        } else {
             return
-
         }
-        paymentVC.delegate = self
-        window.rootViewController?.present(paymentVC, animated: true, completion: nil)
-
     }
 }
 
@@ -80,15 +73,5 @@ extension ApplePayManager: PKPaymentAuthorizationViewControllerDelegate {
         completion(.init(status: .success, errors: nil))
 
     }
-
-    public func paymentAuthorizationViewController(
-            _ controller: PKPaymentAuthorizationViewController,
-            didSelectShippingContact contact: PKContact,
-            handler completion: @escaping (PKPaymentRequestShippingContactUpdate) -> Void
-    ) {
-
-        completion(.init(paymentSummaryItems: [PKPaymentSummaryItem(label: "ios", amount: NSDecimalNumber(value: Int(DataHolder.purchaseAmount)!) )]))
-    }
-
 }
 

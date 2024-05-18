@@ -222,15 +222,8 @@ public class AirbaPaySdk {
 
     // External Api ApplePay
 
-    public func processExternalApplePayNative() {
-        blProcessExternalApplePayNative()
+    public func processExternalApplePay() {
+        blProcessExternalApplePay()
     }
 
-    public func initExternalApplePayWebView() {
-        blInitExternalApplePayWebView()
-    }
-
-    public func getApplePayWebView() -> some View {
-        return ApplePayWebViewExternal(navigateCoordinator: navigateCoordinator)
-    }
 }
