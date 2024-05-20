@@ -237,9 +237,11 @@ func testInitSdk(
             shopName: "Technodom",
             applePayMerchantId:  "merchant.kz.airbapay.spf", //"merchant.kz.airbapay.pf" : "merchant.kz.airbapay.spf"
             needDisableScreenShot: needDisableScreenShot,
-            actionOnCloseProcessing: { b in // возврат в приложение из дефолтных страниц сдк (т.е., исключая кастомные)
+            actionOnCloseProcessing: { (b, navigation ) in // возврат в приложение из дефолтных страниц сдк (т.е., исключая кастомные)
                 let navigateCoordinator = AirbaPayCoordinator()
                 navigateCoordinator.openPage(content: TestPageAPSDK())
+//                navigation.popToRootViewController(animated: true)
+
             },
             openCustomPageSuccess: featureCustomPages ? {
                 let navigateCoordinator = AirbaPayCoordinator()

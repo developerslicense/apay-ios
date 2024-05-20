@@ -3,9 +3,10 @@
 //
 
 import Foundation
+import UIKit
 
 class DataHolder {
-    static var sdkVersion = "2.0.13"
+    static var sdkVersion = "2.0.14"
     static var baseUrl = ""
 
     static var connectTimeout = 60
@@ -54,7 +55,7 @@ class DataHolder {
     static var isApplePayNative: Bool = false
     static var needDisableScreenShot = false
 
-    static var actionOnCloseProcessing: ((Bool?) -> Void)? = nil
+    static var actionOnCloseProcessing: ((Bool?, UINavigationController) -> Void)? = nil
     static var openCustomPageSuccess: (() -> Void)? = nil
     static var openCustomPageFinalError: (() -> Void)? = nil
 

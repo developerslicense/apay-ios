@@ -86,7 +86,7 @@ public class AirbaPaySdk {
             shopName: String = "Shop",
             applePayMerchantId: String? = nil,
             needDisableScreenShot: Bool = false,
-            actionOnCloseProcessing: @escaping (Bool?) -> Void,
+            actionOnCloseProcessing: @escaping (Bool?, UINavigationController) -> Void,
             openCustomPageSuccess: (() -> Void)? = nil,
             openCustomPageFinalError: (() -> Void)? = nil,
             manualDisableFeatureApplePay: Bool = false,

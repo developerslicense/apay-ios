@@ -42,7 +42,7 @@ class AirbaPayCoordinator: UIViewController {
             result: Bool = false
     ) {
         LoggerHelper.clear()
-        DataHolder.actionOnCloseProcessing?(result)
+        DataHolder.actionOnCloseProcessing?(result, navigation ?? UINavigationController(rootViewController: self))
     }
 
     func openAcquiring(
