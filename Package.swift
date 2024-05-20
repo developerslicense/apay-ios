@@ -18,7 +18,7 @@ let package = Package(
         dependencies: [
             .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.8.0")),
             .package(url: "https://github.com/sanzaru/SimpleToast.git", from: "0.0.1"),
-            .package(name: "FINNBottomSheet", url: "https://github.com/finn-no/BottomSheet.git", .upToNextMajor(from: "1.0.0"))
+            .package(url: "https://github.com/finn-no/BottomSheet.git", from: "5.2.0")
         ],
         targets: [
             // Targets are the basic building blocks of a package, defining a module or a test suite.
