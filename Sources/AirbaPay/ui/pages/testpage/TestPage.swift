@@ -5,8 +5,8 @@ private let ACCOUNT_ID_TEST = "77061111112"
 
 struct TestPageAPSDK: View {
     @State var autoCharge: Bool = false
-    @State var featureApplePay: Bool = true
-    @State var featureSavedCards: Bool = true
+    @State var enabledFeatureApplePay: Bool = true
+    @State var enabledFeatureSavedCards: Bool = true
     @State var featureCustomPages: Bool = false
     @State var isLoading: Bool = false
     @State var nativeApplePay: Bool = true
@@ -31,8 +31,8 @@ struct TestPageAPSDK: View {
                                         featureCustomPages: featureCustomPages,
                                         nativeApplePay: nativeApplePay,
                                         needDisableScreenShot: needDisableScreenShot,
-                                        featureApplePay: featureApplePay,
-                                        featureSavedCards: featureSavedCards
+                                        manualDisableFeatureApplePay: !enabledFeatureApplePay,
+                                        manualDisableisableFeatureSavedCards: !enabledFeatureSavedCards
                                 )
 
                                 airbaPaySdk.startProcessing()
@@ -52,8 +52,8 @@ struct TestPageAPSDK: View {
                                         featureCustomPages: featureCustomPages,
                                         nativeApplePay: nativeApplePay,
                                         needDisableScreenShot: needDisableScreenShot,
-                                        featureApplePay: featureApplePay,
-                                        featureSavedCards: featureSavedCards
+                                        manualDisableFeatureApplePay: !enabledFeatureApplePay,
+                                        manualDisableisableFeatureSavedCards: !enabledFeatureSavedCards
                                 )
                                 airbaPaySdk.navigateCoordinator.openPage(content: TestSwiftUiApplePayPage(airbaPaySdk: airbaPaySdk))
                             },
@@ -72,8 +72,8 @@ struct TestPageAPSDK: View {
                                         featureCustomPages: featureCustomPages,
                                         nativeApplePay: nativeApplePay,
                                         needDisableScreenShot: needDisableScreenShot,
-                                        featureApplePay: featureApplePay,
-                                        featureSavedCards: featureSavedCards
+                                        manualDisableFeatureApplePay: !enabledFeatureApplePay,
+                                        manualDisableisableFeatureSavedCards: !enabledFeatureSavedCards
                                 )
 
                                 airbaPaySdk.navigateCoordinator.openPage(content: TestCardsPagee(airbaPaySdk: airbaPaySdk))
@@ -94,8 +94,8 @@ struct TestPageAPSDK: View {
                                         featureCustomPages: featureCustomPages,
                                         nativeApplePay: nativeApplePay,
                                         needDisableScreenShot: needDisableScreenShot,
-                                        featureApplePay: featureApplePay,
-                                        featureSavedCards: featureSavedCards
+                                        manualDisableFeatureApplePay: !enabledFeatureApplePay,
+                                        manualDisableisableFeatureSavedCards: !enabledFeatureSavedCards
                                 )
                                 testDelCards(
                                         accountId: ACCOUNT_ID_TEST
@@ -121,17 +121,17 @@ struct TestPageAPSDK: View {
 
                     SwitchedView(
                             text: "Есть Сохраненные карты",
-                            switchCheckedState: featureSavedCards,
+                            switchCheckedState: enabledFeatureSavedCards,
                             actionOnChanged: { b in
-                                featureSavedCards = b
+                                enabledFeatureSavedCards = b
                             }
                     ).padding(8)
 
                     SwitchedView(
                             text: "Есть ApplePay",
-                            switchCheckedState: featureApplePay,
+                            switchCheckedState: enabledFeatureApplePay,
                             actionOnChanged: { b in
-                                featureApplePay = b
+                                enabledFeatureApplePay = b
                             }
                     ).padding(8)
 
@@ -174,14 +174,11 @@ func testInitSdk(
         featureCustomPages: Bool,
         nativeApplePay: Bool,
         needDisableScreenShot: Bool,
-        featureApplePay: Bool,
-        featureSavedCards: Bool
+        manualDisableFeatureApplePay: Bool,
+        manualDisableisableFeatureSavedCards: Bool
 ) -> AirbaPaySdk {
 
     DataHolder.hasSavedCards = false
-
-    TestAirbaPayStates.shutDownTestFeatureApplePay = !featureApplePay
-    TestAirbaPayStates.shutDownTestFeatureSavedCards = !featureSavedCards
 
     let someInvoiceId = Int(Date().timeIntervalSince1970)
     let someOrderNumber = Int(Date().timeIntervalSince1970)
@@ -263,7 +260,9 @@ func testInitSdk(
                 navigateCoordinator.navigationController?.toolbar?.isHidden = true
                 navigateCoordinator.navigationController?.pushViewController(newVC, animated: false)
 
-            } : nil
+            } : nil,
+            manualDisableFeatureApplePay: manualDisableFeatureApplePay,
+            manualDisableisableFeatureSavedCards: manualDisableisableFeatureSavedCards
 
     )
 

@@ -13,13 +13,13 @@ func fetchMerchantsWithNextStep(
     Task {
         if let result = await getMerchantInfoService() {
 
-            if (TestAirbaPayStates.shutDownTestFeatureSavedCards) {
+            if (DataHolder.manualDisableisableFeatureSavedCards) {
                 DataHolder.featureSavedCards = false
             } else {
                 DataHolder.featureSavedCards = result.config?.renderSaveCards ?? false
             }
 
-            if (TestAirbaPayStates.shutDownTestFeatureApplePay) {
+            if (DataHolder.manualDisableFeatureApplePay) {
                 DataHolder.featureApplePay = false
             } else {
                 DataHolder.featureApplePay = result.config?.renderApplePayButton ?? false

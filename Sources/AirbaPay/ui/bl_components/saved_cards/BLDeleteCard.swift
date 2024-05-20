@@ -15,15 +15,9 @@ extension AirbaPaySdk {
         onError: @escaping () -> Void
 
     ) {
-        blAuth(
-                navigateCoordinator: navigateCoordinator,
-                onSuccess: {
-                    Task {
-                        let result = await deleteCardsService(cardId: cardId)
-                        result ? onSuccess() : onError()
-                    }
-                },
-                paymentId: nil
-        )
+        Task {
+            let result = await deleteCardsService(cardId: cardId)
+            result ? onSuccess() : onError()
+        }
     }
 }

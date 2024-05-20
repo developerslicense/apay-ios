@@ -51,3 +51,20 @@ private func loadApplePayButton(
     }
 }
 
+extension AirbaPaySdk {
+
+    func blInitExternalPayments(
+            onSuccess: @escaping () -> Void,
+            onError: @escaping () -> Void
+    ) {
+        DataHolder.isApplePayFlow = false
+
+        blInitPayments(
+                onApplePayResult: { _ in
+                    onSuccess()
+                },
+                onError: onError,
+                navigateCoordinator: self.navigateCoordinator
+        )
+    }
+}

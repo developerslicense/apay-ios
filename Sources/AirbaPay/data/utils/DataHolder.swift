@@ -57,6 +57,9 @@ class DataHolder {
     static var actionOnCloseProcessing: ((Bool?) -> Void)? = nil
     static var openCustomPageSuccess: (() -> Void)? = nil
     static var openCustomPageFinalError: (() -> Void)? = nil
+
+    public static var manualDisableFeatureApplePay: Bool = false
+    public static var manualDisableisableFeatureSavedCards: Bool = false
 }
 
 

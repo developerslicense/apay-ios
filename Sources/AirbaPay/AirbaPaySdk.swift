@@ -86,7 +86,9 @@ public class AirbaPaySdk {
             needDisableScreenShot: Bool = false,
             actionOnCloseProcessing: @escaping (Bool?) -> Void,
             openCustomPageSuccess: (() -> Void)? = nil,
-            openCustomPageFinalError: (() -> Void)? = nil
+            openCustomPageFinalError: (() -> Void)? = nil,
+            manualDisableFeatureApplePay: Bool = false,
+            manualDisableisableFeatureSavedCards: Bool = false
     ) -> AirbaPaySdk {
 
         if (colorBrandInversion != nil) {
@@ -142,6 +144,9 @@ public class AirbaPaySdk {
         DataHolder.openCustomPageSuccess = openCustomPageSuccess
         DataHolder.openCustomPageFinalError = openCustomPageFinalError
 
+        DataHolder.manualDisableFeatureApplePay = manualDisableFeatureApplePay
+        DataHolder.manualDisableisableFeatureSavedCards = manualDisableisableFeatureSavedCards
+
         return AirbaPaySdk()
     }
 
@@ -192,6 +197,15 @@ public class AirbaPaySdk {
                 paymentId: nil
         )
     }
+
+    // External Api create payment
+
+//    public func initPayment(
+//            onSuccess: @escaping () -> Void,
+//            onError: @escaping () -> Void
+//    ) {
+//        blInitExternalPayments(onSuccess: onSuccess, onError: onError)
+//    }
 
     // External Api Cards
 

@@ -8,9 +8,8 @@
 import Foundation
 
 func blGetCards(
-    onSuccess: @escaping ([BankCard]) -> Void,
-    onNoCards: @escaping () -> Void
-
+        onSuccess: @escaping ([BankCard]) -> Void,
+        onNoCards: @escaping () -> Void
 ) {
     Task {
         if let result = await getCardsService(accountId: DataHolder.accountId) {
