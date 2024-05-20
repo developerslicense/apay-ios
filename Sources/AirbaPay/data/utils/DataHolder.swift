@@ -5,7 +5,7 @@
 import Foundation
 
 class DataHolder {
-    static var sdkVersion = "2.0.6"
+    static var sdkVersion = "2.0.12"
     static var baseUrl = ""
 
     static var connectTimeout = 60
