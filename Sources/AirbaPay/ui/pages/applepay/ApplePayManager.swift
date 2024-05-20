@@ -41,7 +41,14 @@ final class ApplePayManager: NSObject {
 
         if let paymentVC = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest) {
             paymentVC.delegate = self
-            navigateCoordinator.present(paymentVC, animated: true)
+//            navigateCoordinator.present(paymentVC, animated: true)
+
+            if let window = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first {
+                if window.rootViewController == nil {
+                    window.rootViewController = UINavigationController(rootViewController: navigateCoordinator)
+                }
+                navigateCoordinator.present(paymentVC, animated: true)
+            }
 
         } else {
             return
