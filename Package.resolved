@@ -17,6 +17,14 @@
         "revision" : "6637b95dfc49d3d688ad2d7b6e0655c0f6862f83",
         "version" : "0.8.0"
       }
+    },
+    {
+      "identity" : "bottomsheet",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/finn-no/BottomSheet.git",
+      "state" : {
+        "version" : "5.2.0"
+      }
     }
   ],
   "version" : 2
