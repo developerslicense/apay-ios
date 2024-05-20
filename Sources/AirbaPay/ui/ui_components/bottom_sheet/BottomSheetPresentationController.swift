@@ -11,7 +11,7 @@ extension BottomSheetPresentationController {
     }
 }
 
-public protocol BottomSheetPresentationControllerDelegate: AnyObject {
+protocol BottomSheetPresentationControllerDelegate: AnyObject {
     func bottomSheetPresentationController(
         _ controller: UIPresentationController,
         shouldDismissBy action: BottomSheetView.DismissAction

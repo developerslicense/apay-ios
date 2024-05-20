@@ -4,8 +4,8 @@
 
 import UIKit
 
-public final class BottomSheetTransitioningDelegate: NSObject {
-    public private(set) var contentHeights: [CGFloat]
+final class BottomSheetTransitioningDelegate: NSObject {
+    private var contentHeights: [CGFloat]
     private var startTargetIndex: Int
     private let handleBackground: BottomSheetView.HandleBackground
     private let draggableHeight: CGFloat?
@@ -19,21 +19,21 @@ public final class BottomSheetTransitioningDelegate: NSObject {
         return weakPresentationController?.value
     }
 
-    public var backgroundOverlayColor: UIColor? {
+    var backgroundOverlayColor: UIColor? {
         presentationController?.dimViewBackgroundColor
     }
 
     // MARK: - Init
 
-    public init(
-        contentHeights: [CGFloat],
-        startTargetIndex: Int = 0,
-        handleBackground: BottomSheetView.HandleBackground = .color(.clear),
-        draggableHeight: CGFloat? = nil,
-        presentationDelegate: BottomSheetPresentationControllerDelegate? = nil,
-        animationDelegate: BottomSheetViewAnimationDelegate? = nil,
-        useSafeAreaInsets: Bool = false,
-        stretchOnResize: Bool = false
+    init(
+            contentHeights: [CGFloat],
+            startTargetIndex: Int = 0,
+            handleBackground: BottomSheetView.HandleBackground = .color(.clear),
+            draggableHeight: CGFloat? = nil,
+            presentationDelegate: BottomSheetPresentationControllerDelegate? = nil,
+            animationDelegate: BottomSheetViewAnimationDelegate? = nil,
+            useSafeAreaInsets: Bool = false,
+            stretchOnResize: Bool = false
     ) {
         self.contentHeights = contentHeights
         self.startTargetIndex = startTargetIndex
@@ -51,17 +51,17 @@ public final class BottomSheetTransitioningDelegate: NSObject {
     ///
     /// - Parameters:
     ///   - index: the index of the target height
-    public func transition(to index: Int) {
+    func transition(to index: Int) {
         presentationController?.transition(to: index)
     }
 
     /// Recalculates target offsets and animates to the minimum one.
     /// Call this method e.g. when orientation change is detected.
-    public func reset() {
+    func reset() {
         presentationController?.reset()
     }
 
-    public func reload(with contentHeights: [CGFloat]) {
+    func reload(with contentHeights: [CGFloat]) {
         let previousHeight = self.contentHeights[safe: startTargetIndex] ?? 0
         let indexOfPreviousHeightInNewHeights = contentHeights.firstIndex(of: previousHeight) ?? 0
         self.contentHeights = contentHeights
@@ -69,7 +69,7 @@ public final class BottomSheetTransitioningDelegate: NSObject {
         presentationController?.reload(with: contentHeights, targetIndex: startTargetIndex)
     }
 
-    public func hideBackgroundOverlay() {
+    func hideBackgroundOverlay() {
         presentationController?.hideDimView()
     }
 }
@@ -77,43 +77,43 @@ public final class BottomSheetTransitioningDelegate: NSObject {
 // MARK: - UIViewControllerTransitioningDelegate
 
 extension BottomSheetTransitioningDelegate: UIViewControllerTransitioningDelegate {
-    public func presentationController(
-        forPresented presented: UIViewController,
-        presenting: UIViewController?,
-        source: UIViewController
+    func presentationController(
+            forPresented presented: UIViewController,
+            presenting: UIViewController?,
+            source: UIViewController
     ) -> UIPresentationController? {
         let presentationController = BottomSheetPresentationController(
-            presentedViewController: presented,
-            presenting: presenting,
-            contentHeights: contentHeights,
-            startTargetIndex: startTargetIndex,
-            presentationDelegate: presentationDelegate,
-            animationDelegate: animationDelegate,
-            handleBackground: handleBackground,
-            draggableHeight: draggableHeight,
-            useSafeAreaInsets: useSafeAreaInsets,
-            stretchOnResize: stretchOnResize
+                presentedViewController: presented,
+                presenting: presenting,
+                contentHeights: contentHeights,
+                startTargetIndex: startTargetIndex,
+                presentationDelegate: presentationDelegate,
+                animationDelegate: animationDelegate,
+                handleBackground: handleBackground,
+                draggableHeight: draggableHeight,
+                useSafeAreaInsets: useSafeAreaInsets,
+                stretchOnResize: stretchOnResize
         )
         self.weakPresentationController = WeakRef(value: presentationController)
         return presentationController
     }
 
-    public func animationController(
-        forPresented presented: UIViewController,
-        presenting: UIViewController,
-        source: UIViewController
+    func animationController(
+            forPresented presented: UIViewController,
+            presenting: UIViewController,
+            source: UIViewController
     ) -> UIViewControllerAnimatedTransitioning? {
         presentationController?.transitionState = .presenting
         return presentationController
     }
 
-    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         presentationController?.transitionState = .dismissing
         return presentationController
     }
 
-    public func interactionControllerForPresentation(
-        using animator: UIViewControllerAnimatedTransitioning
+    func interactionControllerForPresentation(
+            using animator: UIViewControllerAnimatedTransitioning
     ) -> UIViewControllerInteractiveTransitioning? {
         return presentationController
     }

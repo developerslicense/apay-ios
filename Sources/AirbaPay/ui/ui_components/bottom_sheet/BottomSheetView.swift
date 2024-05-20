@@ -7,11 +7,11 @@ import UIKit
 // MARK: - Public extensions
 
 extension CGFloat {
-    public static let bottomSheetAutomatic: CGFloat = -123456789
+    static let bottomSheetAutomatic: CGFloat = -123456789
 }
 
 extension Array where Element == CGFloat {
-    public static var bottomSheetDefault: [CGFloat] {
+    static var bottomSheetDefault: [CGFloat] {
         let screenSize = UIScreen.main.bounds.size
 
         if screenSize.height <= 568 {
@@ -26,19 +26,19 @@ extension Array where Element == CGFloat {
 
 // MARK: - Delegate
 
-public protocol BottomSheetViewDismissalDelegate: AnyObject {
+protocol BottomSheetViewDismissalDelegate: AnyObject {
     func bottomSheetView(_ view: BottomSheetView, willDismissBy action: BottomSheetView.DismissAction)
 }
 
-public protocol BottomSheetViewAnimationDelegate: AnyObject {
+protocol BottomSheetViewAnimationDelegate: AnyObject {
     func bottomSheetView(_ view: BottomSheetView, didAnimateToPosition position: CGPoint)
     func bottomSheetView(_ view: BottomSheetView, didCompleteAnimation complete: Bool)
 }
 
 // MARK: - View
 
-public final class BottomSheetView: UIView {
-    public enum HandleBackground {
+final class BottomSheetView: UIView {
+    enum HandleBackground {
         case color(UIColor)
         case visualEffect(UIVisualEffect)
 
@@ -54,22 +54,22 @@ public final class BottomSheetView: UIView {
         }
     }
 
-    public enum DismissAction {
+    enum DismissAction {
         case drag(velocity: CGPoint)
         case tap
     }
 
-    public weak var dismissalDelegate: BottomSheetViewDismissalDelegate?
-    public weak var animationDelegate: BottomSheetViewAnimationDelegate?
-    public private(set) var contentHeights: [CGFloat]
-    public private(set) var currentTargetOffsetIndex: Int = 0
+    weak var dismissalDelegate: BottomSheetViewDismissalDelegate?
+    weak var animationDelegate: BottomSheetViewAnimationDelegate?
+    private(set) var contentHeights: [CGFloat]
+    private(set) var currentTargetOffsetIndex: Int = 0
 
-    public var isDimViewHidden: Bool {
+    var isDimViewHidden: Bool {
         get { dimView.isHidden }
         set { dimView.isHidden = newValue }
     }
 
-    public let draggableHeight: CGFloat?
+    let draggableHeight: CGFloat?
 
     var dimViewBackgroundColor: UIColor? {
         dimView.backgroundColor
@@ -119,15 +119,15 @@ public final class BottomSheetView: UIView {
 
     // MARK: - Init
 
-    public init(
-        contentView: UIView,
-        contentHeights: [CGFloat],
-        handleBackground: HandleBackground = .color(.clear),
-        draggableHeight: CGFloat? = nil,
-        useSafeAreaInsets: Bool = false,
-        stretchOnResize: Bool = false,
-        dismissalDelegate: BottomSheetViewDismissalDelegate? = nil,
-        animationDelegate: BottomSheetViewAnimationDelegate? = nil
+    init(
+            contentView: UIView,
+            contentHeights: [CGFloat],
+            handleBackground: HandleBackground = .color(.clear),
+            draggableHeight: CGFloat? = nil,
+            useSafeAreaInsets: Bool = false,
+            stretchOnResize: Bool = false,
+            dismissalDelegate: BottomSheetViewDismissalDelegate? = nil,
+            animationDelegate: BottomSheetViewAnimationDelegate? = nil
     ) {
         self.contentView = contentView
         self.handleBackground = handleBackground
@@ -142,13 +142,13 @@ public final class BottomSheetView: UIView {
         accessibilityViewIsModal = true
     }
 
-    public required init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("Not implemented")
     }
 
     // MARK: - Overrides
 
-    public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         // Make shadow to be on top
         let rect = CGRect(x: 0, y: 0, width: bounds.width, height: 30)
@@ -162,10 +162,10 @@ public final class BottomSheetView: UIView {
     /// - Parameters:
     ///   - view: the container for the bottom sheet view
     ///   - completion: a closure to be executed when the animation ends
-    public func present(in superview: UIView, targetIndex: Int = 0, animated: Bool = true, completion: ((Bool) -> Void)? = nil) {
+    func present(in superview: UIView, targetIndex: Int = 0, animated: Bool = true, completion: ((Bool) -> Void)? = nil) {
         guard
-            self.superview != superview,
-            let height = contentHeights[safe: targetIndex]
+                self.superview != superview,
+                let height = contentHeights[safe: targetIndex]
         else { return }
 
         superview.addSubview(dimView)
@@ -175,10 +175,10 @@ public final class BottomSheetView: UIView {
         dimView.frame = superview.bounds
 
         let startOffset = BottomSheetCalculator.offset(
-            for: contentView,
-            in: superview,
-            height: height,
-            useSafeAreaInsets: useSafeAreaInsets
+                for: contentView,
+                in: superview,
+                height: height,
+                useSafeAreaInsets: useSafeAreaInsets
         )
 
         if animated {
@@ -225,7 +225,7 @@ public final class BottomSheetView: UIView {
     ///
     /// - Parameters:
     ///   - completion: a closure to be executed when the animation ends
-    public func dismiss(velocity: CGPoint = .zero, completion: ((Bool) -> Void)? = nil) {
+    func dismiss(velocity: CGPoint = .zero, completion: ((Bool) -> Void)? = nil) {
         springAnimator.addCompletion { [weak self] didComplete in
             if didComplete {
                 self?.contentView.constraints.forEach { constraint in
@@ -245,7 +245,7 @@ public final class BottomSheetView: UIView {
 
     /// Recalculates target offsets and animates to the minimum one.
     /// Call this method e.g. when orientation change is detected.
-    public func reset() {
+    func reset() {
         updateTargetOffsets()
         createTranslationTargets()
 
@@ -254,7 +254,7 @@ public final class BottomSheetView: UIView {
         }
     }
 
-    public func reload(with contentHeights: [CGFloat], targetIndex: Int?) {
+    func reload(with contentHeights: [CGFloat], targetIndex: Int?) {
         self.contentHeights = contentHeights
         if let targetIndex = targetIndex {
             currentTargetOffsetIndex = targetIndex
@@ -266,7 +266,7 @@ public final class BottomSheetView: UIView {
     ///
     /// - Parameters:
     ///   - index: the index of the target height
-    public func transition(to index: Int) {
+    func transition(to index: Int) {
         guard let height = contentHeights[safe: index] else {
             return
         }
@@ -276,10 +276,10 @@ public final class BottomSheetView: UIView {
         }
 
         let offset = BottomSheetCalculator.offset(
-            for: contentView,
-            in: superview,
-            height: height,
-            useSafeAreaInsets: useSafeAreaInsets
+                for: contentView,
+                in: superview,
+                height: height,
+                useSafeAreaInsets: useSafeAreaInsets
         )
 
         animate(to: offset)
@@ -389,8 +389,8 @@ public final class BottomSheetView: UIView {
             initialOffset = nil
 
             let velocity = translationTarget.translateVelocity(
-                panGesture.velocity(in: superview),
-                for: location
+                    panGesture.velocity(in: superview),
+                    for: location
             )
 
             func animateToTranslationTarget() {
@@ -443,10 +443,10 @@ public final class BottomSheetView: UIView {
         guard let superview = superview else { return }
 
         translationTargets = BottomSheetCalculator.createTranslationTargets(
-            for: targetOffsets,
-            at: currentTargetOffsetIndex,
-            in: superview,
-            targetMaxHeight: dismissalDelegate != nil
+                for: targetOffsets,
+                at: currentTargetOffsetIndex,
+                in: superview,
+                targetMaxHeight: dismissalDelegate != nil
         )
     }
 }
@@ -485,15 +485,15 @@ extension BottomSheetView: HandleViewDelegate {
 extension UIColor {
     class var handle: UIColor {
         return dynamicColorIfAvailable(
-            defaultColor: UIColor(red: 195/255, green: 204/255, blue: 217/255, alpha: 1),
-            darkModeColor: UIColor(red: 67/255, green: 67/255, blue: 89/255, alpha: 1)
+                defaultColor: UIColor(red: 195/255, green: 204/255, blue: 217/255, alpha: 1),
+                darkModeColor: UIColor(red: 67/255, green: 67/255, blue: 89/255, alpha: 1)
         )
     }
 
     class var bgPrimary: UIColor {
         return dynamicColorIfAvailable(
-            defaultColor: .white,
-            darkModeColor: UIColor(red: 27/255, green: 27/255, blue: 36/255, alpha: 1)
+                defaultColor: .white,
+                darkModeColor: UIColor(red: 27/255, green: 27/255, blue: 36/255, alpha: 1)
         )
     }
 

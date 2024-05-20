@@ -10,26 +10,26 @@ open class BottomSheetNavigationController: UINavigationController {
 
     // MARK: - Init
 
-    public init(
-        rootViewController: UIViewController,
-        handleBackground: BottomSheetView.HandleBackground = .color(.clear),
-        draggableHeight: CGFloat? = nil,
-        useSafeAreaInsets: Bool = false,
-        stretchOnResize: Bool = false
+    init(
+            rootViewController: UIViewController,
+            handleBackground: BottomSheetView.HandleBackground = .color(.clear),
+            draggableHeight: CGFloat? = nil,
+            useSafeAreaInsets: Bool = false,
+            stretchOnResize: Bool = false
     ) {
         super.init(rootViewController: rootViewController)
         bottomSheetTransitioningDelegate = BottomSheetTransitioningDelegate(
-            contentHeights: [systemLayoutSizeFittingHeight(for: rootViewController)],
-            handleBackground: handleBackground,
-            draggableHeight: draggableHeight,
-            useSafeAreaInsets: useSafeAreaInsets,
-            stretchOnResize: stretchOnResize
+                contentHeights: [systemLayoutSizeFittingHeight(for: rootViewController)],
+                handleBackground: handleBackground,
+                draggableHeight: draggableHeight,
+                useSafeAreaInsets: useSafeAreaInsets,
+                stretchOnResize: stretchOnResize
         )
         transitioningDelegate = bottomSheetTransitioningDelegate
         modalPresentationStyle = .custom
     }
 
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
@@ -46,13 +46,13 @@ open class BottomSheetNavigationController: UINavigationController {
 
     // MARK: - Public
 
-    public func systemLayoutSizeFittingHeight(for viewController: UIViewController) -> CGFloat {
+    func systemLayoutSizeFittingHeight(for viewController: UIViewController) -> CGFloat {
         let navigationBarHeight = navigationBar.isTranslucent || navigationBar.isHidden ? 0 : navigationBar.frame.size.height
         let height = viewController.view.systemLayoutHeightFitting(initialViewSize)
         return height + navigationBarHeight
     }
 
-    public func reload(with height: CGFloat) {
+    func reload(with height: CGFloat) {
         bottomSheetTransitioningDelegate?.reload(with: [height])
     }
 }
@@ -61,8 +61,8 @@ open class BottomSheetNavigationController: UINavigationController {
 
 extension BottomSheetNavigationController: UINavigationControllerDelegate {
     public func navigationController(
-        _ navigationController: UINavigationController,
-        didShow viewController: UIViewController, animated: Bool
+            _ navigationController: UINavigationController,
+            didShow viewController: UIViewController, animated: Bool
     ) {
         let height = systemLayoutSizeFittingHeight(for: viewController)
         reload(with: height)
