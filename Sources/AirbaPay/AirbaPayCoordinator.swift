@@ -102,17 +102,27 @@ class AirbaPayCoordinator: UIViewController {
 
     func openPage(content: some View) {
         if navigation == nil {
+            if let window = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first {
+
+//                let vc = UIViewController()
+
+                navigation = UINavigationController(rootViewController: self)//vc
+                window.rootViewController = navigation
+            }
+        }
+
+        /*if navigation == nil {
             let window = UIApplication.shared.connectedScenes
-                    .filter({$0.activationState == .foregroundActive})
-                    .map({$0 as? UIWindowScene})
-                    .compactMap({$0})
-                    .first?.windows
-                    .filter({$0.isKeyWindow}).first
+                .filter({$0.activationState == .foregroundActive})
+                .map({$0 as? UIWindowScene})
+                .compactMap({$0})
+                .first?.windows
+                .filter({$0.isKeyWindow}).first
 
             navigation = UINavigationController(rootViewController: self)
 
             window?.rootViewController = navigation
-        }
+        }*/
 
         let newVC = UIHostingController(rootView: content)
 
