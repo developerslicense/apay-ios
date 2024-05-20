@@ -17,8 +17,7 @@ let package = Package(
         ],
         dependencies: [
             .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.8.0")),
-            .package(url: "https://github.com/sanzaru/SimpleToast.git", from: "0.0.1"),
-            .package(url: "https://github.com/finn-no/BottomSheet.git", from: "5.2.0")
+            .package(url: "https://github.com/sanzaru/SimpleToast.git", from: "0.0.1")
         ],
         targets: [
             // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -26,7 +25,7 @@ let package = Package(
             .target(
                     name: "AirbaPay",
                     dependencies: [
-                        "Alamofire", "SimpleToast", "BottomSheet"
+                        "Alamofire", "SimpleToast"
                     ],
                     resources: [
                         .process("resources"),

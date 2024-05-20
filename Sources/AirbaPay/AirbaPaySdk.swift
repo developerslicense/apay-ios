@@ -12,6 +12,8 @@ public class AirbaPaySdk {
 
     var navigateCoordinator: AirbaPayCoordinator = AirbaPayCoordinator()
 
+    static var sdk: AirbaPaySdk? = nil
+
     public init() {}
 
     public enum Lang: Equatable {
@@ -147,7 +149,9 @@ public class AirbaPaySdk {
         DataHolder.manualDisableFeatureApplePay = manualDisableFeatureApplePay
         DataHolder.manualDisableisableFeatureSavedCards = manualDisableisableFeatureSavedCards
 
-        return AirbaPaySdk()
+        sdk = AirbaPaySdk()
+
+        return sdk!
     }
 
     // Navigations
@@ -201,8 +205,8 @@ public class AirbaPaySdk {
     // External Api create payment
 
 //    public func initPayment(
-//            onSuccess: @escaping () -> Void,
-//            onError: @escaping () -> Void
+//        onSuccess: @escaping () -> Void,
+//        onError: @escaping () -> Void
 //    ) {
 //        blInitExternalPayments(onSuccess: onSuccess, onError: onError)
 //    }

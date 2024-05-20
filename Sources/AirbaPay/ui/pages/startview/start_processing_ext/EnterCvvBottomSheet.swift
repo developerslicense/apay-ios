@@ -8,7 +8,6 @@ import Foundation
 import SwiftUI
 import UIKit
 import SimpleToast
-import FINNBottomSheet
 
 func showBottomSheetEnterCvv(
         airbaPaySdk: AirbaPaySdk,
@@ -57,7 +56,7 @@ class EnterCvvBottomSheetViewController: UIViewController {
     }
 
     override func loadView() {
-        view = BottomSheetView(
+        view = CustomBottomSheetView(
                 frame: CGRect(x: 0, y: 0, width: .max, height: 300),// navigateCoordinator.view.frame,
                 enterCvvBottomSheet: EnterCvvBottomSheet(
                         actionClose: {

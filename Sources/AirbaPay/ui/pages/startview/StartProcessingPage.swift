@@ -17,8 +17,6 @@ struct StartProcessingPage: View {
     var backgroundColor: Color = ColorsSdk.bgBlock
 
     @State private var showToast: Bool = false
-    @State private var sheetState = false
-
     @State var detentHeight: CGFloat = 0
 
     var applePay: ApplePayManager
@@ -99,7 +97,12 @@ struct StartProcessingPage: View {
                                 InitViewStartProcessingButtonNext(
                                         navigateCoordinator: navigateCoordinator,
                                         viewModel: viewModel,
-                                        toggleCvv: { sheetState.toggle() },
+                                        toggleCvv: {
+                                            showBottomSheetEnterCvv(
+                                                    airbaPaySdk: AirbaPaySdk.sdk!,
+                                                    selectedCard: viewModel.selectedCard
+                                            )
+                                        },
                                         isLoading: { b in
                                             viewModel.isLoading = b
                                         },
@@ -132,33 +135,6 @@ struct StartProcessingPage: View {
                             },
                             paymentId: nil
                     )
-
-                }
-                .sheet(isPresented: $sheetState) {
-                    if #available(iOS 16.0, *) {
-                        EnterCvvBottomSheet(
-                                actionClose: {
-                                    sheetState.toggle()
-                                },
-                                isLoading: { b in viewModel.isLoading = b },
-                                navigateCoordinator: navigateCoordinator,
-                                selectedCard: viewModel.selectedCard,
-                                editTextViewModel: cvvEditTextViewModel
-                        )
-                                .presentationDetents([.height(315)])
-
-
-                    } else {
-                        EnterCvvBottomSheet(
-                                actionClose: {
-                                    sheetState.toggle()
-                                },
-                                isLoading: { b in viewModel.isLoading = b },
-                                navigateCoordinator: navigateCoordinator,
-                                selectedCard: viewModel.selectedCard,
-                                editTextViewModel: cvvEditTextViewModel
-                        )
-                    }
 
                 }
                 .screenshotProtected(isProtected: DataHolder.needDisableScreenShot)
