@@ -26,7 +26,7 @@ let package = Package(
             .target(
                     name: "AirbaPay",
                     dependencies: [
-                        "Alamofire", "SimpleToast", "FINNBottomSheet"
+                        "Alamofire", "SimpleToast", "BottomSheet"
                     ],
                     resources: [
                         .process("resources"),
