@@ -34,7 +34,6 @@ class AirbaPayCoordinator: UIViewController {
 
     func backToStartPage() {
         LoggerHelper.clear()
-        navigationController?.popToRootViewController(animated: false)
         startProcessing()
     }
 
@@ -120,6 +119,7 @@ class AirbaPayCoordinator: UIViewController {
         navigationController?.setToolbarHidden(true, animated: false)
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationController?.toolbar?.isHidden = true
+        navigationController?.popViewController(animated: false)
         navigationController?.pushViewController(newVC, animated: false)
 
     }

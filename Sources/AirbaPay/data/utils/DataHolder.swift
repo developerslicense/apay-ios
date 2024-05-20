@@ -6,7 +6,7 @@ import Foundation
 import UIKit
 
 class DataHolder {
-    static var sdkVersion = "2.0.14"
+    static var sdkVersion = "2.0.15"
     static var baseUrl = ""
 
     static var connectTimeout = 60
