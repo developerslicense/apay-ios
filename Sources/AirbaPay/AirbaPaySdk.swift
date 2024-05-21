@@ -242,11 +242,8 @@ public class AirbaPaySdk {
 
     // External Api ApplePay
 
-    public func processExternalApplePay(uiViewController: UIViewController? = nil) {
-        uiViewController != nil ?
-                blProcessExternalApplePay(uiViewController: uiViewController!) :
-                blProcessExternalApplePay()
-
+    public func processExternalApplePay() {
+        blProcessExternalApplePay()
     }
 
     public func processExternalApplePay(applePayToken: String) {

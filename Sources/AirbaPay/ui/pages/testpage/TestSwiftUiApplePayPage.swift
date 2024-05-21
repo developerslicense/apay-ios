@@ -21,7 +21,7 @@ struct TestSwiftUiApplePayPage: View {
 
                 VStack {
 //                   Image("icAPayWhite", bundle: DataHolder.moduleBundle)
-                    Text("ApplePay внешний АПИ SwiftUI")
+                    Text("ApplePay внешний АПИ")
                 }
 
                         .frame(maxWidth: .infinity)
@@ -34,23 +34,6 @@ struct TestSwiftUiApplePayPage: View {
                         .onTapGesture {
                             airbaPaySdk.processExternalApplePay()
                         }
-
-                VStack {
-//                   Image("icAPayWhite", bundle: DataHolder.moduleBundle)
-                    Text("ApplePay внешний АПИ UIKit (не работает в тестовом приложении, только в чистом UIKit)")
-                }
-
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 48)
-                        .background(ColorsSdk.textBlue)
-                        //                       .background(ColorsSdk.bgAPAY)
-                        .cornerRadius(8)
-                        .padding(.vertical, 16)
-                        .padding(.horizontal, 16)
-                        .onTapGesture {
-                            airbaPaySdk.processExternalApplePay(uiViewController: UIViewController())
-                        }
-
 
                 VStack {
                     Text("Вернуться назад")

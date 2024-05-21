@@ -19,7 +19,7 @@ final class ApplePayManager: NSObject {
         self.navigateCoordinator = navigateCoordinator
     }
 
-    func buyBtnTapped(uiViewController: UIViewController? = nil) {
+    func buyBtnTapped() {
         let paymentRequest: PKPaymentRequest = {
             let request: PKPaymentRequest = PKPaymentRequest()
             let merchandId = DataHolder.applePayMerchantId!
@@ -39,15 +39,18 @@ final class ApplePayManager: NSObject {
             return request
         }()
 
-        if let paymentVC = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest) {
-            paymentVC.delegate = self
-            uiViewController != nil ?
-                    uiViewController!.present(paymentVC, animated: true) :
-                    navigateCoordinator.present(paymentVC, animated: true)
-
-        } else {
+        guard let paymentVC = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest),
+              let window = UIApplication.shared.connectedScenes
+                      .filter({$0.activationState == .foregroundActive})
+                      .map({$0 as? UIWindowScene})
+                      .compactMap({$0})
+                      .first?.windows
+                      .filter({$0.isKeyWindow}).first
+        else {
             return
         }
+        paymentVC.delegate = self
+        window.rootViewController?.present(paymentVC, animated: true, completion: nil)
     }
 }
 
