@@ -9,6 +9,7 @@ import PassKit
 
 final class ApplePayManager: NSObject {
 
+    var applePayViewModel: ApplePayViewModel = ApplePayViewModel()
     var navigateCoordinator: AirbaPayCoordinator
     var isSuccess: Bool = false
     var redirect3dsUrl: String? = nil
@@ -61,7 +62,8 @@ extension ApplePayManager: PKPaymentAuthorizationViewControllerDelegate {
         controller.dismiss(animated: true, completion: nil)
 
         if isSuccess {
-            AirbaPaySdk.sdk?.processExternalApplePay(
+            self.applePayViewModel.processingWallet(
+                    navigateCoordinator: self.navigateCoordinator,
                     applePayToken: self.applePayToken ?? ""
             )
         }
