@@ -12,6 +12,7 @@ public class AirbaPaySdk {
     //   и можно будет избавиться от боли с тестированием правок
 
     var navigateCoordinator: AirbaPayCoordinator = AirbaPayCoordinator()
+    var applePayViewModel: ApplePayViewModel = ApplePayViewModel()
 
     static var sdk: AirbaPaySdk? = nil
 
@@ -205,12 +206,12 @@ public class AirbaPaySdk {
 
     // External Api create payment
 
-//    public func initPayment(
-//        onSuccess: @escaping () -> Void,
-//        onError: @escaping () -> Void
-//    ) {
-//        blInitExternalPayments(onSuccess: onSuccess, onError: onError)
-//    }
+    public func initPayment(
+            onSuccess: @escaping () -> Void,
+            onError: @escaping () -> Void
+    ) {
+        blInitExternalPayments(onSuccess: onSuccess, onError: onError)
+    }
 
     // External Api Cards
 
@@ -248,4 +249,10 @@ public class AirbaPaySdk {
 
     }
 
+    public func processExternalApplePay(applePayToken: String) {
+        AirbaPaySdk.sdk?.applePayViewModel.processingWallet(
+                navigateCoordinator: self.navigateCoordinator,
+                applePayToken: applePayToken
+        )
+    }
 }

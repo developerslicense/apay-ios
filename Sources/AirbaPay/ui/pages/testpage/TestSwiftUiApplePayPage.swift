@@ -37,7 +37,7 @@ struct TestSwiftUiApplePayPage: View {
 
                 VStack {
 //                   Image("icAPayWhite", bundle: DataHolder.moduleBundle)
-                    Text("ApplePay внешний АПИ UIKit")
+                    Text("ApplePay внешний АПИ UIKit (не работает в тестовом приложении, только в чистом UIKit)")
                 }
 
                         .frame(maxWidth: .infinity)
