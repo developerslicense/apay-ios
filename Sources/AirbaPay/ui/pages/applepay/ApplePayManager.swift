@@ -6,6 +6,7 @@
 
 import Foundation
 import PassKit
+import UIKit
 
 final class ApplePayManager: NSObject {
 
@@ -19,7 +20,7 @@ final class ApplePayManager: NSObject {
         self.navigateCoordinator = navigateCoordinator
     }
 
-    func buyBtnTapped() {
+    func buyBtnTapped(uiViewController: UIViewController? = nil) {
         let paymentRequest: PKPaymentRequest = {
             let request: PKPaymentRequest = PKPaymentRequest()
             let merchandId = DataHolder.applePayMerchantId!
@@ -41,14 +42,10 @@ final class ApplePayManager: NSObject {
 
         if let paymentVC = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest) {
             paymentVC.delegate = self
-//            navigateCoordinator.present(paymentVC, animated: true)
+            uiViewController != nil ?
+                    uiViewController!.present(paymentVC, animated: true) :
+                    navigateCoordinator.present(paymentVC, animated: true)
 
-            if let window = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first {
-                if window.rootViewController == nil {
-                    window.rootViewController = UINavigationController(rootViewController: navigateCoordinator)
-                }
-                navigateCoordinator.present(paymentVC, animated: true)
-            }
         } else {
             return
         }

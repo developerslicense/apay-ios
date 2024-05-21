@@ -6,6 +6,7 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 
 struct TestSwiftUiApplePayPage: View {
 
@@ -20,7 +21,7 @@ struct TestSwiftUiApplePayPage: View {
 
                 VStack {
 //                   Image("icAPayWhite", bundle: DataHolder.moduleBundle)
-                    Text("ApplePay внешний АПИ")
+                    Text("ApplePay внешний АПИ SwiftUI")
                 }
 
                         .frame(maxWidth: .infinity)
@@ -32,6 +33,22 @@ struct TestSwiftUiApplePayPage: View {
                         .padding(.horizontal, 16)
                         .onTapGesture {
                             airbaPaySdk.processExternalApplePay()
+                        }
+
+                VStack {
+//                   Image("icAPayWhite", bundle: DataHolder.moduleBundle)
+                    Text("ApplePay внешний АПИ UIKit")
+                }
+
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 48)
+                        .background(ColorsSdk.textBlue)
+                        //                       .background(ColorsSdk.bgAPAY)
+                        .cornerRadius(8)
+                        .padding(.vertical, 16)
+                        .padding(.horizontal, 16)
+                        .onTapGesture {
+                            airbaPaySdk.processExternalApplePay(uiViewController: UIViewController())
                         }
 
 

@@ -4,6 +4,7 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 
 public class AirbaPaySdk {
     // todo возможно, когда-нибудь можно будет переделать на это
@@ -240,8 +241,11 @@ public class AirbaPaySdk {
 
     // External Api ApplePay
 
-    public func processExternalApplePay() {
-        blProcessExternalApplePay()
+    public func processExternalApplePay(uiViewController: UIViewController? = nil) {
+        uiViewController != nil ?
+                blProcessExternalApplePay(uiViewController: uiViewController!) :
+                blProcessExternalApplePay()
+
     }
 
 }

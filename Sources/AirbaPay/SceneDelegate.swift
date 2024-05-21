@@ -32,7 +32,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         vc.navigationController?.setToolbarHidden(true, animated: false)
         vc.navigationController?.setNavigationBarHidden(true, animated: false)
         vc.navigationController?.toolbar?.isHidden = true
-        vc.navigationController?.pushViewController(newVC, animated: false)
+//        vc.navigationController?.pushViewController(newVC, animated: false) // todo appleTD
+        vc.navigationController?.present(newVC, animated: false)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
