@@ -234,8 +234,8 @@ struct TestApp: App {
 4) Перейти во внутрь идентификатора приложения. Поставьте галочку в ```Apple Pay Payment Processing``` и кликните edit
 
 5) Выберите
-   ~ Apple Pay Prod Service merchant.~.pf
-   ~ Apple Pay Test Service merchant.~.spf
+   - Apple Pay Prod Service merchant.~.pf
+   - Apple Pay Test Service merchant.~.spf
    и нажмите continue
 
 6) Нажмите Save
@@ -310,7 +310,7 @@ struct TestApp: App {
 Запрос проведения оплаты по сохраненной карте пользователя
 ```paySavedCard()```
 
-Перед выховом выполнить ```airbaPaySdk.auth(onSuccess: { self.airbaPaySdk.initPayment(~) }, onError: {~})```
+Перед вызовом выполнить ```airbaPaySdk.auth(onSuccess: { self.airbaPaySdk.initPayment(~) }, onError: {~})```
 
 | Параметр   | Тип                      | Обязательный | Описание                                              |
 |------------|--------------------------|--------------|-------------------------------------------------------|
