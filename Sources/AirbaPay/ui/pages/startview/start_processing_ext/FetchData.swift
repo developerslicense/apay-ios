@@ -13,7 +13,7 @@ func fetchMerchantsWithNextStep(
     Task {
         if let result = await getMerchantInfoService() {
 
-            if (DataHolder.manualDisableisableFeatureSavedCards) {
+            if (DataHolder.manualDisableFeatureSavedCards) {
                 DataHolder.featureSavedCards = false
             } else {
                 DataHolder.featureSavedCards = result.config?.renderSaveCards ?? false

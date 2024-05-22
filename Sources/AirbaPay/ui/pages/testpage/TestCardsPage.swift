@@ -85,9 +85,7 @@ struct TestCardsPagee: View {
                                         onSuccess: {
                                             airbaPaySdk.getCards(
                                                     onSuccess: { cards in
-                                                        if cards != nil {
-                                                            savedCards = cards!
-                                                        }
+                                                        savedCards = cards
                                                     },
                                                     onNoCards: { }
                                             )
@@ -118,24 +116,22 @@ struct TestCardsPagee: View {
                             onSuccess: {
                                 airbaPaySdk.getCards(
                                         onSuccess: { cards in
-                                            if cards != nil {
-                                                savedCards = []
-                                                cards!.forEach { card in
-                                                    if card.getMaskedPanClearedWithPoint().contains("1111") {
+                                            savedCards = []
+                                            cards.forEach { card in
+                                                if card.getMaskedPanClearedWithPoint().contains("1111") {
 
-                                                        var card1 = card
-                                                        card1.name = card.getMaskedPanClearedWithPoint() + " Оплата сохраненной картой c FaceId"
-                                                        savedCards.append(card1)
+                                                    var card1 = card
+                                                    card1.name = card.getMaskedPanClearedWithPoint() + " Оплата сохраненной картой c FaceId"
+                                                    savedCards.append(card1)
 
-                                                        var card2 = card
-                                                        card2.name = card.getMaskedPanClearedWithPoint() + " Оплата сохраненной картой без FaceId"
-                                                        savedCards.append(card2)
+                                                    var card2 = card
+                                                    card2.name = card.getMaskedPanClearedWithPoint() + " Оплата сохраненной картой без FaceId"
+                                                    savedCards.append(card2)
 
-                                                    } else {
-                                                        var card1 = card
-                                                        card1.name = card.getMaskedPanClearedWithPoint() + " Оплата сохраненной картой CVV"
-                                                        savedCards.append(card1)
-                                                    }
+                                                } else {
+                                                    var card1 = card
+                                                    card1.name = card.getMaskedPanClearedWithPoint() + " Оплата сохраненной картой CVV"
+                                                    savedCards.append(card1)
                                                 }
                                             }
                                         },

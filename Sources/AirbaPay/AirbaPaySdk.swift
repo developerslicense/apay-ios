@@ -92,7 +92,7 @@ public class AirbaPaySdk {
             openCustomPageSuccess: (() -> Void)? = nil,
             openCustomPageFinalError: (() -> Void)? = nil,
             manualDisableFeatureApplePay: Bool = false,
-            manualDisableisableFeatureSavedCards: Bool = false
+            manualDisableFeatureSavedCards: Bool = false
     ) -> AirbaPaySdk {
 
         if (colorBrandInversion != nil) {
@@ -149,7 +149,7 @@ public class AirbaPaySdk {
         DataHolder.openCustomPageFinalError = openCustomPageFinalError
 
         DataHolder.manualDisableFeatureApplePay = manualDisableFeatureApplePay
-        DataHolder.manualDisableisableFeatureSavedCards = manualDisableisableFeatureSavedCards
+        DataHolder.manualDisableFeatureSavedCards = manualDisableFeatureSavedCards
 
         sdk = AirbaPaySdk()
 
@@ -162,10 +162,6 @@ public class AirbaPaySdk {
         navigateCoordinator.startProcessing()
     }
 
-    public func openHome() {
-        navigateCoordinator.openHome()
-    }
-
     public func backToStartPage() {
         navigateCoordinator.backToStartPage()
     }
@@ -174,21 +170,6 @@ public class AirbaPaySdk {
         navigateCoordinator.backToApp(result: result)
     }
 
-    public func openAcquiring(redirectUrl: String?) {
-        navigateCoordinator.openAcquiring(redirectUrl: redirectUrl)
-    }
-
-    public func openSuccess() {
-        navigateCoordinator.openSuccess()
-    }
-
-    public func openRepeat() {
-        navigateCoordinator.openRepeat()
-    }
-
-    public func openErrorPageWithCondition(errorCode: Int?) {
-        navigateCoordinator.openErrorPageWithCondition(errorCode: errorCode)
-    }
 
     // External Api Auth
 
@@ -225,7 +206,7 @@ public class AirbaPaySdk {
     }
 
     public func getCards(
-            onSuccess: @escaping ([BankCard]?) -> Void,
+            onSuccess: @escaping ([BankCard]) -> Void,
             onNoCards: @escaping () -> Void
 
     ) {

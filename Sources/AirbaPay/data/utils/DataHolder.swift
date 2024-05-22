@@ -6,7 +6,7 @@ import Foundation
 import UIKit
 
 class DataHolder {
-    static var sdkVersion = "2.0.20"
+    static var sdkVersion = "2.0.21"
     static var baseUrl = ""
 
     static var connectTimeout = 60
@@ -60,7 +60,7 @@ class DataHolder {
     static var openCustomPageFinalError: (() -> Void)? = nil
 
     public static var manualDisableFeatureApplePay: Bool = false
-    public static var manualDisableisableFeatureSavedCards: Bool = false
+    public static var manualDisableFeatureSavedCards: Bool = false
 }
 
 

@@ -32,7 +32,7 @@ struct TestPageAPSDK: View {
                                         nativeApplePay: nativeApplePay,
                                         needDisableScreenShot: needDisableScreenShot,
                                         manualDisableFeatureApplePay: !enabledFeatureApplePay,
-                                        manualDisableisableFeatureSavedCards: !enabledFeatureSavedCards
+                                        manualDisableFeatureSavedCards: !enabledFeatureSavedCards
                                 )
 
                                 airbaPaySdk.startProcessing()
@@ -53,7 +53,7 @@ struct TestPageAPSDK: View {
                                         nativeApplePay: nativeApplePay,
                                         needDisableScreenShot: needDisableScreenShot,
                                         manualDisableFeatureApplePay: !enabledFeatureApplePay,
-                                        manualDisableisableFeatureSavedCards: !enabledFeatureSavedCards
+                                        manualDisableFeatureSavedCards: !enabledFeatureSavedCards
                                 )
                                 airbaPaySdk.navigateCoordinator.openPage(content: TestSwiftUiApplePayPage(airbaPaySdk: airbaPaySdk))
                             },
@@ -73,7 +73,7 @@ struct TestPageAPSDK: View {
                                         nativeApplePay: nativeApplePay,
                                         needDisableScreenShot: needDisableScreenShot,
                                         manualDisableFeatureApplePay: !enabledFeatureApplePay,
-                                        manualDisableisableFeatureSavedCards: !enabledFeatureSavedCards
+                                        manualDisableFeatureSavedCards: !enabledFeatureSavedCards
                                 )
 
                                 airbaPaySdk.navigateCoordinator.openPage(content: TestCardsPagee(airbaPaySdk: airbaPaySdk))
@@ -95,7 +95,7 @@ struct TestPageAPSDK: View {
                                         nativeApplePay: nativeApplePay,
                                         needDisableScreenShot: needDisableScreenShot,
                                         manualDisableFeatureApplePay: !enabledFeatureApplePay,
-                                        manualDisableisableFeatureSavedCards: !enabledFeatureSavedCards
+                                        manualDisableFeatureSavedCards: !enabledFeatureSavedCards
                                 )
                                 testDelCards(
                                         accountId: ACCOUNT_ID_TEST
@@ -175,7 +175,7 @@ func testInitSdk(
         nativeApplePay: Bool,
         needDisableScreenShot: Bool,
         manualDisableFeatureApplePay: Bool,
-        manualDisableisableFeatureSavedCards: Bool
+        manualDisableFeatureSavedCards: Bool
 ) -> AirbaPaySdk {
 
     DataHolder.hasSavedCards = false
@@ -264,7 +264,7 @@ func testInitSdk(
 
             } : nil,
             manualDisableFeatureApplePay: manualDisableFeatureApplePay,
-            manualDisableisableFeatureSavedCards: manualDisableisableFeatureSavedCards
+            manualDisableFeatureSavedCards: manualDisableFeatureSavedCards
 
     )
 
