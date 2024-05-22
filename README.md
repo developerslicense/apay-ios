@@ -236,6 +236,7 @@ struct TestApp: App {
 5) Выберите
    - Apple Pay Prod Service merchant.~.pf
    - Apple Pay Test Service merchant.~.spf
+   
    и нажмите continue
 
 6) Нажмите Save
