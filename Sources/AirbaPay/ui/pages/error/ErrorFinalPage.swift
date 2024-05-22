@@ -6,7 +6,7 @@ import Foundation
 import SwiftUI
 
 struct ErrorFinalPage: View {
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+    var navigateCoordinator: AirbaPayCoordinator
 
     var body: some View {
         ZStack {
@@ -55,8 +55,3 @@ struct ErrorFinalPage: View {
     }
 }
 
-struct ErrorFinalPage_Previews: PreviewProvider {
-    static var previews: some View {
-        ErrorFinalPage(navigateCoordinator: AirbaPayCoordinator())
-    }
-}

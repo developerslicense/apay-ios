@@ -8,7 +8,7 @@ import SimpleToast
 import LocalAuthentication
 
 struct HomePage: View {
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+    var navigateCoordinator: AirbaPayCoordinator
     @StateObject var viewModel = HomePageViewModel()
     @StateObject var cardNumberEditTextViewModel = CoreEditTextViewModel()
     @StateObject var dateExpiredEditTextViewModel = CoreEditTextViewModel()
@@ -32,17 +32,15 @@ struct HomePage: View {
     var dateExpired: String? = nil
 
     init(
-            @ObservedObject navigateCoordinator: AirbaPayCoordinator,
+            navigateCoordinator: AirbaPayCoordinator,
+            applePay: ApplePayManager,
             maskedPan: String? = nil,
             dateExpired: String? = nil
     ) {
         self.navigateCoordinator = navigateCoordinator
         self.maskedPan = maskedPan
         self.dateExpired = dateExpired
-        applePay = ApplePayManager(
-                navigateCoordinator: navigateCoordinator,
-                isExternalApi: false
-        )
+        self.applePay = applePay
     }
 
     var body: some View {
@@ -118,6 +116,7 @@ struct HomePage: View {
                             actionClickScanner: {
                                 UIApplication.shared.endEditing()
                                 showCardScanner = true
+
                             }
                     )
                             .padding(.top, 16)
@@ -216,8 +215,8 @@ struct HomePage: View {
                 .simpleToast(isPresented: $errorCardParserToast, options: toastOptions) {
                     Label(cardParserCancel(), systemImage: "icAdd")
                             .padding()
-                            .background(Color.colorBgAccent.opacity(0.8))
-                            .foregroundColor(Color.white)
+                            .background(ColorsSdk.bgAccent.opacity(0.8))
+                            .foregroundColor(ColorsSdk.bgBlock)
                             .cornerRadius(10)
                             .padding(.top)
                             .textStyleRegular()
@@ -225,8 +224,8 @@ struct HomePage: View {
                 .simpleToast(isPresented: $cvvToast, options: toastOptions) {
                     Label(cvvInfo(), systemImage: "icAdd")
                             .padding()
-                            .background(Color.colorBgAccent.opacity(0.8))
-                            .foregroundColor(Color.white)
+                            .background(ColorsSdk.bgAccent.opacity(0.8))
+                            .foregroundColor(ColorsSdk.bgBlock)
                             .cornerRadius(10)
                             .padding(.top)
                             .textStyleRegular()
@@ -286,9 +285,5 @@ struct HomePage: View {
     }
 }
 
-extension UIApplication {
-    func endEditing() {
-        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-    }
-}
+
 

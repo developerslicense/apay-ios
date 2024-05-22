@@ -6,25 +6,22 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 
 struct TestSwiftUiApplePayPage: View {
 
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
-
-    var applePay: ApplePayManager
-    var applePayViewModel: ApplePayViewModel = ApplePayViewModel()
+    var airbaPaySdk: AirbaPaySdk
 
     var body: some View {
         ZStack {
             ColorsSdk.gray30
             ColorsSdk.bgBlock
             VStack {
-                Text("Text up").padding(.all, 16)
 
 
                 VStack {
 //                   Image("icAPayWhite", bundle: DataHolder.moduleBundle)
-                    Text("вебвью")
+                    Text("ApplePay внешний АПИ")
                 }
 
                         .frame(maxWidth: .infinity)
@@ -35,28 +32,11 @@ struct TestSwiftUiApplePayPage: View {
                         .padding(.vertical, 16)
                         .padding(.horizontal, 16)
                         .onTapGesture {
-                            applePayViewModel.auth(
-                                    onError: {
-
-                                    },
-                                    onSuccess: {
-
-                                    }
-                            )
+                            airbaPaySdk.processExternalApplePay()
                         }
 
-                Text("Text middle").padding(.all, 16)
-
-
-                ApplePayWebViewExternal(
-                        redirectFromStoryboardToSwiftUi: nil,
-                        navigateCoordinator: navigateCoordinator,
-                        applePayViewModel: applePayViewModel
-                )
-
                 VStack {
-//                   Image("icAPayWhite", bundle: DataHolder.moduleBundle)
-                    Text("натив")
+                    Text("Вернуться назад")
                 }
 
                         .frame(maxWidth: .infinity)
@@ -67,12 +47,10 @@ struct TestSwiftUiApplePayPage: View {
                         .padding(.vertical, 16)
                         .padding(.horizontal, 16)
                         .onTapGesture {
-                            applePay.buyBtnTapped()
+                            airbaPaySdk.backToApp()
                         }
-
-
-                Text("Text down").padding(.all, 16)
             }
         }
     }
 }
+

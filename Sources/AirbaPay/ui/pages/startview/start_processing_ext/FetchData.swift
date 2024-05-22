@@ -13,13 +13,13 @@ func fetchMerchantsWithNextStep(
     Task {
         if let result = await getMerchantInfoService() {
 
-            if (TestAirbaPayStates.shutDownTestFeatureSavedCards) {
+            if (DataHolder.manualDisableFeatureSavedCards) {
                 DataHolder.featureSavedCards = false
             } else {
                 DataHolder.featureSavedCards = result.config?.renderSaveCards ?? false
             }
 
-            if (TestAirbaPayStates.shutDownTestFeatureApplePay) {
+            if (DataHolder.manualDisableFeatureApplePay) {
                 DataHolder.featureApplePay = false
             } else {
                 DataHolder.featureApplePay = result.config?.renderApplePayButton ?? false
@@ -37,7 +37,7 @@ private func initPaymentsWithNextStep(
         viewModel: StartProcessingViewModel,
         navigateCoordinator: AirbaPayCoordinator
 ) {
-    initPayments(
+    blInitPayments(
             onApplePayResult: { url in
                 DataHolder.applePayButtonUrl = url
 
@@ -72,27 +72,33 @@ private func fetchCards(
         viewModel: StartProcessingViewModel,
         navigateCoordinator: AirbaPayCoordinator
 ) {
-    Task {
-        if let result = await getCardsService(accountId: DataHolder.accountId) {
-            await MainActor.run {
-                viewModel.savedCards = result
-                DataHolder.hasSavedCards = !result.isEmpty
-                viewModel.isLoading = false
 
-                if result.isEmpty {
-                    navigateCoordinator.openHome()
-                } else {
-                    viewModel.selectedCard = result[0]
+    blGetCards(
+            onSuccess: { result in
+                Task {
+                    await MainActor.run {
+
+                        viewModel.savedCards = result
+                        DataHolder.hasSavedCards = !result.isEmpty
+                        viewModel.isLoading = false
+
+                        if result.isEmpty {
+                            navigateCoordinator.openHome()
+                        } else {
+                            viewModel.selectedCard = result[0]
+                        }
+                    }
+                }
+            },
+            onNoCards: {
+                Task {
+                    await MainActor.run {
+                        viewModel.isLoading = false
+                        navigateCoordinator.openHome()
+                    }
                 }
             }
-
-        } else {
-            await MainActor.run {
-                viewModel.isLoading = false
-                navigateCoordinator.openHome()
-            }
-        }
-    }
+    )
 }
 
  

@@ -227,14 +227,13 @@ struct ErrorsCodeBase: Equatable {
                 user: DataHolder.shopId
         )
 
-        if let res = await authService(params: authParams) {
+        if let _ = await authService(params: authParams) {
             await startCreatePayment()
-
         }
 
     }
 
-    func startCreatePayment() async {
+    private func startCreatePayment() async {
         if let result: PaymentCreateResponse = await createPaymentService() {
             let authParams = AuthRequest(
                     password: DataHolder.password,
@@ -243,9 +242,7 @@ struct ErrorsCodeBase: Equatable {
                     user: DataHolder.shopId
             )
 
-            if let res = await authService(params: authParams) {
-
-            }
+            if let _ = await authService(params: authParams) {}
 
         }
     }

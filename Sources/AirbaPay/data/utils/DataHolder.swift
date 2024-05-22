@@ -3,9 +3,10 @@
 //
 
 import Foundation
+import UIKit
 
 class DataHolder {
-    static var sdkVersion = "1.1.15"
+    static var sdkVersion = "2.0.21"
     static var baseUrl = ""
 
     static var connectTimeout = 60
@@ -42,7 +43,6 @@ class DataHolder {
     static var moduleBundle: Bundle?
             = Bundle.module /** в случае, если переносишь код в приложение, указывай Bundle.main*/
 
-    static var redirectToCustomSuccessPage: (() -> Void)? = nil
     static var featureApplePay: Bool = false
     static var featureSavedCards: Bool = false
 
@@ -53,15 +53,14 @@ class DataHolder {
     static var autoCharge: Int = 0
 
     static var isApplePayNative: Bool = false
-
-    static var externalApplePayRedirect: (String?, Bool)? = nil
-    static var redirectFromStoryboardToSwiftUi: (() -> Void)? = nil
-    static var backToStoryboard: (() -> Void)? = nil
     static var needDisableScreenShot = false
 
+    static var actionOnCloseProcessing: ((Bool?, UINavigationController) -> Void)? = nil
+    static var openCustomPageSuccess: (() -> Void)? = nil
+    static var openCustomPageFinalError: (() -> Void)? = nil
+
+    public static var manualDisableFeatureApplePay: Bool = false
+    public static var manualDisableFeatureSavedCards: Bool = false
 }
 
-public class TestAirbaPayStates {
-    public static var shutDownTestFeatureApplePay: Bool = false
-    public static var shutDownTestFeatureSavedCards: Bool = false
-}
+

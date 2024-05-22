@@ -5,7 +5,7 @@
 import Foundation
 import LocalAuthentication
 
-func airbaPayBiometricAuthenticate(
+func blBiometricAuthenticate(
         onSuccess: @escaping () -> Void,
         onNotSecurity: @escaping () -> Void
 ) {

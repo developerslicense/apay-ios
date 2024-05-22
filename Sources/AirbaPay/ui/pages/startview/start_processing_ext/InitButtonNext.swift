@@ -6,7 +6,7 @@ import Foundation
 import SwiftUI
 
 struct InitViewStartProcessingButtonNext: View {
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+    var navigateCoordinator: AirbaPayCoordinator
     @StateObject var viewModel = StartProcessingViewModel()
     var toggleCvv: () -> Void
     var isLoading: (Bool) -> Void
@@ -16,10 +16,10 @@ struct InitViewStartProcessingButtonNext: View {
         ViewButton(
                 title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
                 actionClick: {
-                    checkNeedCvv(
+                    blCheckSavedCardNeedCvv(
                             cardId: viewModel.selectedCard?.id ?? "",
-                            isLoading: isLoading,
                             toggleCvv: toggleCvv,
+                            isLoading: isLoading,
                             navigateCoordinator: navigateCoordinator
                     )
                 }

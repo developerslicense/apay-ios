@@ -10,7 +10,7 @@ import SwiftUI
 import WebKit
 
 struct SuccessPage: View {
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+    var navigateCoordinator: AirbaPayCoordinator
 
     var body: some View {
         ZStack {

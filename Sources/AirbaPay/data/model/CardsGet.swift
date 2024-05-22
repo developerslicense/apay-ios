@@ -4,38 +4,38 @@
 
 import Foundation
 
-struct BankCard: Codable {
-    var pan: String? = nil
-    var accountId: String? = nil
-    var maskedPan: String? = nil
-    var expiry: String? = nil
-    var expiredForResponse: String? = nil
-    var name: String? = nil
-    var id: String? = nil
-    var type: String? = nil
-    var issuer: String? = nil
-    var cvv: String? = nil
+public struct BankCard: Codable {
+    public var pan: String? = nil
+    public var accountId: String? = nil
+    public var maskedPan: String? = nil
+    public var expiry: String? = nil
+    public var expiredForResponse: String? = nil
+    public var name: String? = nil
+    public var id: String? = nil
+    public var type: String? = nil
+    public var issuer: String? = nil
+    public var cvv: String? = nil
 
-    var typeIcon: String? = nil
+    public var typeIcon: String? = nil
 
-    func getMaskedPanCleared()-> String {
+    public func getMaskedPanCleared()-> String {
         return String(maskedPan?.suffix(6) ?? "")
     }
 
-    func getMaskedPanClearedWithPoint()-> String {
+    public func getMaskedPanClearedWithPoint()-> String {
         let text = maskedPan?.suffix(6) ?? ""
         let replaced = text.replacingOccurrences(of: "*", with: "•", options: .literal, range: nil)
         return String(replaced)
     }
 
-    func getExpiredCleared()-> String {
+    public func getExpiredCleared() -> String {
         let text = expiredForResponse?.prefix(7) ?? ""
         let replaced = text.dropFirst(2).replacingOccurrences(of: "-", with: "", options: .literal, range: nil)
         let result = replaced.suffix(2) + replaced.prefix(2)
         return String(result)
     }
 
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case accountId = "account_id"
         case maskedPan = "masked_pan"
         case expiredForResponse = "expire"

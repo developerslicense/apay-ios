@@ -7,8 +7,8 @@ import SwiftUI
 import SimpleToast
 import LocalAuthentication
 
-struct StartProcessingView: View {
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+struct StartProcessingPage: View {
+    var navigateCoordinator: AirbaPayCoordinator
     @StateObject var viewModel = StartProcessingViewModel()
     @StateObject var cvvEditTextViewModel = CoreEditTextViewModel()
 
@@ -17,19 +17,15 @@ struct StartProcessingView: View {
     var backgroundColor: Color = ColorsSdk.bgBlock
 
     @State private var showToast: Bool = false
-    @State private var sheetState = false
-
     @State var detentHeight: CGFloat = 0
 
     var applePay: ApplePayManager
 
     init(
-            @ObservedObject navigateCoordinator: AirbaPayCoordinator
+            navigateCoordinator: AirbaPayCoordinator,
+            applePay: ApplePayManager
     ) {
-        self.applePay = ApplePayManager(
-                navigateCoordinator: navigateCoordinator,
-                isExternalApi: false
-        )
+        self.applePay = applePay
         self.navigateCoordinator = navigateCoordinator
     }
 
@@ -55,7 +51,6 @@ struct StartProcessingView: View {
 
 
                                 if DataHolder.featureApplePay
-                                           && viewModel.applePayUrl != nil
                                            && context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
                                 {
 
@@ -76,7 +71,7 @@ struct StartProcessingView: View {
                                                         applePay.buyBtnTapped()
                                                     }
                                         }
-                                    } else {
+                                    } else if viewModel.applePayUrl != nil {
                                         ApplePayWebViewInternal(
                                                 redirectUrl: viewModel.applePayUrl,
                                                 navigateCoordinator: navigateCoordinator
@@ -102,7 +97,12 @@ struct StartProcessingView: View {
                                 InitViewStartProcessingButtonNext(
                                         navigateCoordinator: navigateCoordinator,
                                         viewModel: viewModel,
-                                        toggleCvv: { sheetState.toggle() },
+                                        toggleCvv: {
+                                            showBottomSheetEnterCvv(
+                                                    airbaPaySdk: AirbaPaySdk.sdk!,
+                                                    selectedCard: viewModel.selectedCard
+                                            )
+                                        },
                                         isLoading: { b in
                                             viewModel.isLoading = b
                                         },
@@ -123,49 +123,18 @@ struct StartProcessingView: View {
                 )
                 .onAppear {
                     DataHolder.isApplePayFlow = true
-                    Task {
-                        await viewModel.startAuth(
-                                onSuccess: {
-                                    fetchMerchantsWithNextStep(
-                                            viewModel: viewModel,
-                                            navigateCoordinator: navigateCoordinator
-                                    )
-                                },
-                                onError: {
-                                    navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+                    viewModel.isLoading = true
 
-                                }
-                        )
-
-                    }
-
-
-                }
-                .sheet(isPresented: $sheetState) {
-                    if #available(iOS 16.0, *) {
-                        EnterCvvBottomSheet(
-                                actionClose: {
-                                    sheetState.toggle()
-                                },
-                                isLoading: { b in viewModel.isLoading = b },
-                                navigateCoordinator: navigateCoordinator,
-                                viewModel: viewModel,
-                                editTextViewModel: cvvEditTextViewModel
-                        )
-                                .presentationDetents([.height(315)])
-
-
-                    } else {
-                        EnterCvvBottomSheet(
-                                actionClose: {
-                                    sheetState.toggle()
-                                },
-                                isLoading: { b in viewModel.isLoading = b },
-                                navigateCoordinator: navigateCoordinator,
-                                viewModel: viewModel,
-                                editTextViewModel: cvvEditTextViewModel
-                        )
-                    }
+                    blAuth(
+                            navigateCoordinator: navigateCoordinator,
+                            onSuccess: {
+                                fetchMerchantsWithNextStep(
+                                        viewModel: viewModel,
+                                        navigateCoordinator: navigateCoordinator
+                                )
+                            },
+                            paymentId: nil
+                    )
 
                 }
                 .screenshotProtected(isProtected: DataHolder.needDisableScreenShot)

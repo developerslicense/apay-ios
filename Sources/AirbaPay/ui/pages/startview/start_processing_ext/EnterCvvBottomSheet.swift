@@ -6,14 +6,88 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 import SimpleToast
+
+func showBottomSheetEnterCvv(
+        airbaPaySdk: AirbaPaySdk,
+        selectedCard: BankCard?
+) {
+    DispatchQueue.main.async {
+// https://stackoverflow.com/questions/65784294/how-to-detect-if-keyboard-is-present-in-swiftui
+
+        let transitioningDelegate = BottomSheetTransitioningDelegate(
+                contentHeights: [/*.bottomSheetAutomatic, */UIScreen.main.bounds.size.height - 300],
+                startTargetIndex: 0
+        )
+        let viewController = EnterCvvBottomSheetViewController(
+                navigateCoordinator: airbaPaySdk.navigateCoordinator,
+                selectedCard: selectedCard
+        )
+        viewController.transitioningDelegate = transitioningDelegate
+        viewController.modalPresentationStyle = .custom
+
+//        airbaPaySdk.navigateCoordinator.present(viewController, animated: true)
+
+
+        let window = UIApplication.shared.connectedScenes
+                .filter({$0.activationState == .foregroundActive})
+                .map({$0 as? UIWindowScene})
+                .compactMap({$0})
+                .first?.windows
+                .filter({$0.isKeyWindow}).first
+
+        window?.rootViewController?.present(viewController, animated: true, completion: nil)
+    }
+}
+
+
+class EnterCvvBottomSheetViewController: UIViewController {
+
+    var navigateCoordinator: AirbaPayCoordinator
+    private var editTextVM = CoreEditTextViewModel()
+    var selectedCard: BankCard?
+
+    var rootView: BottomSheetView? {
+        view as? BottomSheetView
+    }
+
+    init(navigateCoordinator: AirbaPayCoordinator, selectedCard: BankCard?) {
+        self.navigateCoordinator = navigateCoordinator
+        self.selectedCard = selectedCard
+        super.init(nibName: nil, bundle: nil)
+
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func loadView() {
+        view = CustomBottomSheetView(
+                frame: CGRect(x: 0, y: 0, width: .max, height: 300),// navigateCoordinator.view.frame,
+                enterCvvBottomSheet: EnterCvvBottomSheet(
+                        actionClose: {
+                            self.navigateCoordinator.dismiss(animated: true)
+                        },
+                        isLoading: { b in
+
+                        },
+                        navigateCoordinator: navigateCoordinator,
+                        selectedCard: self.selectedCard,
+                        editTextViewModel: CoreEditTextViewModel()
+                )
+        )
+    }
+
+}
 
 struct EnterCvvBottomSheet: View {
     var actionClose: () -> Void
     var isLoading: (Bool) -> Void
 
     var navigateCoordinator: AirbaPayCoordinator
-    @StateObject var viewModel = StartProcessingViewModel()
+    var selectedCard: BankCard?
     @StateObject var editTextViewModel: CoreEditTextViewModel
     @State var cvvToast: Bool = false
     @State var cvvError: String? = nil
@@ -26,6 +100,7 @@ struct EnterCvvBottomSheet: View {
     var body: some View {
 
         VStack(alignment: .leading) {
+
             InitHeader(
                     title: cvvEnter(),
                     actionClose: actionClose
@@ -37,7 +112,7 @@ struct EnterCvvBottomSheet: View {
                             .padding(.leading, 16)
 
                     Spacer()
-                    Text(viewModel.selectedCard?.getMaskedPanClearedWithPoint() ?? "")
+                    Text(selectedCard?.getMaskedPanClearedWithPoint() ?? "")
                             .textStyleSemiBold()
                             .multilineTextAlignment(.trailing)
                             .padding(.trailing, 16)
@@ -62,20 +137,24 @@ struct EnterCvvBottomSheet: View {
                         cvvToast = true
                     }
             )
-                    .padding(.top, 24)
+                    .padding(.top, 12)
                     .padding(.horizontal, 16)
+
 
             ViewButton(
                     title: payAmount() + " " + DataHolder.purchaseAmountFormatted,
                     actionClick: {
+                        UIApplication.shared.endEditing()
+
                         if editTextViewModel.text.count >= 3 && editTextViewModel.text.count < 5 {
                             actionClose()
-                            startSavedCard(
-                                    cardId: viewModel.selectedCard?.id ?? "",
+                            blProcessSavedCard(
+                                    cardId: selectedCard?.id ?? "",
                                     cvv: editTextViewModel.text,
                                     isLoading: isLoading,
                                     navigateCoordinator: navigateCoordinator
                             )
+
                         } else {
                             cvvError = wrongCvv()
                         }
@@ -91,8 +170,8 @@ struct EnterCvvBottomSheet: View {
                 .simpleToast(isPresented: $cvvToast, options: toastOptions) {
                     Label(cvvInfo(), systemImage: "icAdd")
                             .padding()
-                            .background(Color.colorBgAccent.opacity(0.8))
-                            .foregroundColor(Color.white)
+                            .background(ColorsSdk.bgAccent.opacity(0.8))
+                            .foregroundColor(ColorsSdk.bgBlock)
                             .cornerRadius(10)
                             .padding(.top)
                 }

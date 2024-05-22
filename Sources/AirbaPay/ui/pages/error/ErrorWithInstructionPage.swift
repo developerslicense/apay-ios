@@ -6,7 +6,7 @@ import Foundation
 import SwiftUI
 
 struct ErrorWithInstructionPage: View {
-    @ObservedObject var navigateCoordinator: AirbaPayCoordinator
+    var navigateCoordinator: AirbaPayCoordinator
 
     private let errorCode: ErrorsCode = ErrorsCode(code: 5999)
     @State private var isPlayedOnce = false

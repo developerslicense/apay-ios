@@ -7,6 +7,8 @@ import SwiftUI
 
 // https://suragch.medium.com/getting-and-setting-the-cursor-position-in-swift-68da99bcef39
 
+// https://stackoverflow.com/questions/71343207/swiftui-how-to-activate-textfield-automatically-when-view-loads
+
 class CoreEditTextViewModel: ObservableObject {
     @MainActor @Published var text: String = ""
 

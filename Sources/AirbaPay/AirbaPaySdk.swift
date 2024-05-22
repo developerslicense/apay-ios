@@ -4,11 +4,18 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 
 public class AirbaPaySdk {
     // todo возможно, когда-нибудь можно будет переделать на это
     //   https://anuragajwani.medium.com/how-to-build-universal-ios-frameworks-using-xcframeworks-4c2790cfa623
     //   и можно будет избавиться от боли с тестированием правок
+
+    var navigateCoordinator: AirbaPayCoordinator = AirbaPayCoordinator()
+    var applePayViewModel: ApplePayViewModel = ApplePayViewModel()
+
+    static var sdk: AirbaPaySdk? = nil
+
     public init() {}
 
     public enum Lang: Equatable {
@@ -80,8 +87,13 @@ public class AirbaPaySdk {
             isApplePayNative: Bool = false,
             shopName: String = "Shop",
             applePayMerchantId: String? = nil,
-            needDisableScreenShot: Bool = false
-    ) {
+            needDisableScreenShot: Bool = false,
+            actionOnCloseProcessing: @escaping (Bool?, UINavigationController) -> Void,
+            openCustomPageSuccess: (() -> Void)? = nil,
+            openCustomPageFinalError: (() -> Void)? = nil,
+            manualDisableFeatureApplePay: Bool = false,
+            manualDisableFeatureSavedCards: Bool = false
+    ) -> AirbaPaySdk {
 
         if (colorBrandInversion != nil) {
             ColorsSdk.colorBrandInversion = colorBrandInversion!
@@ -131,6 +143,94 @@ public class AirbaPaySdk {
         DataHolder.shopName = shopName
         DataHolder.applePayMerchantId = applePayMerchantId
         DataHolder.needDisableScreenShot = needDisableScreenShot
+
+        DataHolder.actionOnCloseProcessing = actionOnCloseProcessing
+        DataHolder.openCustomPageSuccess = openCustomPageSuccess
+        DataHolder.openCustomPageFinalError = openCustomPageFinalError
+
+        DataHolder.manualDisableFeatureApplePay = manualDisableFeatureApplePay
+        DataHolder.manualDisableFeatureSavedCards = manualDisableFeatureSavedCards
+
+        sdk = AirbaPaySdk()
+
+        return sdk!
     }
 
+    // Navigations
+
+    public func startProcessing() {
+        navigateCoordinator.startProcessing()
+    }
+
+    public func backToStartPage() {
+        navigateCoordinator.backToStartPage()
+    }
+
+    public func backToApp(result: Bool = false) {
+        navigateCoordinator.backToApp(result: result)
+    }
+
+
+    // External Api Auth
+
+    public func auth(
+            onSuccess: @escaping () -> Void,
+            onError: @escaping () -> Void
+    ) {
+        blAuth(
+                navigateCoordinator: nil,
+                onSuccess: onSuccess,
+                onError: onError,
+                paymentId: nil
+        )
+    }
+
+    // External Api create payment
+
+    public func initPayment(
+            onSuccess: @escaping () -> Void,
+            onError: @escaping () -> Void
+    ) {
+        blInitExternalPayments(onSuccess: onSuccess, onError: onError)
+    }
+
+    // External Api Cards
+
+    public func paySavedCard(
+            needFaceId: Bool,
+            bankCard: BankCard,
+            isLoading: @escaping (Bool) -> Void,
+            onError: @escaping () -> Void
+    ) {
+        blPaySavedCard(card: bankCard, isLoading: isLoading, onError: onError, needFaceId: needFaceId, airbaPaySdk: self)
+    }
+
+    public func getCards(
+            onSuccess: @escaping ([BankCard]) -> Void,
+            onNoCards: @escaping () -> Void
+
+    ) {
+        blGetCards(onSuccess: onSuccess, onNoCards: onNoCards)
+    }
+
+    public func deleteCard(
+            cardId: String,
+            onSuccess: @escaping () -> Void,
+            onError: @escaping () -> Void
+    ) {
+        blDeleteCard(cardId: cardId, onSuccess: onSuccess, onError: onError)
+    }
+
+    // External Api ApplePay
+
+    public func processExternalApplePay() {
+        blProcessExternalApplePay()
+    }
+
+    public func processExternalApplePay(applePayToken: String) {
+        AirbaPaySdk.sdk?.applePayViewModel.processingWallet(
+                navigateCoordinator: self.navigateCoordinator,
+                applePayToken: applePayToken
+        )
+    }
 }
