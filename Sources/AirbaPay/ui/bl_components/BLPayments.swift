@@ -20,7 +20,7 @@ func blCreatePayment(
         renderSavedCards: Bool?,
         goods: [AirbaPaySdk.Goods]? = nil,
         settlementPayments: [AirbaPaySdk.SettlementPayment]? = nil,
-        onSuccess: @escaping (String) -> Void,
+        onSuccess: @escaping (String, String) -> Void,
         onError: @escaping () -> Void
 ) {
 
@@ -44,7 +44,7 @@ func blCreatePayment(
         ) {
 
             if let newToken = await updateAuth(paymentId: result.id!) {
-                onSuccess(result.id!)
+                onSuccess(result.id!, newToken.accessToken ?? "")
             } else {
                 onError()
             }

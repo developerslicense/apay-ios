@@ -520,9 +520,9 @@ func onStandardFlowPassword(
                         accountId: "77061111112",
                         invoiceId: invoiceId,
                         orderNumber: String(someOrderNumber),
-                        onSuccess: { paymentId in
+                        onSuccess: { paymentId, newToken in
                             isLoading(false)
-                            onSuccess(DataHolder.token ?? "")
+                            onSuccess(newToken)
                         },
                         onError: {
                             isLoading(false)

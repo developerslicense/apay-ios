@@ -188,7 +188,7 @@ public class AirbaPaySdk {
             accountId: String,
             invoiceId: String,
             orderNumber: String,
-            onSuccess: @escaping (String) -> Void,
+            onSuccess: @escaping (String, String) -> Void,
             onError: @escaping () -> Void,
             renderSecurityCvv: Bool? = nil,
             renderSecurityBiometry: Bool? = nil,

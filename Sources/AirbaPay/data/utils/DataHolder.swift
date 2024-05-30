@@ -9,7 +9,7 @@ class DataHolder {
     static var moduleBundle: Bundle?
             = Bundle.module /** в случае, если переносишь код в приложение, указывай Bundle.main*/
 
-    static var sdkVersion = "2.0.23"
+    static var sdkVersion = "2.0.24"
     static var baseUrl = ""
 
     static var connectTimeout = 60
