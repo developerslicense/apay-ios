@@ -18,7 +18,7 @@ public class ApplePayViewModel: ObservableObject {
     ) {
 
         Task {
-            if let result = await putPaymentWallet(applePayToken: applePayToken) {
+            if let result = await startPaymentWalletService(applePayToken: applePayToken) {
                 if result.errorCode != 0 {
                     let error = ErrorsCode(code: result.errorCode ?? 1).getError()
                     DispatchQueue.main.async {

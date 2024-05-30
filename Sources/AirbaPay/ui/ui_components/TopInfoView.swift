@@ -7,6 +7,7 @@ import SwiftUI
 
 struct TopInfoView: View {
     var purchaseAmount: String
+    var purchaseNumber: String
 
     var body: some View {
         VStack {
@@ -24,7 +25,7 @@ struct TopInfoView: View {
             HStack {
                 Text(numberOfPurchase()).textStyleRegular()
                 Spacer()
-                Text(DataHolder.orderNumber)
+                Text(purchaseNumber)
                         .textStyleSemiBold()
                         .multilineTextAlignment(.trailing)
 

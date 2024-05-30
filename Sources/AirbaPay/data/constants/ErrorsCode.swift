@@ -217,35 +217,5 @@ struct ErrorsCodeBase: Equatable {
             navigateCoordinator.backToApp()
         }
     }
-
-    private func recreatePayment() async {
-
-        let authParams = AuthRequest(
-                password: DataHolder.password,
-                paymentId: nil,
-                terminalId: DataHolder.terminalId,
-                user: DataHolder.shopId
-        )
-
-        if let _ = await authService(params: authParams) {
-            await startCreatePayment()
-        }
-
-    }
-
-    private func startCreatePayment() async {
-        if let result: PaymentCreateResponse = await createPaymentService() {
-            let authParams = AuthRequest(
-                    password: DataHolder.password,
-                    paymentId: result.id,
-                    terminalId: DataHolder.terminalId,
-                    user: DataHolder.shopId
-            )
-
-            if let _ = await authService(params: authParams) {}
-
-        }
-    }
-
 }
 

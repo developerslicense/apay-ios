@@ -9,6 +9,7 @@ class StartProcessingViewModel: ObservableObject {
     @MainActor @Published var savedCards: [BankCard] = []
     @MainActor @Published var selectedCard: BankCard? = nil
     @MainActor @Published var applePayUrl: String? = nil
+    @MainActor @Published var purchaseNumber: String = ""
 
     init(
             isLoading: Bool = true,

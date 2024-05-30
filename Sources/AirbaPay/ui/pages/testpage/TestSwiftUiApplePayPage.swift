@@ -21,7 +21,7 @@ struct TestSwiftUiApplePayPage: View {
 
                 VStack {
 //                   Image("icAPayWhite", bundle: DataHolder.moduleBundle)
-                    Text("ApplePay внешний АПИ")
+                    Text("Тест внешнего API ApplePay через передачу токена")
                 }
 
                         .frame(maxWidth: .infinity)
@@ -32,7 +32,7 @@ struct TestSwiftUiApplePayPage: View {
                         .padding(.vertical, 16)
                         .padding(.horizontal, 16)
                         .onTapGesture {
-                            airbaPaySdk.processExternalApplePay()
+                            airbaPaySdk.navigateCoordinator.applePay!.buyBtnTapped()
                         }
 
                 VStack {

@@ -45,12 +45,15 @@ struct StartProcessingPage: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
 
 
-                                TopInfoView(purchaseAmount: DataHolder.purchaseAmountFormatted)
+                                TopInfoView(
+                                        purchaseAmount: DataHolder.purchaseAmountFormatted,
+                                        purchaseNumber: viewModel.purchaseNumber
+                                )
                                         .padding(.horizontal, 16)
                                         .padding(.top, 16)
 
 
-                                if DataHolder.featureApplePay
+                                if DataHolder.isRenderApplePay()
                                            && context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
                                 {
 
@@ -97,7 +100,7 @@ struct StartProcessingPage: View {
                                 InitViewStartProcessingButtonNext(
                                         navigateCoordinator: navigateCoordinator,
                                         viewModel: viewModel,
-                                        toggleCvv: {
+                                        showCvv: {
                                             showBottomSheetEnterCvv(
                                                     airbaPaySdk: AirbaPaySdk.sdk!,
                                                     selectedCard: viewModel.selectedCard
@@ -122,20 +125,12 @@ struct StartProcessingPage: View {
 
                 )
                 .onAppear {
-                    DataHolder.isApplePayFlow = true
                     viewModel.isLoading = true
 
-                    blAuth(
-                            navigateCoordinator: navigateCoordinator,
-                            onSuccess: {
-                                fetchMerchantsWithNextStep(
-                                        viewModel: viewModel,
-                                        navigateCoordinator: navigateCoordinator
-                                )
-                            },
-                            paymentId: nil
+                    fetchMerchantsWithNextStep(
+                            viewModel: viewModel,
+                            navigateCoordinator: navigateCoordinator
                     )
-
                 }
                 .screenshotProtected(isProtected: DataHolder.needDisableScreenShot)
 

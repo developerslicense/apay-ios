@@ -12,12 +12,11 @@ func blProcessSavedCard(
         isLoading: @escaping (Bool) -> Void,
         navigateCoordinator: AirbaPayCoordinator
 ) {
-    isLoading(true)
 
     Task {
         let params = PaymentSavedCardRequest(cvv: cvv ?? "")
 
-        if let result = await paymentSavedCardService(
+        if let result = await startPaymentSavedCardService(
                 cardId: cardId,
                 params: params
         ) {

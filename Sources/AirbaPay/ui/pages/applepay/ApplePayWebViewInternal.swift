@@ -104,6 +104,8 @@ private struct SwiftUIWebView: UIViewRepresentable {
 
             } else {
                 if let redirectedUrl = navigationAction.request.url {
+                    DataHolder.isApplePayFlow = true
+
                     Logger.log(
                             message: "ApplePayWebViewInternal redirectUrl",
                             url: redirectedUrl.absoluteString

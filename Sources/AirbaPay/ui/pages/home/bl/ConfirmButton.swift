@@ -29,9 +29,8 @@ func startPaymentProcessing(
                 card: card
         )
 
-        if let entryResponse: PaymentEntryResponse = await paymentDefaultService(params: params) {
+        if let entryResponse: PaymentEntryResponse = await startPaymentDefaultService(params: params) {
             DispatchQueue.main.async {
-                DataHolder.isApplePayFlow = false
 
                 if (entryResponse.errorCode != 0) {
                     let error = ErrorsCode(code: entryResponse.errorCode ?? 1).getError()

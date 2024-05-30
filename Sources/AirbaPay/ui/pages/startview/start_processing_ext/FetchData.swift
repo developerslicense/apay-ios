@@ -11,24 +11,46 @@ func fetchMerchantsWithNextStep(
         navigateCoordinator: AirbaPayCoordinator
 ) {
     Task {
-        if let result = await getMerchantInfoService() {
+        blGetPaymentInfo(
+                onSuccess: { r in
+                    DataHolder.purchaseNumber = r.orderNumber ?? r.invoiceId ?? ""
+                    DispatchQueue.main.async {
+                        viewModel.purchaseNumber = DataHolder.purchaseNumber
+                    }
 
-            if (DataHolder.manualDisableFeatureSavedCards) {
-                DataHolder.featureSavedCards = false
-            } else {
-                DataHolder.featureSavedCards = result.config?.renderSaveCards ?? false
-            }
+                    let nextStep: () -> Void = {
+                        initPaymentsWithNextStep(
+                                viewModel: viewModel,
+                                navigateCoordinator: navigateCoordinator
+                        )
+                    }
 
-            if (DataHolder.manualDisableFeatureApplePay) {
-                DataHolder.featureApplePay = false
-            } else {
-                DataHolder.featureApplePay = result.config?.renderApplePayButton ?? false
-            }
-        }
+                    Task {
+                        if (DataHolder.renderSavedCards == nil || DataHolder.renderApplePay == nil) {
+                            if let result = await getMerchantInfoService() {
+                                if (DataHolder.renderApplePay == nil) {
+                                    DataHolder.renderApplePay = result.config?.renderApplePayButton
+                                }
 
-        initPaymentsWithNextStep(
-                viewModel: viewModel,
-                navigateCoordinator: navigateCoordinator
+                                if (DataHolder.renderSavedCards == nil) {
+                                    DataHolder.renderSavedCards = result.config?.renderSaveCards
+                                }
+
+                                nextStep()
+
+                            } else {
+                                nextStep()
+                            }
+                        } else {
+                            nextStep()
+                        }
+                    }
+                },
+                onError: {
+                    DispatchQueue.main.async {
+                        navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+                    }
+                }
         )
     }
 }
@@ -37,24 +59,33 @@ private func initPaymentsWithNextStep(
         viewModel: StartProcessingViewModel,
         navigateCoordinator: AirbaPayCoordinator
 ) {
-    blInitPayments(
-            onApplePayResult: { url in
-                DataHolder.applePayButtonUrl = url
+    let onApplePayResult: (String?) -> Void = { url in
+        if (url != nil) {
+            DataHolder.applePayButtonUrl = url
+            DispatchQueue.main.async {
+                viewModel.applePayUrl = url
+            }
+        }
 
-                Task {
-                    if (url != nil) {
-                        await MainActor.run {
-                            viewModel.applePayUrl = url
+        if (DataHolder.isRenderSavedCards()) {
+            blGetSavedCards(
+                    onSuccess: { result in
+                        Task {
+                            await MainActor.run {
+
+                                viewModel.savedCards = result
+                                DataHolder.hasSavedCards = !result.isEmpty
+                                viewModel.isLoading = false
+
+                                if result.isEmpty {
+                                    navigateCoordinator.openHome()
+                                } else {
+                                    viewModel.selectedCard = result[0]
+                                }
+                            }
                         }
-                    }
-
-                    if (DataHolder.featureSavedCards) {
-                        fetchCards(
-                                viewModel: viewModel,
-                                navigateCoordinator: navigateCoordinator
-                        )
-
-                    } else {
+                    },
+                    onNoCards: {
                         Task {
                             await MainActor.run {
                                 viewModel.isLoading = false
@@ -62,43 +93,25 @@ private func initPaymentsWithNextStep(
                             }
                         }
                     }
-                }
-            },
-            navigateCoordinator: navigateCoordinator
-    )
-}
-
-private func fetchCards(
-        viewModel: StartProcessingViewModel,
-        navigateCoordinator: AirbaPayCoordinator
-) {
-
-    blGetCards(
-            onSuccess: { result in
-                Task {
-                    await MainActor.run {
-
-                        viewModel.savedCards = result
-                        DataHolder.hasSavedCards = !result.isEmpty
-                        viewModel.isLoading = false
-
-                        if result.isEmpty {
-                            navigateCoordinator.openHome()
-                        } else {
-                            viewModel.selectedCard = result[0]
-                        }
-                    }
-                }
-            },
-            onNoCards: {
-                Task {
-                    await MainActor.run {
-                        viewModel.isLoading = false
-                        navigateCoordinator.openHome()
-                    }
-                }
+            )
+        } else {
+            DispatchQueue.main.async {
+                viewModel.isLoading = false
+                navigateCoordinator.openHome()
             }
-    )
-}
+        }
+    }
 
- 
+    if (DataHolder.isApplePayNative) {
+        onApplePayResult(nil)
+
+    } else {
+        Task {
+            if let result = await getApplePayService() {
+                onApplePayResult(result.buttonUrl)
+            } else {
+                onApplePayResult(nil)
+            }
+        }
+    }
+}

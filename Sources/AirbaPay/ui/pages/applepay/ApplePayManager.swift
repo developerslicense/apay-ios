@@ -24,7 +24,7 @@ final class ApplePayManager: NSObject {
             let request: PKPaymentRequest = PKPaymentRequest()
             let merchandId = DataHolder.applePayMerchantId!
             //label here can be passed in as a variable like we do itemCost and shippingCost.
-            let summary = PKPaymentSummaryItem(label: DataHolder.shopName, amount: NSDecimalNumber(string: DataHolder.purchaseAmount))
+            let summary = PKPaymentSummaryItem(label: DataHolder.shopName, amount: NSDecimalNumber(string: String(DataHolder.purchaseAmount)))
 
             //        shippingMethod.identifier = "ios App"
             request.merchantIdentifier = merchandId
@@ -39,6 +39,7 @@ final class ApplePayManager: NSObject {
             return request
         }()
 
+
         guard let paymentVC = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest),
               let window = UIApplication.shared.connectedScenes
                       .filter({$0.activationState == .foregroundActive})
@@ -48,6 +49,7 @@ final class ApplePayManager: NSObject {
                       .filter({$0.isKeyWindow}).first
         else {
             return
+
         }
         paymentVC.delegate = self
         window.rootViewController?.present(paymentVC, animated: true, completion: nil)
@@ -61,10 +63,7 @@ extension ApplePayManager: PKPaymentAuthorizationViewControllerDelegate {
         controller.dismiss(animated: true, completion: nil)
 
         if isSuccess {
-            AirbaPaySdk.sdk?.applePayViewModel.processingWallet(
-                    navigateCoordinator: self.navigateCoordinator,
-                    applePayToken: self.applePayToken ?? ""
-            )
+            AirbaPaySdk.sdk?.processExternalApplePay(applePayToken: self.applePayToken ?? "")
         }
     }
 

@@ -86,8 +86,8 @@ actor NetworkManager: GlobalActor {
                                 "Content-Type": "application/json; charset=utf-8",
                                 "Platform": "iOS, " + DataHolder.sdkVersion,
                                 "Authorization":
-                                DataHolder.accessToken == nil
-                                        || DataHolder.accessToken == "" ? "" : "Bearer " + DataHolder.accessToken!
+                                DataHolder.token == nil
+                                        || DataHolder.token == "" ? "" : "Bearer " + DataHolder.token!
                             ],
                             requestModifier: { $0.timeoutInterval = self.maxWaitTime }
                     )
@@ -123,8 +123,8 @@ actor NetworkManager: GlobalActor {
                                 "Content-Type": "application/json; charset=utf-8",
                                 "Platform": "iOS, " + DataHolder.sdkVersion,
                                 "Authorization":
-                                DataHolder.accessToken == nil
-                                        || DataHolder.accessToken == "" ? "" : "Bearer " + DataHolder.accessToken!
+                                DataHolder.token == nil
+                                        || DataHolder.token == "" ? "" : "Bearer " + DataHolder.token!
                             ],
                             requestModifier: { $0.timeoutInterval = self.maxWaitTime }
                     )

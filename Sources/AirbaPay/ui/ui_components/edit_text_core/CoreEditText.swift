@@ -7,8 +7,6 @@ import SwiftUI
 
 // https://suragch.medium.com/getting-and-setting-the-cursor-position-in-swift-68da99bcef39
 
-// https://stackoverflow.com/questions/71343207/swiftui-how-to-activate-textfield-automatically-when-view-loads
-
 class CoreEditTextViewModel: ObservableObject {
     @MainActor @Published var text: String = ""
 
@@ -30,6 +28,7 @@ struct CoreEditText: View {
     var isDateExpiredMask: Bool
     var isCardNumberMask: Bool
     var isCvvMask: Bool
+    var isText: Bool
     var placeholder: String
 //    var regex: Regex<AnyRegexOutput>? // доступен с 16-го айоса
     var keyboardType: UIKeyboardType
@@ -93,6 +92,30 @@ struct CoreEditText: View {
                             .frame(width: .infinity, alignment: .leading)
                             .accentColor(ColorsSdk.colorBrand)
 
+                } else if isText {
+                    if #available(iOS 16.0, *) {
+                        let textField = TextField("", text: $viewModel.text, axis: .vertical)
+
+
+                        textField
+                                .onChange(
+                                        of: viewModel.text,
+                                        perform: { newValue in
+                                            onPerformed(newValue: newValue)
+                                        }
+                                )
+                                .keyboardType(keyboardType)
+                                .disableAutocorrection(true)
+                                .textStyleRegular(textColor: isError ? ColorsSdk.stateError : ColorsSdk.textMain)
+                                .foregroundColor(ColorsSdk.transparent)
+                                //                            .frame(width: .infinity, alignment: .leading)
+                                .frame(minHeight: 18)
+                                .lineLimit(10)
+                                .accentColor(ColorsSdk.colorBrand)
+                    } else {
+                        Text("НЕДОСТУПНО. только для теста и ос >= 16")
+                    }
+
                 } else {
                     let textField = TextField("", text: $viewModel.text)
 
@@ -150,7 +173,10 @@ struct CoreEditText: View {
             }
         }
 
-        if newValue.contains("*") {
+        if isText {
+            viewModel.text = newValue
+
+        } else if newValue.contains("*") {
             viewModel.text = newValue.replacingOccurrences(of: "*", with: "•")
 
         } else if (!newValue.contains("•")

@@ -20,7 +20,31 @@ func authService(params: AuthRequest) async -> AuthResponse? {
                 method: "POST",
                 bodyParams: params
         )
-        DataHolder.accessToken = result.accessToken
+        DataHolder.token = result.accessToken
+
+        return result
+
+    } catch let error {
+        print(error.localizedDescription)
+        return nil
+    }
+}
+
+func updateAuth(paymentId: String) async -> AuthResponse? {
+    do {
+        let path = "api/v1/auth/update-token/" + paymentId
+        let data = try await NetworkManager.shared.put(
+                path: path,
+                parameters: nil
+        )
+
+        let result: AuthResponse = try Api.parseData(
+                data: data,
+                path: path,
+                method: "PUT",
+                bodyParams: nil
+        )
+        DataHolder.token = result.accessToken
 
         return result
 

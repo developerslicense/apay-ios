@@ -67,33 +67,21 @@ public class AirbaPaySdk {
     public static func initSdk(
             isProd: Bool,
             lang: Lang,
-            accountId: String,
             phone: String,
             userEmail: String?,
-            shopId: String,
-            password: String,
-            terminalId: String,
-            failureCallback: String,
-            successCallback: String,
             colorBrandMain: Color? = nil,
             colorBrandInversion: Color? = nil,
-            autoCharge: Int = 0,
             enabledLogsForProd: Bool = false,
-            purchaseAmount: Double,
-            invoiceId: String,
-            orderNumber: String,
-            goods: Array<Goods>,
-            settlementPayments: Array<SettlementPayment>? = nil,
-            isApplePayNative: Bool = false,
-            shopName: String = "Shop",
-            applePayMerchantId: String? = nil,
             needDisableScreenShot: Bool = false,
             actionOnCloseProcessing: @escaping (Bool?, UINavigationController) -> Void,
             openCustomPageSuccess: (() -> Void)? = nil,
-            openCustomPageFinalError: (() -> Void)? = nil,
-            manualDisableFeatureApplePay: Bool = false,
-            manualDisableFeatureSavedCards: Bool = false
+            openCustomPageFinalError: (() -> Void)? = nil
     ) -> AirbaPaySdk {
+
+        let screenSize: CGRect = UIScreen.main.bounds
+
+        DataHolder.height = Int(screenSize.height)
+        DataHolder.width = Int(screenSize.width)
 
         if (colorBrandInversion != nil) {
             ColorsSdk.colorBrandInversion = colorBrandInversion!
@@ -104,7 +92,7 @@ public class AirbaPaySdk {
         }
 
         DataHolder.bankCode = nil
-        DataHolder.accessToken = nil
+        DataHolder.token = nil
         DataHolder.isProd = isProd
         DataHolder.enabledLogsForProd = enabledLogsForProd
 
@@ -114,42 +102,19 @@ public class AirbaPaySdk {
             DataHolder.baseUrl = "https://sps.airbapay.kz/acquiring-api/sdk/"
         }
 
-        DataHolder.accountId = accountId
         DataHolder.userPhone = phone
         DataHolder.userEmail = userEmail
-
-        DataHolder.failureCallback = failureCallback
-        DataHolder.successCallback = successCallback
 
         DataHolder.sendTimeout = 60
         DataHolder.connectTimeout = 60
         DataHolder.receiveTimeout = 60
-        DataHolder.shopId = shopId
-        DataHolder.password = password
-        DataHolder.terminalId = terminalId
-        DataHolder.autoCharge = autoCharge
 
         DataHolder.currentLang = lang
-
-        DataHolder.purchaseAmount = String(purchaseAmount)
-        DataHolder.orderNumber = orderNumber
-        DataHolder.invoiceId = invoiceId
-        DataHolder.goods = goods
-        DataHolder.settlementPayments = settlementPayments
-
-        DataHolder.purchaseAmountFormatted = Money.initDouble(amount: purchaseAmount).getFormatted()
-
-        DataHolder.isApplePayNative = isApplePayNative
-        DataHolder.shopName = shopName
-        DataHolder.applePayMerchantId = applePayMerchantId
         DataHolder.needDisableScreenShot = needDisableScreenShot
 
         DataHolder.actionOnCloseProcessing = actionOnCloseProcessing
         DataHolder.openCustomPageSuccess = openCustomPageSuccess
         DataHolder.openCustomPageFinalError = openCustomPageFinalError
-
-        DataHolder.manualDisableFeatureApplePay = manualDisableFeatureApplePay
-        DataHolder.manualDisableFeatureSavedCards = manualDisableFeatureSavedCards
 
         sdk = AirbaPaySdk()
 
@@ -158,8 +123,20 @@ public class AirbaPaySdk {
 
     // Navigations
 
-    public func startProcessing() {
-        navigateCoordinator.startProcessing()
+    public func standardFlow(
+            isApplePayNative: Bool,
+            applePayMerchantId: String?,
+            shopName: String = "Shop"
+    ) {
+        if DataHolder.token != nil {
+            DataHolder.isApplePayNative = isApplePayNative
+            DataHolder.applePayMerchantId = applePayMerchantId
+            DataHolder.shopName = shopName
+
+            navigateCoordinator.startProcessing()
+        } else {
+            print("AirbaPay. Нужно предварительно выполнить авторизацию и создание платежа")
+        }
     }
 
     public func backToStartPage() {
@@ -171,46 +148,114 @@ public class AirbaPaySdk {
     }
 
 
-    // External Api Auth
+    // Auth
 
-    public func auth(
-            onSuccess: @escaping () -> Void,
-            onError: @escaping () -> Void
+    public func authPassword(
+            terminalId: String,
+            shopId: String,
+            password: String,
+            onSuccess: @escaping (String) -> Void,
+            onError: @escaping () -> Void,
+            paymentId: String? = nil
     ) {
         blAuth(
                 navigateCoordinator: nil,
+                password: password,
+                terminalId: terminalId,
+                shopId: shopId,
                 onSuccess: onSuccess,
                 onError: onError,
-                paymentId: nil
+                paymentId: paymentId
         )
     }
 
-    // External Api create payment
-
-    public func initPayment(
+    public func authJwt(
+            jwt: String,
             onSuccess: @escaping () -> Void,
             onError: @escaping () -> Void
     ) {
-        blInitExternalPayments(onSuccess: onSuccess, onError: onError)
+        DataHolder.token = jwt
+        blGetPaymentInfo(onSuccess: { r in onSuccess() }, onError: onError)
     }
 
-    // External Api Cards
+    // Create payment
 
-    public func paySavedCard(
-            needFaceId: Bool,
-            bankCard: BankCard,
-            isLoading: @escaping (Bool) -> Void,
-            onError: @escaping () -> Void
+    public func createPayment(
+            authToken: String,
+            failureCallback: String,
+            successCallback: String,
+            purchaseAmount: Double,
+            accountId: String,
+            invoiceId: String,
+            orderNumber: String,
+            onSuccess: @escaping (String) -> Void,
+            onError: @escaping () -> Void,
+            renderSecurityCvv: Bool? = nil,
+            renderSecurityBiometry: Bool? = nil,
+            renderApplePay: Bool? = nil,
+            renderSavedCards: Bool? = nil,
+            autoCharge: Int = 0,
+            goods: Array<Goods>? = nil,
+            settlementPayments: Array<SettlementPayment>? = nil
     ) {
-        blPaySavedCard(card: bankCard, isLoading: isLoading, onError: onError, needFaceId: needFaceId, airbaPaySdk: self)
+        DataHolder.accountId = accountId
+
+        blCreatePayment(
+                authToken: authToken,
+                failureCallback: failureCallback,
+                successCallback: successCallback,
+                autoCharge: autoCharge,
+                purchaseAmount: purchaseAmount,
+                invoiceId: invoiceId,
+                orderNumber: orderNumber,
+                renderSecurityCvv: renderSecurityCvv,
+                renderSecurityBiometry: renderSecurityBiometry,
+                renderApplePay: renderApplePay,
+                renderSavedCards: renderSavedCards,
+                goods: goods,
+                settlementPayments: settlementPayments,
+                onSuccess: onSuccess,
+                onError: onError
+        )
     }
+
+    // ApplePay
+
+    public func processExternalApplePay(applePayToken: String) {
+        AirbaPaySdk.sdk?.applePayViewModel.processingWallet(
+                navigateCoordinator: self.navigateCoordinator,
+                applePayToken: applePayToken
+        )
+    }
+
+    // Cards
 
     public func getCards(
             onSuccess: @escaping ([BankCard]) -> Void,
             onNoCards: @escaping () -> Void
-
     ) {
-        blGetCards(onSuccess: onSuccess, onNoCards: onNoCards)
+        blGetSavedCards(onSuccess: onSuccess, onNoCards: onNoCards)
+    }
+
+    public func paySavedCard(
+            bankCard: BankCard,
+            isLoading: @escaping (Bool) -> Void,
+            onError: @escaping () -> Void
+    ) {
+        blGetPaymentInfo(
+                onSuccess: { r in
+                    blCheckSavedCardNeedCvv(
+                            navigateCoordinator: self.navigateCoordinator,
+                            selectedCard: bankCard,
+                            isLoading: isLoading,
+                            onError: onError,
+                            showCvv: { showBottomSheetEnterCvv(airbaPaySdk: self, selectedCard: bankCard)}
+                    )
+                },
+                onError: {
+                    self.navigateCoordinator.openErrorPageWithCondition(errorCode: ErrorsCode().error_1.code)
+                }
+        )
     }
 
     public func deleteCard(
@@ -219,18 +264,5 @@ public class AirbaPaySdk {
             onError: @escaping () -> Void
     ) {
         blDeleteCard(cardId: cardId, onSuccess: onSuccess, onError: onError)
-    }
-
-    // External Api ApplePay
-
-    public func processExternalApplePay() {
-        blProcessExternalApplePay()
-    }
-
-    public func processExternalApplePay(applePayToken: String) {
-        AirbaPaySdk.sdk?.applePayViewModel.processingWallet(
-                navigateCoordinator: self.navigateCoordinator,
-                applePayToken: applePayToken
-        )
     }
 }

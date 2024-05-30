@@ -6,7 +6,7 @@ import Foundation
 import Combine
 import Alamofire
 
-func paymentDefaultService(
+func startPaymentDefaultService(
         params: PaymentDefaultRequest
 ) async -> PaymentEntryResponse? {
 
@@ -32,7 +32,7 @@ func paymentDefaultService(
     }
 }
 
-func paymentSavedCardService(
+func startPaymentSavedCardService(
         cardId: String,
         params: PaymentSavedCardRequest
 ) async -> PaymentEntryResponse? {
@@ -58,9 +58,11 @@ func paymentSavedCardService(
     }
 }
 
-func putPaymentWallet(
+func startPaymentWalletService(
         applePayToken: String
 ) async -> PaymentEntryResponse? {
+
+    DataHolder.isApplePayFlow = true
 
     let wallet = ApplePaymentWallet(token: applePayToken)
     let param = ApplePaymentWalletRequest(wallet: wallet)
