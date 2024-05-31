@@ -230,11 +230,11 @@ AirbaPaySdk.authPassword(
 Запрос на авторизацию в системе AirbaPay через передачу JWT.
 ```authJwt()```
 
-| Параметр    | Тип                     | Обязательный | Описание           |
-|-------------|-------------------------|--------------|--------------------|
-| jwt         | String                  | да           | JWT токен          |
-| onSuccess   | @escaping () -> Unit    | да           | Лямбда на успех.   |
-| onError     | @escaping () -> Unit    | да           | Лямбда на ошибку   |
+| Параметр    | Тип                  | Обязательный | Описание           |
+|-------------|----------------------|--------------|--------------------|
+| jwt         | String               | да           | JWT токен          |
+| onSuccess   | @escaping () -> Void | да           | Лямбда на успех.   |
+| onError     | @escaping () -> Void | да           | Лямбда на ошибку   |
 
 
 ```
@@ -259,11 +259,11 @@ AirbaPaySdk.authJwt(
 | accountId              | String                              | да              | ID аккаунта пользователя                                                                                              |
 | invoiceId              | String                              | да              | ID платежа в системе магазина                                                                                         |
 | orderNumber            | String                              | да              | Номер заказа в системе магазина                                                                                       |
-| onSuccess              | (String) -> Unit                    | да              | Лямбда на успех. Возвращает paymentId                                                                                 |
-| onError                | () -> Unit                          | да              | Лямбда на ошибку                                                                                                      |
-| renderGooglePay        | Boolean?                            | нет             | Флаг настройки показа функционала GooglePay в стандартном флоу. NULL - параметры с сервера                            |
+| onSuccess              | (String) -> Void                    | да              | Лямбда на успех. Возвращает paymentId                                                                                 |
+| onError                | () -> Void                          | да              | Лямбда на ошибку                                                                                                      |
+| renderGooglePay        | Boolean?                            | нет             | Флаг настройки показа функционала ApplePay в стандартном флоу. NULL - параметры с сервера                             |
 | renderSavedCards       | Boolean?                            | нет             | Флаг настройки показа функционала сохраненных карт в стандартном флоу. NULL - параметры с сервера                     |
-| renderSecurityBiometry | Boolean?                            | нет             | Флаг глобальной настройки в сдк для биометрии при оплате сохраненной картой или GooglePay. NULL - параметры с сервера |
+| renderSecurityBiometry | Boolean?                            | нет             | Флаг глобальной настройки в сдк для биометрии при оплате сохраненной картой или ApplePay. NULL - параметры с сервера  |
 | renderSecurityCvv      | Boolean?                            | нет             | Флаг глобальной настройки в сдк для показа боттомщита с CVV при оплате сохраненной картой. NULL - параметры с сервера |
 | autoCharge             | Int                                 | нет             | Автоматическое подтверждение при 2х-стадийном режиме 0 - нет, 1 - да                                                  |
 | goods                  | List<AirbaPaySdk.Goods>             | нет             | Список продуктов для оплаты. Если есть необходимость передачи списка товаров в систему                                |
@@ -317,8 +317,8 @@ AirbaPaySdk.createPayment(
 
 Для работы с ApplePay за пределами стандартного флоу:
 
-1) Полностью реализовать на стороне приложения механизм вызова GooglePay боттомщита
-   и получения GooglePay токена.
+1) Полностью реализовать на стороне приложения механизм вызова ApplePay боттомщита
+   и получения ApplePay токена.
 
 2) Выполнить пункт "3 Подключение нативного ApplePay"
 
@@ -333,7 +333,7 @@ AirbaPaySdk.createPayment(
 
 
    ``` 
-    airbaPaySdk.processExternalGooglePay(applePayToken: applePayToken)
+    airbaPaySdk.processExternalApplePay(applePayToken: applePayToken)
    ```
 
 
