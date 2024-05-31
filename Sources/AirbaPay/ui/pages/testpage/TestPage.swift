@@ -22,7 +22,7 @@ struct TestPageAPSDK: View {
     @State var showDropdownRenderSecurityCvv: Bool = false
     @State var showDropdownRenderSecurityBiometry: Bool = false
     @State var showDropdownRenderSavedCards: Bool = false
-    @State var showDropdownRenderGooglePay: Bool = false
+    @State var showDropdownRenderApplePay: Bool = false
 
     @State var renderSecurityCvv: Bool? = TestSettings.isRenderSecurityCvv
     @State var renderSecurityBiometry: Bool? = TestSettings.isRenderSecurityBiometry
@@ -390,7 +390,7 @@ struct TestPageAPSDK: View {
                             title1: "ApplePay - NULL",
                             title2: "ApplePay - FALSE",
                             title3: "ApplePay - TRUE",
-                            showDropdown: showDropdownRenderGooglePay,
+                            showDropdown: showDropdownRenderApplePay,
                             isRender: renderApplePay,
                             onSelect: { b in
                                 TestSettings.isRenderApplePay = b
