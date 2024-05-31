@@ -217,7 +217,7 @@ struct TestApp: App {
 
 
 ```
-AirbaPaySdk.authPassword(
+airbaPaySdk.authPassword(
       terminalId: "123qdfssdf",
       shopId: "test", 
       password: "test123!"
@@ -238,7 +238,7 @@ AirbaPaySdk.authPassword(
 
 
 ```
-AirbaPaySdk.authJwt(
+airbaPaySdk.authJwt(
         onSuccess: { ~  },
         onError: { ~ },
         jwt: "~"
@@ -250,28 +250,28 @@ AirbaPaySdk.authJwt(
 Возвращает ```paymentId``` и вторым параметром обновленный токен.
 ```createPayment()```
 
-| Параметр               | Тип                                 | Обязательный    | Описание                                                                                                              |
-|------------------------|-------------------------------------|-----------------|-----------------------------------------------------------------------------------------------------------------------|
-| authToken              | String                              | да              | Токен, полученный из auth или другой реализацией получения токена                                                     |
-| failureCallback        | String                              | да              | URL вебхука при ошибке                                                                                                |
-| successCallback        | String                              | да              | URL вебхука при успехе                                                                                                |
-| purchaseAmount         | Double                              | да              | Сумма платежа                                                                                                         |
-| accountId              | String                              | да              | ID аккаунта пользователя                                                                                              |
-| invoiceId              | String                              | да              | ID платежа в системе магазина                                                                                         |
-| orderNumber            | String                              | да              | Номер заказа в системе магазина                                                                                       |
-| onSuccess              | (String) -> Void                    | да              | Лямбда на успех. Возвращает paymentId                                                                                 |
-| onError                | () -> Void                          | да              | Лямбда на ошибку                                                                                                      |
-| renderGooglePay        | Boolean?                            | нет             | Флаг настройки показа функционала ApplePay в стандартном флоу. NULL - параметры с сервера                             |
-| renderSavedCards       | Boolean?                            | нет             | Флаг настройки показа функционала сохраненных карт в стандартном флоу. NULL - параметры с сервера                     |
-| renderSecurityBiometry | Boolean?                            | нет             | Флаг глобальной настройки в сдк для биометрии при оплате сохраненной картой или ApplePay. NULL - параметры с сервера  |
-| renderSecurityCvv      | Boolean?                            | нет             | Флаг глобальной настройки в сдк для показа боттомщита с CVV при оплате сохраненной картой. NULL - параметры с сервера |
-| autoCharge             | Int                                 | нет             | Автоматическое подтверждение при 2х-стадийном режиме 0 - нет, 1 - да                                                  |
-| goods                  | List<AirbaPaySdk.Goods>             | нет             | Список продуктов для оплаты. Если есть необходимость передачи списка товаров в систему                                |
-| settlementPayments     | List<AirbaPaySdk.SettlementPayment> | нет             | Распределение платежа по компаниям. В случае одной компании, может быть null                                          |
+| Параметр               | Тип                             | Обязательный    | Описание                                                                                                              |
+|------------------------|---------------------------------|-----------------|-----------------------------------------------------------------------------------------------------------------------|
+| authToken              | String                          | да              | Токен, полученный из auth или другой реализацией получения токена                                                     |
+| failureCallback        | String                          | да              | URL вебхука при ошибке                                                                                                |
+| successCallback        | String                          | да              | URL вебхука при успехе                                                                                                |
+| purchaseAmount         | Double                          | да              | Сумма платежа                                                                                                         |
+| accountId              | String                          | да              | ID аккаунта пользователя                                                                                              |
+| invoiceId              | String                          | да              | ID платежа в системе магазина                                                                                         |
+| orderNumber            | String                          | да              | Номер заказа в системе магазина                                                                                       |
+| onSuccess              | (String) -> Void                | да              | Лямбда на успех. Возвращает paymentId                                                                                 |
+| onError                | () -> Void                      | да              | Лямбда на ошибку                                                                                                      |
+| renderApplePay         | Bool?                           | нет             | Флаг настройки показа функционала ApplePay в стандартном флоу. NULL - параметры с сервера                             |
+| renderSavedCards       | Bool?                           | нет             | Флаг настройки показа функционала сохраненных карт в стандартном флоу. NULL - параметры с сервера                     |
+| renderSecurityBiometry | Bool?                           | нет             | Флаг глобальной настройки в сдк для биометрии при оплате сохраненной картой или ApplePay. NULL - параметры с сервера  |
+| renderSecurityCvv      | Bool?                           | нет             | Флаг глобальной настройки в сдк для показа боттомщита с CVV при оплате сохраненной картой. NULL - параметры с сервера |
+| autoCharge             | Int                             | нет             | Автоматическое подтверждение при 2х-стадийном режиме 0 - нет, 1 - да                                                  |
+| goods                  | [AirbaPaySdk.Goods]             | нет             | Список продуктов для оплаты. Если есть необходимость передачи списка товаров в систему                                |
+| settlementPayments     | [AirbaPaySdk.SettlementPayment] | нет             | Распределение платежа по компаниям. В случае одной компании, может быть null                                          |
 
 
 ```
-AirbaPaySdk.createPayment(
+airbaPaySdk.createPayment(
                 authToken: token,
                 failureCallback: "https://site.kz/failure-clb",
                 successCallback: "https://site.kz/success-clb",
@@ -299,7 +299,7 @@ AirbaPaySdk.createPayment(
 | shopName            | String  | нет          | Название магазина, передающееся в боттомщит ApplePay                   |
 
 ```
-    AirbaPaySdk.standardFlow(
+    airbaPaySdk.standardFlow(
         isApplePayNative: true,
         applePayMerchantId: "merchant.~",
         shopName: "Shop Name"
@@ -307,7 +307,7 @@ AirbaPaySdk.createPayment(
     
     или для вебверсии
     
-    AirbaPaySdk.standardFlow(
+    airbaPaySdk.standardFlow(
         isApplePayNative: false,
         applePayMerchantId: nil
     )
@@ -341,7 +341,7 @@ AirbaPaySdk.createPayment(
 
 Запрос списка сохраненных карт пользователя
 ```getCards()```
-Предварительно выполнить ```AirbaPaySdk.authPassword()``` или ```AirbaPaySdk.authJwt()```
+Предварительно выполнить ```airbaPaySdk.authPassword()``` или ```airbaPaySdk.authJwt()```
 
 | Параметр  | Тип                            | Обязательный | Описание                                       |
 |-----------|--------------------------------|--------------|------------------------------------------------|
@@ -350,7 +350,7 @@ AirbaPaySdk.createPayment(
 
 Запрос удаления сохраненной карты пользователя
 ```deleteCard()```
-Предварительно выполнить ```AirbaPaySdk.authPassword()``` или ```AirbaPaySdk.authJwt()```
+Предварительно выполнить ```airbaPaySdk.authPassword()``` или ```airbaPaySdk.authJwt()```
 
 | Параметр  | Тип                  | Обязательный | Описание             |
 |-----------|----------------------|--------------|----------------------|
@@ -360,7 +360,7 @@ AirbaPaySdk.createPayment(
 
 Запрос проведения оплаты по сохраненной карте пользователя
 ```paySavedCard()```
-Предварительно выполнить ```AirbaPaySdk.authPassword()``` или ```AirbaPaySdk.authJwt()```
+Предварительно выполнить ```airbaPaySdk.authPassword()``` или ```airbaPaySdk.authJwt()```
 
 | Параметр   | Тип                      | Обязательный | Описание                                              |
 |------------|--------------------------|--------------|-------------------------------------------------------|
@@ -446,7 +446,7 @@ struct TestApp: App {
 | goods                 | Array<AirbaPaySdk.Goods>             | да           | Список продуктов для оплаты                                                     |
 | settlementPayments    | Array<AirbaPaySdk.SettlementPayment> | нет          | Распределение платежа по компаниям. В случае одной компании, может быть nil     |
 | shopName              | String                               | нет          | Название магазина для нативного ApplePay                                        |
-| isApplePayNative      | Boolean                              | нет          | Флаг, определяющий показ нативной кнопки ApplePay вместо вебвьюшки              |
+| isApplePayNative      | Bool                                 | нет          | Флаг, определяющий показ нативной кнопки ApplePay вместо вебвьюшки              |
 | applePayMerchantId    | String                               | нет          | Айдишка мерчанта, прописанная в консоли ApplePay                                |
 | needDisableScreenShot | Bool                                 | нет          | Флаг включения/отключения защиты от скриншота страниц. По дефолту выключен      |
 
