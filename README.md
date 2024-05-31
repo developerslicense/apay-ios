@@ -305,7 +305,7 @@ airbaPaySdk.createPayment(
         shopName: "Shop Name"
     )
     
-    или для вебверсии
+    или для вебверсии ApplePay
     
     airbaPaySdk.standardFlow(
         isApplePayNative: false,
