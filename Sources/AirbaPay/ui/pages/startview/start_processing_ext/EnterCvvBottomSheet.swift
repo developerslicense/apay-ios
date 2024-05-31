@@ -27,9 +27,6 @@ func showBottomSheetEnterCvv(
         viewController.transitioningDelegate = transitioningDelegate
         viewController.modalPresentationStyle = .custom
 
-//        airbaPaySdk.navigateCoordinator.present(viewController, animated: true)
-
-
         let window = UIApplication.shared.connectedScenes
                 .filter({$0.activationState == .foregroundActive})
                 .map({$0 as? UIWindowScene})

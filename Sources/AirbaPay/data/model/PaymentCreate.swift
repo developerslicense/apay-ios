@@ -24,7 +24,8 @@ struct PaymentCreateRequest: Encodable {
     var currency: String = "KZT"
 
     var description: String = "description"
-    var cart: [AirbaPaySdk.Goods]
+    var addParameters: AddParameters?
+    var cart: [AirbaPaySdk.Goods]?
 
     enum CodingKeys: String, CodingKey {
         case accountId = "account_id"
@@ -46,6 +47,7 @@ struct PaymentCreateRequest: Encodable {
         case currency = "currency"
 
         case description = "description"
+        case addParameters = "add_parameters"
 
     }
 }
@@ -59,11 +61,35 @@ struct PaymentCreateResponse: Decodable {
     var id: String?
     var status: String?
     var redirectURL: String?
+    var addParameters: AddParameters?
 
     enum CodingKeys: String, CodingKey {
         case invoiceId = "invoice_id"
         case id = "id"
         case status = "status"
         case redirectURL = "redirectURL"
+        case addParameters = "add_parameters"
+    }
+}
+
+struct AddParameters: Decodable, Encodable {
+    var payform: PayForm?
+
+    enum CodingKeys: String, CodingKey {
+        case payform = "payform"
+    }
+}
+
+struct PayForm: Decodable, Encodable {
+    var renderApplePay: Bool?
+    var requestCvv: Bool?
+    var requestFaceId: Bool?
+    var renderSaveCards: Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case renderApplePay = "render_apple_pay"
+        case requestCvv = "request_cvv"
+        case requestFaceId = "request_face_id"
+        case renderSaveCards = "render_save_cards"
     }
 }

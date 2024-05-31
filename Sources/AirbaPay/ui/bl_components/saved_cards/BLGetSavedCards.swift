@@ -7,7 +7,7 @@
 
 import Foundation
 
-func blGetCards(
+func blGetSavedCards(
         onSuccess: @escaping ([BankCard]) -> Void,
         onNoCards: @escaping () -> Void
 ) {

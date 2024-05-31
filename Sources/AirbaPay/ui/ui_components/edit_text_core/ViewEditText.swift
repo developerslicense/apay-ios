@@ -13,6 +13,7 @@ struct ViewEditText: View {
     var isDateExpiredMask: Bool = false
     var isCardNumberMask: Bool = false
     var isCvvMask: Bool = false
+    var isText: Bool = false // только для тестовой страницы
     var keyboardType: UIKeyboardType = .decimalPad
     var actionOnTextChanged: (String) -> Void
     var actionClickInfo: (() -> Void)?
@@ -21,12 +22,14 @@ struct ViewEditText: View {
     var body: some View {
 
         VStack {
+
             CoreEditText(
                     viewModel: viewModel,
                     isError: errorTitle != nil,
                     isDateExpiredMask: isDateExpiredMask,
                     isCardNumberMask: isCardNumberMask,
                     isCvvMask: isCvvMask,
+                    isText: isText,
                     placeholder: placeholder,
                     keyboardType: keyboardType,
                     actionOnTextChanged: actionOnTextChanged,
@@ -50,5 +53,3 @@ struct ViewEditText: View {
         }
     }
 }
-
-

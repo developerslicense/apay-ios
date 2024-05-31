@@ -7,42 +7,49 @@
 import Foundation
 
 func blCheckSavedCardNeedCvv(
-        cardId: String,
-        needFaceId: Bool = true,
-        toggleCvv: @escaping () -> Void,
+        navigateCoordinator: AirbaPayCoordinator,
+        selectedCard: BankCard,
         isLoading: @escaping (Bool) -> Void,
-        navigateCoordinator: AirbaPayCoordinator
+        onError: (() -> Void)? = nil,
+        showCvv: @escaping () -> Void
 ) {
     Task {
-        if let result = await paymentGetCvv(cardId: cardId) {
-            DataHolder.isApplePayFlow = false
+        if let result = await paymentGetCvv(cardId: selectedCard.id!) {
 
             if (result.requestCvv == true) {
-                toggleCvv()
+                showCvv()
 
-            } else if !needFaceId {
-                blProcessSavedCard(
-                        cardId: cardId,
-                        cvv: nil,
-                        isLoading: isLoading,
-                        navigateCoordinator: navigateCoordinator
-                )
-                
-            } else {
+            } else if (DataHolder.isRenderSecurityBiometry()) {
                 blBiometricAuthenticate(
                         onSuccess: {
+                            isLoading(true)
                             blProcessSavedCard(
-                                    cardId: cardId,
+                                    cardId: selectedCard.id ?? "",
                                     cvv: nil,
                                     isLoading: isLoading,
                                     navigateCoordinator: navigateCoordinator
                             )
                         },
                         onNotSecurity: {
-                            toggleCvv()
+                            showCvv()
                         }
                 )
+
+            } else if (DataHolder.isRenderSecurityCvv()) {// не объединять с 1-м, т.к. у этого приоритет ниже, чем у renderSecurityBiometry
+                showCvv()
+
+            } else {
+                isLoading(true)
+                blProcessSavedCard(
+                        cardId: selectedCard.id ?? "",
+                        cvv: nil,
+                        isLoading: isLoading,
+                        navigateCoordinator: navigateCoordinator
+                )
             }
+
+        } else if onError != nil {
+            onError!()
 
         } else {
             DispatchQueue.main.async {

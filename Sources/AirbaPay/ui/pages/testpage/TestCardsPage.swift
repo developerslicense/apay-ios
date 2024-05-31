@@ -43,24 +43,16 @@ struct TestCardsPagee: View {
                             let card = savedCards[index]
 
                             VStack {
-                                Text(card.name ?? "no name")
+                                Text("Оплатить картой " + (card.getMaskedPanClearedWithPoint()))
                             }
-
                                     .frame(maxWidth: .infinity)
                                     .frame(height: 48)
                                     .background(ColorsSdk.textBlue)
-                                    //                       .background(ColorsSdk.bgAPAY)
                                     .cornerRadius(8)
                                     .padding(.vertical, 16)
                                     .padding(.horizontal, 16)
                                     .onTapGesture {
-                                        if card.name?.contains("без FaceId") == true {
-
-                                            airbaPaySdk.paySavedCard(needFaceId: false, bankCard: card, isLoading: {b in }, onError: {} )
-
-                                        } else {
-                                            airbaPaySdk.paySavedCard(needFaceId: true, bankCard: card, isLoading: {b in }, onError: {} )
-                                        }
+                                        airbaPaySdk.paySavedCard(bankCard: card, isLoading: { b in }, onError: {})
                                     }
 
                         }
@@ -112,35 +104,11 @@ struct TestCardsPagee: View {
             }
         }
                 .onAppear {
-                    airbaPaySdk.auth(
-                            onSuccess: {
-                                airbaPaySdk.getCards(
-                                        onSuccess: { cards in
-                                            savedCards = []
-                                            cards.forEach { card in
-                                                if card.getMaskedPanClearedWithPoint().contains("1111") {
-
-                                                    var card1 = card
-                                                    card1.name = card.getMaskedPanClearedWithPoint() + " Оплата сохраненной картой c FaceId"
-                                                    savedCards.append(card1)
-
-                                                    var card2 = card
-                                                    card2.name = card.getMaskedPanClearedWithPoint() + " Оплата сохраненной картой без FaceId"
-                                                    savedCards.append(card2)
-
-                                                } else {
-                                                    var card1 = card
-                                                    card1.name = card.getMaskedPanClearedWithPoint() + " Оплата сохраненной картой CVV"
-                                                    savedCards.append(card1)
-                                                }
-                                            }
-                                        },
-                                        onNoCards: { }
-                                )
+                    airbaPaySdk.getCards(
+                            onSuccess: { cards in
+                                savedCards = cards
                             },
-                            onError: {
-
-                            }
+                            onNoCards: { }
                     )
 
                 }

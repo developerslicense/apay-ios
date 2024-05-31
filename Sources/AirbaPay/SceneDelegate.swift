@@ -23,6 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowsScene
         window?.makeKeyAndVisible()
 
+        DataHolder.isApplePayNative = true
         let vc = UIViewController()
 
         let navigation = UINavigationController(rootViewController: vc)
@@ -33,6 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         vc.navigationController?.setNavigationBarHidden(true, animated: false)
         vc.navigationController?.toolbar?.isHidden = true
 //        vc.navigationController?.pushViewController(newVC, animated: false) // todo appleTD
+        newVC.modalPresentationStyle = .fullScreen
         vc.navigationController?.present(newVC, animated: false)
     }
 

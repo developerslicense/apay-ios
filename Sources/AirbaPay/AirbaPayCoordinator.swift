@@ -101,21 +101,24 @@ class AirbaPayCoordinator: UIViewController {
     }
 
     func openPage(content: some View) {
-        if navigation == nil {
-            if let window = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first {
-                navigation = UINavigationController(rootViewController: self)
-                window.rootViewController = navigation
+        DispatchQueue.main.async {
+
+            if self.navigation == nil {
+                if let window = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first {
+
+                    self.navigation = UINavigationController(rootViewController: self)
+                    window.rootViewController = self.navigation
+                }
             }
+
+            let newVC = UIHostingController(rootView: content)
+
+            self.navigationController?.setToolbarHidden(true, animated: false)
+            self.navigationController?.setNavigationBarHidden(true, animated: false)
+            self.navigationController?.toolbar?.isHidden = true
+            self.navigationController?.popViewController(animated: false)
+            self.navigationController?.pushViewController(newVC, animated: false)
         }
-
-        let newVC = UIHostingController(rootView: content)
-
-        navigationController?.setToolbarHidden(true, animated: false)
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        navigationController?.toolbar?.isHidden = true
-        navigationController?.popViewController(animated: false)
-        navigationController?.pushViewController(newVC, animated: false)
-
     }
 
 }

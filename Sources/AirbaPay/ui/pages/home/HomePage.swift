@@ -60,7 +60,7 @@ struct HomePage: View {
                                                    && viewModel.cardNumberText.isEmpty
                                                    && viewModel.cvvText.isEmpty
                                    ) {
-                                    if !DataHolder.featureSavedCards || !DataHolder.hasSavedCards {
+                                    if !DataHolder.isRenderSavedCards() || !DataHolder.hasSavedCards {
                                         navigateCoordinator.backToApp()
                                     } else {
                                         navigateCoordinator.backToStartPage()
@@ -73,11 +73,14 @@ struct HomePage: View {
                     )
                             .frame(maxWidth: .infinity, alignment: .leading)
 
-                    TopInfoView(purchaseAmount: DataHolder.purchaseAmountFormatted)
+                    TopInfoView(
+                            purchaseAmount: DataHolder.purchaseAmountFormatted,
+                            purchaseNumber: DataHolder.purchaseNumber
+                    )
                             .padding(.top, 24)
                             .padding(.horizontal, 16)
 
-                    if DataHolder.featureApplePay
+                    if DataHolder.isRenderApplePay()
                                && !DataHolder.hasSavedCards
                                && context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
                     {
@@ -142,7 +145,7 @@ struct HomePage: View {
                             .padding(.horizontal, 16)
                             .frame(width: .infinity)
 
-                    if DataHolder.featureSavedCards {
+                    if DataHolder.isRenderSavedCards() {
                         SwitchedView(
                                 text: saveCardData(),
                                 switchCheckedState: switchSaveCard,

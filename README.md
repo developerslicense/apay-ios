@@ -4,21 +4,24 @@
 ## V2
 ------------------------------------------------------------------------------------------------------------------------
 
-## 1.1 Подключение sdk
+## 1 Подключение sdk
 
-## 1.2 Flutter - дополнительные шаги интеграции
+## 2 Flutter - дополнительные шаги интеграции
 
-## 1.3 Подключение нативного ApplePay
+## 3 Подключение нативного ApplePay
 
-## 1.4 API формы стандартного флоу
+## 4 API создания платежа
 
-## 1.5 API создания платежа
+## 5 API формы стандартного флоу
 
-## 1.6 API ApplePay
+## 6 API ApplePay
 
-## 1.7 API сохраненных карт
+## 7 API сохраненных карт
 
-## 1.1 Подключение sdk // в следующей версии будет изменение для работы с JWT токеном и списком продуктов
+
+
+
+## 1 Подключение sdk  
 
 1) SPM -> GitHub - ```developerslicense/apay-ios```
 
@@ -54,84 +57,39 @@ struct TestApp: App {
 
 Для инициализации sdk нужно выполнить ```AirbaPaySdk.initSdk()```. Функция возвращает экземпляр класса```AirbaPaySdk```.
 
-| Параметр                       | Тип                                               | Обязательный | Описание                                                                                                                     |
-|--------------------------------|---------------------------------------------------|--------------|------------------------------------------------------------------------------------------------------------------------------|
-| shopId                         | String                                            | да           | ID магазина в системе AirbaPay                                                                                               |
-| password                       | String                                            | да           | Пароль в системе AirbaPay                                                                                                    |
-| terminalId                     | String                                            | да           | ID терминала под которым создали платеж                                                                                      |
-| accountId                      | String                                            | да           | ID аккаунта пользователя                                                                                                     |
-| lang                           | AirbaPaySdk.Lang                                  | да           | Код языка для UI                                                                                                             |
-| isProd                         | Bool                                              | да           | Продовская или тестовая среда airbapay                                                                                       |
-| phone                          | String                                            | да           | Телефон пользователя                                                                                                         |
-| failureCallback                | String                                            | да           | URL вебхука при ошибке                                                                                                       |
-| successCallback                | String                                            | да           | URL вебхука при успехе                                                                                                       |
-| userEmail                      | String                                            | да           | Емейл пользователя, куда будет отправлена квитанция. В случае отсутствия емейла                                              |
-| colorBrandMain                 | Color                                             | нет          | Брендовый цвет кнопок, переключателей и текста                                                                               |
-| colorBrandInversion            | Color                                             | нет          | Цвет текста у кнопок с брендовым цветом                                                                                      |
-| autoCharge                     | Int                                               | нет          | Автоматическое подтверждение при 2х-стадийном режиме 0 - нет, 1 - да                                                         |
-| enabledLogsForProd             | Bool                                              | нет          | Флаг для включения логов                                                                                                     |
-| purchaseAmount                 | Double                                            | да           | Сумма платежа                                                                                                                |
-| invoiceId                      | String                                            | да           | ID платежа в системе магазина                                                                                                | 
-| orderNumber                    | String                                            | да           | Номер заказа в системе магазина                                                                                              |
-| goods                          | Array<AirbaPaySdk.Goods>                          | да           | Список продуктов для оплаты                                                                                                  |
-| settlementPayments             | Array<AirbaPaySdk.SettlementPayment>              | нет          | Распределение платежа по компаниям. В случае одной компании, может быть nil                                                  |
-| shopName                       | String                                            | нет          | Название магазина для нативного ApplePay                                                                                     |
-| isApplePayNative               | Boolean                                           | нет          | Флаг, определяющий показ нативной кнопки ApplePay вместо вебвьюшки                                                           |
-| applePayMerchantId             | String                                            | нет          | Айдишка мерчанта, прописанная в консоли ApplePay                                                                             |
-| needDisableScreenShot          | Bool                                              | нет          | Флаг включения/отключения защиты от скриншота страниц. По дефолту выключен                                                   |
-| actionOnCloseProcessing        | @escaping (Bool?, UINavigationController) -> Void | да           | Замыкание для возврата в приложение. Bool - результат успех или ошибка. UINavigationController - для вызова функций возврата |
-| openCustomPageSuccess          | (() -> Void)?                                     | нет          | Замыкание для перехода на кастомную страницу успеха                                                                          |
-| openCustomPageFinalError       | (() -> Void)?                                     | нет          | Замыкание для перехода на кастомную страницу финальной ошибки                                                                |
-| manualDisableFeatureApplePay   | Bool                                              | нет          | Флаг скрытия кнопки ApplePay в стандартном флоу                                                                              |
-| manualDisableFeatureSavedCards | Bool                                              | нет          | Флаг скрытия функционала сохраненных карт в стандартном флоу                                                                 |
+| Параметр                  | Тип                                               | Обязательный | Описание                                                                                                                                              |
+|---------------------------|---------------------------------------------------|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| isProd                    | Bool                                              | да           | Продовская или тестовая среда airbapay                                                                                                                |
+| lang                      | AirbaPaySdk.Lang                                  | да           | Код языка для UI                                                                                                                                      |
+| phone                     | String                                            | да           | Телефон пользователя                                                                                                                                  |
+| userEmail                 | String                                            | нет          | Емейл пользователя, куда будет отправлена квитанция. В случае отсутствия емейла                                                                       |
+| colorBrandMain            | Color                                             | нет          | Брендовый цвет кнопок, переключателей и текста                                                                                                        |
+| colorBrandInversion       | Color                                             | нет          | Цвет текста у кнопок с брендовым цветом                                                                                                               |
+| enabledLogsForProd        | Bool                                              | нет          | Флаг для включения логов                                                                                                                              |
+| needDisableScreenShot     | Bool                                              | нет          | Флаг включения/отключения защиты от скриншота страниц. По дефолту выключен                                                                            |
+| actionOnCloseProcessing   | @escaping (Bool?, UINavigationController) -> Void | да           | Лямбда, вызываемая при клике на кнопку "Вернуться в магазин" и при отмене процесса. Разработчику в ней нужно прописать код для возврата в приложение. |
+| openCustomPageSuccess     | (() -> Void)?                                     | нет          | Лямбда кастомной страницы успеха                                                                                                                      |
+| openCustomPageFinalError  | (() -> Void)?                                     | нет          | Лямбда кастомной страницы финальной ошибки                                                                                                            |
+
 
 Пример:
 
-```
-      let goods = [
-           AirbaPaySdk.Goods(
-               model: "Чай Tess Banana Split черный 20 пирамидок",
-               brand: "Tess",
-               category: "Черный чай",
-               quantity: 1,
-               price: 1000
-           )
-       ]
-
-       let settlementPayment = [
-           AirbaPaySdk.SettlementPayment(
-               amount: 1000,
-               companyId: "test_id"
-           )
-       ]
-       
+```    
        let airbaPaySdk = AirbaPaySdk.initSdk(
             isProd: false,
             lang: AirbaPaySdk.Lang.RU(),
-            accountId: ACCOUNT_ID_TEST,
             phone: PHONE,
             userEmail: "test@test.com",
-            shopId: "test",
-            password: "123456!",
-            terminalId: "64216e7ccc4a48db060dd6891",
-            failureCallback: "https://site.kz/failure-clb",
-            successCallback: "https://site.kz/success-clb",
             colorBrandMain: Color.red,
-            autoCharge: autoCharge,
-            purchaseAmount: 1500.0,
-            invoiceId: String(someInvoiceId),
-            orderNumber: String(someOrderNumber),
-            goods: goods,
-            settlementPayments: settlementPayment,
-            isApplePayNative: true,
-            shopName: "Shop Name",
-            applePayMerchantId: "merchant.~"
+            actionOnCloseProcessing: { isSuccess, navigation in
+               navigation.present(~)   
+            }
        )
 
 
  ```
 
-## 1.2 Flutter - дополнительные шаги интеграции
+## 2 Flutter - дополнительные шаги интеграции
 
 1) В dart добавьте:
 
@@ -171,7 +129,11 @@ struct TestApp: App {
             // и закрытия сдк через uiNavigationController.dismiss(animated: false) или другие способы
          )
        )
-       airbaPaySdk.startProcessing()
+       airbaPaySdk.standardFlow(
+            isApplePayNative: true,
+            applePayMerchantId: "merchant.~",
+            shopName: "Shop Name"
+       )
     
      } else {
        result.submit(FlutterMethodNotImplemented)
@@ -211,16 +173,12 @@ struct TestApp: App {
    })
    ```
 
-## 1.3 Подключение нативного ApplePay
+## 3 Подключение нативного ApplePay
 
-1) В случае, если используется:
-   А) Стандартный флоу
-   Б) ```processExternalApplePay()```(без передачи ApplePay token из приложения)
-
-   Тогда добавить параметры в ```initSdk```
+1) Добавить параметры в ```standardFlow```
    ```isApplePayNative: true```
    ```applePayMerchantId: "merchant.~"```
-   ```manualDisableFeatureApplePay: true```
+   ```shopName: "Shop Name" ```
 
 2) Перейти в консоль ApplePay https://developer.apple.com/account/resources/identifiers/list
 
@@ -236,62 +194,154 @@ struct TestApp: App {
 5) Выберите
    - Apple Pay Prod Service merchant.~.pf
    - Apple Pay Test Service merchant.~.spf
+   
    и нажмите continue
 
 6) Нажмите Save
 
 7) Зайдите в XCode в Targets -> Signing & Capabilities добавьте Apple Pay айди мерчантов поставьте галочки
 
-## 1.4 API формы стандартного флоу
+## 4 API создания платежа
 
-Открытие стандартной формы AirbaPay выполняется через ```airbaPaySdk.startAirbaPay()```.
+Запрос на авторизацию в системе AirbaPay через передачу логина, пароля и айди терминала. Возвращает токен.
+```authPassword()```
 
-Возможно, в случае наличия на странице системных элементов управления (к примеру, кнопки назад),
-потребуется скрыть их (в случае навигации в swiftUi через  ```.navigationBarBackButtonHidden(true) ```)
+| Параметр   | Тип                        | Обязательный | Описание                                                                                                              |
+|------------|----------------------------|--------------|-----------------------------------------------------------------------------------------------------------------------|
+| terminalId | String                     | да           | ID терминала под которым создаётся платеж                                                                             |
+| shopId     | String                     | да           | ID магазина в системе AirbaPay                                                                                        |
+| password   | String                     | да           | Пароль в системе AirbaPay                                                                                             |
+| paymentId  | String?                    | нет          | ID платежа. В абсолютном большинстве случаев в этом запросе будет null. Нужен для обновления токена с новым paymentId |
+| onSuccess  | @escaping (String) -> Void | да           | Лямбда на успех. Возвращает токен                                                                                     |
+| onError    | @escaping  () -> Void      | да           | Лямбда на ошибку                                                                                                      |
 
-## 1.5 API создания платежа
 
 ```
-   ВНИМАНИЕ! 
-   Эти две функции применяются только для внешнего API. 
-   Все случаи, когда их применение необходимо, указаны в соответствующих шагах интеграции
+AirbaPaySdk.authPassword(
+      terminalId: "123qdfssdf",
+      shopId: "test", 
+      password: "test123!"
+      onSuccess: { token in ~  },
+      onError: { ~ }    
+)
+        
 ```
 
-Запрос на авторизацию в системе AirbaPay
-```auth()```
+Запрос на авторизацию в системе AirbaPay через передачу JWT.
+```authJwt()```
 
-| Параметр  | Тип                  | Обязательный | Описание            |
-|-----------|----------------------|--------------|---------------------|
-| onSuccess | @escaping () -> Void | да           | Замыкание на успех  |
-| onError   | @escaping () -> Void | да           | Замыкание на ошибку |
+| Параметр    | Тип                     | Обязательный | Описание           |
+|-------------|-------------------------|--------------|--------------------|
+| jwt         | String                  | да           | JWT токен          |
+| onSuccess   | @escaping () -> Unit    | да           | Лямбда на успех.   |
+| onError     | @escaping () -> Unit    | да           | Лямбда на ошибку   |
 
-Запрос на инициализацию платежа в системе AirbaPay
-```initPayment()```
 
-| Параметр  | Тип                  | Обязательный | Описание            |
-|-----------|----------------------|--------------|---------------------|
-| onSuccess | @escaping () -> Void | да           | Замыкание на успех  |
-| onError   | @escaping () -> Void | да           | Замыкание на ошибку |
+```
+AirbaPaySdk.authJwt(
+        onSuccess: { ~  },
+        onError: { ~ },
+        jwt: "~"
+)
+        
+```
 
-## 1.6 API ApplePay
+Запрос на инициализацию платежа в системе AirbaPay.
+Возвращает ```paymentId``` и вторым параметром обновленный токен.
+```createPayment()```
 
-Для работы с ApplePay за пределами стандартного флоу есть два способа:
+| Параметр               | Тип                                 | Обязательный    | Описание                                                                                                              |
+|------------------------|-------------------------------------|-----------------|-----------------------------------------------------------------------------------------------------------------------|
+| authToken              | String                              | да              | Токен, полученный из auth или другой реализацией получения токена                                                     |
+| failureCallback        | String                              | да              | URL вебхука при ошибке                                                                                                |
+| successCallback        | String                              | да              | URL вебхука при успехе                                                                                                |
+| purchaseAmount         | Double                              | да              | Сумма платежа                                                                                                         |
+| accountId              | String                              | да              | ID аккаунта пользователя                                                                                              |
+| invoiceId              | String                              | да              | ID платежа в системе магазина                                                                                         |
+| orderNumber            | String                              | да              | Номер заказа в системе магазина                                                                                       |
+| onSuccess              | (String) -> Unit                    | да              | Лямбда на успех. Возвращает paymentId                                                                                 |
+| onError                | () -> Unit                          | да              | Лямбда на ошибку                                                                                                      |
+| renderGooglePay        | Boolean?                            | нет             | Флаг настройки показа функционала GooglePay в стандартном флоу. NULL - параметры с сервера                            |
+| renderSavedCards       | Boolean?                            | нет             | Флаг настройки показа функционала сохраненных карт в стандартном флоу. NULL - параметры с сервера                     |
+| renderSecurityBiometry | Boolean?                            | нет             | Флаг глобальной настройки в сдк для биометрии при оплате сохраненной картой или GooglePay. NULL - параметры с сервера |
+| renderSecurityCvv      | Boolean?                            | нет             | Флаг глобальной настройки в сдк для показа боттомщита с CVV при оплате сохраненной картой. NULL - параметры с сервера |
+| autoCharge             | Int                                 | нет             | Автоматическое подтверждение при 2х-стадийном режиме 0 - нет, 1 - да                                                  |
+| goods                  | List<AirbaPaySdk.Goods>             | нет             | Список продуктов для оплаты. Если есть необходимость передачи списка товаров в систему                                |
+| settlementPayments     | List<AirbaPaySdk.SettlementPayment> | нет             | Распределение платежа по компаниям. В случае одной компании, может быть null                                          |
 
-1) Выполнить ```initSdk``` с дополнительными параметрами
-   ```isApplePayNative: true```
-   ```applePayMerchantId: "merchant.~"```
-   Вызвать ```airbaPaySdk.processExternalApplePay()```
 
-2) Реализовать на стороне приложения получение токена ApplePay.
-   Выполнить ```initSdk``` с дополнительным параметром ```isApplePayNative: true```
-   Выполнить ```airbaPaySdk.auth(onSuccess: { self.airbaPaySdk.initPayment(~) }, onError: {~})```
-   Вызвать ```airbaPaySdk.processExternalApplePay(applePayToken: String)``` с пробросом в качестве параметра токена
-   ApplePay
+```
+AirbaPaySdk.createPayment(
+                authToken: token,
+                failureCallback: "https://site.kz/failure-clb",
+                successCallback: "https://site.kz/success-clb",
+                purchaseAmount: 1500.45,
+                accountId: "77061111112",
+                invoiceId: "1111111111",
+                orderNumber: "ab1111111111"
+                onSuccess: { paymentId -> ~ },
+                onError: { ~ }
+            )            
+```
 
-## 1.7 API сохраненных карт
+
+## 5 API формы стандартного флоу
+
+Предварительно выполнить ```airbaPaySdk.authPassword()``` вместе с ```airbaPaySdk.createPayment()```
+Или выполнить только ```airbaPaySdk.authJwt()```
+
+Открытие стандартной формы AirbaPay выполняется через ```airbaPaySdk.standardFlow()```.
+
+| Параметр            | Тип     | Обязательный | Описание                                                               |
+|---------------------|---------|--------------|------------------------------------------------------------------------|
+| isApplePayNative    | Bool    | да           | Флаг, определяющий показ нативной кнопки ApplePay вместо вебвьюшки     |
+| applePayMerchantId  | String? | да           | ID мерчанта ApplePay. Нужен для нативной формы. В случае вебверсии NIL |
+| shopName            | String  | нет          | Название магазина, передающееся в боттомщит ApplePay                   |
+
+```
+    AirbaPaySdk.standardFlow(
+        isApplePayNative: true,
+        applePayMerchantId: "merchant.~",
+        shopName: "Shop Name"
+    )
+    
+    или для вебверсии
+    
+    AirbaPaySdk.standardFlow(
+        isApplePayNative: false,
+        applePayMerchantId: nil
+    )
+```
+
+## 6 API ApplePay
+
+Для работы с ApplePay за пределами стандартного флоу:
+
+1) Полностью реализовать на стороне приложения механизм вызова GooglePay боттомщита
+   и получения GooglePay токена.
+
+2) Выполнить пункт "3 Подключение нативного ApplePay"
+
+3) Предварительно выполнить ```airbaPaySdk.authPassword()``` вместе с ```airbaPaySdk.createPayment()```
+   Или выполнить только ```airbaPaySdk.authJwt()```
+
+4) Вызвать после получения токена ApplePay функцию  ```processExternalApplePay()```
+
+   | Параметр       | Тип      | Обязательный | Описание       |
+   |----------------|----------|--------------|----------------|
+   | applePayToken  | String   | да           | Токен ApplePay |
+
+
+   ``` 
+    airbaPaySdk.processExternalGooglePay(applePayToken: applePayToken)
+   ```
+
+
+## 7 API сохраненных карт
 
 Запрос списка сохраненных карт пользователя
 ```getCards()```
+Предварительно выполнить ```AirbaPaySdk.authPassword()``` или ```AirbaPaySdk.authJwt()```
 
 | Параметр  | Тип                            | Обязательный | Описание                                       |
 |-----------|--------------------------------|--------------|------------------------------------------------|
@@ -300,6 +350,7 @@ struct TestApp: App {
 
 Запрос удаления сохраненной карты пользователя
 ```deleteCard()```
+Предварительно выполнить ```AirbaPaySdk.authPassword()``` или ```AirbaPaySdk.authJwt()```
 
 | Параметр  | Тип                  | Обязательный | Описание             |
 |-----------|----------------------|--------------|----------------------|
@@ -309,12 +360,10 @@ struct TestApp: App {
 
 Запрос проведения оплаты по сохраненной карте пользователя
 ```paySavedCard()```
-
-Перед вызовом выполнить ```airbaPaySdk.auth(onSuccess: { self.airbaPaySdk.initPayment(~) }, onError: {~})```
+Предварительно выполнить ```AirbaPaySdk.authPassword()``` или ```AirbaPaySdk.authJwt()```
 
 | Параметр   | Тип                      | Обязательный | Описание                                              |
 |------------|--------------------------|--------------|-------------------------------------------------------|
-| needFaceId | Bool                     | да           | Флаг отключения FaceId проверки личности              |
 | bankCard   | BankCard                 | да           | Экземпляр карты, получаемый из запроса ```getCards``` |
 | isLoading  | @escaping (Bool) -> Void | да           | Замыкание для показа прогрессбара                     |
 | onError    | @escaping () -> Void     | да           | Замыкание на ошибку                                   |
@@ -324,21 +373,21 @@ struct TestApp: App {
 ## V1
 ------------------------------------------------------------------------------------------------------------------------
 
-## 1.1 Подключение sdk
+## 1 Подключение sdk
 
-## 1.2 Вызов стартовой формы
+## 2 Вызов стартовой формы
 
-## 1.3 Пример использования
+## 3 Пример использования
 
-## 1.4 Подключение нативного ApplePay
+## 4 Подключение нативного ApplePay
 
-## 1.5 Подключение API внешнего взаимодействия с ApplePay (Нативный)
+## 5 Подключение API внешнего взаимодействия с ApplePay (Нативный)
 
-## 1.6 Подключение API внешнего взаимодействия с ApplePay (Вебвью)
+## 6 Подключение API внешнего взаимодействия с ApplePay (Вебвью)
 
-## 1.7 Рекомендация в случае интеграции в flutter
+## 7 Рекомендация в случае интеграции в flutter
 
-## 1.1  Подключение sdk
+## 1  Подключение sdk
 
 1) SPM -> GitHub - ```developerslicense/apay-ios```
 
@@ -447,7 +496,7 @@ struct TestApp: App {
 
  ```
 
-## 1.2 Вызов стартовой формы
+## 2 Вызов стартовой формы
 
 ```
 @ObservedObject var navigateCoordinator = AirbaPayCoordinator(
@@ -534,7 +583,7 @@ struct SwiftUIView: View {
 }
 ```
 
-## 1.3 Пример использования
+## 3 Пример использования
 
 В случае наличия на странице системных элементов управления (к примеру, кнопки назад),
 обязательно нужно скрыть их (в случае навигации в swiftUi через  ```.navigationBarBackButtonHidden(true) ```)
@@ -583,7 +632,7 @@ struct TestPage: View {
 }
 ```
 
-## 1.4 Подключение нативного ApplePay
+## 4 Подключение нативного ApplePay
 
 1) Добавить параметры в initSdk
    ```isApplePayNative: true```
@@ -609,7 +658,7 @@ struct TestPage: View {
 
 7) Зайдите в XCode в Targets -> Signing & Capabilities добавьте Apple Pay айди мерчантов поставьте галочки
 
-## 1.5 Подключение API внешнего взаимодействия с ApplePay (Нативный)
+## 5 Подключение API внешнего взаимодействия с ApplePay (Нативный)
 
 ```buyBtnTapped```
 
@@ -729,7 +778,7 @@ struct SwiftUIView: View {
 }
 ```
 
-## 1.6 Подключение API внешнего взаимодействия с ApplePay (Вебвью)
+## 6 Подключение API внешнего взаимодействия с ApplePay (Вебвью)
 
 Для работы с ApplePay потребуется вьюшка ```ApplePayWebViewExternal``` из ```AirbaPay```.
 Визуально она не будет отображаться на экране, т.к. занимает всего 0.1. Вьюшку можно поместить вниз экрана.
@@ -873,7 +922,7 @@ struct SwiftUIView: View {
 }
 ```
 
-## 1.7 Рекомендация в случае интеграции в flutter
+## 7 Рекомендация в случае интеграции в flutter
 
 1) В dart добавьте:
 
