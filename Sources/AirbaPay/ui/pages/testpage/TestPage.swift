@@ -193,6 +193,36 @@ struct TestPageAPSDK: View {
                             }
                     )
 
+                    Button(
+                            action: {
+                                UIApplication.shared.endEditing()
+                                let airbaPaySdk = testInitSdk(needDisableScreenShot: needDisableScreenShot)
+                                onStandardFlowPassword(
+                                        airbaPaySdk: airbaPaySdk,
+                                        autoCharge: autoCharge ? 1 : 0,
+                                        isLoading: { b in  },
+                                        onSuccess: { token in
+                                            airbaPaySdk.standardFlowWebView(
+                                                    isLoadingComplete: { isLoading = false },
+                                                    onError: { withAnimation { errorToast.toggle() }}
+                                            )
+                                        },
+                                        showError: {
+                                            isLoading = false
+                                            withAnimation { errorToast.toggle() }
+                                        }
+                                )
+
+
+                            },
+                            label: {
+                                Text("Стандартный флоу через вебвью")
+                                        .font(.system(size: 16))
+                                        .padding(16)
+
+                            }
+                    )
+
                     Text(
                             "Все нижние варианты требуют предварительно сгенерировать " +
                                     "или вставить JWT в поле ввода. " +
@@ -211,8 +241,6 @@ struct TestPageAPSDK: View {
                             isText: true,
                             keyboardType: .default,
                             actionOnTextChanged: { text in
-                                print("aaaaaaaaaa")
-                                print(text)
                                 editTextViewModel.text = text
                             }
                     )
@@ -520,9 +548,9 @@ func onStandardFlowPassword(
                         accountId: "77061111112",
                         invoiceId: invoiceId,
                         orderNumber: String(someOrderNumber),
-                        onSuccess: { paymentId, newToken in
+                        onSuccess: { result in
                             isLoading(false)
-                            onSuccess(newToken)
+                            onSuccess(result.token ?? "")
                         },
                         onError: {
                             isLoading(false)

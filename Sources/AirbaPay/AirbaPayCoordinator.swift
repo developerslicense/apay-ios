@@ -27,6 +27,13 @@ class AirbaPayCoordinator: UIViewController {
         openPage(content: StartProcessingPage(navigateCoordinator: self, applePay: applePay!))
     }
 
+    func startProcessingWebView(
+        redirectUrl: String?
+    ) {
+        LoggerHelper.nextPage(pageName: "ExternalStandardFlowWebView")
+        openPage(content: ExternalStandardFlowWebView(navigateCoordinator: self, redirectUrl: redirectUrl))
+    }
+
     func openHome() {
         LoggerHelper.nextPage(pageName: "HomePage")
         openPage(content: HomePage(navigateCoordinator: self, applePay: applePay!))
