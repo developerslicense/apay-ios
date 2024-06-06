@@ -24,6 +24,11 @@ public class AirbaPaySdk {
         case KZ(lang: String = "kz")
     }
 
+    public struct CreatePaymentResult {
+        public var token: String? = nil
+        public var paymentId: String? = nil
+    }
+
     public struct Goods: Encodable {
         public init(
                 brand: String,
@@ -139,6 +144,26 @@ public class AirbaPaySdk {
         }
     }
 
+    public func standardFlowWebView(
+            isLoadingComplete: @escaping () -> Void,
+            onError: @escaping () -> Void
+    ) {
+        if DataHolder.token != nil {
+            blGetPaymentInfo(
+                    onSuccess: { r in
+                        isLoadingComplete()
+                        self.navigateCoordinator.startProcessingWebView(redirectUrl: r.payformUrl)
+                    },
+                    onError: {
+                        isLoadingComplete()
+                        onError()
+                    }
+            )
+        } else {
+            print("AirbaPay. Нужно предварительно выполнить авторизацию и создание платежа")
+        }
+    }
+
     public func backToStartPage() {
         navigateCoordinator.backToStartPage()
     }
@@ -188,7 +213,7 @@ public class AirbaPaySdk {
             accountId: String,
             invoiceId: String,
             orderNumber: String,
-            onSuccess: @escaping (String, String) -> Void,
+            onSuccess: @escaping (AirbaPaySdk.CreatePaymentResult) -> Void,
             onError: @escaping () -> Void,
             renderSecurityCvv: Bool? = nil,
             renderSecurityBiometry: Bool? = nil,
