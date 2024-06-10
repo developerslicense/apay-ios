@@ -330,6 +330,8 @@ airbaPaySdk.createPayment(
 | shouldOverrideUrlLoading  | @escaping (AirbaPaySdk.ShouldOverrideUrlLoading) -> Void)   | да           | Замыкание, в котором описаны действия на коллбэки с вебвьюшки |
 
 ```    
+   import WebKit
+
    airbaPaySdk.standardFlowWebView(
       isLoadingComplete: { isLoading = false },
       shouldOverrideUrlLoading: { obj in
