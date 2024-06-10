@@ -4,12 +4,13 @@
 
 import Foundation
 import UIKit
+import WebKit
 
 class DataHolder {
     static var moduleBundle: Bundle?
             = Bundle.module /** в случае, если переносишь код в приложение, указывай Bundle.main*/
 
-    static var sdkVersion = "2.1.0"
+    static var sdkVersion = "2.1.1"
     static var baseUrl = ""
 
     static var connectTimeout = 60
@@ -40,6 +41,7 @@ class DataHolder {
     static var purchaseNumber: String = ""
 
     static var actionOnCloseProcessing: ((Bool?, UINavigationController) -> Void)? = nil
+    static var shouldOverrideUrlLoading: ((AirbaPaySdk.ShouldOverrideUrlLoading) -> Void)? = nil
 
     static var openCustomPageSuccess: (() -> Void)? = nil
     static var openCustomPageFinalError: (() -> Void)? = nil

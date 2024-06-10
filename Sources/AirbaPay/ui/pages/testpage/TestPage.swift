@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import SimpleToast
+import WebKit
 
 
 private let ACCOUNT_ID_TEST = "77061111112"
@@ -204,6 +205,29 @@ struct TestPageAPSDK: View {
                                         onSuccess: { token in
                                             airbaPaySdk.standardFlowWebView(
                                                     isLoadingComplete: { isLoading = false },
+                                                    shouldOverrideUrlLoading: { obj in
+                                                        if(obj.navAction.navigationType == .other) {
+                                                            obj.decisionHandler(.allow)
+                                                            return
+
+                                                        } else {
+
+                                                            if obj.isCallbackSuccess {
+                                                                airbaPaySdk.navigateCoordinator.openSuccess()
+
+                                                            } else if obj.isCallbackBackToApp {
+                                                                airbaPaySdk.navigateCoordinator.backToApp()
+
+                                                            } else {
+                                                                obj.decisionHandler(.allow)
+                                                                return
+                                                            }
+
+                                                        }
+
+                                                        obj.decisionHandler(.allow)
+
+                                                    },
                                                     onError: { withAnimation { errorToast.toggle() }}
                                             )
                                         },
