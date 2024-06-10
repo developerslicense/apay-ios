@@ -10,7 +10,7 @@ import SwiftUI
 
 class AirbaPayCoordinator: UIViewController {
 
-    private var navigation: UINavigationController? = nil
+    var navigation: UINavigationController? = nil
     var applePay: ApplePayManager? = nil
 
     init() {

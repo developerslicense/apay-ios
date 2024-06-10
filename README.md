@@ -323,17 +323,54 @@ airbaPaySdk.createPayment(
 
 2) ```standardFlowWebView()```
 
-| Параметр          | Тип                   | Обязательный | Описание                                          |
-|-------------------|-----------------------|--------------|---------------------------------------------------|
-| isLoadingComplete | @escaping () -> Void  | да           | Замыкание на завершение загрузки данных о платеже |
-| onError           | @escaping () -> Void  | да           | Замыкание на ошибку                               |
+| Параметр                  | Тип                                                         | Обязательный | Описание                                                      |
+|---------------------------|-------------------------------------------------------------|--------------|---------------------------------------------------------------|
+| isLoadingComplete         | @escaping () -> Void                                        | да           | Замыкание на завершение загрузки данных о платеже             |
+| onError                   | @escaping () -> Void                                        | да           | Замыкание на ошибку                                           |
+| shouldOverrideUrlLoading  | @escaping (AirbaPaySdk.ShouldOverrideUrlLoading) -> Void)   | да           | Замыкание, в котором описаны действия на коллбэки с вебвьюшки |
 
-``` 
+```    
    airbaPaySdk.standardFlowWebView(
       isLoadingComplete: { isLoading = false },
+      shouldOverrideUrlLoading: { obj in
+            if(obj.navAction.navigationType == .other) {
+               obj.decisionHandler(.allow)
+               return
+
+            } else {
+               if let redirectedUrl = obj.navAction.request.url {
+
+                     if obj.isCallbackSuccess {
+                          // открыть страницу успеха
+                           
+                     } else if obj.isCallbackBackToApp { 
+                          // клик на кнопку "Вернуться в магазин" или на стрелку "назад"
+
+                     } else {
+                           obj.decisionHandler(.allow)
+                           return
+                      }
+                  }
+            }
+
+            obj.decisionHandler(.allow)
+
+      },
       onError: { ~ }
    )
 ```
+
+```AirbaPaySdk.ShouldOverrideUrlLoading```
+
+
+| Параметр            | Тип                              | Обязательный | Описание                                                                                                                                    |
+|---------------------|----------------------------------|--------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| isCallbackSuccess   | Bool                             | да           | Флаг, что можно вызвать переход на страницу успеха                                                                                          |
+| isCallbackBackToApp | Bool                             | да           | Флаг, что можно вызвать переход в приложение. true - если была нажата стрелака "назад" или кнопка "Вернуться в магазин" на страницах ошибки |
+| navAction           | WKNavigationAction               | да           | Проброс WKNavigationAction из коллбэка вебвьюшки                                                                                            |
+| decisionHandler     | (WKNavigationActionPolicy) -> () | да           | Проброс (WKNavigationActionPolicy) -> () из коллбэка вебвьюшки                                                                              |
+| navController       | UINavigationController           | да           | Контроллер навигации                                                                                                                        |
+
 
 
 ## 6 API ApplePay

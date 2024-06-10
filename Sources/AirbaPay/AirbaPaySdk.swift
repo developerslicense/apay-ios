@@ -5,6 +5,7 @@
 import Foundation
 import SwiftUI
 import UIKit
+import WebKit
 
 public class AirbaPaySdk {
     // todo возможно, когда-нибудь можно будет переделать на это
@@ -27,6 +28,14 @@ public class AirbaPaySdk {
     public struct CreatePaymentResult {
         public var token: String? = nil
         public var paymentId: String? = nil
+    }
+
+    public struct ShouldOverrideUrlLoading {
+        public var isCallbackSuccess: Bool
+        public var isCallbackBackToApp: Bool
+        public var navAction: WKNavigationAction
+        public var decisionHandler: (WKNavigationActionPolicy) -> ()
+        public var navController: UINavigationController
     }
 
     public struct Goods: Encodable {
@@ -146,9 +155,11 @@ public class AirbaPaySdk {
 
     public func standardFlowWebView(
             isLoadingComplete: @escaping () -> Void,
+            shouldOverrideUrlLoading: @escaping (AirbaPaySdk.ShouldOverrideUrlLoading) -> Void,
             onError: @escaping () -> Void
     ) {
         if DataHolder.token != nil {
+            DataHolder.shouldOverrideUrlLoading = shouldOverrideUrlLoading
             blGetPaymentInfo(
                     onSuccess: { r in
                         isLoadingComplete()
