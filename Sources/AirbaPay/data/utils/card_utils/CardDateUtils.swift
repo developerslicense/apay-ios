@@ -62,7 +62,7 @@ func isDateValid(
 
     } else {
         return fourDigitsYear == nowYear
-                && month > nowMonth ?? 1
+                && month >= nowMonth ?? 1
     }
 
 }
